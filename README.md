@@ -1,4 +1,4 @@
-# 🔥 Wildfire Risk PL — System wczesnego ostrzegania przed pożarami lasów
+# 🔥 QHDALabs Wildfire Risk PL — System wczesnego ostrzegania przed pożarami lasów
 
 > System predykcji ryzyka pożarów lasów dla Polski oparty na klasycznym uczeniu maszynowym (Random Forest) z opcjonalnym modelem kwantowym (Qiskit QSVC).
 
@@ -59,7 +59,7 @@ pip install qiskit qiskit-machine-learning
 ## 🚀 Uruchomienie
 
 ```bash
-python wildfire_risk.py
+python qhdalabs-wildfire_risk.py
 ```
 
 Przykładowy output:
@@ -117,7 +117,7 @@ Open-Meteo API
 
 ## 🔧 Konfiguracja
 
-W górnej części pliku `wildfire_risk.py` można dostosować:
+W górnej części pliku `qhdapabs-wildfire_risk.py` można dostosować:
 
 ```python
 GRID_SIZE       = 6      # rozdzielczość siatki (6×6 = 36 punktów)
@@ -146,8 +146,8 @@ Oznacza to, że model uczy się odtwarzać tę regułę, a **nie** rzeczywistego
 ## 📁 Struktura projektu
 
 ```
-wildfire-risk-pl/
-├── wildfire_risk.py   # główny skrypt
+qhdalabs-wildfire-risk-pl/
+├── qhdalabs-wildfire_risk.py   # główny skrypt
 ├── map.html           # wygenerowana mapa (po uruchomieniu)
 ├── fire.json          # wyniki JSON (po uruchomieniu)
 ├── fire.csv           # wyniki CSV (po uruchomieniu)
