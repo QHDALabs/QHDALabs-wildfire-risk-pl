@@ -1,0 +1,218 @@
+[
+  {
+    "lat": 49.0,
+    "lon": 16.0,
+    "risk": 0.0,
+    "alert": false
+  },
+  {
+    "lat": 49.0,
+    "lon": 18.0,
+    "risk": 0.0,
+    "alert": false
+  },
+  {
+    "lat": 49.0,
+    "lon": 14.0,
+    "risk": 0.0,
+    "alert": false
+  },
+  {
+    "lat": 49.0,
+    "lon": 24.0,
+    "risk": 0.0,
+    "alert": false
+  },
+  {
+    "lat": 49.0,
+    "lon": 22.0,
+    "risk": 0.0,
+    "alert": false
+  },
+  {
+    "lat": 50.1,
+    "lon": 18.0,
+    "risk": 0.0,
+    "alert": false
+  },
+  {
+    "lat": 50.1,
+    "lon": 20.0,
+    "risk": 0.0,
+    "alert": false
+  },
+  {
+    "lat": 50.1,
+    "lon": 24.0,
+    "risk": 0.0,
+    "alert": false
+  },
+  {
+    "lat": 50.1,
+    "lon": 14.0,
+    "risk": 0.0,
+    "alert": false
+  },
+  {
+    "lat": 50.1,
+    "lon": 22.0,
+    "risk": 0.0,
+    "alert": false
+  },
+  {
+    "lat": 50.1,
+    "lon": 16.0,
+    "risk": 0.0,
+    "alert": false
+  },
+  {
+    "lat": 49.0,
+    "lon": 20.0,
+    "risk": 0.0,
+    "alert": false
+  },
+  {
+    "lat": 51.2,
+    "lon": 18.0,
+    "risk": 0.0,
+    "alert": false
+  },
+  {
+    "lat": 51.2,
+    "lon": 20.0,
+    "risk": 0.0,
+    "alert": false
+  },
+  {
+    "lat": 51.2,
+    "lon": 22.0,
+    "risk": 0.0,
+    "alert": false
+  },
+  {
+    "lat": 51.2,
+    "lon": 24.0,
+    "risk": 0.0,
+    "alert": false
+  },
+  {
+    "lat": 52.3,
+    "lon": 14.0,
+    "risk": 0.0,
+    "alert": false
+  },
+  {
+    "lat": 51.2,
+    "lon": 14.0,
+    "risk": 0.0,
+    "alert": false
+  },
+  {
+    "lat": 51.2,
+    "lon": 16.0,
+    "risk": 0.0,
+    "alert": false
+  },
+  {
+    "lat": 52.3,
+    "lon": 16.0,
+    "risk": 0.0,
+    "alert": false
+  },
+  {
+    "lat": 52.3,
+    "lon": 24.0,
+    "risk": 0.0,
+    "alert": false
+  },
+  {
+    "lat": 53.4,
+    "lon": 14.0,
+    "risk": 0.0,
+    "alert": false
+  },
+  {
+    "lat": 53.4,
+    "lon": 16.0,
+    "risk": 0.0,
+    "alert": false
+  },
+  {
+    "lat": 52.3,
+    "lon": 22.0,
+    "risk": 0.0,
+    "alert": false
+  },
+  {
+    "lat": 52.3,
+    "lon": 18.0,
+    "risk": 0.0,
+    "alert": false
+  },
+  {
+    "lat": 53.4,
+    "lon": 24.0,
+    "risk": 0.0,
+    "alert": false
+  },
+  {
+    "lat": 53.4,
+    "lon": 18.0,
+    "risk": 0.0,
+    "alert": false
+  },
+  {
+    "lat": 52.3,
+    "lon": 20.0,
+    "risk": 0.0,
+    "alert": false
+  },
+  {
+    "lat": 54.5,
+    "lon": 16.0,
+    "risk": 0.0,
+    "alert": false
+  },
+  {
+    "lat": 53.4,
+    "lon": 20.0,
+    "risk": 0.0,
+    "alert": false
+  },
+  {
+    "lat": 54.5,
+    "lon": 22.0,
+    "risk": 0.0,
+    "alert": false
+  },
+  {
+    "lat": 54.5,
+    "lon": 20.0,
+    "risk": 0.0,
+    "alert": false
+  },
+  {
+    "lat": 53.4,
+    "lon": 22.0,
+    "risk": 0.0,
+    "alert": false
+  },
+  {
+    "lat": 54.5,
+    "lon": 14.0,
+    "risk": 0.0,
+    "alert": false
+  },
+  {
+    "lat": 54.5,
+    "lon": 18.0,
+    "risk": 0.0,
+    "alert": false
+  },
+  {
+    "lat": 54.5,
+    "lon": 24.0,
+    "risk": 0.0,
+    "alert": false
+  }
+]

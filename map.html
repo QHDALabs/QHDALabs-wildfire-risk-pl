@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html><head>
+  <meta charset="utf-8"/>
+  <title>Wildfire Risk Map</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css"/>
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+  <style>html,body,#map{margin:0;height:100vh}</style>
+</head>
+<body>
+<div id="map"></div>
+<script>
+var map = L.map('map').setView([52, 19], 6);
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+  {attribution:'© OpenStreetMap contributors'}).addTo(map);
+
+var legend = L.control({position:'bottomright'});
+legend.onAdd = function() {
+  var d = L.DomUtil.create('div','legend');
+  d.style.cssText='background:white;padding:8px 12px;border-radius:6px;font:13px sans-serif;line-height:1.7';
+  d.innerHTML='<b>Fire risk</b><br>'
+    +'<span style="color:#A32D2D">●</span> Alert (&gt;0.7)<br>'
+    +'<span style="color:#854F0B">●</span> Elevated (0.4–0.7)<br>'
+    +'<span style="color:#3B6D11">●</span> Low (&lt;0.4)';
+  return d;
+};
+legend.addTo(map);
+
+L.circle([49.0,16.0],{color:'#3B6D11',fillColor:'#3B6D11',fillOpacity:0.3,radius:20000}).addTo(map).bindPopup('Risk: 0.00 — OK');
+L.circle([49.0,18.0],{color:'#3B6D11',fillColor:'#3B6D11',fillOpacity:0.3,radius:20000}).addTo(map).bindPopup('Risk: 0.00 — OK');
+L.circle([49.0,14.0],{color:'#3B6D11',fillColor:'#3B6D11',fillOpacity:0.3,radius:20000}).addTo(map).bindPopup('Risk: 0.00 — OK');
+L.circle([49.0,24.0],{color:'#3B6D11',fillColor:'#3B6D11',fillOpacity:0.3,radius:20000}).addTo(map).bindPopup('Risk: 0.00 — OK');
+L.circle([49.0,22.0],{color:'#3B6D11',fillColor:'#3B6D11',fillOpacity:0.3,radius:20000}).addTo(map).bindPopup('Risk: 0.00 — OK');
+L.circle([50.1,18.0],{color:'#3B6D11',fillColor:'#3B6D11',fillOpacity:0.3,radius:20000}).addTo(map).bindPopup('Risk: 0.00 — OK');
+L.circle([50.1,20.0],{color:'#3B6D11',fillColor:'#3B6D11',fillOpacity:0.3,radius:20000}).addTo(map).bindPopup('Risk: 0.00 — OK');
+L.circle([50.1,24.0],{color:'#3B6D11',fillColor:'#3B6D11',fillOpacity:0.3,radius:20000}).addTo(map).bindPopup('Risk: 0.00 — OK');
+L.circle([50.1,14.0],{color:'#3B6D11',fillColor:'#3B6D11',fillOpacity:0.3,radius:20000}).addTo(map).bindPopup('Risk: 0.00 — OK');
+L.circle([50.1,22.0],{color:'#3B6D11',fillColor:'#3B6D11',fillOpacity:0.3,radius:20000}).addTo(map).bindPopup('Risk: 0.00 — OK');
+L.circle([50.1,16.0],{color:'#3B6D11',fillColor:'#3B6D11',fillOpacity:0.3,radius:20000}).addTo(map).bindPopup('Risk: 0.00 — OK');
+L.circle([49.0,20.0],{color:'#3B6D11',fillColor:'#3B6D11',fillOpacity:0.3,radius:20000}).addTo(map).bindPopup('Risk: 0.00 — OK');
+L.circle([51.2,18.0],{color:'#3B6D11',fillColor:'#3B6D11',fillOpacity:0.3,radius:20000}).addTo(map).bindPopup('Risk: 0.00 — OK');
+L.circle([51.2,20.0],{color:'#3B6D11',fillColor:'#3B6D11',fillOpacity:0.3,radius:20000}).addTo(map).bindPopup('Risk: 0.00 — OK');
+L.circle([51.2,22.0],{color:'#3B6D11',fillColor:'#3B6D11',fillOpacity:0.3,radius:20000}).addTo(map).bindPopup('Risk: 0.00 — OK');
+L.circle([51.2,24.0],{color:'#3B6D11',fillColor:'#3B6D11',fillOpacity:0.3,radius:20000}).addTo(map).bindPopup('Risk: 0.00 — OK');
+L.circle([52.3,14.0],{color:'#3B6D11',fillColor:'#3B6D11',fillOpacity:0.3,radius:20000}).addTo(map).bindPopup('Risk: 0.00 — OK');
+L.circle([51.2,14.0],{color:'#3B6D11',fillColor:'#3B6D11',fillOpacity:0.3,radius:20000}).addTo(map).bindPopup('Risk: 0.00 — OK');
+L.circle([51.2,16.0],{color:'#3B6D11',fillColor:'#3B6D11',fillOpacity:0.3,radius:20000}).addTo(map).bindPopup('Risk: 0.00 — OK');
+L.circle([52.3,16.0],{color:'#3B6D11',fillColor:'#3B6D11',fillOpacity:0.3,radius:20000}).addTo(map).bindPopup('Risk: 0.00 — OK');
+L.circle([52.3,24.0],{color:'#3B6D11',fillColor:'#3B6D11',fillOpacity:0.3,radius:20000}).addTo(map).bindPopup('Risk: 0.00 — OK');
+L.circle([53.4,14.0],{color:'#3B6D11',fillColor:'#3B6D11',fillOpacity:0.3,radius:20000}).addTo(map).bindPopup('Risk: 0.00 — OK');
+L.circle([53.4,16.0],{color:'#3B6D11',fillColor:'#3B6D11',fillOpacity:0.3,radius:20000}).addTo(map).bindPopup('Risk: 0.00 — OK');
+L.circle([52.3,22.0],{color:'#3B6D11',fillColor:'#3B6D11',fillOpacity:0.3,radius:20000}).addTo(map).bindPopup('Risk: 0.00 — OK');
+L.circle([52.3,18.0],{color:'#3B6D11',fillColor:'#3B6D11',fillOpacity:0.3,radius:20000}).addTo(map).bindPopup('Risk: 0.00 — OK');
+L.circle([53.4,24.0],{color:'#3B6D11',fillColor:'#3B6D11',fillOpacity:0.3,radius:20000}).addTo(map).bindPopup('Risk: 0.00 — OK');
+L.circle([53.4,18.0],{color:'#3B6D11',fillColor:'#3B6D11',fillOpacity:0.3,radius:20000}).addTo(map).bindPopup('Risk: 0.00 — OK');
+L.circle([52.3,20.0],{color:'#3B6D11',fillColor:'#3B6D11',fillOpacity:0.3,radius:20000}).addTo(map).bindPopup('Risk: 0.00 — OK');
+L.circle([54.5,16.0],{color:'#3B6D11',fillColor:'#3B6D11',fillOpacity:0.3,radius:20000}).addTo(map).bindPopup('Risk: 0.00 — OK');
+L.circle([53.4,20.0],{color:'#3B6D11',fillColor:'#3B6D11',fillOpacity:0.3,radius:20000}).addTo(map).bindPopup('Risk: 0.00 — OK');
+L.circle([54.5,22.0],{color:'#3B6D11',fillColor:'#3B6D11',fillOpacity:0.3,radius:20000}).addTo(map).bindPopup('Risk: 0.00 — OK');
+L.circle([54.5,20.0],{color:'#3B6D11',fillColor:'#3B6D11',fillOpacity:0.3,radius:20000}).addTo(map).bindPopup('Risk: 0.00 — OK');
+L.circle([53.4,22.0],{color:'#3B6D11',fillColor:'#3B6D11',fillOpacity:0.3,radius:20000}).addTo(map).bindPopup('Risk: 0.00 — OK');
+L.circle([54.5,14.0],{color:'#3B6D11',fillColor:'#3B6D11',fillOpacity:0.3,radius:20000}).addTo(map).bindPopup('Risk: 0.00 — OK');
+L.circle([54.5,18.0],{color:'#3B6D11',fillColor:'#3B6D11',fillOpacity:0.3,radius:20000}).addTo(map).bindPopup('Risk: 0.00 — OK');
+L.circle([54.5,24.0],{color:'#3B6D11',fillColor:'#3B6D11',fillOpacity:0.3,radius:20000}).addTo(map).bindPopup('Risk: 0.00 — OK');
+</script>
+</body></html>
