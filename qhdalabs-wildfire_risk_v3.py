@@ -1,8 +1,8 @@
 # =============================================================================
 # Project       : QHDALabs — Wildfire Risk PL
 # Module        : Core prediction pipeline
-# File          : qhdalabs-wildfire_risk_v2.py
-# Version       : 2.0.0
+# File          : qhdalabs-wildfire_risk_v3.py
+# Version       : 3.0.0
 #
 # Description
 # -----------------------------------------------------------------------------
@@ -320,7 +320,7 @@ def build_feature_vector(summary: dict,
                          slope: float) -> list:
     """
     Return a 16-element feature vector.
-    New in v2: VPD, NDVI proxy, elevation, slope, wind_max, temp_mean.
+    New in v3: VPD, NDVI proxy, elevation, slope, wind_max, temp_mean.
     """
     temp  = summary["temp"]
     tmean = summary["temp_mean"]
@@ -560,89 +560,134 @@ def score_quantum(model, pca, scaler, feature_vec) -> float:
 # =========================
 def qaoa_sensor_placement(results: list, n_sensors: int = N_SENSORS) -> list:
     """
-    Use QAOA to select the N_SENSORS grid cells that maximise coverage
-    of high-risk zones.
+    Select N_SENSORS grid cells that maximise fire-risk coverage.
 
-    ⚠ QAOA on a statevector simulator scales as 2^n_qubits in memory.
-    With 36 cells that requires 1 TiB RAM — impossible on any laptop.
-    Solution: pre-filter to the top MAX_QAOA_CANDIDATES highest-risk cells,
-    run QAOA on that small subset, then return selected positions.
+    Strategy:
+    - If risk landscape is flat (single class / all risks equal) → use
+      spatially-diverse greedy: picks high-risk cells spread across the grid.
+    - If meaningful risk variation exists → attempt SamplingVQE (faster than
+      QAOA on simulator, same quantum kernel idea, converges in seconds).
+    - Falls back to greedy if Qiskit unavailable or VQE fails.
 
-    Falls back to greedy top-N if Qiskit unavailable or QAOA fails.
+    MAX_QAOA_CANDIDATES = 8  →  2^8 = 256 states, <1 KB RAM, <10 s runtime.
     """
-    MAX_QAOA_CANDIDATES = 12   # 2^12 = 4096 states → ~64 KB — fine on any machine
+    MAX_CANDIDATES = 8   # 2^8 = 256 states — fast on any machine
 
     risks  = np.array([r["risk"] for r in results])
     coords = [(r["lat"], r["lon"]) for r in results]
-    n      = len(results)
 
-    # Greedy fallback (always computed)
-    top_idx_greedy = np.argsort(risks)[::-1][:n_sensors].tolist()
-    greedy_sensors = [coords[i] for i in top_idx_greedy]
+    # ------------------------------------------------------------------ #
+    # Spatially-diverse greedy (always available as fallback)             #
+    # Picks sensors spread across the grid rather than clustering          #
+    # ------------------------------------------------------------------ #
+    def diverse_greedy(risk_arr, coord_list, k):
+        selected = []
+        remaining = list(range(len(coord_list)))
+        # First pick: highest risk
+        best = int(np.argmax(risk_arr))
+        selected.append(best)
+        remaining.remove(best)
 
+        while len(selected) < k and remaining:
+            # Score = risk - penalty for proximity to already-selected sensors
+            best_score, best_idx = -np.inf, None
+            for i in remaining:
+                lat_i, lon_i = coord_list[i]
+                min_dist = min(
+                    abs(lat_i - coord_list[j][0]) + abs(lon_i - coord_list[j][1])
+                    for j in selected
+                )
+                score = float(risk_arr[i]) + 0.3 * min_dist
+                if score > best_score:
+                    best_score, best_idx = score, i
+            selected.append(best_idx)
+            remaining.remove(best_idx)
+
+        return [coord_list[i] for i in selected]
+
+    greedy_sensors = diverse_greedy(risks, coords, n_sensors)
+
+    # If all risks are identical there's no optimisation to be done
+    risk_range = float(risks.max() - risks.min())
+    if risk_range < 1e-4:
+        log.info(
+            "Risk landscape is flat (range=%.4f) — "
+            "using spatially-diverse greedy sensor placement.", risk_range
+        )
+        return greedy_sensors
+
+    # ------------------------------------------------------------------ #
+    # SamplingVQE — quantum combinatorial optimisation                    #
+    # Much faster than QAOA on simulator; same QUBO formulation           #
+    # ------------------------------------------------------------------ #
     try:
-        from qiskit_algorithms import QAOA
+        import warnings
+        from scipy.sparse import SparseEfficiencyWarning
+        warnings.filterwarnings("ignore", category=SparseEfficiencyWarning)
+
+        from qiskit_algorithms import SamplingVQE
         from qiskit_algorithms.optimizers import COBYLA
+        from qiskit.circuit.library import RealAmplitudes
         try:
-            from qiskit.primitives import StatevectorSampler as QaoaSampler
+            from qiskit.primitives import StatevectorSampler as VqeSampler
         except ImportError:
-            from qiskit.primitives import Sampler as QaoaSampler
+            from qiskit.primitives import Sampler as VqeSampler
         from qiskit_optimization import QuadraticProgram
         from qiskit_optimization.algorithms import MinimumEigenOptimizer
 
-        log.info("QAOA imports OK — building problem …")
-
-        # Pre-filter: keep only top MAX_QAOA_CANDIDATES cells by risk
-        candidate_idx = np.argsort(risks)[::-1][:MAX_QAOA_CANDIDATES].tolist()
+        # Pre-filter to top MAX_CANDIDATES by risk
+        candidate_idx = np.argsort(risks)[::-1][:MAX_CANDIDATES].tolist()
         cand_risks    = risks[candidate_idx]
         cand_coords   = [coords[i] for i in candidate_idx]
         nc            = len(candidate_idx)
-
-        # Clamp n_sensors to available candidates
-        k = min(n_sensors, nc)
+        k             = min(n_sensors, nc)
 
         qp = QuadraticProgram("sensor_placement")
         for i in range(nc):
             qp.binary_var(f"x{i}")
 
-        # Objective: maximise sum(risk_i * x_i) → minimise negative
         linear = {f"x{i}": -float(cand_risks[i]) for i in range(nc)}
         qp.minimize(linear=linear)
-
-        # Constraint: exactly k sensors
         qp.linear_constraint(
             linear={f"x{i}": 1 for i in range(nc)},
-            sense="==",
-            rhs=k,
-            name="sensor_count",
+            sense="==", rhs=k, name="sensor_count",
         )
 
-        sampler = QaoaSampler()
-        log.info("QAOA: running optimizer (%d candidates → %d sensors) …",
-                 nc, k)
-        qaoa   = QAOA(sampler=sampler, optimizer=COBYLA(maxiter=150), reps=2)
-        solver = MinimumEigenOptimizer(qaoa)
+        ansatz  = RealAmplitudes(num_qubits=nc, reps=1)
+        sampler = VqeSampler()
+        log.info(
+            "SamplingVQE: optimising sensor placement "
+            "(%d candidates → %d sensors, %d qubits) …", nc, k, nc
+        )
+        vqe    = SamplingVQE(sampler=sampler,
+                             ansatz=ansatz,
+                             optimizer=COBYLA(maxiter=200))
+        solver = MinimumEigenOptimizer(vqe)
         result = solver.solve(qp)
 
         selected = [i for i, v in enumerate(result.x) if v > 0.5]
         if len(selected) != k:
-            log.warning("QAOA returned %d sensors (expected %d) — using greedy.",
-                        len(selected), k)
+            log.warning(
+                "VQE returned %d sensors (expected %d) — using greedy.",
+                len(selected), k
+            )
             return greedy_sensors
 
         sensors = [cand_coords[i] for i in selected]
-        log.info("QAOA sensor placement complete: %s", sensors)
+        log.info("Quantum sensor placement complete: %s", sensors)
         return sensors
 
     except Exception as exc:
         if "No module" in str(exc) or isinstance(exc, ImportError):
             log.info(
-                "qiskit-optimization / qiskit-algorithms not installed — "
-                "using greedy sensor placement."
+                "qiskit-optimization not installed — "
+                "using spatially-diverse greedy sensor placement."
             )
         else:
-            log.warning("QAOA skipped: %s: %s — using greedy fallback.",
-                        type(exc).__name__, exc)
+            log.warning(
+                "Quantum placement skipped (%s: %s) — using greedy fallback.",
+                type(exc).__name__, exc
+            )
 
     return greedy_sensors
 
@@ -772,7 +817,7 @@ def generate_map(results: list, sensors: list) -> None:
     html = f"""<!DOCTYPE html>
 <html><head>
   <meta charset="utf-8"/>
-  <title>QHDALabs — Wildfire Risk PL v2</title>
+  <title>QHDALabs — Wildfire Risk PL v4</title>
   <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css"/>
   <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
   <style>
@@ -920,7 +965,7 @@ def generate_shap_report(results: list) -> None:
 """ + "\n".join(rows) + """
 </table>
 <p style="color:#888;font-size:12px">
-  Generated by QHDALabs Wildfire Risk PL v2.0 — """ + datetime.now().strftime("%Y-%m-%d %H:%M UTC") + """
+  Generated by QHDALabs Wildfire Risk PL v4.0 — """ + datetime.now().strftime("%Y-%m-%d %H:%M UTC") + """
 </p>
 </body></html>"""
 
