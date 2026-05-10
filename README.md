@@ -1,219 +1,249 @@
-# 🔥 QHDALabs  Wildfire Risk PL — System wczesnego ostrzegania przed pożarami lasów
+# 🔥 QHDALabs — Wildfire Risk PL
 
-> Hybrydowy system predykcji ryzyka pożarów lasów dla Polski łączący klasyczne uczenie maszynowe (Random Forest), obliczenia kwantowe (Qiskit QSVC + QAOA) oraz wyjaśnialność modelu (SHAP).
+> A hybrid wildfire risk prediction system for Poland combining classical machine learning (Random Forest), quantum computing (Qiskit QSVC + SamplingVQE), and model explainability (SHAP).
 
----
-
-## 🗂️ Wersje
-
-| Wersja | Plik | Opis |
-|--------|------|------|
-| **v1** | `qhdalabs-wildfire_risk_v1.py` | MVP — pogoda + RF + QSVC, mapa Leaflet |
-| **v2** | `qhdalabs-wildfire_risk_v2.py` | EFFIS labels, NDVI, terrain, SHAP, QAOA (wymaga ~1 TB RAM dla pełnej siatki) |
-| **v3** | `qhdalabs-wildfire_risk_v3.py` | QAOA z pre-filtrowaniem kandydatów (12 kubitów → działa na laptopie) *(w trakcie dopracowania)* |
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+[![Python 3.10+](https://img.shields.io/badge/Python-3.10%2B-blue.svg)](https://python.org)
+[![Qiskit](https://img.shields.io/badge/Qiskit-2.x-6929C4.svg)](https://qiskit.org)
 
 ---
 
-## 📋 Opis projektu
+## 🗂️ Versions
 
-Skrypt pobiera dane pogodowe, wegetacyjne i terenowe w czasie rzeczywistym dla 36 punktów siatki pokrywającej Polskę, trenuje hybrydowy klasyfikator i generuje interaktywną mapę ryzyka pożarowego z wyjaśnieniem decyzji modelu.
-
-**Dane wejściowe (v2+, dla każdego punktu siatki):**
-
-| Źródło | Zmienne |
-|--------|---------|
-| Open-Meteo | temp, wilgotność, wiatr, opady, VPD, wilgotność gleby |
-| Open-Elevation | wysokość n.p.m., nachylenie terenu (slope) |
-| NDVI proxy | wskaźnik stresu roślinności (z VPD + soil + temp) |
-| EFFIS API | historyczne incydenty pożarowe (etykiety treningowe) |
-
-**Dane wyjściowe:**
-- `map.html` — interaktywna mapa Leaflet z timelineʼem godzinowym
-- `fire.json` — wyniki z SHAP drivers i hourly risk per komórka
-- `fire.csv` — płaskie podsumowanie do dalszej analizy
-- `shap_report.html` — raport wyjaśnialności: top-3 cechy napędzające ryzyko per komórka
+| Version | File | Description |
+|---------|------|-------------|
+| **v1** | `qhdalabs-wildfire_risk_v1.py` | MVP — weather + RF + QSVC, Leaflet map |
+| **v2** | `qhdalabs-wildfire_risk_v2.py` | EFFIS labels, NDVI, terrain, SHAP, QAOA (requires ~1 TB RAM on full grid — kept for reference) |
+| **v3** | `qhdalabs-wildfire_risk_v3.py` | SamplingVQE with candidate pre-filtering (8 qubits → runs on any laptop) ✅ **recommended** |
 
 ---
 
-## 🗺️ Mapa
+## 📋 Overview
 
-Trzy poziomy ryzyka + suwak czasowy (00:00–23:00):
+The system fetches real-time weather, vegetation stress, and terrain data for a configurable grid of points covering Poland, trains a hybrid classical/quantum classifier, and generates an interactive risk map with per-cell model explanations.
 
-| Kolor | Poziom | Próg |
-|-------|--------|------|
-| 🔴 Czerwony | **ALERT** | > 0.70 |
-| 🟠 Pomarańczowy | Podwyższone | 0.40 – 0.70 |
-| 🟢 Zielony | Niskie | < 0.40 |
-| 🔵 Niebieski | Sensor (QAOA) | — |
+**Input data (v2+, per grid cell):**
+
+| Source | Variables |
+|--------|-----------|
+| [Open-Meteo](https://open-meteo.com/) | temperature, humidity, wind, precipitation, VPD, soil moisture |
+| [Open-Elevation](https://api.open-elevation.com/) | elevation (m), terrain slope (°) |
+| NDVI proxy | vegetation stress index derived from VPD + soil + temperature |
+| [EFFIS API](https://effis.jrc.ec.europa.eu/) | historical fire incidents (training labels) |
+
+**Outputs:**
+
+| File | Description |
+|------|-------------|
+| `map.html` | Interactive Leaflet map with hourly timeline slider |
+| `fire.json` | Full results including SHAP drivers and hourly risk per cell |
+| `fire.csv` | Flat summary for dashboards or further analysis |
+| `shap_report.html` | Explainability report: top-3 features driving risk per cell |
 
 ---
 
-## ⚙️ Wymagania
+## 🗺️ Risk Map
+
+Three risk tiers + hourly timeline slider (00:00–23:00) + QAOA sensor markers:
+
+| Colour | Level | Threshold |
+|--------|-------|-----------|
+| 🔴 Red | **Alert** | > 0.70 |
+| 🟠 Orange | Elevated | 0.40 – 0.70 |
+| 🟢 Green | Low | < 0.40 |
+| 🔵 Blue | Sensor (QAOA/VQE) | — |
+
+![Example map](example_map.png)
+
+---
+
+## ⚙️ Installation
 
 **Python 3.10+**
 
 ```bash
-# Runtime (wymagane)
+# Required
 pip install numpy requests scikit-learn shap
 
-# Quantum — model QSVC
+# Quantum — QSVC classifier
 pip install qiskit qiskit-machine-learning
 
-# Quantum — QAOA sensor placement (v3)
+# Quantum — SamplingVQE sensor placement (v3)
 pip install qiskit-algorithms qiskit-optimization
 ```
 
-> ℹ️ Każdy moduł kwantowy jest opcjonalny — skrypt gracefully fallback'uje do klasycznych odpowiedników gdy Qiskit nie jest zainstalowany lub gdy dane treningowe zawierają tylko jedną klasę.
+> All quantum modules are optional — the system gracefully falls back to classical equivalents when Qiskit is unavailable or when training data contains only one class (common outside fire season in Poland).
 
 ---
 
-## 🚀 Uruchomienie
+## 🚀 Usage
 
 ```bash
 python qhdalabs-wildfire_risk_v3.py
 ```
 
-Przykładowy output (v3):
+Example output (v3, summer conditions with EFFIS labels):
 
 ```
-13:26:24  INFO  Dataset ready: 36 cells  (EFFIS labels: 12, heuristic: 24)
-13:26:26  INFO  Classical CV F1: 0.923 ± 0.041
-13:26:26  INFO  SHAP values computed.
-13:26:28  INFO  Training quantum model …
-13:26:29  INFO  QAOA imports OK — building problem …
-13:26:29  INFO  QAOA: running optimizer (12 candidates → 5 sensors) …
-13:26:31  INFO  QAOA sensor placement complete.
-13:26:31  INFO  Alerts: 3 / 36 cells
-13:26:32  INFO  Done → map.html  fire.json  fire.csv  shap_report.html
+13:26:24  INFO  Fetching 36 grid cells with 4 workers …
+13:26:28  INFO  Dataset ready: 36 cells  (EFFIS labels: 12, heuristic: 24)
+13:26:30  INFO  Classical CV F1: 0.923 ± 0.041
+13:26:31  INFO  SHAP values computed.
+13:26:33  INFO  Training quantum model …
+13:26:35  INFO  Risk landscape has variation — running SamplingVQE …
+13:26:35  INFO  SamplingVQE: optimising sensor placement (8 candidates → 5 sensors, 8 qubits) …
+13:26:41  INFO  Quantum sensor placement complete.
+13:26:41  INFO  Alerts: 3 / 36 cells
+13:26:42  INFO  Done → map.html  fire.json  fire.csv  shap_report.html
 ```
 
 ---
 
-## 🏗️ Architektura (v3)
+## 🏗️ Architecture (v3)
 
 ```
 Open-Meteo + Open-Elevation + NDVI proxy
-         │  (równolegle, cache TTL 1h)
+         │  (parallel fetch, 6h cache, retry on 429)
          ▼
-┌─────────────────────────────┐
-│   Feature Engineering       │  16 cech:
-│   weather + terrain + NDVI  │  VPD, slope, elevation,
-└────────────┬────────────────┘  wind_max, temp_mean …
-             │
-    EFFIS API labels ──→ fallback: heuristic
-             │
-        ┌────┴─────┐
-        ▼          ▼
-  ┌──────────┐  ┌──────────────┐
-  │  Random  │  │ Qiskit QSVC  │  (opcjonalnie)
-  │  Forest  │  │ ZZFeatureMap │  4 qubity, sigmoid
-  │   70%    │  │    30%       │  kalibracja
-  └────┬─────┘  └──────┬───────┘
-       └────────┬───────┘
-                ▼
-          wynik końcowy
-          (0.0 – 1.0)
-                │
-       ┌────────┼──────────────┐
-       ▼        ▼              ▼
-    map.html  fire.json   shap_report.html
-    (timeline) (+ SHAP)
-                │
-         QAOA pre-filter
-         top-12 → 5 sensorów
-                ▼
-         📡 sensor markers
+┌──────────────────────────────┐
+│    Feature Engineering       │  16 features:
+│  weather + terrain + NDVI    │  VPD, slope, elevation,
+└─────────────┬────────────────┘  wind_max, temp_mean, …
+              │
+     EFFIS API labels ──→ heuristic fallback
+              │
+         ┌────┴──────┐
+         ▼           ▼
+   ┌──────────┐  ┌───────────────┐
+   │  Random  │  │  Qiskit QSVC  │  (optional)
+   │  Forest  │  │  ZZFeatureMap │  4 qubits
+   │   70%    │  │     30%       │  sigmoid calibration
+   └────┬─────┘  └──────┬────────┘
+        └────────┬───────┘
+                 ▼
+           final score
+            (0.0–1.0)
+                 │
+      ┌──────────┼──────────────┐
+      ▼          ▼              ▼
+   map.html   fire.json   shap_report.html
+  (timeline)  (+ SHAP)
+                 │
+      SamplingVQE pre-filter
+      top-8 cells → 5 sensors
+      (2^8 = 256 states, <1 KB)
+                 ▼
+          📡 sensor markers
 ```
 
 ---
 
-## 🔧 Konfiguracja
+## 🔧 Configuration
 
 ```python
-GRID_SIZE            = 6      # rozdzielczość siatki (6×6 = 36 punktów)
-ALERT_THRESHOLD      = 0.7    # próg alertu (0.0 – 1.0)
-MAX_WORKERS          = 10     # równoległe wątki API
-CACHE_TTL            = 3600   # TTL cache w sekundach
-EFFIS_LOOKBACK       = 365    # dni historii pożarów z EFFIS
-N_SENSORS            = 5      # liczba sensorów do rozmieszczenia (QAOA)
-MAX_QAOA_CANDIDATES  = 12     # pre-filtr przed QAOA (2^12 = 4096 stanów)
+GRID_SIZE            = 6       # grid resolution (6×6 = 36 cells)
+ALERT_THRESHOLD      = 0.7     # alert threshold (0.0–1.0)
+MAX_WORKERS          = 4       # parallel API threads (reduced to avoid 429)
+CACHE_TTL            = 21600   # cache TTL in seconds (6 hours)
+EFFIS_LOOKBACK       = 365     # days of historical fire data from EFFIS
+N_SENSORS            = 5       # number of sensors to place (VQE/QAOA)
+MAX_CANDIDATES       = 8       # pre-filter before quantum opt (2^8 = 256 states)
 ```
 
 ---
 
-## 🧠 SHAP — wyjaśnialność modelu
+## 🧠 SHAP Explainability
 
-Każda komórka siatki w `fire.json` zawiera pole `shap_drivers` z top-3 cechami które najbardziej wpłynęły na jej wynik ryzyka:
+Every grid cell in `fire.json` includes a `shap_drivers` field showing the top-3 features that drove its risk score:
 
 ```json
 "shap_drivers": [
-  { "feature": "vpd",          "shap":  0.142 },
-  { "feature": "ndvi_stress",  "shap":  0.098 },
-  { "feature": "slope_deg",    "shap":  0.061 }
+  { "feature": "vpd",         "shap":  0.142 },
+  { "feature": "ndvi_stress", "shap":  0.098 },
+  { "feature": "slope_deg",   "shap":  0.061 }
 ]
 ```
 
-Pełny raport w `shap_report.html`.
+A full tabular report is saved to `shap_report.html`.
 
 ---
 
-## ⚛️ Moduły kwantowe
+## ⚛️ Quantum Modules
 
-### QSVC — klasyfikacja ryzyka
+### QSVC — Risk Classification
 
-1. Redukcja do 4 cech przez PCA
-2. Skalowanie do `[0, π]`
-3. Enkodowanie przez **ZZFeatureMap** (4 qubity, 2 warstwy)
-4. Jądro kwantowe **FidelityQuantumKernel**
-5. Kalibracja sigmoid → wynik 0–1
-6. Blend: **70% RF + 30% QSVC**
+1. Dimensionality reduction to 4 features via PCA
+2. Feature scaling to `[0, π]` (MinMaxScaler)
+3. Quantum encoding via **ZZFeatureMap** (4 qubits, 2 reps)
+4. Quantum kernel via **FidelityQuantumKernel**
+5. Sigmoid calibration → score in [0, 1]
+6. Blended output: **70% RF + 30% QSVC**
 
-### QAOA — rozmieszczenie sensorów IoT
+### SamplingVQE — IoT Sensor Placement
 
-1. Klasyczna pre-selekcja top-12 komórek o najwyższym ryzyku
-2. Formułowanie jako QUBO (Quadratic Unconstrained Binary Optimization)
-3. QAOA na symulatorze statevector (12 kubitów = 4096 stanów, ~64 KB RAM)
-4. Wynik: 5 optymalnych lokalizacji sensorów na mapie
+1. Classical pre-selection of top-8 highest-risk cells
+2. Problem formulated as QUBO (Quadratic Unconstrained Binary Optimization)
+3. **SamplingVQE** with RealAmplitudes ansatz on statevector simulator
+4. 8 qubits = 256 states = ~2 KB RAM, converges in seconds
+5. Output: 5 optimal sensor locations shown on map
 
-> **Dlaczego pre-filtrowanie?** Symulator statevector wymaga 2^n stanów w pamięci. Bez filtrowania 36 zmiennych = 2^36 = **1 TiB RAM**. Po filtracji do 12 kandydatów = 2^12 = **64 KB**.
+> **Why pre-filtering?** A statevector simulator requires 2^n states in memory. Without filtering: 36 variables = 2^36 = **1 TiB RAM** (v2 behaviour, kept for reference). With 8 candidates: 2^8 = **256 states**. Same quantum optimisation, laptop-friendly.
+
+> **Why SamplingVQE over QAOA?** SamplingVQE with a RealAmplitudes ansatz converges significantly faster on a simulator than QAOA for this problem size, while producing equivalent quality solutions for weighted coverage optimisation.
 
 ---
 
-## ⚠️ Etykiety treningowe
+## ⚠️ Training Labels
 
-Skrypt próbuje pobrać rzeczywiste dane o pożarach z **EFFIS API** (ostatnie 365 dni, promień 50 km od każdego punktu siatki). Gdy API jest niedostępne, automatycznie przełącza się na etykiety heurystyczne z wyraźnym ostrzeżeniem w logu.
+The system queries the **EFFIS API** for historical fire incidents within 50 km of each grid point (past 365 days). When the API is unreachable, it falls back to heuristic thresholds with a clear log warning:
 
 ```
 ⚠ All labels are heuristic — EFFIS API may be unreachable.
+  Model learns a rule, not real fire risk.
 ```
 
-Docelowe źródła rzeczywistych danych:
+Real fire incident data sources:
 - [EFFIS — European Forest Fire Information System](https://effis.jrc.ec.europa.eu/)
-- [BDOT10k — Baza Danych Obiektów Topograficznych](https://www.geoportal.gov.pl/)
+- [BDOT10k — Polish Topographic Object Database](https://www.geoportal.gov.pl/)
 
 ---
 
-## 📁 Struktura projektu
+## 📄 Research & Verification
+
+| Document | Description |
+|----------|-------------|
+| [`banasiewicz_rqm_scpf_verification_2026.pdf`](banasiewicz_rqm_scpf_verification_2026.pdf) | RQM/SCPF methodology verification (EN) |
+| [`banasiewicz_rqm_scpf_verification_2026_PL.pdf`](banasiewicz_rqm_scpf_verification_2026_PL.pdf) | RQM/SCPF methodology verification (PL) |
+
+---
+
+## 📁 Repository Structure
 
 ```
 QHDALabs-wildfire-risk-pl/
-├── qhdalabs-wildfire_risk_v1.py    # MVP
-├── qhdalabs-wildfire_risk_v2.py    # pełny QAOA (wymaga ~1 TB RAM)
-├── qhdalabs-wildfire_risk_v3.py    # QAOA z pre-filtrowaniem ✅ zalecana
-├── map.html               # wygenerowana mapa
-├── fire.json              # wyniki JSON + SHAP
-├── fire.csv               # wyniki CSV
-├── shap_report.html       # raport wyjaśnialności
-├── .cache/                # cache API (TTL 1h)
+├── qhdalabs-wildfire_risk_v1.py         # v1: MVP
+├── qhdalabs-wildfire_risk_v2.py         # v2: full QAOA (1 TB RAM reference)
+├── qhdalabs-wildfire_risk_v3.py         # v3: SamplingVQE ✅ recommended
+├── map.html                             # generated risk map
+├── fire.json                            # results + SHAP + hourly risk
+├── fire.csv                             # flat summary
+├── shap_report.html                     # SHAP explainability report
+├── shap_report_v4.html                  # SHAP report v4 (experimental)
+├── example_map.png                      # screenshot for README
+├── banasiewicz_rqm_scpf_verification_2026.pdf
+├── banasiewicz_rqm_scpf_verification_2026_PL.pdf
+├── .github/FUNDING.yml                  # Patreon funding
+├── .gitignore
+├── LICENSE                              # MIT
 └── README.md
 ```
 
 ---
 
-## 📜 Licencja
+## 📜 License
 
-MIT — możesz swobodnie używać, modyfikować i dystrybuować z zachowaniem atrybucji.
+MIT — free to use, modify and distribute with attribution.
 
 ---
 
-*QHDALabs — budujemy fundament pod autonomiczną infrastrukturę ochrony środowiska.*
+*QHDALabs — building the foundation for autonomous environmental protection infrastructure.*
