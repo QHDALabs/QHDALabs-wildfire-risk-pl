@@ -1,0 +1,19 @@
+{
+  "title": "Prospects for Verifying Relational Quantum Mechanics at Macroscopic Scale: Computational Challenges and the Simulation Barrier",
+  "authors": ["Krzysztof W. Banasiewicz", "QHDALabs"],
+  "year": 2026,
+  "abstract": "Relational Quantum Mechanics (RQM) posits that quantum states are not observer-independent properties of physical systems, but rather relational structures between interacting systems. While this interpretation provides a coherent conceptual framework for quantum theory, its empirical verification at macroscopic scales encounters a fundamental computational barrier. The simulation of strongly entangled many-body quantum systems exhibits exponential growth in state space with increasing system size, rendering full classical simulation intractable beyond relatively small subsystems. This note argues that, as a consequence, direct classical verification of relational quantum structure in large-scale systems is computationally infeasible and likely to remain so under foreseeable computational paradigms. To address this limitation, we introduce Staged Classical Pre-Filtering (SCPF) as a pragmatic approximation framework. SCPF reduces computational complexity by hierarchically filtering relational degrees of freedom prior to full quantum state reconstruction, enabling partial but structured investigation of relational consistency in macroscopic regimes using current classical and hybrid computational resources.",
+  "pdf": "banasiewicz_rqm_scpf_verification_2026.pdf",
+  "repo": "https://github.com/QHDALabs/QHDALabs-wildfire-risk-pl",
+  "tags": [
+    "relational quantum mechanics",
+    "computational complexity",
+    "simulation barrier",
+    "many-body quantum systems",
+    "exponential state space",
+    "macroscopic quantum verification",
+    "staged classical pre-filtering",
+    "quantum foundations",
+    "hybrid classical-quantum methods"
+  ]
+}
