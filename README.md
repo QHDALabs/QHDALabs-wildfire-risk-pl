@@ -1,6 +1,6 @@
 # 🔥 QHDALabs — Wildfire Risk PL
 
-> A hybrid wildfire risk prediction system for Poland combining classical machine learning (Random Forest), quantum computing (Qiskit QSVC + SamplingVQE), and model explainability (SHAP).
+> A hybrid wildfire risk prediction system for Poland combining classical machine learning (Random Forest), quantum computing (Qiskit QSVC + SamplingVQE), model explainability (SHAP), and always-on quantum scoring in v4.
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![Python 3.10+](https://img.shields.io/badge/Python-3.10%2B-blue.svg)](https://python.org)
@@ -14,7 +14,8 @@
 |---------|------|-------------|
 | **v1** | `qhdalabs-wildfire_risk_v1.py` | MVP — weather + RF + QSVC, Leaflet map |
 | **v2** | `qhdalabs-wildfire_risk_v2.py` | EFFIS labels, NDVI, terrain, SHAP, QAOA (requires ~1 TB RAM on full grid — kept for reference) |
-| **v3** | `qhdalabs-wildfire_risk_v3.py` | SamplingVQE with candidate pre-filtering (8 qubits → runs on any laptop) ✅ **recommended** |
+| **v3** | `qhdalabs-wildfire_risk_v3.py` | SamplingVQE with candidate pre-filtering (8 qubits → runs on any laptop) |
+| **v4** | `v4/qhdalabs-wildfire_risk_v4.py` | Always-on quantum scoring: Qiskit QSVC + NumPy quantum-kernel fallback, improved cache/retry and safer one-class training ✅ **recommended** |
 
 ---
 
@@ -36,7 +37,7 @@ The system fetches real-time weather, vegetation stress, and terrain data for a 
 | File | Description |
 |------|-------------|
 | `map.html` | Interactive Leaflet map with hourly timeline slider |
-| `fire.json` | Full results including SHAP drivers and hourly risk per cell |
+| `fire.json` | Full results including SHAP drivers, hourly risk per cell, and v4 quantum status |
 | `fire.csv` | Flat summary for dashboards or further analysis |
 | `shap_report.html` | Explainability report: top-3 features driving risk per cell |
 
@@ -44,7 +45,7 @@ The system fetches real-time weather, vegetation stress, and terrain data for a 
 
 ## 🗺️ Risk Map
 
-Three risk tiers + hourly timeline slider (00:00–23:00) + QAOA sensor markers:
+Three risk tiers + hourly timeline slider (00:00–23:00) + QAOA/VQE sensor markers:
 
 | Colour | Level | Threshold |
 |--------|-------|-----------|
@@ -68,42 +69,59 @@ pip install numpy requests scikit-learn shap
 # Quantum — QSVC classifier
 pip install qiskit qiskit-machine-learning
 
-# Quantum — SamplingVQE sensor placement (v3)
+# Quantum — SamplingVQE sensor placement (v3/v4)
 pip install qiskit-algorithms qiskit-optimization
 ```
 
-> All quantum modules are optional — the system gracefully falls back to classical equivalents when Qiskit is unavailable or when training data contains only one class (common outside fire season in Poland).
+> In v1-v3, quantum modules are optional and the system can fall back to classical equivalents when Qiskit is unavailable or when training data contains only one class.
+
+> In v4, quantum scoring is always attempted. If Qiskit QSVC cannot run, v4 uses a built-in NumPy statevector quantum-kernel fallback, so `quantum_risk` is still produced.
 
 ---
 
 ## 🚀 Usage
 
+Recommended v4:
+
+```bash
+python v4/qhdalabs-wildfire_risk_v4.py
+```
+
+Windows:
+
+```bash
+py v4/qhdalabs-wildfire_risk_v4.py
+```
+
+Older v3:
+
 ```bash
 python qhdalabs-wildfire_risk_v3.py
 ```
 
-Example output (v3, summer conditions with EFFIS labels):
+Example output (v4, outside fire season with EFFIS labels containing one class):
 
-```
-13:26:24  INFO  Fetching 36 grid cells with 4 workers …
-13:26:28  INFO  Dataset ready: 36 cells  (EFFIS labels: 12, heuristic: 24)
-13:26:30  INFO  Classical CV F1: 0.923 ± 0.041
-13:26:31  INFO  SHAP values computed.
-13:26:33  INFO  Training quantum model …
-13:26:35  INFO  Risk landscape has variation — running SamplingVQE …
-13:26:35  INFO  SamplingVQE: optimising sensor placement (8 candidates → 5 sensors, 8 qubits) …
-13:26:41  INFO  Quantum sensor placement complete.
-13:26:41  INFO  Alerts: 3 / 36 cells
-13:26:42  INFO  Done → map.html  fire.json  fire.csv  shap_report.html
+```text
+12:16:48  INFO  Fetching 36 grid cells with 10 workers ...
+12:17:15  INFO  Dataset ready: 36 cells (EFFIS labels: 36, heuristic: 0)
+12:17:16  INFO  Classical model trained (CV skipped: not enough samples per class).
+12:17:17  INFO  SHAP values computed.
+12:17:17  WARNING  Quantum training data had one class (0). Added 4 conservative synthetic class-1 samples.
+12:17:19  INFO  Training quantum model with Qiskit QSVC ...
+12:17:27  INFO  Quantum model trained: qiskit_qsvc.
+12:17:46  INFO  Alerts: 0 / 36 cells
+12:17:47  INFO  SamplingVQE: optimizing sensor placement (8 candidates -> 5 sensors) ...
+12:17:50  INFO  Quantum sensor placement complete.
+12:17:50  INFO  Done -> map.html  fire.json  fire.csv  shap_report.html
 ```
 
 ---
 
-## 🏗️ Architecture (v3)
+## 🏗️ Architecture (v4)
 
-```
+```text
 Open-Meteo + Open-Elevation + NDVI proxy
-         │  (parallel fetch, 6h cache, retry on 429)
+         │  (parallel fetch, TTL cache, retry on 429/5xx)
          ▼
 ┌──────────────────────────────┐
 │    Feature Engineering       │  16 features:
@@ -114,11 +132,11 @@ Open-Meteo + Open-Elevation + NDVI proxy
               │
          ┌────┴──────┐
          ▼           ▼
-   ┌──────────┐  ┌───────────────┐
-   │  Random  │  │  Qiskit QSVC  │  (optional)
-   │  Forest  │  │  ZZFeatureMap │  4 qubits
-   │   70%    │  │     30%       │  sigmoid calibration
-   └────┬─────┘  └──────┬────────┘
+   ┌──────────┐  ┌──────────────────────────────┐
+   │  Random  │  │  Qiskit QSVC                 │
+   │  Forest  │  │  or NumPy quantum fallback   │
+   │   70%    │  │     30%                      │
+   └────┬─────┘  └──────┬───────────────────────┘
         └────────┬───────┘
                  ▼
            final score
@@ -127,11 +145,11 @@ Open-Meteo + Open-Elevation + NDVI proxy
       ┌──────────┼──────────────┐
       ▼          ▼              ▼
    map.html   fire.json   shap_report.html
-  (timeline)  (+ SHAP)
+  (timeline)  (+ SHAP)    (+ quantum_status)
                  │
       SamplingVQE pre-filter
       top-8 cells → 5 sensors
-      (2^8 = 256 states, <1 KB)
+      (fallback: diverse greedy)
                  ▼
           📡 sensor markers
 ```
@@ -143,10 +161,18 @@ Open-Meteo + Open-Elevation + NDVI proxy
 ```python
 GRID_SIZE            = 6       # grid resolution (6×6 = 36 cells)
 ALERT_THRESHOLD      = 0.7     # alert threshold (0.0–1.0)
-MAX_WORKERS          = 4       # parallel API threads (reduced to avoid 429)
-CACHE_TTL            = 21600   # cache TTL in seconds (6 hours)
+MAX_WORKERS          = 10      # parallel API threads
+CACHE_TTL            = 3600    # cache TTL in seconds (1 hour)
 EFFIS_LOOKBACK       = 365     # days of historical fire data from EFFIS
 N_SENSORS            = 5       # number of sensors to place (VQE/QAOA)
+QUANTUM_BLEND        = 0.30    # quantum model contribution to final risk score
+```
+
+Older v3 uses a smaller default worker count and a longer cache TTL:
+
+```python
+MAX_WORKERS          = 4
+CACHE_TTL            = 21600
 MAX_CANDIDATES       = 8       # pre-filter before quantum opt (2^8 = 256 states)
 ```
 
@@ -174,10 +200,32 @@ A full tabular report is saved to `shap_report.html`.
 
 1. Dimensionality reduction to 4 features via PCA
 2. Feature scaling to `[0, π]` (MinMaxScaler)
-3. Quantum encoding via **ZZFeatureMap** (4 qubits, 2 reps)
+3. Quantum encoding via **ZZFeatureMap** / `zz_feature_map` (4 qubits, 2 reps)
 4. Quantum kernel via **FidelityQuantumKernel**
 5. Sigmoid calibration → score in [0, 1]
-6. Blended output: **70% RF + 30% QSVC**
+6. Blended output: **70% RF + 30% quantum**
+
+### v4 — Always-On Quantum Scoring
+
+v4 always attempts to train and use the quantum branch:
+
+1. First it tries **Qiskit QSVC**.
+2. If Qiskit is unavailable or fails, it uses a built-in **NumPy statevector quantum-kernel SVC**.
+3. If training labels contain only one class, it adds conservative synthetic counterexamples so the quantum classifier can still train.
+
+This makes `quantum_risk` available even outside fire season, when EFFIS may return only non-fire labels.
+
+Example v4 metadata in `fire.json`:
+
+```json
+"quantum_status": {
+  "backend": "qiskit_qsvc",
+  "augmented": true,
+  "train_size": 31,
+  "original_classes": [0],
+  "blend_weight": 0.3
+}
+```
 
 ### SamplingVQE — IoT Sensor Placement
 
@@ -197,7 +245,7 @@ A full tabular report is saved to `shap_report.html`.
 
 The system queries the **EFFIS API** for historical fire incidents within 50 km of each grid point (past 365 days). When the API is unreachable, it falls back to heuristic thresholds with a clear log warning:
 
-```
+```text
 ⚠ All labels are heuristic — EFFIS API may be unreachable.
   Model learns a rule, not real fire risk.
 ```
@@ -219,11 +267,14 @@ Real fire incident data sources:
 
 ## 📁 Repository Structure
 
-```
+```text
 QHDALabs-wildfire-risk-pl/
 ├── qhdalabs-wildfire_risk_v1.py         # v1: MVP
 ├── qhdalabs-wildfire_risk_v2.py         # v2: full QAOA (1 TB RAM reference)
-├── qhdalabs-wildfire_risk_v3.py         # v3: SamplingVQE ✅ recommended
+├── qhdalabs-wildfire_risk_v3.py         # v3: SamplingVQE
+├── v4/
+│   ├── qhdalabs-wildfire_risk_v4.py     # v4: always-on quantum ✅ recommended
+│   └── README.md                        # v4-specific guide
 ├── map.html                             # generated risk map
 ├── fire.json                            # results + SHAP + hourly risk
 ├── fire.csv                             # flat summary
