@@ -275,8 +275,8 @@ def fetch_effis_fires(lat: float, lon: float,
         bbox  = f"{lon-deg},{lat-deg},{lon+deg},{lat+deg}"
 
         url = (
-            "https://effis.jrc.ec.europa.eu/arcgis/rest/services/"
-            "EFFIS/StatisticsAdditional/MapServer/2/query"
+            "https://services-eu1.arcgis.com/VC42ANIVJ5dUfvUn/"
+            "arcgis/rest/services/Burned_Areas_EFFIS/FeatureServer/23/query"
         )
         params = {
             "f":              "json",
