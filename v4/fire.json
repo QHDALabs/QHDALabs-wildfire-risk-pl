@@ -1,4513 +1,4660 @@
 {
-  "version": "4.0.0",
-  "generated_at": "2026-05-27T10:21:35.157927+00:00",
+  "version": "4.1.0",
+  "generated_at": "2026-05-30T17:45:55.222619+00:00",
+  "drought_days": 21,
+  "fire_season": true,
   "quantum_status": {
     "backend": "qiskit_qsvc",
-    "augmented": true,
-    "train_size": 31,
+    "augmented": false,
+    "train_size": 27,
     "original_classes": [
-      0
+      0,
+      1
     ],
-    "blend_weight": 0.3
+    "blend_weight": 0.2
   },
   "cells": [
     {
       "lat": 49.0,
-      "lon": 20.0,
-      "risk": 0.0807,
-      "classical_risk": 0.0,
-      "quantum_risk": 0.269,
+      "lon": 16.0,
+      "risk": 0.8038,
+      "classical_risk": 1.0,
+      "quantum_risk": 0.7348,
       "quantum_backend": "qiskit_qsvc",
-      "quantum_augmented": true,
+      "quantum_augmented": false,
+      "alert": true,
+      "ndvi_stress": 0.675,
+      "elevation_m": 321.0,
+      "slope_deg": 1.14,
+      "fwi_score": 0.56,
+      "drought_days": 21,
+      "label_source": "heuristic",
+      "tier": "CRITICAL",
+      "shap_drivers": [
+        {
+          "feature": "fwi_score",
+          "shap": 0.0842
+        },
+        {
+          "feature": "ndvi_stress",
+          "shap": 0.0733
+        },
+        {
+          "feature": "dryness_ratio",
+          "shap": 0.0559
+        }
+      ],
+      "hourly_risk": [
+        {
+          "time": "2026-05-30T00:00",
+          "risk": 0.873
+        },
+        {
+          "time": "2026-05-30T01:00",
+          "risk": 0.864
+        },
+        {
+          "time": "2026-05-30T02:00",
+          "risk": 0.863
+        },
+        {
+          "time": "2026-05-30T03:00",
+          "risk": 0.866
+        },
+        {
+          "time": "2026-05-30T04:00",
+          "risk": 0.902
+        },
+        {
+          "time": "2026-05-30T05:00",
+          "risk": 0.902
+        },
+        {
+          "time": "2026-05-30T06:00",
+          "risk": 0.887
+        },
+        {
+          "time": "2026-05-30T07:00",
+          "risk": 0.928
+        },
+        {
+          "time": "2026-05-30T08:00",
+          "risk": 0.983
+        },
+        {
+          "time": "2026-05-30T09:00",
+          "risk": 1.0
+        },
+        {
+          "time": "2026-05-30T10:00",
+          "risk": 1.0
+        },
+        {
+          "time": "2026-05-30T11:00",
+          "risk": 1.0
+        },
+        {
+          "time": "2026-05-30T12:00",
+          "risk": 1.0
+        },
+        {
+          "time": "2026-05-30T13:00",
+          "risk": 1.0
+        },
+        {
+          "time": "2026-05-30T14:00",
+          "risk": 1.0
+        },
+        {
+          "time": "2026-05-30T15:00",
+          "risk": 1.0
+        },
+        {
+          "time": "2026-05-30T16:00",
+          "risk": 1.0
+        },
+        {
+          "time": "2026-05-30T17:00",
+          "risk": 1.0
+        },
+        {
+          "time": "2026-05-30T18:00",
+          "risk": 1.0
+        },
+        {
+          "time": "2026-05-30T19:00",
+          "risk": 1.0
+        },
+        {
+          "time": "2026-05-30T20:00",
+          "risk": 1.0
+        },
+        {
+          "time": "2026-05-30T21:00",
+          "risk": 1.0
+        },
+        {
+          "time": "2026-05-30T22:00",
+          "risk": 1.0
+        },
+        {
+          "time": "2026-05-30T23:00",
+          "risk": 1.0
+        }
+      ]
+    },
+    {
+      "lat": 49.0,
+      "lon": 22.0,
+      "risk": 0.6843,
+      "classical_risk": 0.9719,
+      "quantum_risk": 0.7399,
+      "quantum_backend": "qiskit_qsvc",
+      "quantum_augmented": false,
       "alert": false,
-      "ndvi_stress": 0.433,
+      "ndvi_stress": 0.53,
+      "elevation_m": 213.0,
+      "slope_deg": 1.17,
+      "fwi_score": 0.436,
+      "drought_days": 21,
+      "label_source": "heuristic",
+      "tier": "HIGH",
+      "shap_drivers": [
+        {
+          "feature": "fwi_score",
+          "shap": 0.0842
+        },
+        {
+          "feature": "ndvi_stress",
+          "shap": 0.0733
+        },
+        {
+          "feature": "dryness_ratio",
+          "shap": 0.0526
+        }
+      ],
+      "hourly_risk": [
+        {
+          "time": "2026-05-30T00:00",
+          "risk": 0.784
+        },
+        {
+          "time": "2026-05-30T01:00",
+          "risk": 0.755
+        },
+        {
+          "time": "2026-05-30T02:00",
+          "risk": 0.743
+        },
+        {
+          "time": "2026-05-30T03:00",
+          "risk": 0.723
+        },
+        {
+          "time": "2026-05-30T04:00",
+          "risk": 0.706
+        },
+        {
+          "time": "2026-05-30T05:00",
+          "risk": 0.701
+        },
+        {
+          "time": "2026-05-30T06:00",
+          "risk": 0.728
+        },
+        {
+          "time": "2026-05-30T07:00",
+          "risk": 0.794
+        },
+        {
+          "time": "2026-05-30T08:00",
+          "risk": 0.829
+        },
+        {
+          "time": "2026-05-30T09:00",
+          "risk": 0.926
+        },
+        {
+          "time": "2026-05-30T10:00",
+          "risk": 1.0
+        },
+        {
+          "time": "2026-05-30T11:00",
+          "risk": 1.0
+        },
+        {
+          "time": "2026-05-30T12:00",
+          "risk": 1.0
+        },
+        {
+          "time": "2026-05-30T13:00",
+          "risk": 1.0
+        },
+        {
+          "time": "2026-05-30T14:00",
+          "risk": 1.0
+        },
+        {
+          "time": "2026-05-30T15:00",
+          "risk": 1.0
+        },
+        {
+          "time": "2026-05-30T16:00",
+          "risk": 1.0
+        },
+        {
+          "time": "2026-05-30T17:00",
+          "risk": 0.987
+        },
+        {
+          "time": "2026-05-30T18:00",
+          "risk": 0.894
+        },
+        {
+          "time": "2026-05-30T19:00",
+          "risk": 0.846
+        },
+        {
+          "time": "2026-05-30T20:00",
+          "risk": 0.831
+        },
+        {
+          "time": "2026-05-30T21:00",
+          "risk": 0.837
+        },
+        {
+          "time": "2026-05-30T22:00",
+          "risk": 0.836
+        },
+        {
+          "time": "2026-05-30T23:00",
+          "risk": 0.829
+        }
+      ]
+    },
+    {
+      "lat": 49.0,
+      "lon": 24.0,
+      "risk": 0.7149,
+      "classical_risk": 0.9588,
+      "quantum_risk": 0.7311,
+      "quantum_backend": "qiskit_qsvc",
+      "quantum_augmented": false,
+      "alert": false,
+      "ndvi_stress": 0.53,
+      "elevation_m": 418.0,
+      "slope_deg": 0.58,
+      "fwi_score": 0.476,
+      "drought_days": 21,
+      "label_source": "heuristic",
+      "tier": "HIGH",
+      "shap_drivers": [
+        {
+          "feature": "fwi_score",
+          "shap": 0.0842
+        },
+        {
+          "feature": "ndvi_stress",
+          "shap": 0.0733
+        },
+        {
+          "feature": "temp_max",
+          "shap": 0.0468
+        }
+      ],
+      "hourly_risk": [
+        {
+          "time": "2026-05-30T00:00",
+          "risk": 0.792
+        },
+        {
+          "time": "2026-05-30T01:00",
+          "risk": 0.792
+        },
+        {
+          "time": "2026-05-30T02:00",
+          "risk": 0.761
+        },
+        {
+          "time": "2026-05-30T03:00",
+          "risk": 0.743
+        },
+        {
+          "time": "2026-05-30T04:00",
+          "risk": 0.808
+        },
+        {
+          "time": "2026-05-30T05:00",
+          "risk": 0.873
+        },
+        {
+          "time": "2026-05-30T06:00",
+          "risk": 0.888
+        },
+        {
+          "time": "2026-05-30T07:00",
+          "risk": 0.834
+        },
+        {
+          "time": "2026-05-30T08:00",
+          "risk": 0.857
+        },
+        {
+          "time": "2026-05-30T09:00",
+          "risk": 0.932
+        },
+        {
+          "time": "2026-05-30T10:00",
+          "risk": 1.0
+        },
+        {
+          "time": "2026-05-30T11:00",
+          "risk": 1.0
+        },
+        {
+          "time": "2026-05-30T12:00",
+          "risk": 1.0
+        },
+        {
+          "time": "2026-05-30T13:00",
+          "risk": 1.0
+        },
+        {
+          "time": "2026-05-30T14:00",
+          "risk": 1.0
+        },
+        {
+          "time": "2026-05-30T15:00",
+          "risk": 1.0
+        },
+        {
+          "time": "2026-05-30T16:00",
+          "risk": 1.0
+        },
+        {
+          "time": "2026-05-30T17:00",
+          "risk": 1.0
+        },
+        {
+          "time": "2026-05-30T18:00",
+          "risk": 1.0
+        },
+        {
+          "time": "2026-05-30T19:00",
+          "risk": 1.0
+        },
+        {
+          "time": "2026-05-30T20:00",
+          "risk": 0.997
+        },
+        {
+          "time": "2026-05-30T21:00",
+          "risk": 0.953
+        },
+        {
+          "time": "2026-05-30T22:00",
+          "risk": 0.932
+        },
+        {
+          "time": "2026-05-30T23:00",
+          "risk": 0.909
+        }
+      ]
+    },
+    {
+      "lat": 49.0,
+      "lon": 20.0,
+      "risk": 0.3265,
+      "classical_risk": 0.2036,
+      "quantum_risk": 0.5416,
+      "quantum_backend": "qiskit_qsvc",
+      "quantum_augmented": false,
+      "alert": false,
+      "ndvi_stress": 0.272,
       "elevation_m": 1000.0,
       "slope_deg": 0.38,
+      "fwi_score": 0.34,
+      "drought_days": 21,
+      "label_source": "heuristic",
+      "tier": "LOW",
       "shap_drivers": [
         {
-          "feature": "wind_dryness_ratio",
-          "shap": 0.0
+          "feature": "fwi_score",
+          "shap": -0.0793
         },
         {
-          "feature": "dryness_ratio",
-          "shap": 0.0
+          "feature": "ndvi_stress",
+          "shap": -0.0647
         },
         {
-          "feature": "soil_x_rh",
-          "shap": 0.0
+          "feature": "temp_max",
+          "shap": -0.0404
         }
       ],
       "hourly_risk": [
         {
-          "time": "2026-05-27T00:00",
-          "risk": 0.093
+          "time": "2026-05-30T00:00",
+          "risk": 0.426
         },
         {
-          "time": "2026-05-27T01:00",
-          "risk": 0.093
+          "time": "2026-05-30T01:00",
+          "risk": 0.414
         },
         {
-          "time": "2026-05-27T02:00",
-          "risk": 0.092
+          "time": "2026-05-30T02:00",
+          "risk": 0.372
         },
         {
-          "time": "2026-05-27T03:00",
-          "risk": 0.092
+          "time": "2026-05-30T03:00",
+          "risk": 0.359
         },
         {
-          "time": "2026-05-27T04:00",
-          "risk": 0.092
+          "time": "2026-05-30T04:00",
+          "risk": 0.379
         },
         {
-          "time": "2026-05-27T05:00",
-          "risk": 0.091
+          "time": "2026-05-30T05:00",
+          "risk": 0.379
         },
         {
-          "time": "2026-05-27T06:00",
-          "risk": 0.093
+          "time": "2026-05-30T06:00",
+          "risk": 0.373
         },
         {
-          "time": "2026-05-27T07:00",
-          "risk": 0.098
+          "time": "2026-05-30T07:00",
+          "risk": 0.393
         },
         {
-          "time": "2026-05-27T08:00",
-          "risk": 0.106
+          "time": "2026-05-30T08:00",
+          "risk": 0.466
         },
         {
-          "time": "2026-05-27T09:00",
-          "risk": 0.111
+          "time": "2026-05-30T09:00",
+          "risk": 0.48
         },
         {
-          "time": "2026-05-27T10:00",
-          "risk": 0.115
+          "time": "2026-05-30T10:00",
+          "risk": 0.435
         },
         {
-          "time": "2026-05-27T11:00",
-          "risk": 0.123
+          "time": "2026-05-30T11:00",
+          "risk": 0.409
         },
         {
-          "time": "2026-05-27T12:00",
-          "risk": 0.128
+          "time": "2026-05-30T12:00",
+          "risk": 0.422
         },
         {
-          "time": "2026-05-27T13:00",
-          "risk": 0.131
+          "time": "2026-05-30T13:00",
+          "risk": 0.44
         },
         {
-          "time": "2026-05-27T14:00",
-          "risk": 0.129
+          "time": "2026-05-30T14:00",
+          "risk": 0.438
         },
         {
-          "time": "2026-05-27T15:00",
-          "risk": 0.12
+          "time": "2026-05-30T15:00",
+          "risk": 0.458
         },
         {
-          "time": "2026-05-27T16:00",
-          "risk": 0.106
+          "time": "2026-05-30T16:00",
+          "risk": 0.475
         },
         {
-          "time": "2026-05-27T17:00",
-          "risk": 0.103
+          "time": "2026-05-30T17:00",
+          "risk": 0.468
         },
         {
-          "time": "2026-05-27T18:00",
-          "risk": 0.102
+          "time": "2026-05-30T18:00",
+          "risk": 0.491
         },
         {
-          "time": "2026-05-27T19:00",
-          "risk": 0.103
+          "time": "2026-05-30T19:00",
+          "risk": 0.47
         },
         {
-          "time": "2026-05-27T20:00",
-          "risk": 0.1
+          "time": "2026-05-30T20:00",
+          "risk": 0.459
         },
         {
-          "time": "2026-05-27T21:00",
-          "risk": 0.094
+          "time": "2026-05-30T21:00",
+          "risk": 0.456
         },
         {
-          "time": "2026-05-27T22:00",
-          "risk": 0.089
+          "time": "2026-05-30T22:00",
+          "risk": 0.435
         },
         {
-          "time": "2026-05-27T23:00",
-          "risk": 0.087
+          "time": "2026-05-30T23:00",
+          "risk": 0.454
         }
       ]
     },
     {
-      "lat": 49.0,
-      "lon": 22.0,
-      "risk": 0.0801,
-      "classical_risk": 0.0,
-      "quantum_risk": 0.2671,
+      "lat": 50.1,
+      "lon": 14.0,
+      "risk": 0.8043,
+      "classical_risk": 0.9967,
+      "quantum_risk": 0.7379,
       "quantum_backend": "qiskit_qsvc",
-      "quantum_augmented": true,
-      "alert": false,
-      "ndvi_stress": 0.421,
-      "elevation_m": 213.0,
-      "slope_deg": 0.12,
+      "quantum_augmented": false,
+      "alert": true,
+      "ndvi_stress": 0.686,
+      "elevation_m": 398.0,
+      "slope_deg": 0.25,
+      "fwi_score": 0.56,
+      "drought_days": 21,
+      "label_source": "heuristic",
+      "tier": "CRITICAL",
       "shap_drivers": [
         {
-          "feature": "wind_dryness_ratio",
-          "shap": 0.0
+          "feature": "fwi_score",
+          "shap": 0.0842
+        },
+        {
+          "feature": "ndvi_stress",
+          "shap": 0.0733
         },
         {
           "feature": "dryness_ratio",
-          "shap": 0.0
-        },
-        {
-          "feature": "soil_x_rh",
-          "shap": 0.0
+          "shap": 0.0559
         }
       ],
       "hourly_risk": [
         {
-          "time": "2026-05-27T00:00",
-          "risk": 0.089
+          "time": "2026-05-30T00:00",
+          "risk": 0.965
         },
         {
-          "time": "2026-05-27T01:00",
-          "risk": 0.087
+          "time": "2026-05-30T01:00",
+          "risk": 0.95
         },
         {
-          "time": "2026-05-27T02:00",
-          "risk": 0.086
+          "time": "2026-05-30T02:00",
+          "risk": 0.909
         },
         {
-          "time": "2026-05-27T03:00",
-          "risk": 0.084
+          "time": "2026-05-30T03:00",
+          "risk": 0.967
         },
         {
-          "time": "2026-05-27T04:00",
-          "risk": 0.085
+          "time": "2026-05-30T04:00",
+          "risk": 0.896
         },
         {
-          "time": "2026-05-27T05:00",
-          "risk": 0.081
+          "time": "2026-05-30T05:00",
+          "risk": 0.843
         },
         {
-          "time": "2026-05-27T06:00",
-          "risk": 0.085
+          "time": "2026-05-30T06:00",
+          "risk": 0.856
         },
         {
-          "time": "2026-05-27T07:00",
-          "risk": 0.093
+          "time": "2026-05-30T07:00",
+          "risk": 0.916
         },
         {
-          "time": "2026-05-27T08:00",
-          "risk": 0.098
+          "time": "2026-05-30T08:00",
+          "risk": 0.998
         },
         {
-          "time": "2026-05-27T09:00",
-          "risk": 0.105
+          "time": "2026-05-30T09:00",
+          "risk": 1.0
         },
         {
-          "time": "2026-05-27T10:00",
-          "risk": 0.112
+          "time": "2026-05-30T10:00",
+          "risk": 1.0
         },
         {
-          "time": "2026-05-27T11:00",
-          "risk": 0.123
+          "time": "2026-05-30T11:00",
+          "risk": 1.0
         },
         {
-          "time": "2026-05-27T12:00",
-          "risk": 0.134
+          "time": "2026-05-30T12:00",
+          "risk": 1.0
         },
         {
-          "time": "2026-05-27T13:00",
-          "risk": 0.137
+          "time": "2026-05-30T13:00",
+          "risk": 1.0
         },
         {
-          "time": "2026-05-27T14:00",
-          "risk": 0.134
+          "time": "2026-05-30T14:00",
+          "risk": 1.0
         },
         {
-          "time": "2026-05-27T15:00",
-          "risk": 0.118
+          "time": "2026-05-30T15:00",
+          "risk": 1.0
         },
         {
-          "time": "2026-05-27T16:00",
-          "risk": 0.107
+          "time": "2026-05-30T16:00",
+          "risk": 1.0
         },
         {
-          "time": "2026-05-27T17:00",
-          "risk": 0.098
+          "time": "2026-05-30T17:00",
+          "risk": 1.0
         },
         {
-          "time": "2026-05-27T18:00",
-          "risk": 0.094
+          "time": "2026-05-30T18:00",
+          "risk": 1.0
         },
         {
-          "time": "2026-05-27T19:00",
-          "risk": 0.097
+          "time": "2026-05-30T19:00",
+          "risk": 1.0
         },
         {
-          "time": "2026-05-27T20:00",
-          "risk": 0.1
+          "time": "2026-05-30T20:00",
+          "risk": 1.0
         },
         {
-          "time": "2026-05-27T21:00",
-          "risk": 0.093
+          "time": "2026-05-30T21:00",
+          "risk": 0.984
         },
         {
-          "time": "2026-05-27T22:00",
-          "risk": 0.09
+          "time": "2026-05-30T22:00",
+          "risk": 0.905
         },
         {
-          "time": "2026-05-27T23:00",
-          "risk": 0.089
-        }
-      ]
-    },
-    {
-      "lat": 49.0,
-      "lon": 24.0,
-      "risk": 0.0778,
-      "classical_risk": 0.0,
-      "quantum_risk": 0.2593,
-      "quantum_backend": "qiskit_qsvc",
-      "quantum_augmented": true,
-      "alert": false,
-      "ndvi_stress": 0.245,
-      "elevation_m": 418.0,
-      "slope_deg": 1.23,
-      "shap_drivers": [
-        {
-          "feature": "wind_dryness_ratio",
-          "shap": 0.0
-        },
-        {
-          "feature": "dryness_ratio",
-          "shap": 0.0
-        },
-        {
-          "feature": "soil_x_rh",
-          "shap": 0.0
-        }
-      ],
-      "hourly_risk": [
-        {
-          "time": "2026-05-27T00:00",
-          "risk": 0.096
-        },
-        {
-          "time": "2026-05-27T01:00",
-          "risk": 0.096
-        },
-        {
-          "time": "2026-05-27T02:00",
-          "risk": 0.093
-        },
-        {
-          "time": "2026-05-27T03:00",
-          "risk": 0.094
-        },
-        {
-          "time": "2026-05-27T04:00",
-          "risk": 0.094
-        },
-        {
-          "time": "2026-05-27T05:00",
-          "risk": 0.094
-        },
-        {
-          "time": "2026-05-27T06:00",
-          "risk": 0.098
-        },
-        {
-          "time": "2026-05-27T07:00",
-          "risk": 0.107
-        },
-        {
-          "time": "2026-05-27T08:00",
-          "risk": 0.113
-        },
-        {
-          "time": "2026-05-27T09:00",
-          "risk": 0.117
-        },
-        {
-          "time": "2026-05-27T10:00",
-          "risk": 0.123
-        },
-        {
-          "time": "2026-05-27T11:00",
-          "risk": 0.128
-        },
-        {
-          "time": "2026-05-27T12:00",
-          "risk": 0.131
-        },
-        {
-          "time": "2026-05-27T13:00",
-          "risk": 0.13
-        },
-        {
-          "time": "2026-05-27T14:00",
-          "risk": 0.132
-        },
-        {
-          "time": "2026-05-27T15:00",
-          "risk": 0.126
-        },
-        {
-          "time": "2026-05-27T16:00",
-          "risk": 0.103
-        },
-        {
-          "time": "2026-05-27T17:00",
-          "risk": 0.094
-        },
-        {
-          "time": "2026-05-27T18:00",
-          "risk": 0.1
-        },
-        {
-          "time": "2026-05-27T19:00",
-          "risk": 0.098
-        },
-        {
-          "time": "2026-05-27T20:00",
-          "risk": 0.094
-        },
-        {
-          "time": "2026-05-27T21:00",
-          "risk": 0.089
-        },
-        {
-          "time": "2026-05-27T22:00",
-          "risk": 0.088
-        },
-        {
-          "time": "2026-05-27T23:00",
-          "risk": 0.087
-        }
-      ]
-    },
-    {
-      "lat": 49.0,
-      "lon": 18.0,
-      "risk": 0.0825,
-      "classical_risk": 0.0,
-      "quantum_risk": 0.275,
-      "quantum_backend": "qiskit_qsvc",
-      "quantum_augmented": true,
-      "alert": false,
-      "ndvi_stress": 0.502,
-      "elevation_m": 200.0,
-      "slope_deg": 1.0,
-      "shap_drivers": [
-        {
-          "feature": "wind_dryness_ratio",
-          "shap": 0.0
-        },
-        {
-          "feature": "dryness_ratio",
-          "shap": 0.0
-        },
-        {
-          "feature": "soil_x_rh",
-          "shap": 0.0
-        }
-      ],
-      "hourly_risk": [
-        {
-          "time": "2026-05-27T00:00",
-          "risk": 0.096
-        },
-        {
-          "time": "2026-05-27T01:00",
-          "risk": 0.097
-        },
-        {
-          "time": "2026-05-27T02:00",
-          "risk": 0.094
-        },
-        {
-          "time": "2026-05-27T03:00",
-          "risk": 0.094
-        },
-        {
-          "time": "2026-05-27T04:00",
-          "risk": 0.093
-        },
-        {
-          "time": "2026-05-27T05:00",
-          "risk": 0.093
-        },
-        {
-          "time": "2026-05-27T06:00",
-          "risk": 0.093
-        },
-        {
-          "time": "2026-05-27T07:00",
-          "risk": 0.097
-        },
-        {
-          "time": "2026-05-27T08:00",
-          "risk": 0.101
-        },
-        {
-          "time": "2026-05-27T09:00",
-          "risk": 0.109
-        },
-        {
-          "time": "2026-05-27T10:00",
-          "risk": 0.119
-        },
-        {
-          "time": "2026-05-27T11:00",
-          "risk": 0.122
-        },
-        {
-          "time": "2026-05-27T12:00",
-          "risk": 0.129
-        },
-        {
-          "time": "2026-05-27T13:00",
-          "risk": 0.134
-        },
-        {
-          "time": "2026-05-27T14:00",
-          "risk": 0.136
-        },
-        {
-          "time": "2026-05-27T15:00",
-          "risk": 0.139
-        },
-        {
-          "time": "2026-05-27T16:00",
-          "risk": 0.123
-        },
-        {
-          "time": "2026-05-27T17:00",
-          "risk": 0.121
-        },
-        {
-          "time": "2026-05-27T18:00",
-          "risk": 0.117
-        },
-        {
-          "time": "2026-05-27T19:00",
-          "risk": 0.115
-        },
-        {
-          "time": "2026-05-27T20:00",
-          "risk": 0.109
-        },
-        {
-          "time": "2026-05-27T21:00",
-          "risk": 0.101
-        },
-        {
-          "time": "2026-05-27T22:00",
-          "risk": 0.095
-        },
-        {
-          "time": "2026-05-27T23:00",
-          "risk": 0.093
-        }
-      ]
-    },
-    {
-      "lat": 49.0,
-      "lon": 16.0,
-      "risk": 0.079,
-      "classical_risk": 0.0,
-      "quantum_risk": 0.2635,
-      "quantum_backend": "qiskit_qsvc",
-      "quantum_augmented": true,
-      "alert": false,
-      "ndvi_stress": 0.534,
-      "elevation_m": 321.0,
-      "slope_deg": 0.75,
-      "shap_drivers": [
-        {
-          "feature": "wind_dryness_ratio",
-          "shap": 0.0
-        },
-        {
-          "feature": "dryness_ratio",
-          "shap": 0.0
-        },
-        {
-          "feature": "soil_x_rh",
-          "shap": 0.0
-        }
-      ],
-      "hourly_risk": [
-        {
-          "time": "2026-05-27T00:00",
-          "risk": 0.092
-        },
-        {
-          "time": "2026-05-27T01:00",
-          "risk": 0.089
-        },
-        {
-          "time": "2026-05-27T02:00",
-          "risk": 0.088
-        },
-        {
-          "time": "2026-05-27T03:00",
-          "risk": 0.087
-        },
-        {
-          "time": "2026-05-27T04:00",
-          "risk": 0.085
-        },
-        {
-          "time": "2026-05-27T05:00",
-          "risk": 0.084
-        },
-        {
-          "time": "2026-05-27T06:00",
-          "risk": 0.084
-        },
-        {
-          "time": "2026-05-27T07:00",
-          "risk": 0.088
-        },
-        {
-          "time": "2026-05-27T08:00",
-          "risk": 0.096
-        },
-        {
-          "time": "2026-05-27T09:00",
-          "risk": 0.101
-        },
-        {
-          "time": "2026-05-27T10:00",
-          "risk": 0.105
-        },
-        {
-          "time": "2026-05-27T11:00",
-          "risk": 0.117
-        },
-        {
-          "time": "2026-05-27T12:00",
-          "risk": 0.126
-        },
-        {
-          "time": "2026-05-27T13:00",
-          "risk": 0.13
-        },
-        {
-          "time": "2026-05-27T14:00",
-          "risk": 0.137
-        },
-        {
-          "time": "2026-05-27T15:00",
-          "risk": 0.132
-        },
-        {
-          "time": "2026-05-27T16:00",
-          "risk": 0.134
-        },
-        {
-          "time": "2026-05-27T17:00",
-          "risk": 0.128
-        },
-        {
-          "time": "2026-05-27T18:00",
-          "risk": 0.126
-        },
-        {
-          "time": "2026-05-27T19:00",
-          "risk": 0.121
-        },
-        {
-          "time": "2026-05-27T20:00",
-          "risk": 0.116
-        },
-        {
-          "time": "2026-05-27T21:00",
-          "risk": 0.102
-        },
-        {
-          "time": "2026-05-27T22:00",
-          "risk": 0.097
-        },
-        {
-          "time": "2026-05-27T23:00",
-          "risk": 0.098
+          "time": "2026-05-30T23:00",
+          "risk": 0.853
         }
       ]
     },
     {
       "lat": 49.0,
       "lon": 14.0,
-      "risk": 0.0797,
-      "classical_risk": 0.0,
-      "quantum_risk": 0.2658,
+      "risk": 0.7575,
+      "classical_risk": 0.962,
+      "quantum_risk": 0.7246,
       "quantum_backend": "qiskit_qsvc",
-      "quantum_augmented": true,
-      "alert": false,
-      "ndvi_stress": 0.504,
+      "quantum_augmented": false,
+      "alert": true,
+      "ndvi_stress": 0.593,
       "elevation_m": 624.0,
       "slope_deg": 0.73,
+      "fwi_score": 0.523,
+      "drought_days": 21,
+      "label_source": "heuristic",
+      "tier": "CRITICAL",
       "shap_drivers": [
         {
-          "feature": "wind_dryness_ratio",
-          "shap": 0.0
+          "feature": "fwi_score",
+          "shap": 0.0842
+        },
+        {
+          "feature": "ndvi_stress",
+          "shap": 0.0733
         },
         {
           "feature": "dryness_ratio",
-          "shap": 0.0
-        },
-        {
-          "feature": "soil_x_rh",
-          "shap": 0.0
+          "shap": 0.055
         }
       ],
       "hourly_risk": [
         {
-          "time": "2026-05-27T00:00",
-          "risk": 0.092
+          "time": "2026-05-30T00:00",
+          "risk": 0.954
         },
         {
-          "time": "2026-05-27T01:00",
-          "risk": 0.09
+          "time": "2026-05-30T01:00",
+          "risk": 0.879
         },
         {
-          "time": "2026-05-27T02:00",
-          "risk": 0.091
+          "time": "2026-05-30T02:00",
+          "risk": 0.894
         },
         {
-          "time": "2026-05-27T03:00",
-          "risk": 0.094
+          "time": "2026-05-30T03:00",
+          "risk": 0.909
         },
         {
-          "time": "2026-05-27T04:00",
-          "risk": 0.099
+          "time": "2026-05-30T04:00",
+          "risk": 0.956
         },
         {
-          "time": "2026-05-27T05:00",
-          "risk": 0.103
+          "time": "2026-05-30T05:00",
+          "risk": 0.863
         },
         {
-          "time": "2026-05-27T06:00",
-          "risk": 0.105
+          "time": "2026-05-30T06:00",
+          "risk": 0.869
         },
         {
-          "time": "2026-05-27T07:00",
-          "risk": 0.108
+          "time": "2026-05-30T07:00",
+          "risk": 0.96
         },
         {
-          "time": "2026-05-27T08:00",
-          "risk": 0.104
+          "time": "2026-05-30T08:00",
+          "risk": 0.962
         },
         {
-          "time": "2026-05-27T09:00",
-          "risk": 0.109
+          "time": "2026-05-30T09:00",
+          "risk": 0.965
         },
         {
-          "time": "2026-05-27T10:00",
-          "risk": 0.117
+          "time": "2026-05-30T10:00",
+          "risk": 0.995
         },
         {
-          "time": "2026-05-27T11:00",
-          "risk": 0.122
+          "time": "2026-05-30T11:00",
+          "risk": 1.0
         },
         {
-          "time": "2026-05-27T12:00",
-          "risk": 0.125
+          "time": "2026-05-30T12:00",
+          "risk": 1.0
         },
         {
-          "time": "2026-05-27T13:00",
-          "risk": 0.13
+          "time": "2026-05-30T13:00",
+          "risk": 1.0
         },
         {
-          "time": "2026-05-27T14:00",
-          "risk": 0.133
+          "time": "2026-05-30T14:00",
+          "risk": 1.0
         },
         {
-          "time": "2026-05-27T15:00",
-          "risk": 0.128
+          "time": "2026-05-30T15:00",
+          "risk": 1.0
         },
         {
-          "time": "2026-05-27T16:00",
-          "risk": 0.135
+          "time": "2026-05-30T16:00",
+          "risk": 1.0
         },
         {
-          "time": "2026-05-27T17:00",
-          "risk": 0.128
+          "time": "2026-05-30T17:00",
+          "risk": 1.0
         },
         {
-          "time": "2026-05-27T18:00",
-          "risk": 0.123
+          "time": "2026-05-30T18:00",
+          "risk": 1.0
         },
         {
-          "time": "2026-05-27T19:00",
-          "risk": 0.119
+          "time": "2026-05-30T19:00",
+          "risk": 1.0
         },
         {
-          "time": "2026-05-27T20:00",
-          "risk": 0.109
+          "time": "2026-05-30T20:00",
+          "risk": 0.995
         },
         {
-          "time": "2026-05-27T21:00",
-          "risk": 0.098
+          "time": "2026-05-30T21:00",
+          "risk": 0.918
         },
         {
-          "time": "2026-05-27T22:00",
-          "risk": 0.091
+          "time": "2026-05-30T22:00",
+          "risk": 0.879
         },
         {
-          "time": "2026-05-27T23:00",
-          "risk": 0.086
+          "time": "2026-05-30T23:00",
+          "risk": 0.858
         }
       ]
     },
     {
-      "lat": 51.2,
-      "lon": 14.0,
-      "risk": 0.0799,
-      "classical_risk": 0.0,
-      "quantum_risk": 0.2662,
+      "lat": 49.0,
+      "lon": 18.0,
+      "risk": 0.7166,
+      "classical_risk": 0.9652,
+      "quantum_risk": 0.7331,
       "quantum_backend": "qiskit_qsvc",
-      "quantum_augmented": true,
+      "quantum_augmented": false,
       "alert": false,
-      "ndvi_stress": 0.497,
-      "elevation_m": 255.0,
-      "slope_deg": 0.65,
+      "ndvi_stress": 0.561,
+      "elevation_m": 538.0,
+      "slope_deg": 2.41,
+      "fwi_score": 0.475,
+      "drought_days": 21,
+      "label_source": "heuristic",
+      "tier": "HIGH",
       "shap_drivers": [
         {
-          "feature": "wind_dryness_ratio",
-          "shap": 0.0
+          "feature": "fwi_score",
+          "shap": 0.0842
+        },
+        {
+          "feature": "ndvi_stress",
+          "shap": 0.0733
         },
         {
           "feature": "dryness_ratio",
-          "shap": 0.0
-        },
-        {
-          "feature": "soil_x_rh",
-          "shap": 0.0
+          "shap": 0.055
         }
       ],
       "hourly_risk": [
         {
-          "time": "2026-05-27T00:00",
-          "risk": 0.105
+          "time": "2026-05-30T00:00",
+          "risk": 0.811
         },
         {
-          "time": "2026-05-27T01:00",
-          "risk": 0.101
+          "time": "2026-05-30T01:00",
+          "risk": 0.84
         },
         {
-          "time": "2026-05-27T02:00",
-          "risk": 0.099
+          "time": "2026-05-30T02:00",
+          "risk": 0.793
         },
         {
-          "time": "2026-05-27T03:00",
-          "risk": 0.097
+          "time": "2026-05-30T03:00",
+          "risk": 0.782
         },
         {
-          "time": "2026-05-27T04:00",
-          "risk": 0.098
+          "time": "2026-05-30T04:00",
+          "risk": 0.822
         },
         {
-          "time": "2026-05-27T05:00",
-          "risk": 0.098
+          "time": "2026-05-30T05:00",
+          "risk": 0.914
         },
         {
-          "time": "2026-05-27T06:00",
-          "risk": 0.099
+          "time": "2026-05-30T06:00",
+          "risk": 0.928
         },
         {
-          "time": "2026-05-27T07:00",
-          "risk": 0.1
+          "time": "2026-05-30T07:00",
+          "risk": 0.926
         },
         {
-          "time": "2026-05-27T08:00",
-          "risk": 0.108
+          "time": "2026-05-30T08:00",
+          "risk": 0.931
         },
         {
-          "time": "2026-05-27T09:00",
-          "risk": 0.111
+          "time": "2026-05-30T09:00",
+          "risk": 0.934
         },
         {
-          "time": "2026-05-27T10:00",
-          "risk": 0.114
+          "time": "2026-05-30T10:00",
+          "risk": 0.903
         },
         {
-          "time": "2026-05-27T11:00",
-          "risk": 0.115
+          "time": "2026-05-30T11:00",
+          "risk": 0.96
         },
         {
-          "time": "2026-05-27T12:00",
-          "risk": 0.119
+          "time": "2026-05-30T12:00",
+          "risk": 0.964
         },
         {
-          "time": "2026-05-27T13:00",
-          "risk": 0.129
+          "time": "2026-05-30T13:00",
+          "risk": 0.902
         },
         {
-          "time": "2026-05-27T14:00",
-          "risk": 0.127
+          "time": "2026-05-30T14:00",
+          "risk": 0.941
         },
         {
-          "time": "2026-05-27T15:00",
-          "risk": 0.137
+          "time": "2026-05-30T15:00",
+          "risk": 0.984
         },
         {
-          "time": "2026-05-27T16:00",
-          "risk": 0.137
+          "time": "2026-05-30T16:00",
+          "risk": 1.0
         },
         {
-          "time": "2026-05-27T17:00",
-          "risk": 0.135
+          "time": "2026-05-30T17:00",
+          "risk": 1.0
         },
         {
-          "time": "2026-05-27T18:00",
-          "risk": 0.131
+          "time": "2026-05-30T18:00",
+          "risk": 1.0
         },
         {
-          "time": "2026-05-27T19:00",
-          "risk": 0.124
+          "time": "2026-05-30T19:00",
+          "risk": 1.0
         },
         {
-          "time": "2026-05-27T20:00",
-          "risk": 0.116
+          "time": "2026-05-30T20:00",
+          "risk": 0.98
         },
         {
-          "time": "2026-05-27T21:00",
-          "risk": 0.102
+          "time": "2026-05-30T21:00",
+          "risk": 0.975
         },
         {
-          "time": "2026-05-27T22:00",
-          "risk": 0.092
+          "time": "2026-05-30T22:00",
+          "risk": 0.937
         },
         {
-          "time": "2026-05-27T23:00",
-          "risk": 0.086
-        }
-      ]
-    },
-    {
-      "lat": 50.1,
-      "lon": 14.0,
-      "risk": 0.0819,
-      "classical_risk": 0.0,
-      "quantum_risk": 0.2731,
-      "quantum_backend": "qiskit_qsvc",
-      "quantum_augmented": true,
-      "alert": false,
-      "ndvi_stress": 0.511,
-      "elevation_m": 398.0,
-      "slope_deg": 1.03,
-      "shap_drivers": [
-        {
-          "feature": "wind_dryness_ratio",
-          "shap": 0.0
-        },
-        {
-          "feature": "dryness_ratio",
-          "shap": 0.0
-        },
-        {
-          "feature": "soil_x_rh",
-          "shap": 0.0
-        }
-      ],
-      "hourly_risk": [
-        {
-          "time": "2026-05-27T00:00",
-          "risk": 0.098
-        },
-        {
-          "time": "2026-05-27T01:00",
-          "risk": 0.096
-        },
-        {
-          "time": "2026-05-27T02:00",
-          "risk": 0.094
-        },
-        {
-          "time": "2026-05-27T03:00",
-          "risk": 0.095
-        },
-        {
-          "time": "2026-05-27T04:00",
-          "risk": 0.095
-        },
-        {
-          "time": "2026-05-27T05:00",
-          "risk": 0.094
-        },
-        {
-          "time": "2026-05-27T06:00",
-          "risk": 0.093
-        },
-        {
-          "time": "2026-05-27T07:00",
-          "risk": 0.096
-        },
-        {
-          "time": "2026-05-27T08:00",
-          "risk": 0.106
-        },
-        {
-          "time": "2026-05-27T09:00",
-          "risk": 0.122
-        },
-        {
-          "time": "2026-05-27T10:00",
-          "risk": 0.123
-        },
-        {
-          "time": "2026-05-27T11:00",
-          "risk": 0.127
-        },
-        {
-          "time": "2026-05-27T12:00",
-          "risk": 0.131
-        },
-        {
-          "time": "2026-05-27T13:00",
-          "risk": 0.133
-        },
-        {
-          "time": "2026-05-27T14:00",
-          "risk": 0.134
-        },
-        {
-          "time": "2026-05-27T15:00",
-          "risk": 0.136
-        },
-        {
-          "time": "2026-05-27T16:00",
-          "risk": 0.135
-        },
-        {
-          "time": "2026-05-27T17:00",
-          "risk": 0.133
-        },
-        {
-          "time": "2026-05-27T18:00",
-          "risk": 0.127
-        },
-        {
-          "time": "2026-05-27T19:00",
-          "risk": 0.13
-        },
-        {
-          "time": "2026-05-27T20:00",
-          "risk": 0.121
-        },
-        {
-          "time": "2026-05-27T21:00",
-          "risk": 0.102
-        },
-        {
-          "time": "2026-05-27T22:00",
-          "risk": 0.09
-        },
-        {
-          "time": "2026-05-27T23:00",
-          "risk": 0.087
-        }
-      ]
-    },
-    {
-      "lat": 50.1,
-      "lon": 24.0,
-      "risk": 0.0762,
-      "classical_risk": 0.0,
-      "quantum_risk": 0.2539,
-      "quantum_backend": "qiskit_qsvc",
-      "quantum_augmented": true,
-      "alert": false,
-      "ndvi_stress": 0.58,
-      "elevation_m": 220.0,
-      "slope_deg": 0.03,
-      "shap_drivers": [
-        {
-          "feature": "wind_dryness_ratio",
-          "shap": 0.0
-        },
-        {
-          "feature": "dryness_ratio",
-          "shap": 0.0
-        },
-        {
-          "feature": "soil_x_rh",
-          "shap": 0.0
-        }
-      ],
-      "hourly_risk": [
-        {
-          "time": "2026-05-27T00:00",
-          "risk": 0.095
-        },
-        {
-          "time": "2026-05-27T01:00",
-          "risk": 0.095
-        },
-        {
-          "time": "2026-05-27T02:00",
-          "risk": 0.094
-        },
-        {
-          "time": "2026-05-27T03:00",
-          "risk": 0.093
-        },
-        {
-          "time": "2026-05-27T04:00",
-          "risk": 0.094
-        },
-        {
-          "time": "2026-05-27T05:00",
-          "risk": 0.098
-        },
-        {
-          "time": "2026-05-27T06:00",
-          "risk": 0.102
-        },
-        {
-          "time": "2026-05-27T07:00",
-          "risk": 0.108
-        },
-        {
-          "time": "2026-05-27T08:00",
-          "risk": 0.115
-        },
-        {
-          "time": "2026-05-27T09:00",
-          "risk": 0.121
-        },
-        {
-          "time": "2026-05-27T10:00",
-          "risk": 0.122
-        },
-        {
-          "time": "2026-05-27T11:00",
-          "risk": 0.12
-        },
-        {
-          "time": "2026-05-27T12:00",
-          "risk": 0.122
-        },
-        {
-          "time": "2026-05-27T13:00",
-          "risk": 0.124
-        },
-        {
-          "time": "2026-05-27T14:00",
-          "risk": 0.122
-        },
-        {
-          "time": "2026-05-27T15:00",
-          "risk": 0.125
-        },
-        {
-          "time": "2026-05-27T16:00",
-          "risk": 0.118
-        },
-        {
-          "time": "2026-05-27T17:00",
-          "risk": 0.125
-        },
-        {
-          "time": "2026-05-27T18:00",
-          "risk": 0.121
-        },
-        {
-          "time": "2026-05-27T19:00",
-          "risk": 0.117
-        },
-        {
-          "time": "2026-05-27T20:00",
-          "risk": 0.113
-        },
-        {
-          "time": "2026-05-27T21:00",
-          "risk": 0.105
-        },
-        {
-          "time": "2026-05-27T22:00",
-          "risk": 0.099
-        },
-        {
-          "time": "2026-05-27T23:00",
-          "risk": 0.089
-        }
-      ]
-    },
-    {
-      "lat": 50.1,
-      "lon": 16.0,
-      "risk": 0.0796,
-      "classical_risk": 0.0,
-      "quantum_risk": 0.2653,
-      "quantum_backend": "qiskit_qsvc",
-      "quantum_augmented": true,
-      "alert": false,
-      "ndvi_stress": 0.603,
-      "elevation_m": 317.0,
-      "slope_deg": 1.12,
-      "shap_drivers": [
-        {
-          "feature": "wind_dryness_ratio",
-          "shap": 0.0
-        },
-        {
-          "feature": "dryness_ratio",
-          "shap": 0.0
-        },
-        {
-          "feature": "soil_x_rh",
-          "shap": 0.0
-        }
-      ],
-      "hourly_risk": [
-        {
-          "time": "2026-05-27T00:00",
-          "risk": 0.092
-        },
-        {
-          "time": "2026-05-27T01:00",
-          "risk": 0.089
-        },
-        {
-          "time": "2026-05-27T02:00",
-          "risk": 0.088
-        },
-        {
-          "time": "2026-05-27T03:00",
-          "risk": 0.086
-        },
-        {
-          "time": "2026-05-27T04:00",
-          "risk": 0.085
-        },
-        {
-          "time": "2026-05-27T05:00",
-          "risk": 0.084
-        },
-        {
-          "time": "2026-05-27T06:00",
-          "risk": 0.083
-        },
-        {
-          "time": "2026-05-27T07:00",
-          "risk": 0.084
-        },
-        {
-          "time": "2026-05-27T08:00",
-          "risk": 0.089
-        },
-        {
-          "time": "2026-05-27T09:00",
-          "risk": 0.095
-        },
-        {
-          "time": "2026-05-27T10:00",
-          "risk": 0.105
-        },
-        {
-          "time": "2026-05-27T11:00",
-          "risk": 0.112
-        },
-        {
-          "time": "2026-05-27T12:00",
-          "risk": 0.122
-        },
-        {
-          "time": "2026-05-27T13:00",
-          "risk": 0.132
-        },
-        {
-          "time": "2026-05-27T14:00",
-          "risk": 0.129
-        },
-        {
-          "time": "2026-05-27T15:00",
-          "risk": 0.131
-        },
-        {
-          "time": "2026-05-27T16:00",
-          "risk": 0.13
-        },
-        {
-          "time": "2026-05-27T17:00",
-          "risk": 0.132
-        },
-        {
-          "time": "2026-05-27T18:00",
-          "risk": 0.13
-        },
-        {
-          "time": "2026-05-27T19:00",
-          "risk": 0.122
-        },
-        {
-          "time": "2026-05-27T20:00",
-          "risk": 0.119
-        },
-        {
-          "time": "2026-05-27T21:00",
-          "risk": 0.104
-        },
-        {
-          "time": "2026-05-27T22:00",
-          "risk": 0.098
-        },
-        {
-          "time": "2026-05-27T23:00",
-          "risk": 0.093
+          "time": "2026-05-30T23:00",
+          "risk": 0.89
         }
       ]
     },
     {
       "lat": 50.1,
       "lon": 22.0,
-      "risk": 0.0788,
-      "classical_risk": 0.0,
-      "quantum_risk": 0.2625,
+      "risk": 0.8086,
+      "classical_risk": 1.0,
+      "quantum_risk": 0.7301,
       "quantum_backend": "qiskit_qsvc",
-      "quantum_augmented": true,
-      "alert": false,
-      "ndvi_stress": 0.574,
+      "quantum_augmented": false,
+      "alert": true,
+      "ndvi_stress": 0.635,
       "elevation_m": 205.0,
-      "slope_deg": 0.25,
+      "slope_deg": 0.22,
+      "fwi_score": 0.566,
+      "drought_days": 21,
+      "label_source": "heuristic",
+      "tier": "CRITICAL",
       "shap_drivers": [
         {
-          "feature": "wind_dryness_ratio",
-          "shap": 0.0
+          "feature": "fwi_score",
+          "shap": 0.0842
+        },
+        {
+          "feature": "ndvi_stress",
+          "shap": 0.0733
         },
         {
           "feature": "dryness_ratio",
-          "shap": 0.0
-        },
-        {
-          "feature": "soil_x_rh",
-          "shap": 0.0
+          "shap": 0.0563
         }
       ],
       "hourly_risk": [
         {
-          "time": "2026-05-27T00:00",
-          "risk": 0.095
+          "time": "2026-05-30T00:00",
+          "risk": 0.968
         },
         {
-          "time": "2026-05-27T01:00",
-          "risk": 0.094
+          "time": "2026-05-30T01:00",
+          "risk": 0.965
         },
         {
-          "time": "2026-05-27T02:00",
-          "risk": 0.095
+          "time": "2026-05-30T02:00",
+          "risk": 0.979
         },
         {
-          "time": "2026-05-27T03:00",
-          "risk": 0.094
+          "time": "2026-05-30T03:00",
+          "risk": 0.981
         },
         {
-          "time": "2026-05-27T04:00",
-          "risk": 0.094
+          "time": "2026-05-30T04:00",
+          "risk": 0.94
         },
         {
-          "time": "2026-05-27T05:00",
-          "risk": 0.097
+          "time": "2026-05-30T05:00",
+          "risk": 0.931
         },
         {
-          "time": "2026-05-27T06:00",
-          "risk": 0.103
+          "time": "2026-05-30T06:00",
+          "risk": 0.922
         },
         {
-          "time": "2026-05-27T07:00",
-          "risk": 0.109
+          "time": "2026-05-30T07:00",
+          "risk": 0.956
         },
         {
-          "time": "2026-05-27T08:00",
-          "risk": 0.114
+          "time": "2026-05-30T08:00",
+          "risk": 1.0
         },
         {
-          "time": "2026-05-27T09:00",
-          "risk": 0.119
+          "time": "2026-05-30T09:00",
+          "risk": 1.0
         },
         {
-          "time": "2026-05-27T10:00",
-          "risk": 0.122
+          "time": "2026-05-30T10:00",
+          "risk": 1.0
         },
         {
-          "time": "2026-05-27T11:00",
-          "risk": 0.126
+          "time": "2026-05-30T11:00",
+          "risk": 1.0
         },
         {
-          "time": "2026-05-27T12:00",
-          "risk": 0.125
+          "time": "2026-05-30T12:00",
+          "risk": 1.0
         },
         {
-          "time": "2026-05-27T13:00",
-          "risk": 0.118
+          "time": "2026-05-30T13:00",
+          "risk": 1.0
         },
         {
-          "time": "2026-05-27T14:00",
-          "risk": 0.128
+          "time": "2026-05-30T14:00",
+          "risk": 1.0
         },
         {
-          "time": "2026-05-27T15:00",
-          "risk": 0.132
+          "time": "2026-05-30T15:00",
+          "risk": 1.0
         },
         {
-          "time": "2026-05-27T16:00",
-          "risk": 0.127
+          "time": "2026-05-30T16:00",
+          "risk": 1.0
         },
         {
-          "time": "2026-05-27T17:00",
-          "risk": 0.127
+          "time": "2026-05-30T17:00",
+          "risk": 1.0
         },
         {
-          "time": "2026-05-27T18:00",
-          "risk": 0.123
+          "time": "2026-05-30T18:00",
+          "risk": 1.0
         },
         {
-          "time": "2026-05-27T19:00",
-          "risk": 0.122
+          "time": "2026-05-30T19:00",
+          "risk": 1.0
         },
         {
-          "time": "2026-05-27T20:00",
-          "risk": 0.115
+          "time": "2026-05-30T20:00",
+          "risk": 1.0
         },
         {
-          "time": "2026-05-27T21:00",
-          "risk": 0.106
+          "time": "2026-05-30T21:00",
+          "risk": 1.0
         },
         {
-          "time": "2026-05-27T22:00",
-          "risk": 0.101
+          "time": "2026-05-30T22:00",
+          "risk": 1.0
         },
         {
-          "time": "2026-05-27T23:00",
-          "risk": 0.091
+          "time": "2026-05-30T23:00",
+          "risk": 1.0
         }
       ]
     },
     {
       "lat": 50.1,
-      "lon": 18.0,
-      "risk": 0.0767,
-      "classical_risk": 0.0,
-      "quantum_risk": 0.2557,
-      "quantum_backend": "qiskit_qsvc",
-      "quantum_augmented": true,
-      "alert": false,
-      "ndvi_stress": 0.411,
-      "elevation_m": 258.0,
-      "slope_deg": 0.48,
-      "shap_drivers": [
-        {
-          "feature": "wind_dryness_ratio",
-          "shap": 0.0
-        },
-        {
-          "feature": "dryness_ratio",
-          "shap": 0.0
-        },
-        {
-          "feature": "soil_x_rh",
-          "shap": 0.0
-        }
-      ],
-      "hourly_risk": [
-        {
-          "time": "2026-05-27T00:00",
-          "risk": 0.092
-        },
-        {
-          "time": "2026-05-27T01:00",
-          "risk": 0.092
-        },
-        {
-          "time": "2026-05-27T02:00",
-          "risk": 0.091
-        },
-        {
-          "time": "2026-05-27T03:00",
-          "risk": 0.088
-        },
-        {
-          "time": "2026-05-27T04:00",
-          "risk": 0.085
-        },
-        {
-          "time": "2026-05-27T05:00",
-          "risk": 0.08
-        },
-        {
-          "time": "2026-05-27T06:00",
-          "risk": 0.081
-        },
-        {
-          "time": "2026-05-27T07:00",
-          "risk": 0.087
-        },
-        {
-          "time": "2026-05-27T08:00",
-          "risk": 0.096
-        },
-        {
-          "time": "2026-05-27T09:00",
-          "risk": 0.107
-        },
-        {
-          "time": "2026-05-27T10:00",
-          "risk": 0.121
-        },
-        {
-          "time": "2026-05-27T11:00",
-          "risk": 0.122
-        },
-        {
-          "time": "2026-05-27T12:00",
-          "risk": 0.122
-        },
-        {
-          "time": "2026-05-27T13:00",
-          "risk": 0.121
-        },
-        {
-          "time": "2026-05-27T14:00",
-          "risk": 0.124
-        },
-        {
-          "time": "2026-05-27T15:00",
-          "risk": 0.127
-        },
-        {
-          "time": "2026-05-27T16:00",
-          "risk": 0.127
-        },
-        {
-          "time": "2026-05-27T17:00",
-          "risk": 0.125
-        },
-        {
-          "time": "2026-05-27T18:00",
-          "risk": 0.125
-        },
-        {
-          "time": "2026-05-27T19:00",
-          "risk": 0.12
-        },
-        {
-          "time": "2026-05-27T20:00",
-          "risk": 0.114
-        },
-        {
-          "time": "2026-05-27T21:00",
-          "risk": 0.099
-        },
-        {
-          "time": "2026-05-27T22:00",
-          "risk": 0.094
-        },
-        {
-          "time": "2026-05-27T23:00",
-          "risk": 0.089
-        }
-      ]
-    },
-    {
-      "lat": 51.2,
-      "lon": 20.0,
-      "risk": 0.0909,
-      "classical_risk": 0.0,
-      "quantum_risk": 0.3029,
-      "quantum_backend": "qiskit_qsvc",
-      "quantum_augmented": true,
-      "alert": false,
-      "ndvi_stress": 0.55,
-      "elevation_m": 224.0,
-      "slope_deg": 0.23,
-      "shap_drivers": [
-        {
-          "feature": "wind_dryness_ratio",
-          "shap": 0.0
-        },
-        {
-          "feature": "dryness_ratio",
-          "shap": 0.0
-        },
-        {
-          "feature": "soil_x_rh",
-          "shap": 0.0
-        }
-      ],
-      "hourly_risk": [
-        {
-          "time": "2026-05-27T00:00",
-          "risk": 0.117
-        },
-        {
-          "time": "2026-05-27T01:00",
-          "risk": 0.119
-        },
-        {
-          "time": "2026-05-27T02:00",
-          "risk": 0.119
-        },
-        {
-          "time": "2026-05-27T03:00",
-          "risk": 0.122
-        },
-        {
-          "time": "2026-05-27T04:00",
-          "risk": 0.123
-        },
-        {
-          "time": "2026-05-27T05:00",
-          "risk": 0.121
-        },
-        {
-          "time": "2026-05-27T06:00",
-          "risk": 0.123
-        },
-        {
-          "time": "2026-05-27T07:00",
-          "risk": 0.13
-        },
-        {
-          "time": "2026-05-27T08:00",
-          "risk": 0.132
-        },
-        {
-          "time": "2026-05-27T09:00",
-          "risk": 0.133
-        },
-        {
-          "time": "2026-05-27T10:00",
-          "risk": 0.139
-        },
-        {
-          "time": "2026-05-27T11:00",
-          "risk": 0.145
-        },
-        {
-          "time": "2026-05-27T12:00",
-          "risk": 0.146
-        },
-        {
-          "time": "2026-05-27T13:00",
-          "risk": 0.147
-        },
-        {
-          "time": "2026-05-27T14:00",
-          "risk": 0.148
-        },
-        {
-          "time": "2026-05-27T15:00",
-          "risk": 0.154
-        },
-        {
-          "time": "2026-05-27T16:00",
-          "risk": 0.155
-        },
-        {
-          "time": "2026-05-27T17:00",
-          "risk": 0.152
-        },
-        {
-          "time": "2026-05-27T18:00",
-          "risk": 0.148
-        },
-        {
-          "time": "2026-05-27T19:00",
-          "risk": 0.14
-        },
-        {
-          "time": "2026-05-27T20:00",
-          "risk": 0.131
-        },
-        {
-          "time": "2026-05-27T21:00",
-          "risk": 0.12
-        },
-        {
-          "time": "2026-05-27T22:00",
-          "risk": 0.109
-        },
-        {
-          "time": "2026-05-27T23:00",
-          "risk": 0.108
-        }
-      ]
-    },
-    {
-      "lat": 50.1,
-      "lon": 20.0,
-      "risk": 0.0941,
-      "classical_risk": 0.0,
-      "quantum_risk": 0.3137,
-      "quantum_backend": "qiskit_qsvc",
-      "quantum_augmented": true,
-      "alert": false,
-      "ndvi_stress": 0.465,
-      "elevation_m": 269.0,
-      "slope_deg": 0.64,
-      "shap_drivers": [
-        {
-          "feature": "wind_dryness_ratio",
-          "shap": 0.0
-        },
-        {
-          "feature": "dryness_ratio",
-          "shap": 0.0
-        },
-        {
-          "feature": "soil_x_rh",
-          "shap": 0.0
-        }
-      ],
-      "hourly_risk": [
-        {
-          "time": "2026-05-27T00:00",
-          "risk": 0.116
-        },
-        {
-          "time": "2026-05-27T01:00",
-          "risk": 0.114
-        },
-        {
-          "time": "2026-05-27T02:00",
-          "risk": 0.11
-        },
-        {
-          "time": "2026-05-27T03:00",
-          "risk": 0.112
-        },
-        {
-          "time": "2026-05-27T04:00",
-          "risk": 0.111
-        },
-        {
-          "time": "2026-05-27T05:00",
-          "risk": 0.112
-        },
-        {
-          "time": "2026-05-27T06:00",
-          "risk": 0.116
-        },
-        {
-          "time": "2026-05-27T07:00",
-          "risk": 0.122
-        },
-        {
-          "time": "2026-05-27T08:00",
-          "risk": 0.131
-        },
-        {
-          "time": "2026-05-27T09:00",
-          "risk": 0.137
-        },
-        {
-          "time": "2026-05-27T10:00",
-          "risk": 0.145
-        },
-        {
-          "time": "2026-05-27T11:00",
-          "risk": 0.152
-        },
-        {
-          "time": "2026-05-27T12:00",
-          "risk": 0.153
-        },
-        {
-          "time": "2026-05-27T13:00",
-          "risk": 0.147
-        },
-        {
-          "time": "2026-05-27T14:00",
-          "risk": 0.146
-        },
-        {
-          "time": "2026-05-27T15:00",
-          "risk": 0.152
-        },
-        {
-          "time": "2026-05-27T16:00",
-          "risk": 0.145
-        },
-        {
-          "time": "2026-05-27T17:00",
-          "risk": 0.15
-        },
-        {
-          "time": "2026-05-27T18:00",
-          "risk": 0.141
-        },
-        {
-          "time": "2026-05-27T19:00",
-          "risk": 0.136
-        },
-        {
-          "time": "2026-05-27T20:00",
-          "risk": 0.123
-        },
-        {
-          "time": "2026-05-27T21:00",
-          "risk": 0.125
-        },
-        {
-          "time": "2026-05-27T22:00",
-          "risk": 0.119
-        },
-        {
-          "time": "2026-05-27T23:00",
-          "risk": 0.116
-        }
-      ]
-    },
-    {
-      "lat": 51.2,
-      "lon": 18.0,
-      "risk": 0.081,
-      "classical_risk": 0.0,
-      "quantum_risk": 0.2699,
-      "quantum_backend": "qiskit_qsvc",
-      "quantum_augmented": true,
-      "alert": false,
-      "ndvi_stress": 0.527,
-      "elevation_m": 212.0,
-      "slope_deg": 0.24,
-      "shap_drivers": [
-        {
-          "feature": "wind_dryness_ratio",
-          "shap": 0.0
-        },
-        {
-          "feature": "dryness_ratio",
-          "shap": 0.0
-        },
-        {
-          "feature": "soil_x_rh",
-          "shap": 0.0
-        }
-      ],
-      "hourly_risk": [
-        {
-          "time": "2026-05-27T00:00",
-          "risk": 0.113
-        },
-        {
-          "time": "2026-05-27T01:00",
-          "risk": 0.113
-        },
-        {
-          "time": "2026-05-27T02:00",
-          "risk": 0.111
-        },
-        {
-          "time": "2026-05-27T03:00",
-          "risk": 0.109
-        },
-        {
-          "time": "2026-05-27T04:00",
-          "risk": 0.108
-        },
-        {
-          "time": "2026-05-27T05:00",
-          "risk": 0.105
-        },
-        {
-          "time": "2026-05-27T06:00",
-          "risk": 0.106
-        },
-        {
-          "time": "2026-05-27T07:00",
-          "risk": 0.111
-        },
-        {
-          "time": "2026-05-27T08:00",
-          "risk": 0.117
-        },
-        {
-          "time": "2026-05-27T09:00",
-          "risk": 0.12
-        },
-        {
-          "time": "2026-05-27T10:00",
-          "risk": 0.123
-        },
-        {
-          "time": "2026-05-27T11:00",
-          "risk": 0.126
-        },
-        {
-          "time": "2026-05-27T12:00",
-          "risk": 0.135
-        },
-        {
-          "time": "2026-05-27T13:00",
-          "risk": 0.139
-        },
-        {
-          "time": "2026-05-27T14:00",
-          "risk": 0.139
-        },
-        {
-          "time": "2026-05-27T15:00",
-          "risk": 0.138
-        },
-        {
-          "time": "2026-05-27T16:00",
-          "risk": 0.138
-        },
-        {
-          "time": "2026-05-27T17:00",
-          "risk": 0.138
-        },
-        {
-          "time": "2026-05-27T18:00",
-          "risk": 0.132
-        },
-        {
-          "time": "2026-05-27T19:00",
-          "risk": 0.125
-        },
-        {
-          "time": "2026-05-27T20:00",
-          "risk": 0.116
-        },
-        {
-          "time": "2026-05-27T21:00",
-          "risk": 0.104
-        },
-        {
-          "time": "2026-05-27T22:00",
-          "risk": 0.096
-        },
-        {
-          "time": "2026-05-27T23:00",
-          "risk": 0.089
-        }
-      ]
-    },
-    {
-      "lat": 51.2,
       "lon": 24.0,
-      "risk": 0.0816,
-      "classical_risk": 0.0,
-      "quantum_risk": 0.2721,
+      "risk": 0.8289,
+      "classical_risk": 1.0,
+      "quantum_risk": 0.7221,
       "quantum_backend": "qiskit_qsvc",
-      "quantum_augmented": true,
-      "alert": false,
-      "ndvi_stress": 0.363,
-      "elevation_m": 179.0,
-      "slope_deg": 0.21,
+      "quantum_augmented": false,
+      "alert": true,
+      "ndvi_stress": 0.679,
+      "elevation_m": 220.0,
+      "slope_deg": 0.16,
+      "fwi_score": 0.59,
+      "drought_days": 21,
+      "label_source": "heuristic",
+      "tier": "CRITICAL",
       "shap_drivers": [
         {
-          "feature": "wind_dryness_ratio",
-          "shap": 0.0
+          "feature": "fwi_score",
+          "shap": 0.0842
+        },
+        {
+          "feature": "ndvi_stress",
+          "shap": 0.0733
         },
         {
           "feature": "dryness_ratio",
-          "shap": 0.0
-        },
-        {
-          "feature": "soil_x_rh",
-          "shap": 0.0
+          "shap": 0.0563
         }
       ],
       "hourly_risk": [
         {
-          "time": "2026-05-27T00:00",
-          "risk": 0.121
+          "time": "2026-05-30T00:00",
+          "risk": 0.878
         },
         {
-          "time": "2026-05-27T01:00",
-          "risk": 0.121
+          "time": "2026-05-30T01:00",
+          "risk": 0.895
         },
         {
-          "time": "2026-05-27T02:00",
-          "risk": 0.114
+          "time": "2026-05-30T02:00",
+          "risk": 0.898
         },
         {
-          "time": "2026-05-27T03:00",
-          "risk": 0.109
+          "time": "2026-05-30T03:00",
+          "risk": 0.901
         },
         {
-          "time": "2026-05-27T04:00",
-          "risk": 0.108
+          "time": "2026-05-30T04:00",
+          "risk": 0.887
         },
         {
-          "time": "2026-05-27T05:00",
-          "risk": 0.097
+          "time": "2026-05-30T05:00",
+          "risk": 0.87
         },
         {
-          "time": "2026-05-27T06:00",
-          "risk": 0.101
+          "time": "2026-05-30T06:00",
+          "risk": 0.987
         },
         {
-          "time": "2026-05-27T07:00",
-          "risk": 0.115
+          "time": "2026-05-30T07:00",
+          "risk": 1.0
         },
         {
-          "time": "2026-05-27T08:00",
-          "risk": 0.123
+          "time": "2026-05-30T08:00",
+          "risk": 1.0
         },
         {
-          "time": "2026-05-27T09:00",
-          "risk": 0.126
+          "time": "2026-05-30T09:00",
+          "risk": 1.0
         },
         {
-          "time": "2026-05-27T10:00",
-          "risk": 0.13
+          "time": "2026-05-30T10:00",
+          "risk": 1.0
         },
         {
-          "time": "2026-05-27T11:00",
-          "risk": 0.118
+          "time": "2026-05-30T11:00",
+          "risk": 1.0
         },
         {
-          "time": "2026-05-27T12:00",
-          "risk": 0.115
+          "time": "2026-05-30T12:00",
+          "risk": 1.0
         },
         {
-          "time": "2026-05-27T13:00",
-          "risk": 0.121
+          "time": "2026-05-30T13:00",
+          "risk": 1.0
         },
         {
-          "time": "2026-05-27T14:00",
-          "risk": 0.129
+          "time": "2026-05-30T14:00",
+          "risk": 1.0
         },
         {
-          "time": "2026-05-27T15:00",
-          "risk": 0.133
+          "time": "2026-05-30T15:00",
+          "risk": 1.0
         },
         {
-          "time": "2026-05-27T16:00",
-          "risk": 0.134
+          "time": "2026-05-30T16:00",
+          "risk": 1.0
         },
         {
-          "time": "2026-05-27T17:00",
-          "risk": 0.136
+          "time": "2026-05-30T17:00",
+          "risk": 1.0
         },
         {
-          "time": "2026-05-27T18:00",
-          "risk": 0.128
+          "time": "2026-05-30T18:00",
+          "risk": 1.0
         },
         {
-          "time": "2026-05-27T19:00",
-          "risk": 0.126
+          "time": "2026-05-30T19:00",
+          "risk": 1.0
         },
         {
-          "time": "2026-05-27T20:00",
-          "risk": 0.119
+          "time": "2026-05-30T20:00",
+          "risk": 1.0
         },
         {
-          "time": "2026-05-27T21:00",
-          "risk": 0.113
+          "time": "2026-05-30T21:00",
+          "risk": 1.0
         },
         {
-          "time": "2026-05-27T22:00",
-          "risk": 0.102
+          "time": "2026-05-30T22:00",
+          "risk": 1.0
         },
         {
-          "time": "2026-05-27T23:00",
-          "risk": 0.097
+          "time": "2026-05-30T23:00",
+          "risk": 1.0
+        }
+      ]
+    },
+    {
+      "lat": 50.1,
+      "lon": 20.0,
+      "risk": 0.3485,
+      "classical_risk": 0.2707,
+      "quantum_risk": 0.5458,
+      "quantum_backend": "qiskit_qsvc",
+      "quantum_augmented": false,
+      "alert": false,
+      "ndvi_stress": 0.286,
+      "elevation_m": 269.0,
+      "slope_deg": 0.47,
+      "fwi_score": 0.341,
+      "drought_days": 21,
+      "label_source": "heuristic",
+      "tier": "LOW",
+      "shap_drivers": [
+        {
+          "feature": "fwi_score",
+          "shap": -0.0793
+        },
+        {
+          "feature": "ndvi_stress",
+          "shap": -0.0647
+        },
+        {
+          "feature": "dryness_ratio",
+          "shap": -0.0534
+        }
+      ],
+      "hourly_risk": [
+        {
+          "time": "2026-05-30T00:00",
+          "risk": 0.432
+        },
+        {
+          "time": "2026-05-30T01:00",
+          "risk": 0.42
+        },
+        {
+          "time": "2026-05-30T02:00",
+          "risk": 0.384
+        },
+        {
+          "time": "2026-05-30T03:00",
+          "risk": 0.392
+        },
+        {
+          "time": "2026-05-30T04:00",
+          "risk": 0.399
+        },
+        {
+          "time": "2026-05-30T05:00",
+          "risk": 0.411
+        },
+        {
+          "time": "2026-05-30T06:00",
+          "risk": 0.416
+        },
+        {
+          "time": "2026-05-30T07:00",
+          "risk": 0.425
+        },
+        {
+          "time": "2026-05-30T08:00",
+          "risk": 0.447
+        },
+        {
+          "time": "2026-05-30T09:00",
+          "risk": 0.432
+        },
+        {
+          "time": "2026-05-30T10:00",
+          "risk": 0.432
+        },
+        {
+          "time": "2026-05-30T11:00",
+          "risk": 0.414
+        },
+        {
+          "time": "2026-05-30T12:00",
+          "risk": 0.433
+        },
+        {
+          "time": "2026-05-30T13:00",
+          "risk": 0.458
+        },
+        {
+          "time": "2026-05-30T14:00",
+          "risk": 0.483
+        },
+        {
+          "time": "2026-05-30T15:00",
+          "risk": 0.486
+        },
+        {
+          "time": "2026-05-30T16:00",
+          "risk": 0.498
+        },
+        {
+          "time": "2026-05-30T17:00",
+          "risk": 0.531
+        },
+        {
+          "time": "2026-05-30T18:00",
+          "risk": 0.539
+        },
+        {
+          "time": "2026-05-30T19:00",
+          "risk": 0.535
+        },
+        {
+          "time": "2026-05-30T20:00",
+          "risk": 0.51
+        },
+        {
+          "time": "2026-05-30T21:00",
+          "risk": 0.505
+        },
+        {
+          "time": "2026-05-30T22:00",
+          "risk": 0.487
+        },
+        {
+          "time": "2026-05-30T23:00",
+          "risk": 0.47
+        }
+      ]
+    },
+    {
+      "lat": 50.1,
+      "lon": 18.0,
+      "risk": 0.4504,
+      "classical_risk": 0.5236,
+      "quantum_risk": 0.7194,
+      "quantum_backend": "qiskit_qsvc",
+      "quantum_augmented": false,
+      "alert": false,
+      "ndvi_stress": 0.18,
+      "elevation_m": 258.0,
+      "slope_deg": 0.2,
+      "fwi_score": 0.331,
+      "drought_days": 21,
+      "label_source": "heuristic",
+      "tier": "LOW",
+      "shap_drivers": [
+        {
+          "feature": "fwi_score",
+          "shap": -0.0788
+        },
+        {
+          "feature": "ndvi_stress",
+          "shap": -0.0642
+        },
+        {
+          "feature": "temp_max",
+          "shap": 0.0501
+        }
+      ],
+      "hourly_risk": [
+        {
+          "time": "2026-05-30T00:00",
+          "risk": 0.492
+        },
+        {
+          "time": "2026-05-30T01:00",
+          "risk": 0.492
+        },
+        {
+          "time": "2026-05-30T02:00",
+          "risk": 0.464
+        },
+        {
+          "time": "2026-05-30T03:00",
+          "risk": 0.474
+        },
+        {
+          "time": "2026-05-30T04:00",
+          "risk": 0.501
+        },
+        {
+          "time": "2026-05-30T05:00",
+          "risk": 0.532
+        },
+        {
+          "time": "2026-05-30T06:00",
+          "risk": 0.565
+        },
+        {
+          "time": "2026-05-30T07:00",
+          "risk": 0.557
+        },
+        {
+          "time": "2026-05-30T08:00",
+          "risk": 0.566
+        },
+        {
+          "time": "2026-05-30T09:00",
+          "risk": 0.538
+        },
+        {
+          "time": "2026-05-30T10:00",
+          "risk": 0.543
+        },
+        {
+          "time": "2026-05-30T11:00",
+          "risk": 0.558
+        },
+        {
+          "time": "2026-05-30T12:00",
+          "risk": 0.582
+        },
+        {
+          "time": "2026-05-30T13:00",
+          "risk": 0.611
+        },
+        {
+          "time": "2026-05-30T14:00",
+          "risk": 0.65
+        },
+        {
+          "time": "2026-05-30T15:00",
+          "risk": 0.678
+        },
+        {
+          "time": "2026-05-30T16:00",
+          "risk": 0.622
+        },
+        {
+          "time": "2026-05-30T17:00",
+          "risk": 0.653
+        },
+        {
+          "time": "2026-05-30T18:00",
+          "risk": 0.658
+        },
+        {
+          "time": "2026-05-30T19:00",
+          "risk": 0.626
+        },
+        {
+          "time": "2026-05-30T20:00",
+          "risk": 0.607
+        },
+        {
+          "time": "2026-05-30T21:00",
+          "risk": 0.591
+        },
+        {
+          "time": "2026-05-30T22:00",
+          "risk": 0.58
+        },
+        {
+          "time": "2026-05-30T23:00",
+          "risk": 0.593
+        }
+      ]
+    },
+    {
+      "lat": 50.1,
+      "lon": 16.0,
+      "risk": 0.8432,
+      "classical_risk": 1.0,
+      "quantum_risk": 0.7307,
+      "quantum_backend": "qiskit_qsvc",
+      "quantum_augmented": false,
+      "alert": true,
+      "ndvi_stress": 0.759,
+      "elevation_m": 317.0,
+      "slope_deg": 0.61,
+      "fwi_score": 0.604,
+      "drought_days": 21,
+      "label_source": "heuristic",
+      "tier": "CRITICAL",
+      "shap_drivers": [
+        {
+          "feature": "fwi_score",
+          "shap": 0.0842
+        },
+        {
+          "feature": "ndvi_stress",
+          "shap": 0.0733
+        },
+        {
+          "feature": "dryness_ratio",
+          "shap": 0.0587
+        }
+      ],
+      "hourly_risk": [
+        {
+          "time": "2026-05-30T00:00",
+          "risk": 0.92
+        },
+        {
+          "time": "2026-05-30T01:00",
+          "risk": 0.916
+        },
+        {
+          "time": "2026-05-30T02:00",
+          "risk": 0.87
+        },
+        {
+          "time": "2026-05-30T03:00",
+          "risk": 0.879
+        },
+        {
+          "time": "2026-05-30T04:00",
+          "risk": 0.908
+        },
+        {
+          "time": "2026-05-30T05:00",
+          "risk": 0.879
+        },
+        {
+          "time": "2026-05-30T06:00",
+          "risk": 0.87
+        },
+        {
+          "time": "2026-05-30T07:00",
+          "risk": 0.897
+        },
+        {
+          "time": "2026-05-30T08:00",
+          "risk": 0.929
+        },
+        {
+          "time": "2026-05-30T09:00",
+          "risk": 1.0
+        },
+        {
+          "time": "2026-05-30T10:00",
+          "risk": 1.0
+        },
+        {
+          "time": "2026-05-30T11:00",
+          "risk": 1.0
+        },
+        {
+          "time": "2026-05-30T12:00",
+          "risk": 1.0
+        },
+        {
+          "time": "2026-05-30T13:00",
+          "risk": 1.0
+        },
+        {
+          "time": "2026-05-30T14:00",
+          "risk": 1.0
+        },
+        {
+          "time": "2026-05-30T15:00",
+          "risk": 1.0
+        },
+        {
+          "time": "2026-05-30T16:00",
+          "risk": 1.0
+        },
+        {
+          "time": "2026-05-30T17:00",
+          "risk": 1.0
+        },
+        {
+          "time": "2026-05-30T18:00",
+          "risk": 1.0
+        },
+        {
+          "time": "2026-05-30T19:00",
+          "risk": 1.0
+        },
+        {
+          "time": "2026-05-30T20:00",
+          "risk": 1.0
+        },
+        {
+          "time": "2026-05-30T21:00",
+          "risk": 1.0
+        },
+        {
+          "time": "2026-05-30T22:00",
+          "risk": 1.0
+        },
+        {
+          "time": "2026-05-30T23:00",
+          "risk": 1.0
+        }
+      ]
+    },
+    {
+      "lat": 51.2,
+      "lon": 18.0,
+      "risk": 0.6647,
+      "classical_risk": 0.9654,
+      "quantum_risk": 0.7299,
+      "quantum_backend": "qiskit_qsvc",
+      "quantum_augmented": false,
+      "alert": false,
+      "ndvi_stress": 0.361,
+      "elevation_m": 200.0,
+      "slope_deg": 0.3,
+      "fwi_score": 0.419,
+      "drought_days": 21,
+      "label_source": "heuristic",
+      "tier": "HIGH",
+      "shap_drivers": [
+        {
+          "feature": "fwi_score",
+          "shap": 0.0825
+        },
+        {
+          "feature": "ndvi_stress",
+          "shap": 0.0657
+        },
+        {
+          "feature": "dryness_ratio",
+          "shap": 0.059
+        }
+      ],
+      "hourly_risk": [
+        {
+          "time": "2026-05-30T00:00",
+          "risk": 0.706
+        },
+        {
+          "time": "2026-05-30T01:00",
+          "risk": 0.728
+        },
+        {
+          "time": "2026-05-30T02:00",
+          "risk": 0.763
+        },
+        {
+          "time": "2026-05-30T03:00",
+          "risk": 0.825
+        },
+        {
+          "time": "2026-05-30T04:00",
+          "risk": 0.765
+        },
+        {
+          "time": "2026-05-30T05:00",
+          "risk": 0.762
+        },
+        {
+          "time": "2026-05-30T06:00",
+          "risk": 0.762
+        },
+        {
+          "time": "2026-05-30T07:00",
+          "risk": 0.8
+        },
+        {
+          "time": "2026-05-30T08:00",
+          "risk": 0.785
+        },
+        {
+          "time": "2026-05-30T09:00",
+          "risk": 0.771
+        },
+        {
+          "time": "2026-05-30T10:00",
+          "risk": 0.795
+        },
+        {
+          "time": "2026-05-30T11:00",
+          "risk": 0.855
+        },
+        {
+          "time": "2026-05-30T12:00",
+          "risk": 0.928
+        },
+        {
+          "time": "2026-05-30T13:00",
+          "risk": 0.983
+        },
+        {
+          "time": "2026-05-30T14:00",
+          "risk": 0.911
+        },
+        {
+          "time": "2026-05-30T15:00",
+          "risk": 0.923
+        },
+        {
+          "time": "2026-05-30T16:00",
+          "risk": 0.941
+        },
+        {
+          "time": "2026-05-30T17:00",
+          "risk": 1.0
+        },
+        {
+          "time": "2026-05-30T18:00",
+          "risk": 1.0
+        },
+        {
+          "time": "2026-05-30T19:00",
+          "risk": 1.0
+        },
+        {
+          "time": "2026-05-30T20:00",
+          "risk": 0.959
+        },
+        {
+          "time": "2026-05-30T21:00",
+          "risk": 0.842
+        },
+        {
+          "time": "2026-05-30T22:00",
+          "risk": 0.776
+        },
+        {
+          "time": "2026-05-30T23:00",
+          "risk": 0.749
         }
       ]
     },
     {
       "lat": 51.2,
       "lon": 16.0,
-      "risk": 0.0957,
-      "classical_risk": 0.0,
-      "quantum_risk": 0.3189,
+      "risk": 0.8195,
+      "classical_risk": 0.9935,
+      "quantum_risk": 0.7319,
       "quantum_backend": "qiskit_qsvc",
-      "quantum_augmented": true,
-      "alert": false,
-      "ndvi_stress": 0.579,
+      "quantum_augmented": false,
+      "alert": true,
+      "ndvi_stress": 0.625,
       "elevation_m": 177.0,
       "slope_deg": 0.26,
+      "fwi_score": 0.58,
+      "drought_days": 21,
+      "label_source": "heuristic",
+      "tier": "CRITICAL",
       "shap_drivers": [
         {
-          "feature": "wind_dryness_ratio",
-          "shap": 0.0
+          "feature": "fwi_score",
+          "shap": 0.0842
+        },
+        {
+          "feature": "ndvi_stress",
+          "shap": 0.0733
         },
         {
           "feature": "dryness_ratio",
-          "shap": 0.0
-        },
-        {
-          "feature": "soil_x_rh",
-          "shap": 0.0
+          "shap": 0.0581
         }
       ],
       "hourly_risk": [
         {
-          "time": "2026-05-27T00:00",
-          "risk": 0.127
+          "time": "2026-05-30T00:00",
+          "risk": 0.976
         },
         {
-          "time": "2026-05-27T01:00",
-          "risk": 0.128
+          "time": "2026-05-30T01:00",
+          "risk": 0.988
         },
         {
-          "time": "2026-05-27T02:00",
-          "risk": 0.126
+          "time": "2026-05-30T02:00",
+          "risk": 0.998
         },
         {
-          "time": "2026-05-27T03:00",
-          "risk": 0.126
+          "time": "2026-05-30T03:00",
+          "risk": 0.978
         },
         {
-          "time": "2026-05-27T04:00",
-          "risk": 0.127
+          "time": "2026-05-30T04:00",
+          "risk": 1.0
         },
         {
-          "time": "2026-05-27T05:00",
-          "risk": 0.125
+          "time": "2026-05-30T05:00",
+          "risk": 1.0
         },
         {
-          "time": "2026-05-27T06:00",
-          "risk": 0.125
+          "time": "2026-05-30T06:00",
+          "risk": 0.938
         },
         {
-          "time": "2026-05-27T07:00",
-          "risk": 0.133
+          "time": "2026-05-30T07:00",
+          "risk": 0.966
         },
         {
-          "time": "2026-05-27T08:00",
-          "risk": 0.137
+          "time": "2026-05-30T08:00",
+          "risk": 1.0
         },
         {
-          "time": "2026-05-27T09:00",
-          "risk": 0.14
+          "time": "2026-05-30T09:00",
+          "risk": 1.0
         },
         {
-          "time": "2026-05-27T10:00",
-          "risk": 0.14
+          "time": "2026-05-30T10:00",
+          "risk": 1.0
         },
         {
-          "time": "2026-05-27T11:00",
-          "risk": 0.147
+          "time": "2026-05-30T11:00",
+          "risk": 1.0
         },
         {
-          "time": "2026-05-27T12:00",
-          "risk": 0.157
+          "time": "2026-05-30T12:00",
+          "risk": 1.0
         },
         {
-          "time": "2026-05-27T13:00",
-          "risk": 0.165
+          "time": "2026-05-30T13:00",
+          "risk": 1.0
         },
         {
-          "time": "2026-05-27T14:00",
-          "risk": 0.165
+          "time": "2026-05-30T14:00",
+          "risk": 1.0
         },
         {
-          "time": "2026-05-27T15:00",
-          "risk": 0.169
+          "time": "2026-05-30T15:00",
+          "risk": 1.0
         },
         {
-          "time": "2026-05-27T16:00",
-          "risk": 0.168
+          "time": "2026-05-30T16:00",
+          "risk": 1.0
         },
         {
-          "time": "2026-05-27T17:00",
-          "risk": 0.162
+          "time": "2026-05-30T17:00",
+          "risk": 1.0
         },
         {
-          "time": "2026-05-27T18:00",
-          "risk": 0.16
+          "time": "2026-05-30T18:00",
+          "risk": 1.0
         },
         {
-          "time": "2026-05-27T19:00",
-          "risk": 0.154
+          "time": "2026-05-30T19:00",
+          "risk": 1.0
         },
         {
-          "time": "2026-05-27T20:00",
-          "risk": 0.145
+          "time": "2026-05-30T20:00",
+          "risk": 1.0
         },
         {
-          "time": "2026-05-27T21:00",
-          "risk": 0.127
+          "time": "2026-05-30T21:00",
+          "risk": 1.0
         },
         {
-          "time": "2026-05-27T22:00",
-          "risk": 0.115
+          "time": "2026-05-30T22:00",
+          "risk": 0.946
         },
         {
-          "time": "2026-05-27T23:00",
-          "risk": 0.104
+          "time": "2026-05-30T23:00",
+          "risk": 0.904
         }
       ]
     },
     {
-      "lat": 52.3,
-      "lon": 18.0,
-      "risk": 0.0774,
-      "classical_risk": 0.0,
-      "quantum_risk": 0.2579,
-      "quantum_backend": "qiskit_qsvc",
-      "quantum_augmented": true,
-      "alert": false,
-      "ndvi_stress": 0.537,
-      "elevation_m": 98.0,
-      "slope_deg": 0.05,
-      "shap_drivers": [
-        {
-          "feature": "wind_dryness_ratio",
-          "shap": 0.0
-        },
-        {
-          "feature": "dryness_ratio",
-          "shap": 0.0
-        },
-        {
-          "feature": "soil_x_rh",
-          "shap": 0.0
-        }
-      ],
-      "hourly_risk": [
-        {
-          "time": "2026-05-27T00:00",
-          "risk": 0.114
-        },
-        {
-          "time": "2026-05-27T01:00",
-          "risk": 0.112
-        },
-        {
-          "time": "2026-05-27T02:00",
-          "risk": 0.112
-        },
-        {
-          "time": "2026-05-27T03:00",
-          "risk": 0.106
-        },
-        {
-          "time": "2026-05-27T04:00",
-          "risk": 0.102
-        },
-        {
-          "time": "2026-05-27T05:00",
-          "risk": 0.099
-        },
-        {
-          "time": "2026-05-27T06:00",
-          "risk": 0.101
-        },
-        {
-          "time": "2026-05-27T07:00",
-          "risk": 0.105
-        },
-        {
-          "time": "2026-05-27T08:00",
-          "risk": 0.111
-        },
-        {
-          "time": "2026-05-27T09:00",
-          "risk": 0.11
-        },
-        {
-          "time": "2026-05-27T10:00",
-          "risk": 0.116
-        },
-        {
-          "time": "2026-05-27T11:00",
-          "risk": 0.122
-        },
-        {
-          "time": "2026-05-27T12:00",
-          "risk": 0.127
-        },
-        {
-          "time": "2026-05-27T13:00",
-          "risk": 0.13
-        },
-        {
-          "time": "2026-05-27T14:00",
-          "risk": 0.133
-        },
-        {
-          "time": "2026-05-27T15:00",
-          "risk": 0.135
-        },
-        {
-          "time": "2026-05-27T16:00",
-          "risk": 0.135
-        },
-        {
-          "time": "2026-05-27T17:00",
-          "risk": 0.131
-        },
-        {
-          "time": "2026-05-27T18:00",
-          "risk": 0.129
-        },
-        {
-          "time": "2026-05-27T19:00",
-          "risk": 0.125
-        },
-        {
-          "time": "2026-05-27T20:00",
-          "risk": 0.12
-        },
-        {
-          "time": "2026-05-27T21:00",
-          "risk": 0.107
-        },
-        {
-          "time": "2026-05-27T22:00",
-          "risk": 0.094
-        },
-        {
-          "time": "2026-05-27T23:00",
-          "risk": 0.086
-        }
-      ]
-    },
-    {
-      "lat": 52.3,
+      "lat": 51.2,
       "lon": 20.0,
-      "risk": 0.0809,
-      "classical_risk": 0.0,
-      "quantum_risk": 0.2697,
+      "risk": 0.5878,
+      "classical_risk": 0.8028,
+      "quantum_risk": 0.7271,
       "quantum_backend": "qiskit_qsvc",
-      "quantum_augmented": true,
+      "quantum_augmented": false,
       "alert": false,
-      "ndvi_stress": 0.457,
-      "elevation_m": 98.0,
-      "slope_deg": 0.87,
+      "ndvi_stress": 0.406,
+      "elevation_m": 224.0,
+      "slope_deg": 0.33,
+      "fwi_score": 0.389,
+      "drought_days": 21,
+      "label_source": "heuristic",
+      "tier": "MODERATE",
       "shap_drivers": [
         {
-          "feature": "wind_dryness_ratio",
-          "shap": 0.0
+          "feature": "fwi_score",
+          "shap": 0.0789
+        },
+        {
+          "feature": "ndvi_stress",
+          "shap": 0.0758
         },
         {
           "feature": "dryness_ratio",
-          "shap": 0.0
-        },
-        {
-          "feature": "soil_x_rh",
-          "shap": 0.0
+          "shap": 0.0618
         }
       ],
       "hourly_risk": [
         {
-          "time": "2026-05-27T00:00",
-          "risk": 0.12
+          "time": "2026-05-30T00:00",
+          "risk": 0.733
         },
         {
-          "time": "2026-05-27T01:00",
-          "risk": 0.122
+          "time": "2026-05-30T01:00",
+          "risk": 0.711
         },
         {
-          "time": "2026-05-27T02:00",
-          "risk": 0.123
+          "time": "2026-05-30T02:00",
+          "risk": 0.675
         },
         {
-          "time": "2026-05-27T03:00",
-          "risk": 0.117
+          "time": "2026-05-30T03:00",
+          "risk": 0.656
         },
         {
-          "time": "2026-05-27T04:00",
-          "risk": 0.117
+          "time": "2026-05-30T04:00",
+          "risk": 0.649
         },
         {
-          "time": "2026-05-27T05:00",
-          "risk": 0.119
+          "time": "2026-05-30T05:00",
+          "risk": 0.667
         },
         {
-          "time": "2026-05-27T06:00",
-          "risk": 0.119
+          "time": "2026-05-30T06:00",
+          "risk": 0.701
         },
         {
-          "time": "2026-05-27T07:00",
-          "risk": 0.119
+          "time": "2026-05-30T07:00",
+          "risk": 0.755
         },
         {
-          "time": "2026-05-27T08:00",
-          "risk": 0.12
+          "time": "2026-05-30T08:00",
+          "risk": 0.756
         },
         {
-          "time": "2026-05-27T09:00",
-          "risk": 0.124
+          "time": "2026-05-30T09:00",
+          "risk": 0.775
         },
         {
-          "time": "2026-05-27T10:00",
-          "risk": 0.124
+          "time": "2026-05-30T10:00",
+          "risk": 0.817
         },
         {
-          "time": "2026-05-27T11:00",
-          "risk": 0.128
+          "time": "2026-05-30T11:00",
+          "risk": 0.89
         },
         {
-          "time": "2026-05-27T12:00",
-          "risk": 0.134
+          "time": "2026-05-30T12:00",
+          "risk": 0.882
         },
         {
-          "time": "2026-05-27T13:00",
-          "risk": 0.137
+          "time": "2026-05-30T13:00",
+          "risk": 0.856
         },
         {
-          "time": "2026-05-27T14:00",
-          "risk": 0.141
+          "time": "2026-05-30T14:00",
+          "risk": 0.885
         },
         {
-          "time": "2026-05-27T15:00",
-          "risk": 0.141
+          "time": "2026-05-30T15:00",
+          "risk": 0.864
         },
         {
-          "time": "2026-05-27T16:00",
-          "risk": 0.14
+          "time": "2026-05-30T16:00",
+          "risk": 0.875
         },
         {
-          "time": "2026-05-27T17:00",
-          "risk": 0.137
+          "time": "2026-05-30T17:00",
+          "risk": 0.847
         },
         {
-          "time": "2026-05-27T18:00",
-          "risk": 0.134
+          "time": "2026-05-30T18:00",
+          "risk": 0.843
         },
         {
-          "time": "2026-05-27T19:00",
-          "risk": 0.13
+          "time": "2026-05-30T19:00",
+          "risk": 0.851
         },
         {
-          "time": "2026-05-27T20:00",
-          "risk": 0.122
+          "time": "2026-05-30T20:00",
+          "risk": 0.863
         },
         {
-          "time": "2026-05-27T21:00",
-          "risk": 0.115
+          "time": "2026-05-30T21:00",
+          "risk": 0.847
         },
         {
-          "time": "2026-05-27T22:00",
-          "risk": 0.1
+          "time": "2026-05-30T22:00",
+          "risk": 0.855
         },
         {
-          "time": "2026-05-27T23:00",
-          "risk": 0.088
-        }
-      ]
-    },
-    {
-      "lat": 52.3,
-      "lon": 14.0,
-      "risk": 0.0815,
-      "classical_risk": 0.0,
-      "quantum_risk": 0.2716,
-      "quantum_backend": "qiskit_qsvc",
-      "quantum_augmented": true,
-      "alert": false,
-      "ndvi_stress": 0.429,
-      "elevation_m": 58.0,
-      "slope_deg": 0.12,
-      "shap_drivers": [
-        {
-          "feature": "wind_dryness_ratio",
-          "shap": 0.0
-        },
-        {
-          "feature": "dryness_ratio",
-          "shap": 0.0
-        },
-        {
-          "feature": "soil_x_rh",
-          "shap": 0.0
-        }
-      ],
-      "hourly_risk": [
-        {
-          "time": "2026-05-27T00:00",
-          "risk": 0.109
-        },
-        {
-          "time": "2026-05-27T01:00",
-          "risk": 0.11
-        },
-        {
-          "time": "2026-05-27T02:00",
-          "risk": 0.109
-        },
-        {
-          "time": "2026-05-27T03:00",
-          "risk": 0.104
-        },
-        {
-          "time": "2026-05-27T04:00",
-          "risk": 0.104
-        },
-        {
-          "time": "2026-05-27T05:00",
-          "risk": 0.103
-        },
-        {
-          "time": "2026-05-27T06:00",
-          "risk": 0.102
-        },
-        {
-          "time": "2026-05-27T07:00",
-          "risk": 0.109
-        },
-        {
-          "time": "2026-05-27T08:00",
-          "risk": 0.108
-        },
-        {
-          "time": "2026-05-27T09:00",
-          "risk": 0.11
-        },
-        {
-          "time": "2026-05-27T10:00",
-          "risk": 0.115
-        },
-        {
-          "time": "2026-05-27T11:00",
-          "risk": 0.123
-        },
-        {
-          "time": "2026-05-27T12:00",
-          "risk": 0.128
-        },
-        {
-          "time": "2026-05-27T13:00",
-          "risk": 0.132
-        },
-        {
-          "time": "2026-05-27T14:00",
-          "risk": 0.134
-        },
-        {
-          "time": "2026-05-27T15:00",
-          "risk": 0.135
-        },
-        {
-          "time": "2026-05-27T16:00",
-          "risk": 0.133
-        },
-        {
-          "time": "2026-05-27T17:00",
-          "risk": 0.133
-        },
-        {
-          "time": "2026-05-27T18:00",
-          "risk": 0.134
-        },
-        {
-          "time": "2026-05-27T19:00",
-          "risk": 0.127
-        },
-        {
-          "time": "2026-05-27T20:00",
-          "risk": 0.117
-        },
-        {
-          "time": "2026-05-27T21:00",
-          "risk": 0.101
-        },
-        {
-          "time": "2026-05-27T22:00",
-          "risk": 0.092
-        },
-        {
-          "time": "2026-05-27T23:00",
-          "risk": 0.088
+          "time": "2026-05-30T23:00",
+          "risk": 0.84
         }
       ]
     },
     {
       "lat": 52.3,
       "lon": 16.0,
-      "risk": 0.0816,
-      "classical_risk": 0.0,
-      "quantum_risk": 0.2719,
+      "risk": 0.8123,
+      "classical_risk": 1.0,
+      "quantum_risk": 0.7247,
       "quantum_backend": "qiskit_qsvc",
-      "quantum_augmented": true,
-      "alert": false,
-      "ndvi_stress": 0.572,
+      "quantum_augmented": false,
+      "alert": true,
+      "ndvi_stress": 0.703,
       "elevation_m": 78.0,
       "slope_deg": 0.08,
+      "fwi_score": 0.571,
+      "drought_days": 21,
+      "label_source": "heuristic",
+      "tier": "CRITICAL",
       "shap_drivers": [
         {
-          "feature": "wind_dryness_ratio",
-          "shap": 0.0
+          "feature": "fwi_score",
+          "shap": 0.0842
+        },
+        {
+          "feature": "ndvi_stress",
+          "shap": 0.0733
         },
         {
           "feature": "dryness_ratio",
-          "shap": 0.0
-        },
-        {
-          "feature": "soil_x_rh",
-          "shap": 0.0
+          "shap": 0.0563
         }
       ],
       "hourly_risk": [
         {
-          "time": "2026-05-27T00:00",
-          "risk": 0.119
+          "time": "2026-05-30T00:00",
+          "risk": 0.925
         },
         {
-          "time": "2026-05-27T01:00",
-          "risk": 0.117
+          "time": "2026-05-30T01:00",
+          "risk": 0.889
         },
         {
-          "time": "2026-05-27T02:00",
-          "risk": 0.114
+          "time": "2026-05-30T02:00",
+          "risk": 0.873
         },
         {
-          "time": "2026-05-27T03:00",
-          "risk": 0.109
+          "time": "2026-05-30T03:00",
+          "risk": 0.84
         },
         {
-          "time": "2026-05-27T04:00",
-          "risk": 0.107
+          "time": "2026-05-30T04:00",
+          "risk": 0.9
         },
         {
-          "time": "2026-05-27T05:00",
-          "risk": 0.106
+          "time": "2026-05-30T05:00",
+          "risk": 0.895
         },
         {
-          "time": "2026-05-27T06:00",
-          "risk": 0.105
+          "time": "2026-05-30T06:00",
+          "risk": 0.903
         },
         {
-          "time": "2026-05-27T07:00",
-          "risk": 0.111
+          "time": "2026-05-30T07:00",
+          "risk": 0.893
         },
         {
-          "time": "2026-05-27T08:00",
-          "risk": 0.114
+          "time": "2026-05-30T08:00",
+          "risk": 0.907
         },
         {
-          "time": "2026-05-27T09:00",
-          "risk": 0.116
+          "time": "2026-05-30T09:00",
+          "risk": 1.0
         },
         {
-          "time": "2026-05-27T10:00",
-          "risk": 0.122
+          "time": "2026-05-30T10:00",
+          "risk": 1.0
         },
         {
-          "time": "2026-05-27T11:00",
-          "risk": 0.129
+          "time": "2026-05-30T11:00",
+          "risk": 1.0
         },
         {
-          "time": "2026-05-27T12:00",
-          "risk": 0.132
+          "time": "2026-05-30T12:00",
+          "risk": 1.0
         },
         {
-          "time": "2026-05-27T13:00",
-          "risk": 0.136
+          "time": "2026-05-30T13:00",
+          "risk": 1.0
         },
         {
-          "time": "2026-05-27T14:00",
-          "risk": 0.136
+          "time": "2026-05-30T14:00",
+          "risk": 1.0
         },
         {
-          "time": "2026-05-27T15:00",
-          "risk": 0.135
+          "time": "2026-05-30T15:00",
+          "risk": 1.0
         },
         {
-          "time": "2026-05-27T16:00",
-          "risk": 0.136
+          "time": "2026-05-30T16:00",
+          "risk": 1.0
         },
         {
-          "time": "2026-05-27T17:00",
-          "risk": 0.136
+          "time": "2026-05-30T17:00",
+          "risk": 1.0
         },
         {
-          "time": "2026-05-27T18:00",
-          "risk": 0.133
+          "time": "2026-05-30T18:00",
+          "risk": 1.0
         },
         {
-          "time": "2026-05-27T19:00",
-          "risk": 0.128
+          "time": "2026-05-30T19:00",
+          "risk": 1.0
         },
         {
-          "time": "2026-05-27T20:00",
-          "risk": 0.12
+          "time": "2026-05-30T20:00",
+          "risk": 1.0
         },
         {
-          "time": "2026-05-27T21:00",
-          "risk": 0.1
+          "time": "2026-05-30T21:00",
+          "risk": 0.98
         },
         {
-          "time": "2026-05-27T22:00",
-          "risk": 0.094
+          "time": "2026-05-30T22:00",
+          "risk": 0.934
         },
         {
-          "time": "2026-05-27T23:00",
-          "risk": 0.091
+          "time": "2026-05-30T23:00",
+          "risk": 0.862
+        }
+      ]
+    },
+    {
+      "lat": 51.2,
+      "lon": 14.0,
+      "risk": 0.7911,
+      "classical_risk": 1.0,
+      "quantum_risk": 0.7349,
+      "quantum_backend": "qiskit_qsvc",
+      "quantum_augmented": false,
+      "alert": true,
+      "ndvi_stress": 0.674,
+      "elevation_m": 255.0,
+      "slope_deg": 0.65,
+      "fwi_score": 0.546,
+      "drought_days": 21,
+      "label_source": "heuristic",
+      "tier": "CRITICAL",
+      "shap_drivers": [
+        {
+          "feature": "fwi_score",
+          "shap": 0.0842
+        },
+        {
+          "feature": "ndvi_stress",
+          "shap": 0.0733
+        },
+        {
+          "feature": "dryness_ratio",
+          "shap": 0.0572
+        }
+      ],
+      "hourly_risk": [
+        {
+          "time": "2026-05-30T00:00",
+          "risk": 0.939
+        },
+        {
+          "time": "2026-05-30T01:00",
+          "risk": 0.958
+        },
+        {
+          "time": "2026-05-30T02:00",
+          "risk": 1.0
+        },
+        {
+          "time": "2026-05-30T03:00",
+          "risk": 0.948
+        },
+        {
+          "time": "2026-05-30T04:00",
+          "risk": 0.927
+        },
+        {
+          "time": "2026-05-30T05:00",
+          "risk": 0.914
+        },
+        {
+          "time": "2026-05-30T06:00",
+          "risk": 0.896
+        },
+        {
+          "time": "2026-05-30T07:00",
+          "risk": 0.94
+        },
+        {
+          "time": "2026-05-30T08:00",
+          "risk": 0.986
+        },
+        {
+          "time": "2026-05-30T09:00",
+          "risk": 1.0
+        },
+        {
+          "time": "2026-05-30T10:00",
+          "risk": 1.0
+        },
+        {
+          "time": "2026-05-30T11:00",
+          "risk": 1.0
+        },
+        {
+          "time": "2026-05-30T12:00",
+          "risk": 1.0
+        },
+        {
+          "time": "2026-05-30T13:00",
+          "risk": 1.0
+        },
+        {
+          "time": "2026-05-30T14:00",
+          "risk": 1.0
+        },
+        {
+          "time": "2026-05-30T15:00",
+          "risk": 1.0
+        },
+        {
+          "time": "2026-05-30T16:00",
+          "risk": 1.0
+        },
+        {
+          "time": "2026-05-30T17:00",
+          "risk": 1.0
+        },
+        {
+          "time": "2026-05-30T18:00",
+          "risk": 1.0
+        },
+        {
+          "time": "2026-05-30T19:00",
+          "risk": 1.0
+        },
+        {
+          "time": "2026-05-30T20:00",
+          "risk": 1.0
+        },
+        {
+          "time": "2026-05-30T21:00",
+          "risk": 0.925
+        },
+        {
+          "time": "2026-05-30T22:00",
+          "risk": 0.846
+        },
+        {
+          "time": "2026-05-30T23:00",
+          "risk": 0.815
         }
       ]
     },
     {
       "lat": 52.3,
       "lon": 24.0,
-      "risk": 0.0825,
-      "classical_risk": 0.0,
-      "quantum_risk": 0.275,
+      "risk": 0.7803,
+      "classical_risk": 0.9719,
+      "quantum_risk": 0.7267,
       "quantum_backend": "qiskit_qsvc",
-      "quantum_augmented": true,
-      "alert": false,
-      "ndvi_stress": 0.461,
+      "quantum_augmented": false,
+      "alert": true,
+      "ndvi_stress": 0.7,
       "elevation_m": 148.0,
       "slope_deg": 0.04,
+      "fwi_score": 0.545,
+      "drought_days": 21,
+      "label_source": "heuristic",
+      "tier": "CRITICAL",
       "shap_drivers": [
         {
-          "feature": "wind_dryness_ratio",
-          "shap": 0.0
+          "feature": "fwi_score",
+          "shap": 0.0842
+        },
+        {
+          "feature": "ndvi_stress",
+          "shap": 0.0733
         },
         {
           "feature": "dryness_ratio",
-          "shap": 0.0
-        },
-        {
-          "feature": "soil_x_rh",
-          "shap": 0.0
+          "shap": 0.0563
         }
       ],
       "hourly_risk": [
         {
-          "time": "2026-05-27T00:00",
-          "risk": 0.12
+          "time": "2026-05-30T00:00",
+          "risk": 0.874
         },
         {
-          "time": "2026-05-27T01:00",
-          "risk": 0.121
+          "time": "2026-05-30T01:00",
+          "risk": 0.927
         },
         {
-          "time": "2026-05-27T02:00",
-          "risk": 0.111
+          "time": "2026-05-30T02:00",
+          "risk": 0.919
         },
         {
-          "time": "2026-05-27T03:00",
-          "risk": 0.116
+          "time": "2026-05-30T03:00",
+          "risk": 0.932
         },
         {
-          "time": "2026-05-27T04:00",
-          "risk": 0.112
+          "time": "2026-05-30T04:00",
+          "risk": 0.911
         },
         {
-          "time": "2026-05-27T05:00",
-          "risk": 0.113
+          "time": "2026-05-30T05:00",
+          "risk": 0.865
         },
         {
-          "time": "2026-05-27T06:00",
-          "risk": 0.118
+          "time": "2026-05-30T06:00",
+          "risk": 0.878
         },
         {
-          "time": "2026-05-27T07:00",
-          "risk": 0.118
+          "time": "2026-05-30T07:00",
+          "risk": 0.905
         },
         {
-          "time": "2026-05-27T08:00",
-          "risk": 0.115
+          "time": "2026-05-30T08:00",
+          "risk": 0.962
         },
         {
-          "time": "2026-05-27T09:00",
-          "risk": 0.116
+          "time": "2026-05-30T09:00",
+          "risk": 0.989
         },
         {
-          "time": "2026-05-27T10:00",
-          "risk": 0.125
+          "time": "2026-05-30T10:00",
+          "risk": 1.0
         },
         {
-          "time": "2026-05-27T11:00",
-          "risk": 0.13
+          "time": "2026-05-30T11:00",
+          "risk": 1.0
         },
         {
-          "time": "2026-05-27T12:00",
-          "risk": 0.134
+          "time": "2026-05-30T12:00",
+          "risk": 1.0
         },
         {
-          "time": "2026-05-27T13:00",
-          "risk": 0.126
+          "time": "2026-05-30T13:00",
+          "risk": 1.0
         },
         {
-          "time": "2026-05-27T14:00",
-          "risk": 0.122
+          "time": "2026-05-30T14:00",
+          "risk": 1.0
         },
         {
-          "time": "2026-05-27T15:00",
-          "risk": 0.122
+          "time": "2026-05-30T15:00",
+          "risk": 1.0
         },
         {
-          "time": "2026-05-27T16:00",
-          "risk": 0.13
+          "time": "2026-05-30T16:00",
+          "risk": 1.0
         },
         {
-          "time": "2026-05-27T17:00",
-          "risk": 0.135
+          "time": "2026-05-30T17:00",
+          "risk": 1.0
         },
         {
-          "time": "2026-05-27T18:00",
-          "risk": 0.138
+          "time": "2026-05-30T18:00",
+          "risk": 1.0
         },
         {
-          "time": "2026-05-27T19:00",
-          "risk": 0.131
+          "time": "2026-05-30T19:00",
+          "risk": 1.0
         },
         {
-          "time": "2026-05-27T20:00",
-          "risk": 0.125
+          "time": "2026-05-30T20:00",
+          "risk": 1.0
         },
         {
-          "time": "2026-05-27T21:00",
-          "risk": 0.119
+          "time": "2026-05-30T21:00",
+          "risk": 0.944
         },
         {
-          "time": "2026-05-27T22:00",
-          "risk": 0.113
+          "time": "2026-05-30T22:00",
+          "risk": 0.854
         },
         {
-          "time": "2026-05-27T23:00",
-          "risk": 0.104
-        }
-      ]
-    },
-    {
-      "lat": 52.3,
-      "lon": 22.0,
-      "risk": 0.0791,
-      "classical_risk": 0.0,
-      "quantum_risk": 0.2637,
-      "quantum_backend": "qiskit_qsvc",
-      "quantum_augmented": true,
-      "alert": false,
-      "ndvi_stress": 0.493,
-      "elevation_m": 123.0,
-      "slope_deg": 0.3,
-      "shap_drivers": [
-        {
-          "feature": "wind_dryness_ratio",
-          "shap": 0.0
-        },
-        {
-          "feature": "dryness_ratio",
-          "shap": 0.0
-        },
-        {
-          "feature": "soil_x_rh",
-          "shap": 0.0
-        }
-      ],
-      "hourly_risk": [
-        {
-          "time": "2026-05-27T00:00",
-          "risk": 0.122
-        },
-        {
-          "time": "2026-05-27T01:00",
-          "risk": 0.112
-        },
-        {
-          "time": "2026-05-27T02:00",
-          "risk": 0.105
-        },
-        {
-          "time": "2026-05-27T03:00",
-          "risk": 0.103
-        },
-        {
-          "time": "2026-05-27T04:00",
-          "risk": 0.102
-        },
-        {
-          "time": "2026-05-27T05:00",
-          "risk": 0.11
-        },
-        {
-          "time": "2026-05-27T06:00",
-          "risk": 0.109
-        },
-        {
-          "time": "2026-05-27T07:00",
-          "risk": 0.111
-        },
-        {
-          "time": "2026-05-27T08:00",
-          "risk": 0.109
-        },
-        {
-          "time": "2026-05-27T09:00",
-          "risk": 0.11
-        },
-        {
-          "time": "2026-05-27T10:00",
-          "risk": 0.112
-        },
-        {
-          "time": "2026-05-27T11:00",
-          "risk": 0.117
-        },
-        {
-          "time": "2026-05-27T12:00",
-          "risk": 0.123
-        },
-        {
-          "time": "2026-05-27T13:00",
-          "risk": 0.129
-        },
-        {
-          "time": "2026-05-27T14:00",
-          "risk": 0.132
-        },
-        {
-          "time": "2026-05-27T15:00",
-          "risk": 0.133
-        },
-        {
-          "time": "2026-05-27T16:00",
-          "risk": 0.132
-        },
-        {
-          "time": "2026-05-27T17:00",
-          "risk": 0.131
-        },
-        {
-          "time": "2026-05-27T18:00",
-          "risk": 0.13
-        },
-        {
-          "time": "2026-05-27T19:00",
-          "risk": 0.126
-        },
-        {
-          "time": "2026-05-27T20:00",
-          "risk": 0.119
-        },
-        {
-          "time": "2026-05-27T21:00",
-          "risk": 0.113
-        },
-        {
-          "time": "2026-05-27T22:00",
-          "risk": 0.105
-        },
-        {
-          "time": "2026-05-27T23:00",
-          "risk": 0.093
-        }
-      ]
-    },
-    {
-      "lat": 53.4,
-      "lon": 16.0,
-      "risk": 0.0814,
-      "classical_risk": 0.0,
-      "quantum_risk": 0.2715,
-      "quantum_backend": "qiskit_qsvc",
-      "quantum_augmented": true,
-      "alert": false,
-      "ndvi_stress": 0.477,
-      "elevation_m": 140.0,
-      "slope_deg": 0.05,
-      "shap_drivers": [
-        {
-          "feature": "wind_dryness_ratio",
-          "shap": 0.0
-        },
-        {
-          "feature": "dryness_ratio",
-          "shap": 0.0
-        },
-        {
-          "feature": "soil_x_rh",
-          "shap": 0.0
-        }
-      ],
-      "hourly_risk": [
-        {
-          "time": "2026-05-27T00:00",
-          "risk": 0.124
-        },
-        {
-          "time": "2026-05-27T01:00",
-          "risk": 0.117
-        },
-        {
-          "time": "2026-05-27T02:00",
-          "risk": 0.114
-        },
-        {
-          "time": "2026-05-27T03:00",
-          "risk": 0.113
-        },
-        {
-          "time": "2026-05-27T04:00",
-          "risk": 0.106
-        },
-        {
-          "time": "2026-05-27T05:00",
-          "risk": 0.105
-        },
-        {
-          "time": "2026-05-27T06:00",
-          "risk": 0.102
-        },
-        {
-          "time": "2026-05-27T07:00",
-          "risk": 0.103
-        },
-        {
-          "time": "2026-05-27T08:00",
-          "risk": 0.106
-        },
-        {
-          "time": "2026-05-27T09:00",
-          "risk": 0.109
-        },
-        {
-          "time": "2026-05-27T10:00",
-          "risk": 0.114
-        },
-        {
-          "time": "2026-05-27T11:00",
-          "risk": 0.12
-        },
-        {
-          "time": "2026-05-27T12:00",
-          "risk": 0.126
-        },
-        {
-          "time": "2026-05-27T13:00",
-          "risk": 0.13
-        },
-        {
-          "time": "2026-05-27T14:00",
-          "risk": 0.131
-        },
-        {
-          "time": "2026-05-27T15:00",
-          "risk": 0.13
-        },
-        {
-          "time": "2026-05-27T16:00",
-          "risk": 0.129
-        },
-        {
-          "time": "2026-05-27T17:00",
-          "risk": 0.125
-        },
-        {
-          "time": "2026-05-27T18:00",
-          "risk": 0.121
-        },
-        {
-          "time": "2026-05-27T19:00",
-          "risk": 0.117
-        },
-        {
-          "time": "2026-05-27T20:00",
-          "risk": 0.109
-        },
-        {
-          "time": "2026-05-27T21:00",
-          "risk": 0.097
-        },
-        {
-          "time": "2026-05-27T22:00",
-          "risk": 0.09
-        },
-        {
-          "time": "2026-05-27T23:00",
-          "risk": 0.086
+          "time": "2026-05-30T23:00",
+          "risk": 0.813
         }
       ]
     },
     {
       "lat": 51.2,
       "lon": 22.0,
-      "risk": 0.0769,
-      "classical_risk": 0.0,
-      "quantum_risk": 0.2563,
+      "risk": 0.7902,
+      "classical_risk": 1.0,
+      "quantum_risk": 0.7346,
       "quantum_backend": "qiskit_qsvc",
-      "quantum_augmented": true,
-      "alert": false,
-      "ndvi_stress": 0.565,
+      "quantum_augmented": false,
+      "alert": true,
+      "ndvi_stress": 0.625,
       "elevation_m": 156.0,
-      "slope_deg": 0.4,
+      "slope_deg": 0.44,
+      "fwi_score": 0.545,
+      "drought_days": 21,
+      "label_source": "heuristic",
+      "tier": "CRITICAL",
       "shap_drivers": [
         {
-          "feature": "wind_dryness_ratio",
-          "shap": 0.0
+          "feature": "fwi_score",
+          "shap": 0.0842
+        },
+        {
+          "feature": "ndvi_stress",
+          "shap": 0.0733
         },
         {
           "feature": "dryness_ratio",
-          "shap": 0.0
-        },
-        {
-          "feature": "soil_x_rh",
-          "shap": 0.0
+          "shap": 0.0563
         }
       ],
       "hourly_risk": [
         {
-          "time": "2026-05-27T00:00",
-          "risk": 0.103
+          "time": "2026-05-30T00:00",
+          "risk": 0.862
         },
         {
-          "time": "2026-05-27T01:00",
-          "risk": 0.103
+          "time": "2026-05-30T01:00",
+          "risk": 0.826
         },
         {
-          "time": "2026-05-27T02:00",
-          "risk": 0.108
+          "time": "2026-05-30T02:00",
+          "risk": 0.837
         },
         {
-          "time": "2026-05-27T03:00",
-          "risk": 0.109
+          "time": "2026-05-30T03:00",
+          "risk": 0.839
         },
         {
-          "time": "2026-05-27T04:00",
-          "risk": 0.112
+          "time": "2026-05-30T04:00",
+          "risk": 0.838
         },
         {
-          "time": "2026-05-27T05:00",
-          "risk": 0.115
+          "time": "2026-05-30T05:00",
+          "risk": 0.844
         },
         {
-          "time": "2026-05-27T06:00",
-          "risk": 0.114
+          "time": "2026-05-30T06:00",
+          "risk": 0.849
         },
         {
-          "time": "2026-05-27T07:00",
-          "risk": 0.118
+          "time": "2026-05-30T07:00",
+          "risk": 0.88
         },
         {
-          "time": "2026-05-27T08:00",
-          "risk": 0.116
+          "time": "2026-05-30T08:00",
+          "risk": 0.989
         },
         {
-          "time": "2026-05-27T09:00",
-          "risk": 0.12
+          "time": "2026-05-30T09:00",
+          "risk": 1.0
         },
         {
-          "time": "2026-05-27T10:00",
-          "risk": 0.126
+          "time": "2026-05-30T10:00",
+          "risk": 1.0
         },
         {
-          "time": "2026-05-27T11:00",
-          "risk": 0.126
+          "time": "2026-05-30T11:00",
+          "risk": 1.0
         },
         {
-          "time": "2026-05-27T12:00",
-          "risk": 0.128
+          "time": "2026-05-30T12:00",
+          "risk": 1.0
         },
         {
-          "time": "2026-05-27T13:00",
-          "risk": 0.119
+          "time": "2026-05-30T13:00",
+          "risk": 1.0
         },
         {
-          "time": "2026-05-27T14:00",
-          "risk": 0.13
+          "time": "2026-05-30T14:00",
+          "risk": 1.0
         },
         {
-          "time": "2026-05-27T15:00",
-          "risk": 0.132
+          "time": "2026-05-30T15:00",
+          "risk": 1.0
         },
         {
-          "time": "2026-05-27T16:00",
-          "risk": 0.135
+          "time": "2026-05-30T16:00",
+          "risk": 1.0
         },
         {
-          "time": "2026-05-27T17:00",
-          "risk": 0.133
+          "time": "2026-05-30T17:00",
+          "risk": 1.0
         },
         {
-          "time": "2026-05-27T18:00",
-          "risk": 0.13
+          "time": "2026-05-30T18:00",
+          "risk": 1.0
         },
         {
-          "time": "2026-05-27T19:00",
-          "risk": 0.123
+          "time": "2026-05-30T19:00",
+          "risk": 1.0
         },
         {
-          "time": "2026-05-27T20:00",
-          "risk": 0.117
+          "time": "2026-05-30T20:00",
+          "risk": 1.0
         },
         {
-          "time": "2026-05-27T21:00",
-          "risk": 0.11
+          "time": "2026-05-30T21:00",
+          "risk": 1.0
         },
         {
-          "time": "2026-05-27T22:00",
-          "risk": 0.099
+          "time": "2026-05-30T22:00",
+          "risk": 0.993
         },
         {
-          "time": "2026-05-27T23:00",
-          "risk": 0.096
+          "time": "2026-05-30T23:00",
+          "risk": 0.957
+        }
+      ]
+    },
+    {
+      "lat": 52.3,
+      "lon": 18.0,
+      "risk": 0.742,
+      "classical_risk": 0.9779,
+      "quantum_risk": 0.7371,
+      "quantum_backend": "qiskit_qsvc",
+      "quantum_augmented": false,
+      "alert": false,
+      "ndvi_stress": 0.371,
+      "elevation_m": 98.0,
+      "slope_deg": 0.86,
+      "fwi_score": 0.498,
+      "drought_days": 21,
+      "label_source": "heuristic",
+      "tier": "HIGH",
+      "shap_drivers": [
+        {
+          "feature": "fwi_score",
+          "shap": 0.0856
+        },
+        {
+          "feature": "ndvi_stress",
+          "shap": 0.073
+        },
+        {
+          "feature": "dryness_ratio",
+          "shap": 0.0581
+        }
+      ],
+      "hourly_risk": [
+        {
+          "time": "2026-05-30T00:00",
+          "risk": 0.811
+        },
+        {
+          "time": "2026-05-30T01:00",
+          "risk": 0.812
+        },
+        {
+          "time": "2026-05-30T02:00",
+          "risk": 0.907
+        },
+        {
+          "time": "2026-05-30T03:00",
+          "risk": 0.836
+        },
+        {
+          "time": "2026-05-30T04:00",
+          "risk": 0.82
+        },
+        {
+          "time": "2026-05-30T05:00",
+          "risk": 0.806
+        },
+        {
+          "time": "2026-05-30T06:00",
+          "risk": 0.86
+        },
+        {
+          "time": "2026-05-30T07:00",
+          "risk": 0.886
+        },
+        {
+          "time": "2026-05-30T08:00",
+          "risk": 0.879
+        },
+        {
+          "time": "2026-05-30T09:00",
+          "risk": 0.978
+        },
+        {
+          "time": "2026-05-30T10:00",
+          "risk": 0.976
+        },
+        {
+          "time": "2026-05-30T11:00",
+          "risk": 1.0
+        },
+        {
+          "time": "2026-05-30T12:00",
+          "risk": 1.0
+        },
+        {
+          "time": "2026-05-30T13:00",
+          "risk": 1.0
+        },
+        {
+          "time": "2026-05-30T14:00",
+          "risk": 1.0
+        },
+        {
+          "time": "2026-05-30T15:00",
+          "risk": 1.0
+        },
+        {
+          "time": "2026-05-30T16:00",
+          "risk": 1.0
+        },
+        {
+          "time": "2026-05-30T17:00",
+          "risk": 1.0
+        },
+        {
+          "time": "2026-05-30T18:00",
+          "risk": 1.0
+        },
+        {
+          "time": "2026-05-30T19:00",
+          "risk": 1.0
+        },
+        {
+          "time": "2026-05-30T20:00",
+          "risk": 1.0
+        },
+        {
+          "time": "2026-05-30T21:00",
+          "risk": 0.981
+        },
+        {
+          "time": "2026-05-30T22:00",
+          "risk": 0.935
+        },
+        {
+          "time": "2026-05-30T23:00",
+          "risk": 0.915
+        }
+      ]
+    },
+    {
+      "lat": 51.2,
+      "lon": 24.0,
+      "risk": 0.8574,
+      "classical_risk": 1.0,
+      "quantum_risk": 0.7306,
+      "quantum_backend": "qiskit_qsvc",
+      "quantum_augmented": false,
+      "alert": true,
+      "ndvi_stress": 0.741,
+      "elevation_m": 179.0,
+      "slope_deg": 0.21,
+      "fwi_score": 0.619,
+      "drought_days": 21,
+      "label_source": "heuristic",
+      "tier": "CRITICAL",
+      "shap_drivers": [
+        {
+          "feature": "fwi_score",
+          "shap": 0.0842
+        },
+        {
+          "feature": "ndvi_stress",
+          "shap": 0.0733
+        },
+        {
+          "feature": "dryness_ratio",
+          "shap": 0.0563
+        }
+      ],
+      "hourly_risk": [
+        {
+          "time": "2026-05-30T00:00",
+          "risk": 0.946
+        },
+        {
+          "time": "2026-05-30T01:00",
+          "risk": 0.944
+        },
+        {
+          "time": "2026-05-30T02:00",
+          "risk": 0.961
+        },
+        {
+          "time": "2026-05-30T03:00",
+          "risk": 1.0
+        },
+        {
+          "time": "2026-05-30T04:00",
+          "risk": 1.0
+        },
+        {
+          "time": "2026-05-30T05:00",
+          "risk": 1.0
+        },
+        {
+          "time": "2026-05-30T06:00",
+          "risk": 1.0
+        },
+        {
+          "time": "2026-05-30T07:00",
+          "risk": 1.0
+        },
+        {
+          "time": "2026-05-30T08:00",
+          "risk": 1.0
+        },
+        {
+          "time": "2026-05-30T09:00",
+          "risk": 1.0
+        },
+        {
+          "time": "2026-05-30T10:00",
+          "risk": 1.0
+        },
+        {
+          "time": "2026-05-30T11:00",
+          "risk": 1.0
+        },
+        {
+          "time": "2026-05-30T12:00",
+          "risk": 1.0
+        },
+        {
+          "time": "2026-05-30T13:00",
+          "risk": 1.0
+        },
+        {
+          "time": "2026-05-30T14:00",
+          "risk": 1.0
+        },
+        {
+          "time": "2026-05-30T15:00",
+          "risk": 1.0
+        },
+        {
+          "time": "2026-05-30T16:00",
+          "risk": 1.0
+        },
+        {
+          "time": "2026-05-30T17:00",
+          "risk": 1.0
+        },
+        {
+          "time": "2026-05-30T18:00",
+          "risk": 1.0
+        },
+        {
+          "time": "2026-05-30T19:00",
+          "risk": 1.0
+        },
+        {
+          "time": "2026-05-30T20:00",
+          "risk": 1.0
+        },
+        {
+          "time": "2026-05-30T21:00",
+          "risk": 1.0
+        },
+        {
+          "time": "2026-05-30T22:00",
+          "risk": 1.0
+        },
+        {
+          "time": "2026-05-30T23:00",
+          "risk": 0.989
+        }
+      ]
+    },
+    {
+      "lat": 52.3,
+      "lon": 22.0,
+      "risk": 0.8003,
+      "classical_risk": 1.0,
+      "quantum_risk": 0.7337,
+      "quantum_backend": "qiskit_qsvc",
+      "quantum_augmented": false,
+      "alert": true,
+      "ndvi_stress": 0.705,
+      "elevation_m": 123.0,
+      "slope_deg": 0.3,
+      "fwi_score": 0.556,
+      "drought_days": 21,
+      "label_source": "heuristic",
+      "tier": "CRITICAL",
+      "shap_drivers": [
+        {
+          "feature": "fwi_score",
+          "shap": 0.0842
+        },
+        {
+          "feature": "ndvi_stress",
+          "shap": 0.0733
+        },
+        {
+          "feature": "dryness_ratio",
+          "shap": 0.0563
+        }
+      ],
+      "hourly_risk": [
+        {
+          "time": "2026-05-30T00:00",
+          "risk": 0.872
+        },
+        {
+          "time": "2026-05-30T01:00",
+          "risk": 0.899
+        },
+        {
+          "time": "2026-05-30T02:00",
+          "risk": 0.885
+        },
+        {
+          "time": "2026-05-30T03:00",
+          "risk": 0.885
+        },
+        {
+          "time": "2026-05-30T04:00",
+          "risk": 0.875
+        },
+        {
+          "time": "2026-05-30T05:00",
+          "risk": 0.876
+        },
+        {
+          "time": "2026-05-30T06:00",
+          "risk": 0.855
+        },
+        {
+          "time": "2026-05-30T07:00",
+          "risk": 0.913
+        },
+        {
+          "time": "2026-05-30T08:00",
+          "risk": 0.897
+        },
+        {
+          "time": "2026-05-30T09:00",
+          "risk": 0.959
+        },
+        {
+          "time": "2026-05-30T10:00",
+          "risk": 1.0
+        },
+        {
+          "time": "2026-05-30T11:00",
+          "risk": 1.0
+        },
+        {
+          "time": "2026-05-30T12:00",
+          "risk": 1.0
+        },
+        {
+          "time": "2026-05-30T13:00",
+          "risk": 1.0
+        },
+        {
+          "time": "2026-05-30T14:00",
+          "risk": 1.0
+        },
+        {
+          "time": "2026-05-30T15:00",
+          "risk": 1.0
+        },
+        {
+          "time": "2026-05-30T16:00",
+          "risk": 1.0
+        },
+        {
+          "time": "2026-05-30T17:00",
+          "risk": 1.0
+        },
+        {
+          "time": "2026-05-30T18:00",
+          "risk": 1.0
+        },
+        {
+          "time": "2026-05-30T19:00",
+          "risk": 1.0
+        },
+        {
+          "time": "2026-05-30T20:00",
+          "risk": 1.0
+        },
+        {
+          "time": "2026-05-30T21:00",
+          "risk": 1.0
+        },
+        {
+          "time": "2026-05-30T22:00",
+          "risk": 1.0
+        },
+        {
+          "time": "2026-05-30T23:00",
+          "risk": 1.0
+        }
+      ]
+    },
+    {
+      "lat": 52.3,
+      "lon": 14.0,
+      "risk": 0.7368,
+      "classical_risk": 1.0,
+      "quantum_risk": 0.7372,
+      "quantum_backend": "qiskit_qsvc",
+      "quantum_augmented": false,
+      "alert": false,
+      "ndvi_stress": 0.58,
+      "elevation_m": 58.0,
+      "slope_deg": 0.74,
+      "fwi_score": 0.485,
+      "drought_days": 21,
+      "label_source": "heuristic",
+      "tier": "HIGH",
+      "shap_drivers": [
+        {
+          "feature": "fwi_score",
+          "shap": 0.0842
+        },
+        {
+          "feature": "ndvi_stress",
+          "shap": 0.0733
+        },
+        {
+          "feature": "dryness_ratio",
+          "shap": 0.0526
+        }
+      ],
+      "hourly_risk": [
+        {
+          "time": "2026-05-30T00:00",
+          "risk": 0.854
+        },
+        {
+          "time": "2026-05-30T01:00",
+          "risk": 0.87
+        },
+        {
+          "time": "2026-05-30T02:00",
+          "risk": 0.843
+        },
+        {
+          "time": "2026-05-30T03:00",
+          "risk": 0.863
+        },
+        {
+          "time": "2026-05-30T04:00",
+          "risk": 0.814
+        },
+        {
+          "time": "2026-05-30T05:00",
+          "risk": 0.8
+        },
+        {
+          "time": "2026-05-30T06:00",
+          "risk": 0.792
+        },
+        {
+          "time": "2026-05-30T07:00",
+          "risk": 0.875
+        },
+        {
+          "time": "2026-05-30T08:00",
+          "risk": 0.939
+        },
+        {
+          "time": "2026-05-30T09:00",
+          "risk": 1.0
+        },
+        {
+          "time": "2026-05-30T10:00",
+          "risk": 1.0
+        },
+        {
+          "time": "2026-05-30T11:00",
+          "risk": 1.0
+        },
+        {
+          "time": "2026-05-30T12:00",
+          "risk": 1.0
+        },
+        {
+          "time": "2026-05-30T13:00",
+          "risk": 1.0
+        },
+        {
+          "time": "2026-05-30T14:00",
+          "risk": 1.0
+        },
+        {
+          "time": "2026-05-30T15:00",
+          "risk": 1.0
+        },
+        {
+          "time": "2026-05-30T16:00",
+          "risk": 1.0
+        },
+        {
+          "time": "2026-05-30T17:00",
+          "risk": 1.0
+        },
+        {
+          "time": "2026-05-30T18:00",
+          "risk": 1.0
+        },
+        {
+          "time": "2026-05-30T19:00",
+          "risk": 1.0
+        },
+        {
+          "time": "2026-05-30T20:00",
+          "risk": 1.0
+        },
+        {
+          "time": "2026-05-30T21:00",
+          "risk": 0.917
+        },
+        {
+          "time": "2026-05-30T22:00",
+          "risk": 0.812
+        },
+        {
+          "time": "2026-05-30T23:00",
+          "risk": 0.769
         }
       ]
     },
     {
       "lat": 53.4,
       "lon": 18.0,
-      "risk": 0.0824,
-      "classical_risk": 0.0,
-      "quantum_risk": 0.2747,
+      "risk": 0.7787,
+      "classical_risk": 1.0,
+      "quantum_risk": 0.7325,
       "quantum_backend": "qiskit_qsvc",
-      "quantum_augmented": true,
-      "alert": false,
-      "ndvi_stress": 0.518,
+      "quantum_augmented": false,
+      "alert": true,
+      "ndvi_stress": 0.594,
       "elevation_m": 200.0,
-      "slope_deg": 0.87,
+      "slope_deg": 1.01,
+      "fwi_score": 0.532,
+      "drought_days": 21,
+      "label_source": "bdl_ban:RDLP_TORUN/Bydgoszcz",
+      "tier": "CRITICAL",
       "shap_drivers": [
         {
-          "feature": "wind_dryness_ratio",
-          "shap": 0.0
+          "feature": "fwi_score",
+          "shap": 0.0842
+        },
+        {
+          "feature": "ndvi_stress",
+          "shap": 0.0733
         },
         {
           "feature": "dryness_ratio",
-          "shap": 0.0
-        },
-        {
-          "feature": "soil_x_rh",
-          "shap": 0.0
+          "shap": 0.0563
         }
       ],
       "hourly_risk": [
         {
-          "time": "2026-05-27T00:00",
-          "risk": 0.115
+          "time": "2026-05-30T00:00",
+          "risk": 0.862
         },
         {
-          "time": "2026-05-27T01:00",
-          "risk": 0.113
+          "time": "2026-05-30T01:00",
+          "risk": 0.889
         },
         {
-          "time": "2026-05-27T02:00",
-          "risk": 0.113
+          "time": "2026-05-30T02:00",
+          "risk": 0.834
         },
         {
-          "time": "2026-05-27T03:00",
-          "risk": 0.111
+          "time": "2026-05-30T03:00",
+          "risk": 0.843
         },
         {
-          "time": "2026-05-27T04:00",
-          "risk": 0.109
+          "time": "2026-05-30T04:00",
+          "risk": 0.851
         },
         {
-          "time": "2026-05-27T05:00",
-          "risk": 0.108
+          "time": "2026-05-30T05:00",
+          "risk": 0.848
         },
         {
-          "time": "2026-05-27T06:00",
-          "risk": 0.107
+          "time": "2026-05-30T06:00",
+          "risk": 0.888
         },
         {
-          "time": "2026-05-27T07:00",
-          "risk": 0.109
+          "time": "2026-05-30T07:00",
+          "risk": 0.937
         },
         {
-          "time": "2026-05-27T08:00",
-          "risk": 0.112
+          "time": "2026-05-30T08:00",
+          "risk": 0.97
         },
         {
-          "time": "2026-05-27T09:00",
-          "risk": 0.116
+          "time": "2026-05-30T09:00",
+          "risk": 1.0
         },
         {
-          "time": "2026-05-27T10:00",
-          "risk": 0.122
+          "time": "2026-05-30T10:00",
+          "risk": 1.0
         },
         {
-          "time": "2026-05-27T11:00",
-          "risk": 0.13
+          "time": "2026-05-30T11:00",
+          "risk": 1.0
         },
         {
-          "time": "2026-05-27T12:00",
-          "risk": 0.135
+          "time": "2026-05-30T12:00",
+          "risk": 1.0
         },
         {
-          "time": "2026-05-27T13:00",
-          "risk": 0.139
+          "time": "2026-05-30T13:00",
+          "risk": 1.0
         },
         {
-          "time": "2026-05-27T14:00",
-          "risk": 0.141
+          "time": "2026-05-30T14:00",
+          "risk": 1.0
         },
         {
-          "time": "2026-05-27T15:00",
-          "risk": 0.142
+          "time": "2026-05-30T15:00",
+          "risk": 1.0
         },
         {
-          "time": "2026-05-27T16:00",
-          "risk": 0.141
+          "time": "2026-05-30T16:00",
+          "risk": 1.0
         },
         {
-          "time": "2026-05-27T17:00",
-          "risk": 0.139
+          "time": "2026-05-30T17:00",
+          "risk": 1.0
         },
         {
-          "time": "2026-05-27T18:00",
-          "risk": 0.132
+          "time": "2026-05-30T18:00",
+          "risk": 1.0
         },
         {
-          "time": "2026-05-27T19:00",
-          "risk": 0.126
+          "time": "2026-05-30T19:00",
+          "risk": 1.0
         },
         {
-          "time": "2026-05-27T20:00",
-          "risk": 0.118
+          "time": "2026-05-30T20:00",
+          "risk": 1.0
         },
         {
-          "time": "2026-05-27T21:00",
-          "risk": 0.102
+          "time": "2026-05-30T21:00",
+          "risk": 1.0
         },
         {
-          "time": "2026-05-27T22:00",
-          "risk": 0.093
+          "time": "2026-05-30T22:00",
+          "risk": 0.967
         },
         {
-          "time": "2026-05-27T23:00",
-          "risk": 0.09
+          "time": "2026-05-30T23:00",
+          "risk": 0.939
+        }
+      ]
+    },
+    {
+      "lat": 53.4,
+      "lon": 16.0,
+      "risk": 0.559,
+      "classical_risk": 0.7413,
+      "quantum_risk": 0.7365,
+      "quantum_backend": "qiskit_qsvc",
+      "quantum_augmented": false,
+      "alert": false,
+      "ndvi_stress": 0.185,
+      "elevation_m": 140.0,
+      "slope_deg": 0.31,
+      "fwi_score": 0.375,
+      "drought_days": 21,
+      "label_source": "heuristic",
+      "tier": "MODERATE",
+      "shap_drivers": [
+        {
+          "feature": "ndvi_stress",
+          "shap": -0.0642
+        },
+        {
+          "feature": "dryness_ratio",
+          "shap": 0.056
+        },
+        {
+          "feature": "temp_max",
+          "shap": 0.0481
+        }
+      ],
+      "hourly_risk": [
+        {
+          "time": "2026-05-30T00:00",
+          "risk": 0.637
+        },
+        {
+          "time": "2026-05-30T01:00",
+          "risk": 0.611
+        },
+        {
+          "time": "2026-05-30T02:00",
+          "risk": 0.591
+        },
+        {
+          "time": "2026-05-30T03:00",
+          "risk": 0.576
+        },
+        {
+          "time": "2026-05-30T04:00",
+          "risk": 0.617
+        },
+        {
+          "time": "2026-05-30T05:00",
+          "risk": 0.593
+        },
+        {
+          "time": "2026-05-30T06:00",
+          "risk": 0.628
+        },
+        {
+          "time": "2026-05-30T07:00",
+          "risk": 0.621
+        },
+        {
+          "time": "2026-05-30T08:00",
+          "risk": 0.702
+        },
+        {
+          "time": "2026-05-30T09:00",
+          "risk": 0.722
+        },
+        {
+          "time": "2026-05-30T10:00",
+          "risk": 0.76
+        },
+        {
+          "time": "2026-05-30T11:00",
+          "risk": 0.815
+        },
+        {
+          "time": "2026-05-30T12:00",
+          "risk": 0.871
+        },
+        {
+          "time": "2026-05-30T13:00",
+          "risk": 0.882
+        },
+        {
+          "time": "2026-05-30T14:00",
+          "risk": 0.886
+        },
+        {
+          "time": "2026-05-30T15:00",
+          "risk": 0.885
+        },
+        {
+          "time": "2026-05-30T16:00",
+          "risk": 0.865
+        },
+        {
+          "time": "2026-05-30T17:00",
+          "risk": 0.805
+        },
+        {
+          "time": "2026-05-30T18:00",
+          "risk": 0.774
+        },
+        {
+          "time": "2026-05-30T19:00",
+          "risk": 0.736
+        },
+        {
+          "time": "2026-05-30T20:00",
+          "risk": 0.721
+        },
+        {
+          "time": "2026-05-30T21:00",
+          "risk": 0.687
+        },
+        {
+          "time": "2026-05-30T22:00",
+          "risk": 0.657
+        },
+        {
+          "time": "2026-05-30T23:00",
+          "risk": 0.623
+        }
+      ]
+    },
+    {
+      "lat": 53.4,
+      "lon": 14.0,
+      "risk": 0.6227,
+      "classical_risk": 0.8704,
+      "quantum_risk": 0.7264,
+      "quantum_backend": "qiskit_qsvc",
+      "quantum_augmented": false,
+      "alert": false,
+      "ndvi_stress": 0.438,
+      "elevation_m": 49.0,
+      "slope_deg": 0.78,
+      "fwi_score": 0.405,
+      "drought_days": 21,
+      "label_source": "heuristic",
+      "tier": "MODERATE",
+      "shap_drivers": [
+        {
+          "feature": "fwi_score",
+          "shap": 0.0811
+        },
+        {
+          "feature": "ndvi_stress",
+          "shap": 0.074
+        },
+        {
+          "feature": "dryness_ratio",
+          "shap": -0.0482
+        }
+      ],
+      "hourly_risk": [
+        {
+          "time": "2026-05-30T00:00",
+          "risk": 0.813
+        },
+        {
+          "time": "2026-05-30T01:00",
+          "risk": 0.844
+        },
+        {
+          "time": "2026-05-30T02:00",
+          "risk": 0.769
+        },
+        {
+          "time": "2026-05-30T03:00",
+          "risk": 0.821
+        },
+        {
+          "time": "2026-05-30T04:00",
+          "risk": 0.805
+        },
+        {
+          "time": "2026-05-30T05:00",
+          "risk": 0.748
+        },
+        {
+          "time": "2026-05-30T06:00",
+          "risk": 0.8
+        },
+        {
+          "time": "2026-05-30T07:00",
+          "risk": 0.752
+        },
+        {
+          "time": "2026-05-30T08:00",
+          "risk": 0.759
+        },
+        {
+          "time": "2026-05-30T09:00",
+          "risk": 0.799
+        },
+        {
+          "time": "2026-05-30T10:00",
+          "risk": 0.856
+        },
+        {
+          "time": "2026-05-30T11:00",
+          "risk": 0.896
+        },
+        {
+          "time": "2026-05-30T12:00",
+          "risk": 0.975
+        },
+        {
+          "time": "2026-05-30T13:00",
+          "risk": 0.99
+        },
+        {
+          "time": "2026-05-30T14:00",
+          "risk": 0.932
+        },
+        {
+          "time": "2026-05-30T15:00",
+          "risk": 0.985
+        },
+        {
+          "time": "2026-05-30T16:00",
+          "risk": 0.963
+        },
+        {
+          "time": "2026-05-30T17:00",
+          "risk": 0.95
+        },
+        {
+          "time": "2026-05-30T18:00",
+          "risk": 0.964
+        },
+        {
+          "time": "2026-05-30T19:00",
+          "risk": 0.909
+        },
+        {
+          "time": "2026-05-30T20:00",
+          "risk": 0.873
+        },
+        {
+          "time": "2026-05-30T21:00",
+          "risk": 0.831
+        },
+        {
+          "time": "2026-05-30T22:00",
+          "risk": 0.738
+        },
+        {
+          "time": "2026-05-30T23:00",
+          "risk": 0.685
+        }
+      ]
+    },
+    {
+      "lat": 52.3,
+      "lon": 20.0,
+      "risk": 0.6462,
+      "classical_risk": 0.9432,
+      "quantum_risk": 0.7366,
+      "quantum_backend": "qiskit_qsvc",
+      "quantum_augmented": false,
+      "alert": false,
+      "ndvi_stress": 0.434,
+      "elevation_m": 200.0,
+      "slope_deg": 1.0,
+      "fwi_score": 0.404,
+      "drought_days": 21,
+      "label_source": "heuristic",
+      "tier": "MODERATE",
+      "shap_drivers": [
+        {
+          "feature": "fwi_score",
+          "shap": 0.0825
+        },
+        {
+          "feature": "ndvi_stress",
+          "shap": 0.074
+        },
+        {
+          "feature": "dryness_ratio",
+          "shap": 0.0432
+        }
+      ],
+      "hourly_risk": [
+        {
+          "time": "2026-05-30T00:00",
+          "risk": 0.807
+        },
+        {
+          "time": "2026-05-30T01:00",
+          "risk": 0.776
+        },
+        {
+          "time": "2026-05-30T02:00",
+          "risk": 0.736
+        },
+        {
+          "time": "2026-05-30T03:00",
+          "risk": 0.719
+        },
+        {
+          "time": "2026-05-30T04:00",
+          "risk": 0.712
+        },
+        {
+          "time": "2026-05-30T05:00",
+          "risk": 0.731
+        },
+        {
+          "time": "2026-05-30T06:00",
+          "risk": 0.754
+        },
+        {
+          "time": "2026-05-30T07:00",
+          "risk": 0.821
+        },
+        {
+          "time": "2026-05-30T08:00",
+          "risk": 0.818
+        },
+        {
+          "time": "2026-05-30T09:00",
+          "risk": 0.897
+        },
+        {
+          "time": "2026-05-30T10:00",
+          "risk": 0.952
+        },
+        {
+          "time": "2026-05-30T11:00",
+          "risk": 0.986
+        },
+        {
+          "time": "2026-05-30T12:00",
+          "risk": 0.971
+        },
+        {
+          "time": "2026-05-30T13:00",
+          "risk": 0.981
+        },
+        {
+          "time": "2026-05-30T14:00",
+          "risk": 0.977
+        },
+        {
+          "time": "2026-05-30T15:00",
+          "risk": 0.976
+        },
+        {
+          "time": "2026-05-30T16:00",
+          "risk": 0.931
+        },
+        {
+          "time": "2026-05-30T17:00",
+          "risk": 0.974
+        },
+        {
+          "time": "2026-05-30T18:00",
+          "risk": 0.979
+        },
+        {
+          "time": "2026-05-30T19:00",
+          "risk": 0.953
+        },
+        {
+          "time": "2026-05-30T20:00",
+          "risk": 0.908
+        },
+        {
+          "time": "2026-05-30T21:00",
+          "risk": 0.954
+        },
+        {
+          "time": "2026-05-30T22:00",
+          "risk": 0.95
+        },
+        {
+          "time": "2026-05-30T23:00",
+          "risk": 0.901
         }
       ]
     },
     {
       "lat": 54.5,
       "lon": 14.0,
-      "risk": 0.0893,
-      "classical_risk": 0.0,
-      "quantum_risk": 0.2975,
+      "risk": 0.665,
+      "classical_risk": 0.8876,
+      "quantum_risk": 0.7311,
       "quantum_backend": "qiskit_qsvc",
-      "quantum_augmented": true,
+      "quantum_augmented": false,
       "alert": false,
-      "ndvi_stress": 0.457,
+      "ndvi_stress": 0.53,
       "elevation_m": 0.0,
       "slope_deg": 0.0,
+      "fwi_score": 0.445,
+      "drought_days": 21,
+      "label_source": "heuristic",
+      "tier": "HIGH",
       "shap_drivers": [
         {
-          "feature": "wind_dryness_ratio",
-          "shap": 0.0
+          "feature": "fwi_score",
+          "shap": 0.0856
+        },
+        {
+          "feature": "ndvi_stress",
+          "shap": 0.0794
         },
         {
           "feature": "dryness_ratio",
-          "shap": 0.0
-        },
-        {
-          "feature": "soil_x_rh",
-          "shap": 0.0
+          "shap": 0.0722
         }
       ],
       "hourly_risk": [
         {
-          "time": "2026-05-27T00:00",
-          "risk": 0.143
+          "time": "2026-05-30T00:00",
+          "risk": 1.0
         },
         {
-          "time": "2026-05-27T01:00",
-          "risk": 0.138
+          "time": "2026-05-30T01:00",
+          "risk": 1.0
         },
         {
-          "time": "2026-05-27T02:00",
-          "risk": 0.138
+          "time": "2026-05-30T02:00",
+          "risk": 1.0
         },
         {
-          "time": "2026-05-27T03:00",
-          "risk": 0.13
+          "time": "2026-05-30T03:00",
+          "risk": 0.964
         },
         {
-          "time": "2026-05-27T04:00",
-          "risk": 0.12
+          "time": "2026-05-30T04:00",
+          "risk": 0.908
         },
         {
-          "time": "2026-05-27T05:00",
-          "risk": 0.113
+          "time": "2026-05-30T05:00",
+          "risk": 0.886
         },
         {
-          "time": "2026-05-27T06:00",
-          "risk": 0.109
+          "time": "2026-05-30T06:00",
+          "risk": 0.853
         },
         {
-          "time": "2026-05-27T07:00",
-          "risk": 0.107
+          "time": "2026-05-30T07:00",
+          "risk": 0.809
         },
         {
-          "time": "2026-05-27T08:00",
-          "risk": 0.109
+          "time": "2026-05-30T08:00",
+          "risk": 0.798
         },
         {
-          "time": "2026-05-27T09:00",
-          "risk": 0.109
+          "time": "2026-05-30T09:00",
+          "risk": 0.798
         },
         {
-          "time": "2026-05-27T10:00",
-          "risk": 0.11
+          "time": "2026-05-30T10:00",
+          "risk": 0.809
         },
         {
-          "time": "2026-05-27T11:00",
-          "risk": 0.113
+          "time": "2026-05-30T11:00",
+          "risk": 0.841
         },
         {
-          "time": "2026-05-27T12:00",
-          "risk": 0.12
+          "time": "2026-05-30T12:00",
+          "risk": 0.882
         },
         {
-          "time": "2026-05-27T13:00",
-          "risk": 0.121
+          "time": "2026-05-30T13:00",
+          "risk": 0.919
         },
         {
-          "time": "2026-05-27T14:00",
-          "risk": 0.126
+          "time": "2026-05-30T14:00",
+          "risk": 0.953
         },
         {
-          "time": "2026-05-27T15:00",
-          "risk": 0.13
+          "time": "2026-05-30T15:00",
+          "risk": 0.964
         },
         {
-          "time": "2026-05-27T16:00",
-          "risk": 0.134
+          "time": "2026-05-30T16:00",
+          "risk": 0.997
         },
         {
-          "time": "2026-05-27T17:00",
-          "risk": 0.136
+          "time": "2026-05-30T17:00",
+          "risk": 0.997
         },
         {
-          "time": "2026-05-27T18:00",
-          "risk": 0.133
+          "time": "2026-05-30T18:00",
+          "risk": 0.997
         },
         {
-          "time": "2026-05-27T19:00",
-          "risk": 0.134
+          "time": "2026-05-30T19:00",
+          "risk": 0.953
         },
         {
-          "time": "2026-05-27T20:00",
-          "risk": 0.138
+          "time": "2026-05-30T20:00",
+          "risk": 0.986
         },
         {
-          "time": "2026-05-27T21:00",
-          "risk": 0.136
+          "time": "2026-05-30T21:00",
+          "risk": 0.964
         },
         {
-          "time": "2026-05-27T22:00",
-          "risk": 0.131
+          "time": "2026-05-30T22:00",
+          "risk": 0.908
         },
         {
-          "time": "2026-05-27T23:00",
-          "risk": 0.13
+          "time": "2026-05-30T23:00",
+          "risk": 0.886
+        }
+      ]
+    },
+    {
+      "lat": 54.5,
+      "lon": 18.0,
+      "risk": 0.6931,
+      "classical_risk": 0.9968,
+      "quantum_risk": 0.7254,
+      "quantum_backend": "qiskit_qsvc",
+      "quantum_augmented": false,
+      "alert": false,
+      "ndvi_stress": 0.551,
+      "elevation_m": 109.0,
+      "slope_deg": 0.53,
+      "fwi_score": 0.441,
+      "drought_days": 21,
+      "label_source": "heuristic",
+      "tier": "HIGH",
+      "shap_drivers": [
+        {
+          "feature": "fwi_score",
+          "shap": 0.0842
+        },
+        {
+          "feature": "ndvi_stress",
+          "shap": 0.0733
+        },
+        {
+          "feature": "dryness_ratio",
+          "shap": 0.0535
+        }
+      ],
+      "hourly_risk": [
+        {
+          "time": "2026-05-30T00:00",
+          "risk": 0.781
+        },
+        {
+          "time": "2026-05-30T01:00",
+          "risk": 0.761
+        },
+        {
+          "time": "2026-05-30T02:00",
+          "risk": 0.74
+        },
+        {
+          "time": "2026-05-30T03:00",
+          "risk": 0.718
+        },
+        {
+          "time": "2026-05-30T04:00",
+          "risk": 0.747
+        },
+        {
+          "time": "2026-05-30T05:00",
+          "risk": 0.78
+        },
+        {
+          "time": "2026-05-30T06:00",
+          "risk": 0.825
+        },
+        {
+          "time": "2026-05-30T07:00",
+          "risk": 0.867
+        },
+        {
+          "time": "2026-05-30T08:00",
+          "risk": 0.931
+        },
+        {
+          "time": "2026-05-30T09:00",
+          "risk": 0.953
+        },
+        {
+          "time": "2026-05-30T10:00",
+          "risk": 0.973
+        },
+        {
+          "time": "2026-05-30T11:00",
+          "risk": 1.0
+        },
+        {
+          "time": "2026-05-30T12:00",
+          "risk": 1.0
+        },
+        {
+          "time": "2026-05-30T13:00",
+          "risk": 1.0
+        },
+        {
+          "time": "2026-05-30T14:00",
+          "risk": 1.0
+        },
+        {
+          "time": "2026-05-30T15:00",
+          "risk": 1.0
+        },
+        {
+          "time": "2026-05-30T16:00",
+          "risk": 1.0
+        },
+        {
+          "time": "2026-05-30T17:00",
+          "risk": 1.0
+        },
+        {
+          "time": "2026-05-30T18:00",
+          "risk": 1.0
+        },
+        {
+          "time": "2026-05-30T19:00",
+          "risk": 0.928
+        },
+        {
+          "time": "2026-05-30T20:00",
+          "risk": 0.885
+        },
+        {
+          "time": "2026-05-30T21:00",
+          "risk": 0.853
+        },
+        {
+          "time": "2026-05-30T22:00",
+          "risk": 0.821
+        },
+        {
+          "time": "2026-05-30T23:00",
+          "risk": 0.769
+        }
+      ]
+    },
+    {
+      "lat": 53.4,
+      "lon": 24.0,
+      "risk": 0.7147,
+      "classical_risk": 0.9399,
+      "quantum_risk": 0.7317,
+      "quantum_backend": "qiskit_qsvc",
+      "quantum_augmented": false,
+      "alert": false,
+      "ndvi_stress": 0.602,
+      "elevation_m": 115.0,
+      "slope_deg": 0.1,
+      "fwi_score": 0.482,
+      "drought_days": 21,
+      "label_source": "heuristic",
+      "tier": "HIGH",
+      "shap_drivers": [
+        {
+          "feature": "fwi_score",
+          "shap": 0.0856
+        },
+        {
+          "feature": "ndvi_stress",
+          "shap": 0.0733
+        },
+        {
+          "feature": "dryness_ratio",
+          "shap": 0.0553
+        }
+      ],
+      "hourly_risk": [
+        {
+          "time": "2026-05-30T00:00",
+          "risk": 0.897
+        },
+        {
+          "time": "2026-05-30T01:00",
+          "risk": 0.881
+        },
+        {
+          "time": "2026-05-30T02:00",
+          "risk": 0.879
+        },
+        {
+          "time": "2026-05-30T03:00",
+          "risk": 0.833
+        },
+        {
+          "time": "2026-05-30T04:00",
+          "risk": 0.799
+        },
+        {
+          "time": "2026-05-30T05:00",
+          "risk": 0.782
+        },
+        {
+          "time": "2026-05-30T06:00",
+          "risk": 0.814
+        },
+        {
+          "time": "2026-05-30T07:00",
+          "risk": 0.888
+        },
+        {
+          "time": "2026-05-30T08:00",
+          "risk": 0.926
+        },
+        {
+          "time": "2026-05-30T09:00",
+          "risk": 0.952
+        },
+        {
+          "time": "2026-05-30T10:00",
+          "risk": 0.969
+        },
+        {
+          "time": "2026-05-30T11:00",
+          "risk": 1.0
+        },
+        {
+          "time": "2026-05-30T12:00",
+          "risk": 1.0
+        },
+        {
+          "time": "2026-05-30T13:00",
+          "risk": 1.0
+        },
+        {
+          "time": "2026-05-30T14:00",
+          "risk": 1.0
+        },
+        {
+          "time": "2026-05-30T15:00",
+          "risk": 1.0
+        },
+        {
+          "time": "2026-05-30T16:00",
+          "risk": 1.0
+        },
+        {
+          "time": "2026-05-30T17:00",
+          "risk": 1.0
+        },
+        {
+          "time": "2026-05-30T18:00",
+          "risk": 1.0
+        },
+        {
+          "time": "2026-05-30T19:00",
+          "risk": 1.0
+        },
+        {
+          "time": "2026-05-30T20:00",
+          "risk": 0.963
+        },
+        {
+          "time": "2026-05-30T21:00",
+          "risk": 0.917
+        },
+        {
+          "time": "2026-05-30T22:00",
+          "risk": 0.885
+        },
+        {
+          "time": "2026-05-30T23:00",
+          "risk": 0.858
         }
       ]
     },
     {
       "lat": 53.4,
       "lon": 20.0,
-      "risk": 0.0809,
-      "classical_risk": 0.0,
-      "quantum_risk": 0.2696,
+      "risk": 0.5974,
+      "classical_risk": 0.8538,
+      "quantum_risk": 0.7348,
       "quantum_backend": "qiskit_qsvc",
-      "quantum_augmented": true,
+      "quantum_augmented": false,
       "alert": false,
-      "ndvi_stress": 0.344,
+      "ndvi_stress": 0.456,
       "elevation_m": 182.0,
       "slope_deg": 0.1,
+      "fwi_score": 0.381,
+      "drought_days": 21,
+      "label_source": "heuristic",
+      "tier": "MODERATE",
       "shap_drivers": [
         {
-          "feature": "wind_dryness_ratio",
-          "shap": 0.0
+          "feature": "ndvi_stress",
+          "shap": 0.074
         },
         {
-          "feature": "dryness_ratio",
-          "shap": 0.0
+          "feature": "temp_max",
+          "shap": 0.0467
         },
         {
-          "feature": "soil_x_rh",
-          "shap": 0.0
+          "feature": "fwi_score",
+          "shap": 0.0413
         }
       ],
       "hourly_risk": [
         {
-          "time": "2026-05-27T00:00",
-          "risk": 0.126
+          "time": "2026-05-30T00:00",
+          "risk": 0.721
         },
         {
-          "time": "2026-05-27T01:00",
-          "risk": 0.123
+          "time": "2026-05-30T01:00",
+          "risk": 0.672
         },
         {
-          "time": "2026-05-27T02:00",
-          "risk": 0.125
+          "time": "2026-05-30T02:00",
+          "risk": 0.662
         },
         {
-          "time": "2026-05-27T03:00",
-          "risk": 0.121
+          "time": "2026-05-30T03:00",
+          "risk": 0.643
         },
         {
-          "time": "2026-05-27T04:00",
-          "risk": 0.118
+          "time": "2026-05-30T04:00",
+          "risk": 0.653
         },
         {
-          "time": "2026-05-27T05:00",
-          "risk": 0.116
+          "time": "2026-05-30T05:00",
+          "risk": 0.655
         },
         {
-          "time": "2026-05-27T06:00",
-          "risk": 0.116
+          "time": "2026-05-30T06:00",
+          "risk": 0.689
         },
         {
-          "time": "2026-05-27T07:00",
-          "risk": 0.117
+          "time": "2026-05-30T07:00",
+          "risk": 0.729
         },
         {
-          "time": "2026-05-27T08:00",
-          "risk": 0.118
+          "time": "2026-05-30T08:00",
+          "risk": 0.719
         },
         {
-          "time": "2026-05-27T09:00",
-          "risk": 0.12
+          "time": "2026-05-30T09:00",
+          "risk": 0.799
         },
         {
-          "time": "2026-05-27T10:00",
-          "risk": 0.125
+          "time": "2026-05-30T10:00",
+          "risk": 0.858
         },
         {
-          "time": "2026-05-27T11:00",
-          "risk": 0.131
+          "time": "2026-05-30T11:00",
+          "risk": 0.888
         },
         {
-          "time": "2026-05-27T12:00",
-          "risk": 0.135
+          "time": "2026-05-30T12:00",
+          "risk": 0.903
         },
         {
-          "time": "2026-05-27T13:00",
-          "risk": 0.137
+          "time": "2026-05-30T13:00",
+          "risk": 0.893
         },
         {
-          "time": "2026-05-27T14:00",
-          "risk": 0.138
+          "time": "2026-05-30T14:00",
+          "risk": 0.85
         },
         {
-          "time": "2026-05-27T15:00",
-          "risk": 0.139
+          "time": "2026-05-30T15:00",
+          "risk": 0.829
         },
         {
-          "time": "2026-05-27T16:00",
-          "risk": 0.137
+          "time": "2026-05-30T16:00",
+          "risk": 0.865
         },
         {
-          "time": "2026-05-27T17:00",
-          "risk": 0.135
+          "time": "2026-05-30T17:00",
+          "risk": 0.922
         },
         {
-          "time": "2026-05-27T18:00",
-          "risk": 0.132
+          "time": "2026-05-30T18:00",
+          "risk": 0.929
         },
         {
-          "time": "2026-05-27T19:00",
-          "risk": 0.127
+          "time": "2026-05-30T19:00",
+          "risk": 0.92
         },
         {
-          "time": "2026-05-27T20:00",
-          "risk": 0.117
+          "time": "2026-05-30T20:00",
+          "risk": 0.88
         },
         {
-          "time": "2026-05-27T21:00",
-          "risk": 0.104
+          "time": "2026-05-30T21:00",
+          "risk": 0.796
         },
         {
-          "time": "2026-05-27T22:00",
-          "risk": 0.091
+          "time": "2026-05-30T22:00",
+          "risk": 0.766
         },
         {
-          "time": "2026-05-27T23:00",
-          "risk": 0.088
+          "time": "2026-05-30T23:00",
+          "risk": 0.804
         }
       ]
     },
     {
-      "lat": 53.4,
-      "lon": 14.0,
-      "risk": 0.0802,
-      "classical_risk": 0.0,
-      "quantum_risk": 0.2675,
+      "lat": 54.5,
+      "lon": 20.0,
+      "risk": 0.5763,
+      "classical_risk": 0.8098,
+      "quantum_risk": 0.6844,
       "quantum_backend": "qiskit_qsvc",
-      "quantum_augmented": true,
+      "quantum_augmented": false,
       "alert": false,
-      "ndvi_stress": 0.323,
-      "elevation_m": 49.0,
-      "slope_deg": 0.1,
+      "ndvi_stress": 0.473,
+      "elevation_m": 30.0,
+      "slope_deg": 0.43,
+      "fwi_score": 0.383,
+      "drought_days": 21,
+      "label_source": "heuristic",
+      "tier": "MODERATE",
       "shap_drivers": [
         {
-          "feature": "wind_dryness_ratio",
-          "shap": 0.0
+          "feature": "ndvi_stress",
+          "shap": 0.0749
         },
         {
-          "feature": "dryness_ratio",
-          "shap": 0.0
+          "feature": "fwi_score",
+          "shap": 0.0505
         },
         {
-          "feature": "soil_x_rh",
-          "shap": 0.0
+          "feature": "temp_max",
+          "shap": 0.0458
         }
       ],
       "hourly_risk": [
         {
-          "time": "2026-05-27T00:00",
-          "risk": 0.126
+          "time": "2026-05-30T00:00",
+          "risk": 0.656
         },
         {
-          "time": "2026-05-27T01:00",
-          "risk": 0.12
+          "time": "2026-05-30T01:00",
+          "risk": 0.634
         },
         {
-          "time": "2026-05-27T02:00",
-          "risk": 0.115
+          "time": "2026-05-30T02:00",
+          "risk": 0.598
         },
         {
-          "time": "2026-05-27T03:00",
-          "risk": 0.111
+          "time": "2026-05-30T03:00",
+          "risk": 0.608
         },
         {
-          "time": "2026-05-27T04:00",
-          "risk": 0.105
+          "time": "2026-05-30T04:00",
+          "risk": 0.594
         },
         {
-          "time": "2026-05-27T05:00",
-          "risk": 0.106
+          "time": "2026-05-30T05:00",
+          "risk": 0.597
         },
         {
-          "time": "2026-05-27T06:00",
-          "risk": 0.101
+          "time": "2026-05-30T06:00",
+          "risk": 0.626
         },
         {
-          "time": "2026-05-27T07:00",
-          "risk": 0.1
+          "time": "2026-05-30T07:00",
+          "risk": 0.676
         },
         {
-          "time": "2026-05-27T08:00",
-          "risk": 0.102
+          "time": "2026-05-30T08:00",
+          "risk": 0.724
         },
         {
-          "time": "2026-05-27T09:00",
-          "risk": 0.106
+          "time": "2026-05-30T09:00",
+          "risk": 0.758
         },
         {
-          "time": "2026-05-27T10:00",
-          "risk": 0.111
+          "time": "2026-05-30T10:00",
+          "risk": 0.785
         },
         {
-          "time": "2026-05-27T11:00",
-          "risk": 0.115
+          "time": "2026-05-30T11:00",
+          "risk": 0.797
         },
         {
-          "time": "2026-05-27T12:00",
-          "risk": 0.119
+          "time": "2026-05-30T12:00",
+          "risk": 0.827
         },
         {
-          "time": "2026-05-27T13:00",
-          "risk": 0.124
+          "time": "2026-05-30T13:00",
+          "risk": 0.877
         },
         {
-          "time": "2026-05-27T14:00",
-          "risk": 0.127
+          "time": "2026-05-30T14:00",
+          "risk": 0.876
         },
         {
-          "time": "2026-05-27T15:00",
-          "risk": 0.129
+          "time": "2026-05-30T15:00",
+          "risk": 0.814
         },
         {
-          "time": "2026-05-27T16:00",
-          "risk": 0.131
+          "time": "2026-05-30T16:00",
+          "risk": 0.793
         },
         {
-          "time": "2026-05-27T17:00",
-          "risk": 0.131
+          "time": "2026-05-30T17:00",
+          "risk": 0.793
         },
         {
-          "time": "2026-05-27T18:00",
-          "risk": 0.129
+          "time": "2026-05-30T18:00",
+          "risk": 0.78
         },
         {
-          "time": "2026-05-27T19:00",
-          "risk": 0.118
+          "time": "2026-05-30T19:00",
+          "risk": 0.771
         },
         {
-          "time": "2026-05-27T20:00",
-          "risk": 0.112
+          "time": "2026-05-30T20:00",
+          "risk": 0.764
         },
         {
-          "time": "2026-05-27T21:00",
-          "risk": 0.103
+          "time": "2026-05-30T21:00",
+          "risk": 0.751
         },
         {
-          "time": "2026-05-27T22:00",
-          "risk": 0.094
+          "time": "2026-05-30T22:00",
+          "risk": 0.729
         },
         {
-          "time": "2026-05-27T23:00",
-          "risk": 0.087
-        }
-      ]
-    },
-    {
-      "lat": 53.4,
-      "lon": 22.0,
-      "risk": 0.083,
-      "classical_risk": 0.0,
-      "quantum_risk": 0.2766,
-      "quantum_backend": "qiskit_qsvc",
-      "quantum_augmented": true,
-      "alert": false,
-      "ndvi_stress": 0.472,
-      "elevation_m": 141.0,
-      "slope_deg": 0.18,
-      "shap_drivers": [
-        {
-          "feature": "wind_dryness_ratio",
-          "shap": 0.0
-        },
-        {
-          "feature": "dryness_ratio",
-          "shap": 0.0
-        },
-        {
-          "feature": "soil_x_rh",
-          "shap": 0.0
-        }
-      ],
-      "hourly_risk": [
-        {
-          "time": "2026-05-27T00:00",
-          "risk": 0.131
-        },
-        {
-          "time": "2026-05-27T01:00",
-          "risk": 0.125
-        },
-        {
-          "time": "2026-05-27T02:00",
-          "risk": 0.123
-        },
-        {
-          "time": "2026-05-27T03:00",
-          "risk": 0.117
-        },
-        {
-          "time": "2026-05-27T04:00",
-          "risk": 0.12
-        },
-        {
-          "time": "2026-05-27T05:00",
-          "risk": 0.117
-        },
-        {
-          "time": "2026-05-27T06:00",
-          "risk": 0.115
-        },
-        {
-          "time": "2026-05-27T07:00",
-          "risk": 0.12
-        },
-        {
-          "time": "2026-05-27T08:00",
-          "risk": 0.12
-        },
-        {
-          "time": "2026-05-27T09:00",
-          "risk": 0.124
-        },
-        {
-          "time": "2026-05-27T10:00",
-          "risk": 0.128
-        },
-        {
-          "time": "2026-05-27T11:00",
-          "risk": 0.129
-        },
-        {
-          "time": "2026-05-27T12:00",
-          "risk": 0.129
-        },
-        {
-          "time": "2026-05-27T13:00",
-          "risk": 0.132
-        },
-        {
-          "time": "2026-05-27T14:00",
-          "risk": 0.139
-        },
-        {
-          "time": "2026-05-27T15:00",
-          "risk": 0.141
-        },
-        {
-          "time": "2026-05-27T16:00",
-          "risk": 0.14
-        },
-        {
-          "time": "2026-05-27T17:00",
-          "risk": 0.135
-        },
-        {
-          "time": "2026-05-27T18:00",
-          "risk": 0.134
-        },
-        {
-          "time": "2026-05-27T19:00",
-          "risk": 0.132
-        },
-        {
-          "time": "2026-05-27T20:00",
-          "risk": 0.125
-        },
-        {
-          "time": "2026-05-27T21:00",
-          "risk": 0.117
-        },
-        {
-          "time": "2026-05-27T22:00",
-          "risk": 0.104
-        },
-        {
-          "time": "2026-05-27T23:00",
-          "risk": 0.094
+          "time": "2026-05-30T23:00",
+          "risk": 0.718
         }
       ]
     },
     {
       "lat": 54.5,
       "lon": 16.0,
-      "risk": 0.0832,
-      "classical_risk": 0.0,
-      "quantum_risk": 0.2774,
+      "risk": 0.6625,
+      "classical_risk": 0.8461,
+      "quantum_risk": 0.7319,
       "quantum_backend": "qiskit_qsvc",
-      "quantum_augmented": true,
+      "quantum_augmented": false,
       "alert": false,
-      "ndvi_stress": 0.443,
-      "elevation_m": 200.0,
-      "slope_deg": 2.05,
+      "ndvi_stress": 0.593,
+      "elevation_m": 0.0,
+      "slope_deg": 0.0,
+      "fwi_score": 0.456,
+      "drought_days": 21,
+      "label_source": "heuristic",
+      "tier": "HIGH",
       "shap_drivers": [
         {
-          "feature": "wind_dryness_ratio",
-          "shap": 0.0
+          "feature": "fwi_score",
+          "shap": 0.087
+        },
+        {
+          "feature": "ndvi_stress",
+          "shap": 0.0794
         },
         {
           "feature": "dryness_ratio",
-          "shap": 0.0
-        },
-        {
-          "feature": "soil_x_rh",
-          "shap": 0.0
+          "shap": 0.0704
         }
       ],
       "hourly_risk": [
         {
-          "time": "2026-05-27T00:00",
-          "risk": 0.133
+          "time": "2026-05-30T00:00",
+          "risk": 0.741
         },
         {
-          "time": "2026-05-27T01:00",
-          "risk": 0.128
+          "time": "2026-05-30T01:00",
+          "risk": 0.815
         },
         {
-          "time": "2026-05-27T02:00",
-          "risk": 0.124
+          "time": "2026-05-30T02:00",
+          "risk": 0.964
         },
         {
-          "time": "2026-05-27T03:00",
-          "risk": 0.118
+          "time": "2026-05-30T03:00",
+          "risk": 0.967
         },
         {
-          "time": "2026-05-27T04:00",
-          "risk": 0.112
+          "time": "2026-05-30T04:00",
+          "risk": 1.0
         },
         {
-          "time": "2026-05-27T05:00",
-          "risk": 0.106
+          "time": "2026-05-30T05:00",
+          "risk": 1.0
         },
         {
-          "time": "2026-05-27T06:00",
-          "risk": 0.101
+          "time": "2026-05-30T06:00",
+          "risk": 0.957
         },
         {
-          "time": "2026-05-27T07:00",
-          "risk": 0.1
+          "time": "2026-05-30T07:00",
+          "risk": 0.896
         },
         {
-          "time": "2026-05-27T08:00",
-          "risk": 0.1
+          "time": "2026-05-30T08:00",
+          "risk": 0.856
         },
         {
-          "time": "2026-05-27T09:00",
-          "risk": 0.101
+          "time": "2026-05-30T09:00",
+          "risk": 0.804
         },
         {
-          "time": "2026-05-27T10:00",
-          "risk": 0.106
+          "time": "2026-05-30T10:00",
+          "risk": 0.815
         },
         {
-          "time": "2026-05-27T11:00",
-          "risk": 0.103
+          "time": "2026-05-30T11:00",
+          "risk": 0.896
         },
         {
-          "time": "2026-05-27T12:00",
-          "risk": 0.103
+          "time": "2026-05-30T12:00",
+          "risk": 0.856
         },
         {
-          "time": "2026-05-27T13:00",
-          "risk": 0.103
+          "time": "2026-05-30T13:00",
+          "risk": 0.856
         },
         {
-          "time": "2026-05-27T14:00",
-          "risk": 0.105
+          "time": "2026-05-30T14:00",
+          "risk": 0.856
         },
         {
-          "time": "2026-05-27T15:00",
-          "risk": 0.103
+          "time": "2026-05-30T15:00",
+          "risk": 0.916
         },
         {
-          "time": "2026-05-27T16:00",
-          "risk": 0.102
+          "time": "2026-05-30T16:00",
+          "risk": 0.896
         },
         {
-          "time": "2026-05-27T17:00",
-          "risk": 0.107
+          "time": "2026-05-30T17:00",
+          "risk": 0.876
         },
         {
-          "time": "2026-05-27T18:00",
-          "risk": 0.116
+          "time": "2026-05-30T18:00",
+          "risk": 0.916
         },
         {
-          "time": "2026-05-27T19:00",
-          "risk": 0.116
+          "time": "2026-05-30T19:00",
+          "risk": 0.957
         },
         {
-          "time": "2026-05-27T20:00",
-          "risk": 0.118
+          "time": "2026-05-30T20:00",
+          "risk": 0.957
         },
         {
-          "time": "2026-05-27T21:00",
-          "risk": 0.116
+          "time": "2026-05-30T21:00",
+          "risk": 0.957
         },
         {
-          "time": "2026-05-27T22:00",
-          "risk": 0.113
+          "time": "2026-05-30T22:00",
+          "risk": 0.896
         },
         {
-          "time": "2026-05-27T23:00",
-          "risk": 0.116
+          "time": "2026-05-30T23:00",
+          "risk": 0.896
         }
       ]
     },
     {
       "lat": 53.4,
-      "lon": 24.0,
-      "risk": 0.0748,
-      "classical_risk": 0.0,
-      "quantum_risk": 0.2493,
+      "lon": 22.0,
+      "risk": 0.7796,
+      "classical_risk": 1.0,
+      "quantum_risk": 0.7289,
       "quantum_backend": "qiskit_qsvc",
-      "quantum_augmented": true,
-      "alert": false,
-      "ndvi_stress": 0.357,
-      "elevation_m": 115.0,
-      "slope_deg": 0.1,
+      "quantum_augmented": false,
+      "alert": true,
+      "ndvi_stress": 0.672,
+      "elevation_m": 141.0,
+      "slope_deg": 0.18,
+      "fwi_score": 0.534,
+      "drought_days": 21,
+      "label_source": "heuristic",
+      "tier": "CRITICAL",
       "shap_drivers": [
         {
-          "feature": "wind_dryness_ratio",
-          "shap": 0.0
+          "feature": "fwi_score",
+          "shap": 0.0842
+        },
+        {
+          "feature": "ndvi_stress",
+          "shap": 0.0733
         },
         {
           "feature": "dryness_ratio",
-          "shap": 0.0
-        },
-        {
-          "feature": "soil_x_rh",
-          "shap": 0.0
+          "shap": 0.0563
         }
       ],
       "hourly_risk": [
         {
-          "time": "2026-05-27T00:00",
-          "risk": 0.113
+          "time": "2026-05-30T00:00",
+          "risk": 0.996
         },
         {
-          "time": "2026-05-27T01:00",
-          "risk": 0.117
+          "time": "2026-05-30T01:00",
+          "risk": 0.975
         },
         {
-          "time": "2026-05-27T02:00",
-          "risk": 0.12
+          "time": "2026-05-30T02:00",
+          "risk": 0.954
         },
         {
-          "time": "2026-05-27T03:00",
-          "risk": 0.116
+          "time": "2026-05-30T03:00",
+          "risk": 0.894
         },
         {
-          "time": "2026-05-27T04:00",
-          "risk": 0.107
+          "time": "2026-05-30T04:00",
+          "risk": 0.865
         },
         {
-          "time": "2026-05-27T05:00",
-          "risk": 0.098
+          "time": "2026-05-30T05:00",
+          "risk": 0.853
         },
         {
-          "time": "2026-05-27T06:00",
-          "risk": 0.097
+          "time": "2026-05-30T06:00",
+          "risk": 0.866
         },
         {
-          "time": "2026-05-27T07:00",
-          "risk": 0.103
+          "time": "2026-05-30T07:00",
+          "risk": 0.91
         },
         {
-          "time": "2026-05-27T08:00",
-          "risk": 0.106
+          "time": "2026-05-30T08:00",
+          "risk": 0.918
         },
         {
-          "time": "2026-05-27T09:00",
-          "risk": 0.111
+          "time": "2026-05-30T09:00",
+          "risk": 0.948
         },
         {
-          "time": "2026-05-27T10:00",
-          "risk": 0.112
+          "time": "2026-05-30T10:00",
+          "risk": 0.992
         },
         {
-          "time": "2026-05-27T11:00",
-          "risk": 0.115
+          "time": "2026-05-30T11:00",
+          "risk": 1.0
         },
         {
-          "time": "2026-05-27T12:00",
-          "risk": 0.116
+          "time": "2026-05-30T12:00",
+          "risk": 1.0
         },
         {
-          "time": "2026-05-27T13:00",
-          "risk": 0.115
+          "time": "2026-05-30T13:00",
+          "risk": 1.0
         },
         {
-          "time": "2026-05-27T14:00",
-          "risk": 0.114
+          "time": "2026-05-30T14:00",
+          "risk": 1.0
         },
         {
-          "time": "2026-05-27T15:00",
-          "risk": 0.119
+          "time": "2026-05-30T15:00",
+          "risk": 1.0
         },
         {
-          "time": "2026-05-27T16:00",
-          "risk": 0.122
+          "time": "2026-05-30T16:00",
+          "risk": 1.0
         },
         {
-          "time": "2026-05-27T17:00",
-          "risk": 0.121
+          "time": "2026-05-30T17:00",
+          "risk": 1.0
         },
         {
-          "time": "2026-05-27T18:00",
-          "risk": 0.12
+          "time": "2026-05-30T18:00",
+          "risk": 1.0
         },
         {
-          "time": "2026-05-27T19:00",
-          "risk": 0.115
+          "time": "2026-05-30T19:00",
+          "risk": 1.0
         },
         {
-          "time": "2026-05-27T20:00",
-          "risk": 0.109
+          "time": "2026-05-30T20:00",
+          "risk": 1.0
         },
         {
-          "time": "2026-05-27T21:00",
-          "risk": 0.103
+          "time": "2026-05-30T21:00",
+          "risk": 1.0
         },
         {
-          "time": "2026-05-27T22:00",
-          "risk": 0.093
+          "time": "2026-05-30T22:00",
+          "risk": 1.0
         },
         {
-          "time": "2026-05-27T23:00",
-          "risk": 0.085
+          "time": "2026-05-30T23:00",
+          "risk": 1.0
         }
       ]
     },
     {
       "lat": 54.5,
-      "lon": 20.0,
-      "risk": 0.0799,
-      "classical_risk": 0.0,
-      "quantum_risk": 0.2662,
+      "lon": 24.0,
+      "risk": 0.6753,
+      "classical_risk": 0.927,
+      "quantum_risk": 0.7253,
       "quantum_backend": "qiskit_qsvc",
-      "quantum_augmented": true,
+      "quantum_augmented": false,
       "alert": false,
-      "ndvi_stress": 0.282,
-      "elevation_m": 30.0,
-      "slope_deg": 0.43,
+      "ndvi_stress": 0.599,
+      "elevation_m": 80.0,
+      "slope_deg": 0.27,
+      "fwi_score": 0.444,
+      "drought_days": 21,
+      "label_source": "heuristic",
+      "tier": "HIGH",
       "shap_drivers": [
         {
-          "feature": "wind_dryness_ratio",
-          "shap": 0.0
+          "feature": "fwi_score",
+          "shap": 0.0856
+        },
+        {
+          "feature": "ndvi_stress",
+          "shap": 0.0733
         },
         {
           "feature": "dryness_ratio",
-          "shap": 0.0
-        },
-        {
-          "feature": "soil_x_rh",
-          "shap": 0.0
+          "shap": 0.0563
         }
       ],
       "hourly_risk": [
         {
-          "time": "2026-05-27T00:00",
-          "risk": 0.128
+          "time": "2026-05-30T00:00",
+          "risk": 0.819
         },
         {
-          "time": "2026-05-27T01:00",
-          "risk": 0.121
+          "time": "2026-05-30T01:00",
+          "risk": 0.802
         },
         {
-          "time": "2026-05-27T02:00",
-          "risk": 0.106
+          "time": "2026-05-30T02:00",
+          "risk": 0.781
         },
         {
-          "time": "2026-05-27T03:00",
-          "risk": 0.108
+          "time": "2026-05-30T03:00",
+          "risk": 0.759
         },
         {
-          "time": "2026-05-27T04:00",
-          "risk": 0.1
+          "time": "2026-05-30T04:00",
+          "risk": 0.732
         },
         {
-          "time": "2026-05-27T05:00",
-          "risk": 0.099
+          "time": "2026-05-30T05:00",
+          "risk": 0.7
         },
         {
-          "time": "2026-05-27T06:00",
-          "risk": 0.102
+          "time": "2026-05-30T06:00",
+          "risk": 0.731
         },
         {
-          "time": "2026-05-27T07:00",
-          "risk": 0.105
+          "time": "2026-05-30T07:00",
+          "risk": 0.791
         },
         {
-          "time": "2026-05-27T08:00",
-          "risk": 0.108
+          "time": "2026-05-30T08:00",
+          "risk": 0.854
         },
         {
-          "time": "2026-05-27T09:00",
-          "risk": 0.11
+          "time": "2026-05-30T09:00",
+          "risk": 0.888
         },
         {
-          "time": "2026-05-27T10:00",
-          "risk": 0.111
+          "time": "2026-05-30T10:00",
+          "risk": 0.925
         },
         {
-          "time": "2026-05-27T11:00",
-          "risk": 0.117
+          "time": "2026-05-30T11:00",
+          "risk": 0.953
         },
         {
-          "time": "2026-05-27T12:00",
-          "risk": 0.122
+          "time": "2026-05-30T12:00",
+          "risk": 0.965
         },
         {
-          "time": "2026-05-27T13:00",
-          "risk": 0.123
+          "time": "2026-05-30T13:00",
+          "risk": 0.986
         },
         {
-          "time": "2026-05-27T14:00",
-          "risk": 0.121
+          "time": "2026-05-30T14:00",
+          "risk": 0.991
         },
         {
-          "time": "2026-05-27T15:00",
-          "risk": 0.12
+          "time": "2026-05-30T15:00",
+          "risk": 1.0
         },
         {
-          "time": "2026-05-27T16:00",
-          "risk": 0.122
+          "time": "2026-05-30T16:00",
+          "risk": 1.0
         },
         {
-          "time": "2026-05-27T17:00",
-          "risk": 0.117
+          "time": "2026-05-30T17:00",
+          "risk": 0.988
         },
         {
-          "time": "2026-05-27T18:00",
-          "risk": 0.111
+          "time": "2026-05-30T18:00",
+          "risk": 0.997
         },
         {
-          "time": "2026-05-27T19:00",
-          "risk": 0.102
+          "time": "2026-05-30T19:00",
+          "risk": 0.972
         },
         {
-          "time": "2026-05-27T20:00",
-          "risk": 0.096
+          "time": "2026-05-30T20:00",
+          "risk": 0.925
         },
         {
-          "time": "2026-05-27T21:00",
-          "risk": 0.084
+          "time": "2026-05-30T21:00",
+          "risk": 0.877
         },
         {
-          "time": "2026-05-27T22:00",
-          "risk": 0.086
+          "time": "2026-05-30T22:00",
+          "risk": 0.84
         },
         {
-          "time": "2026-05-27T23:00",
-          "risk": 0.085
+          "time": "2026-05-30T23:00",
+          "risk": 0.813
         }
       ]
     },
     {
       "lat": 54.5,
       "lon": 22.0,
-      "risk": 0.0801,
-      "classical_risk": 0.0,
-      "quantum_risk": 0.2669,
+      "risk": 0.7371,
+      "classical_risk": 0.9805,
+      "quantum_risk": 0.7446,
       "quantum_backend": "qiskit_qsvc",
-      "quantum_augmented": true,
+      "quantum_augmented": false,
       "alert": false,
-      "ndvi_stress": 0.318,
+      "ndvi_stress": 0.59,
       "elevation_m": 76.0,
       "slope_deg": 0.27,
+      "fwi_score": 0.49,
+      "drought_days": 21,
+      "label_source": "heuristic",
+      "tier": "HIGH",
       "shap_drivers": [
         {
-          "feature": "wind_dryness_ratio",
-          "shap": 0.0
+          "feature": "fwi_score",
+          "shap": 0.0856
+        },
+        {
+          "feature": "ndvi_stress",
+          "shap": 0.0733
         },
         {
           "feature": "dryness_ratio",
-          "shap": 0.0
-        },
-        {
-          "feature": "soil_x_rh",
-          "shap": 0.0
+          "shap": 0.0526
         }
       ],
       "hourly_risk": [
         {
-          "time": "2026-05-27T00:00",
-          "risk": 0.122
+          "time": "2026-05-30T00:00",
+          "risk": 0.914
         },
         {
-          "time": "2026-05-27T01:00",
-          "risk": 0.114
+          "time": "2026-05-30T01:00",
+          "risk": 0.889
         },
         {
-          "time": "2026-05-27T02:00",
-          "risk": 0.102
+          "time": "2026-05-30T02:00",
+          "risk": 0.822
         },
         {
-          "time": "2026-05-27T03:00",
-          "risk": 0.102
+          "time": "2026-05-30T03:00",
+          "risk": 0.82
         },
         {
-          "time": "2026-05-27T04:00",
-          "risk": 0.101
+          "time": "2026-05-30T04:00",
+          "risk": 0.781
         },
         {
-          "time": "2026-05-27T05:00",
-          "risk": 0.099
+          "time": "2026-05-30T05:00",
+          "risk": 0.756
         },
         {
-          "time": "2026-05-27T06:00",
-          "risk": 0.101
+          "time": "2026-05-30T06:00",
+          "risk": 0.771
         },
         {
-          "time": "2026-05-27T07:00",
-          "risk": 0.101
+          "time": "2026-05-30T07:00",
+          "risk": 0.828
         },
         {
-          "time": "2026-05-27T08:00",
-          "risk": 0.104
+          "time": "2026-05-30T08:00",
+          "risk": 0.889
         },
         {
-          "time": "2026-05-27T09:00",
-          "risk": 0.113
+          "time": "2026-05-30T09:00",
+          "risk": 0.938
         },
         {
-          "time": "2026-05-27T10:00",
-          "risk": 0.116
+          "time": "2026-05-30T10:00",
+          "risk": 0.99
         },
         {
-          "time": "2026-05-27T11:00",
-          "risk": 0.127
+          "time": "2026-05-30T11:00",
+          "risk": 1.0
         },
         {
-          "time": "2026-05-27T12:00",
-          "risk": 0.133
+          "time": "2026-05-30T12:00",
+          "risk": 1.0
         },
         {
-          "time": "2026-05-27T13:00",
-          "risk": 0.133
+          "time": "2026-05-30T13:00",
+          "risk": 1.0
         },
         {
-          "time": "2026-05-27T14:00",
-          "risk": 0.131
+          "time": "2026-05-30T14:00",
+          "risk": 1.0
         },
         {
-          "time": "2026-05-27T15:00",
-          "risk": 0.132
+          "time": "2026-05-30T15:00",
+          "risk": 1.0
         },
         {
-          "time": "2026-05-27T16:00",
-          "risk": 0.13
+          "time": "2026-05-30T16:00",
+          "risk": 1.0
         },
         {
-          "time": "2026-05-27T17:00",
-          "risk": 0.124
+          "time": "2026-05-30T17:00",
+          "risk": 1.0
         },
         {
-          "time": "2026-05-27T18:00",
-          "risk": 0.12
+          "time": "2026-05-30T18:00",
+          "risk": 1.0
         },
         {
-          "time": "2026-05-27T19:00",
-          "risk": 0.116
+          "time": "2026-05-30T19:00",
+          "risk": 1.0
         },
         {
-          "time": "2026-05-27T20:00",
-          "risk": 0.111
+          "time": "2026-05-30T20:00",
+          "risk": 1.0
         },
         {
-          "time": "2026-05-27T21:00",
-          "risk": 0.099
+          "time": "2026-05-30T21:00",
+          "risk": 0.995
         },
         {
-          "time": "2026-05-27T22:00",
-          "risk": 0.09
+          "time": "2026-05-30T22:00",
+          "risk": 0.967
         },
         {
-          "time": "2026-05-27T23:00",
-          "risk": 0.09
-        }
-      ]
-    },
-    {
-      "lat": 54.5,
-      "lon": 18.0,
-      "risk": 0.079,
-      "classical_risk": 0.0,
-      "quantum_risk": 0.2633,
-      "quantum_backend": "qiskit_qsvc",
-      "quantum_augmented": true,
-      "alert": false,
-      "ndvi_stress": 0.378,
-      "elevation_m": 109.0,
-      "slope_deg": 0.26,
-      "shap_drivers": [
-        {
-          "feature": "wind_dryness_ratio",
-          "shap": 0.0
-        },
-        {
-          "feature": "dryness_ratio",
-          "shap": 0.0
-        },
-        {
-          "feature": "soil_x_rh",
-          "shap": 0.0
-        }
-      ],
-      "hourly_risk": [
-        {
-          "time": "2026-05-27T00:00",
-          "risk": 0.115
-        },
-        {
-          "time": "2026-05-27T01:00",
-          "risk": 0.111
-        },
-        {
-          "time": "2026-05-27T02:00",
-          "risk": 0.105
-        },
-        {
-          "time": "2026-05-27T03:00",
-          "risk": 0.102
-        },
-        {
-          "time": "2026-05-27T04:00",
-          "risk": 0.094
-        },
-        {
-          "time": "2026-05-27T05:00",
-          "risk": 0.09
-        },
-        {
-          "time": "2026-05-27T06:00",
-          "risk": 0.091
-        },
-        {
-          "time": "2026-05-27T07:00",
-          "risk": 0.098
-        },
-        {
-          "time": "2026-05-27T08:00",
-          "risk": 0.106
-        },
-        {
-          "time": "2026-05-27T09:00",
-          "risk": 0.111
-        },
-        {
-          "time": "2026-05-27T10:00",
-          "risk": 0.114
-        },
-        {
-          "time": "2026-05-27T11:00",
-          "risk": 0.117
-        },
-        {
-          "time": "2026-05-27T12:00",
-          "risk": 0.121
-        },
-        {
-          "time": "2026-05-27T13:00",
-          "risk": 0.122
-        },
-        {
-          "time": "2026-05-27T14:00",
-          "risk": 0.123
-        },
-        {
-          "time": "2026-05-27T15:00",
-          "risk": 0.123
-        },
-        {
-          "time": "2026-05-27T16:00",
-          "risk": 0.129
-        },
-        {
-          "time": "2026-05-27T17:00",
-          "risk": 0.127
-        },
-        {
-          "time": "2026-05-27T18:00",
-          "risk": 0.12
-        },
-        {
-          "time": "2026-05-27T19:00",
-          "risk": 0.113
-        },
-        {
-          "time": "2026-05-27T20:00",
-          "risk": 0.106
-        },
-        {
-          "time": "2026-05-27T21:00",
-          "risk": 0.093
-        },
-        {
-          "time": "2026-05-27T22:00",
-          "risk": 0.089
-        },
-        {
-          "time": "2026-05-27T23:00",
-          "risk": 0.086
-        }
-      ]
-    },
-    {
-      "lat": 54.5,
-      "lon": 24.0,
-      "risk": 0.0766,
-      "classical_risk": 0.0,
-      "quantum_risk": 0.2554,
-      "quantum_backend": "qiskit_qsvc",
-      "quantum_augmented": true,
-      "alert": false,
-      "ndvi_stress": 0.358,
-      "elevation_m": 80.0,
-      "slope_deg": 0.27,
-      "shap_drivers": [
-        {
-          "feature": "wind_dryness_ratio",
-          "shap": 0.0
-        },
-        {
-          "feature": "dryness_ratio",
-          "shap": 0.0
-        },
-        {
-          "feature": "soil_x_rh",
-          "shap": 0.0
-        }
-      ],
-      "hourly_risk": [
-        {
-          "time": "2026-05-27T00:00",
-          "risk": 0.108
-        },
-        {
-          "time": "2026-05-27T01:00",
-          "risk": 0.098
-        },
-        {
-          "time": "2026-05-27T02:00",
-          "risk": 0.098
-        },
-        {
-          "time": "2026-05-27T03:00",
-          "risk": 0.094
-        },
-        {
-          "time": "2026-05-27T04:00",
-          "risk": 0.09
-        },
-        {
-          "time": "2026-05-27T05:00",
-          "risk": 0.092
-        },
-        {
-          "time": "2026-05-27T06:00",
-          "risk": 0.092
-        },
-        {
-          "time": "2026-05-27T07:00",
-          "risk": 0.096
-        },
-        {
-          "time": "2026-05-27T08:00",
-          "risk": 0.099
-        },
-        {
-          "time": "2026-05-27T09:00",
-          "risk": 0.104
-        },
-        {
-          "time": "2026-05-27T10:00",
-          "risk": 0.11
-        },
-        {
-          "time": "2026-05-27T11:00",
-          "risk": 0.114
-        },
-        {
-          "time": "2026-05-27T12:00",
-          "risk": 0.114
-        },
-        {
-          "time": "2026-05-27T13:00",
-          "risk": 0.12
-        },
-        {
-          "time": "2026-05-27T14:00",
-          "risk": 0.125
-        },
-        {
-          "time": "2026-05-27T15:00",
-          "risk": 0.123
-        },
-        {
-          "time": "2026-05-27T16:00",
-          "risk": 0.124
-        },
-        {
-          "time": "2026-05-27T17:00",
-          "risk": 0.121
-        },
-        {
-          "time": "2026-05-27T18:00",
-          "risk": 0.118
-        },
-        {
-          "time": "2026-05-27T19:00",
-          "risk": 0.112
-        },
-        {
-          "time": "2026-05-27T20:00",
-          "risk": 0.106
-        },
-        {
-          "time": "2026-05-27T21:00",
-          "risk": 0.101
-        },
-        {
-          "time": "2026-05-27T22:00",
-          "risk": 0.088
-        },
-        {
-          "time": "2026-05-27T23:00",
-          "risk": 0.087
+          "time": "2026-05-30T23:00",
+          "risk": 0.935
         }
       ]
     }
