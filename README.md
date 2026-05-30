@@ -15,8 +15,8 @@
 | **v1** | `qhdalabs-wildfire_risk_v1.py` | MVP — weather + RF + QSVC, Leaflet map |
 | **v2** | `qhdalabs-wildfire_risk_v2.py` | EFFIS labels, NDVI, terrain, SHAP, QAOA (requires ~1 TB RAM on full grid — kept for reference) |
 | **v3** | `qhdalabs-wildfire_risk_v3.py` | SamplingVQE with candidate pre-filtering (8 qubits → runs on any laptop) |
-| **v4** | `v4/qhdalabs-wildfire_risk_v4.py` | Always-on quantum scoring: Qiskit QSVC + NumPy quantum-kernel fallback, improved cache/retry and safer one-class training ✅ **recommended** |
-
+| **v4** | `v4/qhdalabs-wildfire_risk_v4.py` | Always-on quantum scoring: Qiskit QSVC + NumPy quantum-kernel fallback, improved cache/retry and safer one-class training  |
+|**v4.1**| `v4_2/qhdalabs-wildfire_risk_v4.py` |v4.1 fixes (FWI, ndvi drought, calibration) retained. ✅ **recommended**|
 ---
 
 ## 📋 Overview
