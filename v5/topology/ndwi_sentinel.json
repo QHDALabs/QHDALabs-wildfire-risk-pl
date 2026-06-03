@@ -1,0 +1,858 @@
+{
+  "version": "1.0.0",
+  "generated_at": "2026-06-03T10:45:07.306617+00:00",
+  "ndwi_days": 30,
+  "nodes_ok": 33,
+  "nodes_cloudy": 0,
+  "results": {
+    "gory_stolowe": {
+      "node_id": "gory_stolowe",
+      "node_name": "Góry Stołowe",
+      "data_source": "sentinel2_L2A",
+      "fetch_date": "2026-06-03T10:28:48.910762+00:00",
+      "dates": [
+        "2026-05-14",
+        "2026-05-24"
+      ],
+      "ndwi_values": [
+        -0.6255,
+        -0.6859
+      ],
+      "valid_pixel_fraction": [
+        0.203,
+        1.0
+      ],
+      "ndwi_mean_30d": -0.6557,
+      "ndwi_min_30d": -0.6859,
+      "ndwi_latest": -0.6859,
+      "ndwi_trend_14d": -0.0604,
+      "ndwi_stress_latest": 0.9597,
+      "n_observations": 2
+    },
+    "bardo_slaskie": {
+      "node_id": "bardo_slaskie",
+      "node_name": "Bardo Śląskie",
+      "data_source": "sentinel2_L2A",
+      "fetch_date": "2026-06-03T10:28:48.915713+00:00",
+      "dates": [
+        "2026-05-14",
+        "2026-05-24"
+      ],
+      "ndwi_values": [
+        -0.6358,
+        -0.6931
+      ],
+      "valid_pixel_fraction": [
+        0.815,
+        1.0
+      ],
+      "ndwi_mean_30d": -0.6644,
+      "ndwi_min_30d": -0.6931,
+      "ndwi_latest": -0.6931,
+      "ndwi_trend_14d": -0.0573,
+      "ndwi_stress_latest": 0.9803,
+      "n_observations": 2
+    },
+    "boleslawiec": {
+      "node_id": "boleslawiec",
+      "node_name": "Bolesławiec",
+      "data_source": "sentinel2_L2A",
+      "fetch_date": "2026-06-03T10:28:48.943118+00:00",
+      "dates": [
+        "2026-05-04",
+        "2026-05-14",
+        "2026-05-24"
+      ],
+      "ndwi_values": [
+        -0.5519,
+        -0.5831,
+        -0.6172
+      ],
+      "valid_pixel_fraction": [
+        0.99,
+        0.727,
+        1.0
+      ],
+      "ndwi_mean_30d": -0.5841,
+      "ndwi_min_30d": -0.6172,
+      "ndwi_latest": -0.6172,
+      "ndwi_trend_14d": -0.03265,
+      "ndwi_stress_latest": 0.7634,
+      "n_observations": 3
+    },
+    "bystrzyca": {
+      "node_id": "bystrzyca",
+      "node_name": "Bystrzyca Kłodzka",
+      "data_source": "sentinel2_L2A",
+      "fetch_date": "2026-06-03T10:28:48.980525+00:00",
+      "dates": [
+        "2026-05-04",
+        "2026-05-14",
+        "2026-05-24"
+      ],
+      "ndwi_values": [
+        -0.5232,
+        -0.577,
+        -0.6233
+      ],
+      "valid_pixel_fraction": [
+        0.534,
+        0.743,
+        1.0
+      ],
+      "ndwi_mean_30d": -0.5745,
+      "ndwi_min_30d": -0.6233,
+      "ndwi_latest": -0.6233,
+      "ndwi_trend_14d": -0.05005,
+      "ndwi_stress_latest": 0.7809,
+      "n_observations": 3
+    },
+    "jawor": {
+      "node_id": "jawor",
+      "node_name": "Jawor",
+      "data_source": "sentinel2_L2A",
+      "fetch_date": "2026-06-03T10:28:49.253288+00:00",
+      "dates": [
+        "2026-05-04",
+        "2026-05-14",
+        "2026-05-24"
+      ],
+      "ndwi_values": [
+        -0.5889,
+        -0.6282,
+        -0.6536
+      ],
+      "valid_pixel_fraction": [
+        0.957,
+        0.916,
+        1.0
+      ],
+      "ndwi_mean_30d": -0.6236,
+      "ndwi_min_30d": -0.6536,
+      "ndwi_latest": -0.6536,
+      "ndwi_trend_14d": -0.03235,
+      "ndwi_stress_latest": 0.8674,
+      "n_observations": 3
+    },
+    "jugow": {
+      "node_id": "jugow",
+      "node_name": "Jugów",
+      "data_source": "sentinel2_L2A",
+      "fetch_date": "2026-06-03T10:28:49.270709+00:00",
+      "dates": [
+        "2026-05-24"
+      ],
+      "ndwi_values": [
+        -0.6757
+      ],
+      "valid_pixel_fraction": [
+        1.0
+      ],
+      "ndwi_mean_30d": -0.6757,
+      "ndwi_min_30d": -0.6757,
+      "ndwi_latest": -0.6757,
+      "ndwi_trend_14d": 0.0,
+      "ndwi_stress_latest": 0.9306,
+      "n_observations": 1
+    },
+    "kamienna_gora": {
+      "node_id": "kamienna_gora",
+      "node_name": "Kamienna Góra",
+      "data_source": "sentinel2_L2A",
+      "fetch_date": "2026-06-03T10:28:49.309051+00:00",
+      "dates": [
+        "2026-05-04",
+        "2026-05-14",
+        "2026-05-24"
+      ],
+      "ndwi_values": [
+        -0.4579,
+        -0.5198,
+        -0.6443
+      ],
+      "valid_pixel_fraction": [
+        0.523,
+        0.127,
+        1.0
+      ],
+      "ndwi_mean_30d": -0.5407,
+      "ndwi_min_30d": -0.6443,
+      "ndwi_latest": -0.6443,
+      "ndwi_trend_14d": -0.0932,
+      "ndwi_stress_latest": 0.8409,
+      "n_observations": 3
+    },
+    "klodzko": {
+      "node_id": "klodzko",
+      "node_name": "Kłodzko",
+      "data_source": "sentinel2_L2A",
+      "fetch_date": "2026-06-03T10:28:49.311508+00:00",
+      "dates": [
+        "2026-05-14",
+        "2026-05-24"
+      ],
+      "ndwi_values": [
+        -0.5762,
+        -0.6204
+      ],
+      "valid_pixel_fraction": [
+        0.957,
+        1.0
+      ],
+      "ndwi_mean_30d": -0.5983,
+      "ndwi_min_30d": -0.6204,
+      "ndwi_latest": -0.6204,
+      "ndwi_trend_14d": -0.0442,
+      "ndwi_stress_latest": 0.7726,
+      "n_observations": 2
+    },
+    "ladek": {
+      "node_id": "ladek",
+      "node_name": "Lądek-Zdrój",
+      "data_source": "sentinel2_L2A",
+      "fetch_date": "2026-06-03T10:28:49.555387+00:00",
+      "dates": [
+        "2026-05-04",
+        "2026-05-14",
+        "2026-05-24"
+      ],
+      "ndwi_values": [
+        -0.5838,
+        -0.5685,
+        -0.705
+      ],
+      "valid_pixel_fraction": [
+        0.529,
+        0.23,
+        1.0
+      ],
+      "ndwi_mean_30d": -0.6191,
+      "ndwi_min_30d": -0.705,
+      "ndwi_latest": -0.705,
+      "ndwi_trend_14d": -0.0606,
+      "ndwi_stress_latest": 1.0,
+      "n_observations": 3
+    },
+    "legnica": {
+      "node_id": "legnica",
+      "node_name": "Legnica",
+      "data_source": "sentinel2_L2A",
+      "fetch_date": "2026-06-03T10:28:49.569684+00:00",
+      "dates": [
+        "2026-05-04",
+        "2026-05-14",
+        "2026-05-24"
+      ],
+      "ndwi_values": [
+        -0.5262,
+        -0.5577,
+        -0.5815
+      ],
+      "valid_pixel_fraction": [
+        0.986,
+        0.852,
+        1.0
+      ],
+      "ndwi_mean_30d": -0.5551,
+      "ndwi_min_30d": -0.5815,
+      "ndwi_latest": -0.5815,
+      "ndwi_trend_14d": -0.02765,
+      "ndwi_stress_latest": 0.6614,
+      "n_observations": 3
+    },
+    "lubin": {
+      "node_id": "lubin",
+      "node_name": "Lubin",
+      "data_source": "sentinel2_L2A",
+      "fetch_date": "2026-06-03T10:28:49.597071+00:00",
+      "dates": [
+        "2026-05-04",
+        "2026-05-14",
+        "2026-05-24"
+      ],
+      "ndwi_values": [
+        -0.5046,
+        -0.5223,
+        -0.5624
+      ],
+      "valid_pixel_fraction": [
+        0.93,
+        0.739,
+        1.0
+      ],
+      "ndwi_mean_30d": -0.5298,
+      "ndwi_min_30d": -0.5624,
+      "ndwi_latest": -0.5624,
+      "ndwi_trend_14d": -0.0289,
+      "ndwi_stress_latest": 0.6069,
+      "n_observations": 3
+    },
+    "lwowek": {
+      "node_id": "lwowek",
+      "node_name": "Lwówek Śląski",
+      "data_source": "sentinel2_L2A",
+      "fetch_date": "2026-06-03T10:28:49.894428+00:00",
+      "dates": [
+        "2026-05-04",
+        "2026-05-14",
+        "2026-05-24"
+      ],
+      "ndwi_values": [
+        -0.56,
+        -0.6141,
+        -0.6547
+      ],
+      "valid_pixel_fraction": [
+        0.903,
+        0.974,
+        1.0
+      ],
+      "ndwi_mean_30d": -0.6096,
+      "ndwi_min_30d": -0.6547,
+      "ndwi_latest": -0.6547,
+      "ndwi_trend_14d": -0.04735,
+      "ndwi_stress_latest": 0.8706,
+      "n_observations": 3
+    },
+    "milicz": {
+      "node_id": "milicz",
+      "node_name": "Milicz",
+      "data_source": "sentinel2_L2A",
+      "fetch_date": "2026-06-03T10:28:49.947099+00:00",
+      "dates": [
+        "2026-05-14",
+        "2026-05-24"
+      ],
+      "ndwi_values": [
+        -0.5751,
+        -0.6125
+      ],
+      "valid_pixel_fraction": [
+        0.447,
+        1.0
+      ],
+      "ndwi_mean_30d": -0.5938,
+      "ndwi_min_30d": -0.6125,
+      "ndwi_latest": -0.6125,
+      "ndwi_trend_14d": -0.0374,
+      "ndwi_stress_latest": 0.75,
+      "n_observations": 2
+    },
+    "miekinia": {
+      "node_id": "miekinia",
+      "node_name": "Miękinia",
+      "data_source": "sentinel2_L2A",
+      "fetch_date": "2026-06-03T10:28:49.984079+00:00",
+      "dates": [
+        "2026-05-14",
+        "2026-05-24"
+      ],
+      "ndwi_values": [
+        -0.6138,
+        -0.6298
+      ],
+      "valid_pixel_fraction": [
+        0.889,
+        1.0
+      ],
+      "ndwi_mean_30d": -0.6218,
+      "ndwi_min_30d": -0.6298,
+      "ndwi_latest": -0.6298,
+      "ndwi_trend_14d": -0.016,
+      "ndwi_stress_latest": 0.7994,
+      "n_observations": 2
+    },
+    "mysliborskie": {
+      "node_id": "mysliborskie",
+      "node_name": "Myśliborskie",
+      "data_source": "sentinel2_L2A",
+      "fetch_date": "2026-06-03T10:28:50.215905+00:00",
+      "dates": [
+        "2026-05-04",
+        "2026-05-14",
+        "2026-05-24"
+      ],
+      "ndwi_values": [
+        -0.5279,
+        -0.4451,
+        -0.6608
+      ],
+      "valid_pixel_fraction": [
+        0.747,
+        0.325,
+        1.0
+      ],
+      "ndwi_mean_30d": -0.5446,
+      "ndwi_min_30d": -0.6608,
+      "ndwi_latest": -0.6608,
+      "ndwi_trend_14d": -0.06645,
+      "ndwi_stress_latest": 0.888,
+      "n_observations": 3
+    },
+    "olesnica": {
+      "node_id": "olesnica",
+      "node_name": "Oleśnica Śląska",
+      "data_source": "sentinel2_L2A",
+      "fetch_date": "2026-06-03T10:28:50.270214+00:00",
+      "dates": [
+        "2026-05-04",
+        "2026-05-14",
+        "2026-05-24"
+      ],
+      "ndwi_values": [
+        -0.4657,
+        -0.5399,
+        -0.5536
+      ],
+      "valid_pixel_fraction": [
+        0.188,
+        0.97,
+        1.0
+      ],
+      "ndwi_mean_30d": -0.5197,
+      "ndwi_min_30d": -0.5536,
+      "ndwi_latest": -0.5536,
+      "ndwi_trend_14d": -0.04395,
+      "ndwi_stress_latest": 0.5817,
+      "n_observations": 3
+    },
+    "olawa": {
+      "node_id": "olawa",
+      "node_name": "Oława",
+      "data_source": "sentinel2_L2A",
+      "fetch_date": "2026-06-03T10:28:50.298105+00:00",
+      "dates": [
+        "2026-05-24"
+      ],
+      "ndwi_values": [
+        -0.5486
+      ],
+      "valid_pixel_fraction": [
+        1.0
+      ],
+      "ndwi_mean_30d": -0.5486,
+      "ndwi_min_30d": -0.5486,
+      "ndwi_latest": -0.5486,
+      "ndwi_trend_14d": 0.0,
+      "ndwi_stress_latest": 0.5674,
+      "n_observations": 1
+    },
+    "lesna": {
+      "node_id": "lesna",
+      "node_name": "Leśna",
+      "data_source": "sentinel2_L2A",
+      "fetch_date": "2026-06-03T10:28:50.296750+00:00",
+      "dates": [
+        "2026-05-04",
+        "2026-05-14",
+        "2026-05-24"
+      ],
+      "ndwi_values": [
+        -0.5363,
+        -0.6357,
+        -0.6852
+      ],
+      "valid_pixel_fraction": [
+        0.676,
+        0.923,
+        1.0
+      ],
+      "ndwi_mean_30d": -0.6191,
+      "ndwi_min_30d": -0.6852,
+      "ndwi_latest": -0.6852,
+      "ndwi_trend_14d": -0.07445,
+      "ndwi_stress_latest": 0.9577,
+      "n_observations": 3
+    },
+    "piszowice": {
+      "node_id": "piszowice",
+      "node_name": "Piszowice",
+      "data_source": "sentinel2_L2A",
+      "fetch_date": "2026-06-03T10:28:50.457871+00:00",
+      "dates": [
+        "2026-05-04",
+        "2026-05-14",
+        "2026-05-24"
+      ],
+      "ndwi_values": [
+        -0.5249,
+        -0.6493,
+        -0.6963
+      ],
+      "valid_pixel_fraction": [
+        0.72,
+        0.841,
+        1.0
+      ],
+      "ndwi_mean_30d": -0.6235,
+      "ndwi_min_30d": -0.6963,
+      "ndwi_latest": -0.6963,
+      "ndwi_trend_14d": -0.0857,
+      "ndwi_stress_latest": 0.9894,
+      "n_observations": 3
+    },
+    "rychtal": {
+      "node_id": "rychtal",
+      "node_name": "Rychtal",
+      "data_source": "sentinel2_L2A",
+      "fetch_date": "2026-06-03T10:28:50.584906+00:00",
+      "dates": [
+        "2026-05-04",
+        "2026-05-14",
+        "2026-05-24"
+      ],
+      "ndwi_values": [
+        -0.5249,
+        -0.6114,
+        -0.6349
+      ],
+      "valid_pixel_fraction": [
+        0.4,
+        0.918,
+        1.0
+      ],
+      "ndwi_mean_30d": -0.5904,
+      "ndwi_min_30d": -0.6349,
+      "ndwi_latest": -0.6349,
+      "ndwi_trend_14d": -0.055,
+      "ndwi_stress_latest": 0.814,
+      "n_observations": 3
+    },
+    "ruszow": {
+      "node_id": "ruszow",
+      "node_name": "Ruszów",
+      "data_source": "sentinel2_L2A",
+      "fetch_date": "2026-06-03T10:28:50.680750+00:00",
+      "dates": [
+        "2026-05-14",
+        "2026-05-24"
+      ],
+      "ndwi_values": [
+        -0.5785,
+        -0.6174
+      ],
+      "valid_pixel_fraction": [
+        0.476,
+        1.0
+      ],
+      "ndwi_mean_30d": -0.5979,
+      "ndwi_min_30d": -0.6174,
+      "ndwi_latest": -0.6174,
+      "ndwi_trend_14d": -0.0389,
+      "ndwi_stress_latest": 0.764,
+      "n_observations": 2
+    },
+    "prudnik": {
+      "node_id": "prudnik",
+      "node_name": "Prudnik",
+      "data_source": "sentinel2_L2A",
+      "fetch_date": "2026-06-03T10:28:50.700966+00:00",
+      "dates": [
+        "2026-05-04",
+        "2026-05-14",
+        "2026-05-24"
+      ],
+      "ndwi_values": [
+        -0.535,
+        -0.5885,
+        -0.6109
+      ],
+      "valid_pixel_fraction": [
+        0.928,
+        0.811,
+        1.0
+      ],
+      "ndwi_mean_30d": -0.5781,
+      "ndwi_min_30d": -0.6109,
+      "ndwi_latest": -0.6109,
+      "ndwi_trend_14d": -0.03795,
+      "ndwi_stress_latest": 0.7454,
+      "n_observations": 3
+    },
+    "sycow": {
+      "node_id": "sycow",
+      "node_name": "Syców",
+      "data_source": "sentinel2_L2A",
+      "fetch_date": "2026-06-03T10:28:50.795523+00:00",
+      "dates": [
+        "2026-05-14",
+        "2026-05-24"
+      ],
+      "ndwi_values": [
+        -0.5693,
+        -0.5978
+      ],
+      "valid_pixel_fraction": [
+        0.604,
+        1.0
+      ],
+      "ndwi_mean_30d": -0.5836,
+      "ndwi_min_30d": -0.5978,
+      "ndwi_latest": -0.5978,
+      "ndwi_trend_14d": -0.0285,
+      "ndwi_stress_latest": 0.708,
+      "n_observations": 2
+    },
+    "walbrzych": {
+      "node_id": "walbrzych",
+      "node_name": "Wałbrzych",
+      "data_source": "sentinel2_L2A",
+      "fetch_date": "2026-06-03T10:41:50.353909+00:00",
+      "dates": [
+        "2026-05-04",
+        "2026-05-14",
+        "2026-05-24"
+      ],
+      "ndwi_values": [
+        -0.4926,
+        -0.5731,
+        -0.6621
+      ],
+      "valid_pixel_fraction": [
+        0.362,
+        0.414,
+        1.0
+      ],
+      "ndwi_mean_30d": -0.5759,
+      "ndwi_min_30d": -0.6621,
+      "ndwi_latest": -0.6621,
+      "ndwi_trend_14d": -0.08475,
+      "ndwi_stress_latest": 0.8917,
+      "n_observations": 3
+    },
+    "wegliniec": {
+      "node_id": "wegliniec",
+      "node_name": "Węgliniec",
+      "data_source": "sentinel2_L2A",
+      "fetch_date": "2026-06-03T10:41:50.732840+00:00",
+      "dates": [
+        "2026-05-04",
+        "2026-05-14",
+        "2026-05-24"
+      ],
+      "ndwi_values": [
+        -0.5543,
+        -0.4733,
+        -0.6403
+      ],
+      "valid_pixel_fraction": [
+        0.803,
+        0.356,
+        1.0
+      ],
+      "ndwi_mean_30d": -0.556,
+      "ndwi_min_30d": -0.6403,
+      "ndwi_latest": -0.6403,
+      "ndwi_trend_14d": -0.043,
+      "ndwi_stress_latest": 0.8294,
+      "n_observations": 3
+    },
+    "wolow": {
+      "node_id": "wolow",
+      "node_name": "Wołów",
+      "data_source": "sentinel2_L2A",
+      "fetch_date": "2026-06-03T10:41:51.157873+00:00",
+      "dates": [
+        "2026-05-04",
+        "2026-05-14",
+        "2026-05-24"
+      ],
+      "ndwi_values": [
+        -0.5128,
+        -0.5889,
+        -0.6125
+      ],
+      "valid_pixel_fraction": [
+        0.358,
+        0.916,
+        1.0
+      ],
+      "ndwi_mean_30d": -0.5714,
+      "ndwi_min_30d": -0.6125,
+      "ndwi_latest": -0.6125,
+      "ndwi_trend_14d": -0.04985,
+      "ndwi_stress_latest": 0.75,
+      "n_observations": 3
+    },
+    "wroclaw": {
+      "node_id": "wroclaw",
+      "node_name": "Wrocław",
+      "data_source": "sentinel2_L2A",
+      "fetch_date": "2026-06-03T10:41:52.228947+00:00",
+      "dates": [
+        "2026-05-14",
+        "2026-05-24"
+      ],
+      "ndwi_values": [
+        -0.4792,
+        -0.4485
+      ],
+      "valid_pixel_fraction": [
+        0.143,
+        1.0
+      ],
+      "ndwi_mean_30d": -0.4638,
+      "ndwi_min_30d": -0.4792,
+      "ndwi_latest": -0.4485,
+      "ndwi_trend_14d": 0.0307,
+      "ndwi_stress_latest": 0.2814,
+      "n_observations": 2
+    },
+    "zlotoryja": {
+      "node_id": "zlotoryja",
+      "node_name": "Złotoryja",
+      "data_source": "sentinel2_L2A",
+      "fetch_date": "2026-06-03T10:41:53.322126+00:00",
+      "dates": [
+        "2026-05-04",
+        "2026-05-14",
+        "2026-05-24"
+      ],
+      "ndwi_values": [
+        -0.538,
+        -0.6263,
+        -0.6737
+      ],
+      "valid_pixel_fraction": [
+        0.538,
+        0.916,
+        1.0
+      ],
+      "ndwi_mean_30d": -0.6127,
+      "ndwi_min_30d": -0.6737,
+      "ndwi_latest": -0.6737,
+      "ndwi_trend_14d": -0.06785,
+      "ndwi_stress_latest": 0.9249,
+      "n_observations": 3
+    },
+    "zmigrod": {
+      "node_id": "zmigrod",
+      "node_name": "Żmigród",
+      "data_source": "sentinel2_L2A",
+      "fetch_date": "2026-06-03T10:41:53.826012+00:00",
+      "dates": [
+        "2026-05-04",
+        "2026-05-24"
+      ],
+      "ndwi_values": [
+        -0.5332,
+        -0.5827
+      ],
+      "valid_pixel_fraction": [
+        0.411,
+        1.0
+      ],
+      "ndwi_mean_30d": -0.5579,
+      "ndwi_min_30d": -0.5827,
+      "ndwi_latest": -0.5827,
+      "ndwi_trend_14d": -0.0495,
+      "ndwi_stress_latest": 0.6649,
+      "n_observations": 2
+    },
+    "zgorzelec": {
+      "node_id": "zgorzelec",
+      "node_name": "Zgorzelec",
+      "data_source": "sentinel2_L2A",
+      "fetch_date": "2026-06-03T10:41:55.862987+00:00",
+      "dates": [
+        "2026-05-04",
+        "2026-05-14",
+        "2026-05-24"
+      ],
+      "ndwi_values": [
+        -0.5011,
+        -0.5735,
+        -0.6107
+      ],
+      "valid_pixel_fraction": [
+        0.67,
+        0.46,
+        1.0
+      ],
+      "ndwi_mean_30d": -0.5618,
+      "ndwi_min_30d": -0.6107,
+      "ndwi_latest": -0.6107,
+      "ndwi_trend_14d": -0.0548,
+      "ndwi_stress_latest": 0.7449,
+      "n_observations": 3
+    },
+    "swietoszow": {
+      "node_id": "swietoszow",
+      "node_name": "Świętoszów",
+      "data_source": "sentinel2_L2A",
+      "fetch_date": "2026-06-03T10:43:06.172495+00:00",
+      "dates": [
+        "2026-05-04",
+        "2026-05-14",
+        "2026-05-24"
+      ],
+      "ndwi_values": [
+        -0.536,
+        -0.4768,
+        -0.581
+      ],
+      "valid_pixel_fraction": [
+        0.16,
+        0.372,
+        1.0
+      ],
+      "ndwi_mean_30d": -0.5313,
+      "ndwi_min_30d": -0.581,
+      "ndwi_latest": -0.581,
+      "ndwi_trend_14d": -0.0225,
+      "ndwi_stress_latest": 0.66,
+      "n_observations": 3
+    },
+    "swidnica": {
+      "node_id": "swidnica",
+      "node_name": "Świdnica",
+      "data_source": "sentinel2_L2A",
+      "fetch_date": "2026-06-03T10:43:16.158200+00:00",
+      "dates": [
+        "2026-05-04",
+        "2026-05-14",
+        "2026-05-24"
+      ],
+      "ndwi_values": [
+        -0.5141,
+        -0.5553,
+        -0.5796
+      ],
+      "valid_pixel_fraction": [
+        0.105,
+        0.938,
+        1.0
+      ],
+      "ndwi_mean_30d": -0.5497,
+      "ndwi_min_30d": -0.5796,
+      "ndwi_latest": -0.5796,
+      "ndwi_trend_14d": -0.03275,
+      "ndwi_stress_latest": 0.656,
+      "n_observations": 3
+    },
+    "szklarska": {
+      "node_id": "szklarska",
+      "node_name": "Szklarska Poręba",
+      "data_source": "sentinel2_L2A",
+      "fetch_date": "2026-06-03T10:45:07.280557+00:00",
+      "dates": [
+        "2026-05-04",
+        "2026-05-24"
+      ],
+      "ndwi_values": [
+        -0.5106,
+        -0.6728
+      ],
+      "valid_pixel_fraction": [
+        0.482,
+        1.0
+      ],
+      "ndwi_mean_30d": -0.5917,
+      "ndwi_min_30d": -0.6728,
+      "ndwi_latest": -0.6728,
+      "ndwi_trend_14d": -0.1622,
+      "ndwi_stress_latest": 0.9223,
+      "n_observations": 2
+    }
+  }
+}

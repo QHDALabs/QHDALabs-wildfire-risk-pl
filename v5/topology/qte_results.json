@@ -1,0 +1,675 @@
+{
+  "version": "1.0.0",
+  "generated_at": "2026-06-03T10:47:58.414204+00:00",
+  "algorithm": "conditional_cz_bridge (qmnet)",
+  "n_qubits": 5,
+  "qubits": {
+    "q0": "NDWI past (ancilla — measured mid-circuit)",
+    "q1": "NDWI today",
+    "q2": "wind max",
+    "q3": "temperature max",
+    "q4": "drought persistence"
+  },
+  "results": [
+    {
+      "node_id": "bardo_slaskie",
+      "node_name": "Bardo Śląskie",
+      "backend": "qiskit_statevector",
+      "theta_encoding": {
+        "ndwi_past": 2.5653,
+        "ndwi_now": 3.0797,
+        "wind": 3.1416,
+        "temp": 1.1519,
+        "drought": 0.0
+      },
+      "bridge_fired": true,
+      "zz": {
+        "zz_01": 0.8369,
+        "zz_12": 0.9981,
+        "zz_23": -0.4067,
+        "zz_34": 0.4067
+      },
+      "qte_score": 0.5621
+    },
+    {
+      "node_id": "boleslawiec",
+      "node_name": "Bolesławiec",
+      "backend": "qiskit_statevector",
+      "theta_encoding": {
+        "ndwi_past": 2.0923,
+        "ndwi_now": 2.3984,
+        "wind": 3.1416,
+        "temp": 0.8168,
+        "drought": 0.0
+      },
+      "bridge_fired": true,
+      "zz": {
+        "zz_01": 0.3668,
+        "zz_12": 0.7363,
+        "zz_23": -0.6845,
+        "zz_34": 0.6845
+      },
+      "qte_score": 0.5947
+    },
+    {
+      "node_id": "bystrzyca",
+      "node_name": "Bystrzyca Kłodzka",
+      "backend": "qiskit_statevector",
+      "theta_encoding": {
+        "ndwi_past": 2.0375,
+        "ndwi_now": 2.4531,
+        "wind": 3.1416,
+        "temp": 0.8378,
+        "drought": 0.0
+      },
+      "bridge_fired": true,
+      "zz": {
+        "zz_01": 0.3475,
+        "zz_12": 0.7722,
+        "zz_23": -0.6691,
+        "zz_34": 0.6691
+      },
+      "qte_score": 0.5993
+    },
+    {
+      "node_id": "gory_stolowe",
+      "node_name": "Góry Stołowe",
+      "backend": "qiskit_statevector",
+      "theta_encoding": {
+        "ndwi_past": 2.4729,
+        "ndwi_now": 3.015,
+        "wind": 3.1416,
+        "temp": 0.377,
+        "drought": 0.0
+      },
+      "bridge_fired": true,
+      "zz": {
+        "zz_01": 0.7783,
+        "zz_12": 0.992,
+        "zz_23": -0.9298,
+        "zz_34": 0.9298
+      },
+      "qte_score": 0.7695
+    },
+    {
+      "node_id": "jawor",
+      "node_name": "Jawor",
+      "backend": "qiskit_statevector",
+      "theta_encoding": {
+        "ndwi_past": 2.4971,
+        "ndwi_now": 2.7251,
+        "wind": 3.1416,
+        "temp": 0.6912,
+        "drought": 0.0
+      },
+      "bridge_fired": true,
+      "zz": {
+        "zz_01": 0.7311,
+        "zz_12": 0.9145,
+        "zz_23": -0.7705,
+        "zz_34": 0.7705
+      },
+      "qte_score": 0.6826
+    },
+    {
+      "node_id": "jugow",
+      "node_name": "Jugów",
+      "backend": "qiskit_statevector",
+      "theta_encoding": {
+        "ndwi_past": 2.9235,
+        "ndwi_now": 2.9235,
+        "wind": 3.1416,
+        "temp": 0.9215,
+        "drought": 0.0
+      },
+      "bridge_fired": true,
+      "zz": {
+        "zz_01": 0.9532,
+        "zz_12": 0.9763,
+        "zz_23": -0.6046,
+        "zz_34": 0.6046
+      },
+      "qte_score": 0.6347
+    },
+    {
+      "node_id": "kamienna_gora",
+      "node_name": "Kamienna Góra",
+      "backend": "qiskit_statevector",
+      "theta_encoding": {
+        "ndwi_past": 1.5241,
+        "ndwi_now": 2.6416,
+        "wind": 3.1416,
+        "temp": 0.2723,
+        "drought": 0.0
+      },
+      "bridge_fired": false,
+      "zz": {
+        "zz_01": -0.0409,
+        "zz_12": 0.8776,
+        "zz_23": -0.9632,
+        "zz_34": 0.9632
+      },
+      "qte_score": 0.6567
+    },
+    {
+      "node_id": "klodzko",
+      "node_name": "Kłodzko",
+      "backend": "qiskit_statevector",
+      "theta_encoding": {
+        "ndwi_past": 2.0304,
+        "ndwi_now": 2.4271,
+        "wind": 3.1416,
+        "temp": 1.0263,
+        "drought": 0.0
+      },
+      "bridge_fired": true,
+      "zz": {
+        "zz_01": 0.3351,
+        "zz_12": 0.7554,
+        "zz_23": -0.518,
+        "zz_34": 0.518
+      },
+      "qte_score": 0.5338
+    },
+    {
+      "node_id": "ladek",
+      "node_name": "Lądek-Zdrój",
+      "backend": "qiskit_statevector",
+      "theta_encoding": {
+        "ndwi_past": 1.9613,
+        "ndwi_now": 3.1416,
+        "wind": 3.1416,
+        "temp": 0.754,
+        "drought": 0.0
+      },
+      "bridge_fired": true,
+      "zz": {
+        "zz_01": 0.3806,
+        "zz_12": 1.0,
+        "zz_23": -0.729,
+        "zz_34": 0.729
+      },
+      "qte_score": 0.6916
+    },
+    {
+      "node_id": "legnica",
+      "node_name": "Legnica",
+      "backend": "qiskit_statevector",
+      "theta_encoding": {
+        "ndwi_past": 1.8643,
+        "ndwi_now": 2.0779,
+        "wind": 3.1416,
+        "temp": 1.0472,
+        "drought": 0.0
+      },
+      "bridge_fired": true,
+      "zz": {
+        "zz_01": 0.1405,
+        "zz_12": 0.4857,
+        "zz_23": -0.5,
+        "zz_34": 0.5
+      },
+      "qte_score": 0.4457
+    },
+    {
+      "node_id": "lesna",
+      "node_name": "Leśna",
+      "backend": "qiskit_statevector",
+      "theta_encoding": {
+        "ndwi_past": 2.5644,
+        "ndwi_now": 3.0087,
+        "wind": 3.1416,
+        "temp": 0.2304,
+        "drought": 0.0
+      },
+      "bridge_fired": true,
+      "zz": {
+        "zz_01": 0.8306,
+        "zz_12": 0.9912,
+        "zz_23": -0.9736,
+        "zz_34": 0.9736
+      },
+      "qte_score": 0.7868
+    },
+    {
+      "node_id": "lubin",
+      "node_name": "Lubin",
+      "backend": "qiskit_statevector",
+      "theta_encoding": {
+        "ndwi_past": 1.5466,
+        "ndwi_now": 1.9065,
+        "wind": 3.1416,
+        "temp": 1.0053,
+        "drought": 0.0
+      },
+      "bridge_fired": false,
+      "zz": {
+        "zz_01": -0.008,
+        "zz_12": 0.3294,
+        "zz_23": -0.5358,
+        "zz_34": 0.5358
+      },
+      "qte_score": 0.3148
+    },
+    {
+      "node_id": "lwowek",
+      "node_name": "Lwówek Śląski",
+      "backend": "qiskit_statevector",
+      "theta_encoding": {
+        "ndwi_past": 2.3706,
+        "ndwi_now": 2.735,
+        "wind": 3.1416,
+        "temp": 0.3142,
+        "drought": 0.0
+      },
+      "bridge_fired": true,
+      "zz": {
+        "zz_01": 0.6587,
+        "zz_12": 0.9185,
+        "zz_23": -0.9511,
+        "zz_34": 0.9511
+      },
+      "qte_score": 0.756
+    },
+    {
+      "node_id": "miekinia",
+      "node_name": "Miękinia",
+      "backend": "qiskit_statevector",
+      "theta_encoding": {
+        "ndwi_past": 2.3679,
+        "ndwi_now": 2.5115,
+        "wind": 3.1416,
+        "temp": 1.5708,
+        "drought": 0.0
+      },
+      "bridge_fired": true,
+      "zz": {
+        "zz_01": 0.5779,
+        "zz_12": 0.808,
+        "zz_23": 0.0,
+        "zz_34": 0.0
+      },
+      "qte_score": 0.3424
+    },
+    {
+      "node_id": "milicz",
+      "node_name": "Milicz",
+      "backend": "qiskit_statevector",
+      "theta_encoding": {
+        "ndwi_past": 2.0205,
+        "ndwi_now": 2.3562,
+        "wind": 3.1416,
+        "temp": 2.2829,
+        "drought": 0.0
+      },
+      "bridge_fired": true,
+      "zz": {
+        "zz_01": 0.3074,
+        "zz_12": 0.7071,
+        "zz_23": 0.6534,
+        "zz_34": -0.6534
+      },
+      "qte_score": 0.5735
+    },
+    {
+      "node_id": "mysliborskie",
+      "node_name": "Myśliborskie",
+      "backend": "qiskit_statevector",
+      "theta_encoding": {
+        "ndwi_past": 0.8536,
+        "ndwi_now": 2.7897,
+        "wind": 3.1416,
+        "temp": 0.3979,
+        "drought": 0.0
+      },
+      "bridge_fired": false,
+      "zz": {
+        "zz_01": -0.617,
+        "zz_12": 0.9387,
+        "zz_23": -0.9219,
+        "zz_34": 0.9219
+      },
+      "qte_score": 0.7738
+    },
+    {
+      "node_id": "olesnica",
+      "node_name": "Oleśnica Śląska",
+      "backend": "qiskit_statevector",
+      "theta_encoding": {
+        "ndwi_past": 1.7045,
+        "ndwi_now": 1.8275,
+        "wind": 3.1416,
+        "temp": 1.5499,
+        "drought": 0.0
+      },
+      "bridge_fired": true,
+      "zz": {
+        "zz_01": 0.0339,
+        "zz_12": 0.2539,
+        "zz_23": -0.0209,
+        "zz_34": 0.0209
+      },
+      "qte_score": 0.1845
+    },
+    {
+      "node_id": "olawa",
+      "node_name": "Oława",
+      "backend": "qiskit_statevector",
+      "theta_encoding": {
+        "ndwi_past": 1.7826,
+        "ndwi_now": 1.7826,
+        "wind": 3.1416,
+        "temp": 1.8221,
+        "drought": 0.0
+      },
+      "bridge_fired": true,
+      "zz": {
+        "zz_01": 0.0442,
+        "zz_12": 0.2103,
+        "zz_23": 0.2487,
+        "zz_34": -0.2487
+      },
+      "qte_score": 0.2626
+    },
+    {
+      "node_id": "piszowice",
+      "node_name": "Piszowice",
+      "backend": "qiskit_statevector",
+      "theta_encoding": {
+        "ndwi_past": 2.6865,
+        "ndwi_now": 3.1084,
+        "wind": 3.1416,
+        "temp": 0.356,
+        "drought": 0.0
+      },
+      "bridge_fired": true,
+      "zz": {
+        "zz_01": 0.8977,
+        "zz_12": 0.9994,
+        "zz_23": -0.9373,
+        "zz_34": 0.9373
+      },
+      "qte_score": 0.7747
+    },
+    {
+      "node_id": "prudnik",
+      "node_name": "Prudnik",
+      "backend": "qiskit_statevector",
+      "theta_encoding": {
+        "ndwi_past": 2.1408,
+        "ndwi_now": 2.3418,
+        "wind": 3.1416,
+        "temp": 1.131,
+        "drought": 0.0
+      },
+      "bridge_fired": true,
+      "zz": {
+        "zz_01": 0.376,
+        "zz_12": 0.6969,
+        "zz_23": -0.4258,
+        "zz_34": 0.4258
+      },
+      "qte_score": 0.4794
+    },
+    {
+      "node_id": "ruszow",
+      "node_name": "Ruszów",
+      "backend": "qiskit_statevector",
+      "theta_encoding": {
+        "ndwi_past": 2.051,
+        "ndwi_now": 2.4002,
+        "wind": 3.1416,
+        "temp": 0.5445,
+        "drought": 0.0
+      },
+      "bridge_fired": true,
+      "zz": {
+        "zz_01": 0.3407,
+        "zz_12": 0.7375,
+        "zz_23": -0.8554,
+        "zz_34": 0.8554
+      },
+      "qte_score": 0.6634
+    },
+    {
+      "node_id": "rychtal",
+      "node_name": "Rychtal",
+      "backend": "qiskit_statevector",
+      "theta_encoding": {
+        "ndwi_past": 2.3463,
+        "ndwi_now": 2.5573,
+        "wind": 3.1416,
+        "temp": 1.9059,
+        "drought": 0.0
+      },
+      "bridge_fired": true,
+      "zz": {
+        "zz_01": 0.5839,
+        "zz_12": 0.8341,
+        "zz_23": 0.3289,
+        "zz_34": -0.3289
+      },
+      "qte_score": 0.4818
+    },
+    {
+      "node_id": "sycow",
+      "node_name": "Syców",
+      "backend": "qiskit_statevector",
+      "theta_encoding": {
+        "ndwi_past": 1.9684,
+        "ndwi_now": 2.2242,
+        "wind": 3.1416,
+        "temp": 1.9268,
+        "drought": 0.0
+      },
+      "bridge_fired": true,
+      "zz": {
+        "zz_01": 0.2354,
+        "zz_12": 0.6079,
+        "zz_23": 0.3486,
+        "zz_34": -0.3486
+      },
+      "qte_score": 0.4218
+    },
+    {
+      "node_id": "szklarska",
+      "node_name": "Szklarska Poręba",
+      "backend": "qiskit_statevector",
+      "theta_encoding": {
+        "ndwi_past": 1.4415,
+        "ndwi_now": 2.8974,
+        "wind": 3.1416,
+        "temp": 0.0,
+        "drought": 0.0
+      },
+      "bridge_fired": false,
+      "zz": {
+        "zz_01": -0.1251,
+        "zz_12": 0.9703,
+        "zz_23": -1.0,
+        "zz_34": 1.0
+      },
+      "qte_score": 0.7161
+    },
+    {
+      "node_id": "swidnica",
+      "node_name": "Świdnica",
+      "backend": "qiskit_statevector",
+      "theta_encoding": {
+        "ndwi_past": 1.8428,
+        "ndwi_now": 2.0609,
+        "wind": 3.1416,
+        "temp": 1.0681,
+        "drought": 0.0
+      },
+      "bridge_fired": true,
+      "zz": {
+        "zz_01": 0.1264,
+        "zz_12": 0.4707,
+        "zz_23": -0.4818,
+        "zz_34": 0.4818
+      },
+      "qte_score": 0.4339
+    },
+    {
+      "node_id": "swietoszow",
+      "node_name": "Świętoszów",
+      "backend": "qiskit_statevector",
+      "theta_encoding": {
+        "ndwi_past": 1.1382,
+        "ndwi_now": 2.0735,
+        "wind": 3.1416,
+        "temp": 0.9215,
+        "drought": 0.0
+      },
+      "bridge_fired": false,
+      "zz": {
+        "zz_01": -0.202,
+        "zz_12": 0.4818,
+        "zz_23": -0.6046,
+        "zz_34": 0.6046
+      },
+      "qte_score": 0.4268
+    },
+    {
+      "node_id": "walbrzych",
+      "node_name": "Wałbrzych",
+      "backend": "qiskit_statevector",
+      "theta_encoding": {
+        "ndwi_past": 2.0025,
+        "ndwi_now": 2.8014,
+        "wind": 3.1416,
+        "temp": 0.5445,
+        "drought": 0.0
+      },
+      "bridge_fired": true,
+      "zz": {
+        "zz_01": 0.3945,
+        "zz_12": 0.9427,
+        "zz_23": -0.8554,
+        "zz_34": 0.8554
+      },
+      "qte_score": 0.725
+    },
+    {
+      "node_id": "wegliniec",
+      "node_name": "Węgliniec",
+      "backend": "qiskit_statevector",
+      "theta_encoding": {
+        "ndwi_past": 1.1067,
+        "ndwi_now": 2.6057,
+        "wind": 3.1416,
+        "temp": 0.3351,
+        "drought": 0.0
+      },
+      "bridge_fired": false,
+      "zz": {
+        "zz_01": -0.3848,
+        "zz_12": 0.8598,
+        "zz_23": -0.9444,
+        "zz_34": 0.9444
+      },
+      "qte_score": 0.7127
+    },
+    {
+      "node_id": "wolow",
+      "node_name": "Wołów",
+      "backend": "qiskit_statevector",
+      "theta_encoding": {
+        "ndwi_past": 2.1444,
+        "ndwi_now": 2.3562,
+        "wind": 3.1416,
+        "temp": 1.6755,
+        "drought": 0.0
+      },
+      "bridge_fired": true,
+      "zz": {
+        "zz_01": 0.3837,
+        "zz_12": 0.7071,
+        "zz_23": 0.1045,
+        "zz_34": -0.1045
+      },
+      "qte_score": 0.3539
+    },
+    {
+      "node_id": "wroclaw",
+      "node_name": "Wrocław",
+      "backend": "qiskit_statevector",
+      "theta_encoding": {
+        "ndwi_past": 1.1597,
+        "ndwi_now": 0.8841,
+        "wind": 3.1416,
+        "temp": 1.9478,
+        "drought": 0.0
+      },
+      "bridge_fired": false,
+      "zz": {
+        "zz_01": 0.2533,
+        "zz_12": -0.634,
+        "zz_23": 0.3681,
+        "zz_34": -0.3681
+      },
+      "qte_score": 0.3374
+    },
+    {
+      "node_id": "zlotoryja",
+      "node_name": "Złotoryja",
+      "backend": "qiskit_statevector",
+      "theta_encoding": {
+        "ndwi_past": 2.4801,
+        "ndwi_now": 2.9055,
+        "wind": 3.1416,
+        "temp": 0.6702,
+        "drought": 0.0
+      },
+      "bridge_fired": true,
+      "zz": {
+        "zz_01": 0.7672,
+        "zz_12": 0.9723,
+        "zz_23": -0.7837,
+        "zz_34": 0.7837
+      },
+      "qte_score": 0.7052
+    },
+    {
+      "node_id": "zmigrod",
+      "node_name": "Żmigród",
+      "backend": "qiskit_statevector",
+      "theta_encoding": {
+        "ndwi_past": 1.6444,
+        "ndwi_now": 2.0887,
+        "wind": 3.1416,
+        "temp": 1.9268,
+        "drought": 0.0
+      },
+      "bridge_fired": true,
+      "zz": {
+        "zz_01": 0.0364,
+        "zz_12": 0.4951,
+        "zz_23": 0.3486,
+        "zz_34": -0.3486
+      },
+      "qte_score": 0.3879
+    },
+    {
+      "node_id": "zgorzelec",
+      "node_name": "Zgorzelec",
+      "backend": "qiskit_statevector",
+      "theta_encoding": {
+        "ndwi_past": 2.0061,
+        "ndwi_now": 2.34,
+        "wind": 3.1416,
+        "temp": 0.356,
+        "drought": 0.0
+      },
+      "bridge_fired": true,
+      "zz": {
+        "zz_01": 0.2933,
+        "zz_12": 0.6956,
+        "zz_23": -0.9373,
+        "zz_34": 0.9373
+      },
+      "qte_score": 0.6836
+    }
+  ]
+}
