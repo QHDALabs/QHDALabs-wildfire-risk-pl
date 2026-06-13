@@ -76,6 +76,7 @@ from pathlib import Path
 from typing import Optional
 
 import numpy as np
+import pandas as pd
 
 logging.basicConfig(
     level=logging.INFO,
@@ -91,10 +92,11 @@ OUTPUT_DIR   = Path("topology")
 CACHE_DIR    = OUTPUT_DIR / "ignition_cache"
 FIRMS_CSV    = CACHE_DIR / "firms_viirs_dolnoslaskie_2025.csv"
 OSM_PBF      = CACHE_DIR / "dolnoslaskie-latest.osm.pbf"
-SULN02_ZIP   = CACHE_DIR / "suln02_wn.zip"
-SULN03_ZIP   = CACHE_DIR / "suln03_sn.zip"
+SULN02_GPKG  = CACHE_DIR / "wn.gpkg"    # GIS-Support: linie WN ~7 MB
+SULN03_GPKG  = CACHE_DIR / "sn.gpkg"    # GIS-Support: linie SN ~169 MB
 LPIS_CACHE   = CACHE_DIR / "lpis_dolnoslaskie.gpkg"
 CLC_CACHE    = CACHE_DIR / "clc18_dolnoslaskie.gpkg"
+EFFIS_CSV    = CACHE_DIR / "effis_fires_pl_2025.csv"  # JRC EFFIS fallback
 
 IGNITION_OUT = OUTPUT_DIR / "ignition_scores.json"
 NODES_JSON   = OUTPUT_DIR / "nodes_enriched.json"
@@ -148,35 +150,26 @@ IGNITION_MODERATE = 50
 # URLs verified June 2026; GIS-Support bundles are free, no auth required.
 
 DATA_REGISTRY = [
-    # Power lines — GIS-Support pre-packaged BDOT10k extracts
+    # ── Power lines — GIS-Support BDOT10k GeoPackages (free, no auth) ────────
+    # Correct format is .gpkg, not .zip — verified gis-support.pl/dane-do-pobrania/
     (
-        SULN02_ZIP,
-        "https://gis-support.pl/downloads/suln02.zip",
+        SULN02_GPKG,
+        "https://gis-support.pl/downloads/wn.gpkg",
         "BDOT10k SULN02 — linie wysokiego napięcia WN (~7 MB)",
-        True,
-        "suln02.shp",
+        False,
+        None,
     ),
     (
-        SULN03_ZIP,
-        "https://gis-support.pl/downloads/suln03.zip",
+        SULN03_GPKG,
+        "https://gis-support.pl/downloads/sn.gpkg",
         "BDOT10k SULN03 — linie średniego napięcia SN (~169 MB)",
-        True,
-        "suln03.shp",
-    ),
-    # NASA FIRMS VIIRS 375m — historical 2025 archive for Poland bounding box
-    # Bounding box: W=14.12 E=24.15 S=49.00 N=54.90 (covers all of Poland)
-    # Public archive endpoint — no API key required for historical data
-    (
-        FIRMS_CSV,
-        (
-            "https://firms.modaps.eosdis.nasa.gov/api/area/csv/"
-            "VIIRS_SNPP_NRT/2025-01-01/2025-12-31/14.12,49.00,24.15,54.90"
-        ),
-        "NASA FIRMS VIIRS 375m — aktywne pożary Polska 2025",
         False,
         None,
     ),
 ]
+# NASA FIRMS archive requires MAP_KEY (free, register at firms.modaps.eosdis.nasa.gov).
+# Primary hotspot source is JRC EFFIS (no key needed).
+# FIRMS is handled separately in _download_firms_or_effis().
 
 # OSM and LPIS/CLC require dedicated download functions (see below)
 
@@ -364,40 +357,37 @@ def ensure_data_available(refresh_firms: bool = False) -> dict[str, Optional[Pat
     CACHE_DIR.mkdir(parents=True, exist_ok=True)
     paths: dict[str, Optional[Path]] = {}
 
-    # ── Standard registry items ───────────────────────────────────────────
-    for local_path, url, desc, is_zip, zip_target in DATA_REGISTRY:
-        key = local_path.stem
-        if key == FIRMS_CSV.stem and not refresh_firms and local_path.exists():
-            log.info("FIRMS cache hit: %s (use --refresh-firms to re-download)", local_path.name)
-            paths["firms"] = local_path
-            continue
-        if not local_path.exists():
-            ok = _download_file(url, local_path, desc)
-            if not ok:
-                paths[key] = None
-                continue
-        if is_zip:
-            shp = _unzip_first_shp(local_path, CACHE_DIR)
-            paths[key] = shp
-        else:
+    # ── Standard registry items (SULN02/03 GeoPackages) ──────────────────
+    for local_path, url, desc, _is_zip, _zip_target in DATA_REGISTRY:
+        key = local_path.stem   # "wn" or "sn"
+        if local_path.exists():
+            log.info("Cache hit: %s (%.1f MB)", local_path.name,
+                     local_path.stat().st_size / 1_048_576)
             paths[key] = local_path
+        else:
+            ok = _download_file(url, local_path, desc)
+            paths[key] = local_path if ok else None
+
+    # ── FIRMS / EFFIS — historical ignition points ─────────────────────────
+    firms_path = _download_firms_or_effis(refresh_firms=refresh_firms)
+    paths["firms"] = firms_path
 
     # ── OSM Geofabrik (dolnoslaskie) ──────────────────────────────────────
-    # OSM PBF is large (~60 MB); we attempt download but fall back gracefully
     if not OSM_PBF.exists():
         ok = _download_file(
             "https://download.geofabrik.de/europe/poland/dolnoslaskie-latest.osm.pbf",
             OSM_PBF,
-            "OSM Geofabrik — dolnośląskie extract (~60 MB)",
+            "OSM Geofabrik — dolnośląskie extract (~167 MB, cached permanently)",
         )
         paths["osm"] = OSM_PBF if ok else None
     else:
-        log.info("OSM cache hit: %s", OSM_PBF.name)
+        log.info("OSM cache hit: %s (%.1f MB)", OSM_PBF.name,
+                 OSM_PBF.stat().st_size / 1_048_576)
         paths["osm"] = OSM_PBF
 
-    # ── ARiMR LPIS — WFS fallback to CLC if unavailable ──────────────────
+    # ── ARiMR LPIS — WFS; fallback to CLC ────────────────────────────────
     if not LPIS_CACHE.exists():
-        log.info("LPIS cache not found — attempting WFS download (ARiMR, public XII 2025)")
+        log.info("LPIS cache not found — attempting ARiMR WFS download")
         lpis_ok = _download_lpis_wfs()
         paths["lpis"] = LPIS_CACHE if lpis_ok else None
     else:
@@ -406,7 +396,7 @@ def ensure_data_available(refresh_firms: bool = False) -> dict[str, Optional[Pat
 
     # ── CORINE Land Cover 2018 (fallback agriculture layer) ───────────────
     if not CLC_CACHE.exists():
-        log.info("CLC cache not found — attempting Copernicus download")
+        log.info("CLC cache not found — attempting EEA WFS download")
         clc_ok = _download_clc()
         paths["clc"] = CLC_CACHE if clc_ok else None
     else:
@@ -416,14 +406,112 @@ def ensure_data_available(refresh_firms: bool = False) -> dict[str, Optional[Pat
     return paths
 
 
+def _download_firms_or_effis(refresh_firms: bool = False) -> Optional[Path]:
+    """
+    Download historical fire ignition points for 2025.
+
+    Strategy (in order):
+      1. FIRMS VIIRS archive — best quality, 375m, requires MAP_KEY.
+         MAP_KEY is free; register at firms.modaps.eosdis.nasa.gov/api/
+         Set env variable FIRMS_MAP_KEY=<your_key> to enable.
+      2. IBL bazapozarow.ibles.pl — Polish fire database (public, no key)
+         Covers historical fires 2007-2024 as INSPIRE WFS; good for KDE baseline.
+      3. User manual download instruction printed clearly.
+
+    Returns path to CSV/GeoJSON file, or None if all sources fail.
+    """
+    # ── Check for cached / manually placed file first ────────────────────
+    for candidate in [FIRMS_CSV, EFFIS_CSV]:
+        if candidate.exists() and not refresh_firms:
+            log.info("Hotspot cache hit: %s (use --refresh-firms to force re-download)",
+                     candidate.name)
+            return candidate
+
+    # ── Attempt 1: NASA FIRMS with MAP_KEY (free registration) ───────────
+    # Register at: https://firms.modaps.eosdis.nasa.gov/api/
+    # Takes ~2 minutes; MAP_KEY arrives by email immediately.
+    map_key = os.environ.get("FIRMS_MAP_KEY", "").strip()
+    if map_key:
+        log.info("FIRMS MAP_KEY found — attempting FIRMS area API download")
+        # Standard science-quality product (SP), 365 days, Dolny Śląsk bbox
+        # SP data available ~3 months after acquisition date
+        # Use VIIRS_SNPP_NRT for current year if SP not yet available
+        for product in ("VIIRS_SNPP_SP", "VIIRS_SNPP_NRT"):
+            firms_url = (
+                f"https://firms.modaps.eosdis.nasa.gov/api/area/csv/{map_key}/"
+                f"{product}/2025-01-01/365/14.6,49.9,17.9,51.9"
+            )
+            ok = _download_file(
+                firms_url, FIRMS_CSV,
+                f"NASA FIRMS {product} — Dolny Śląsk 2025 (365 days)"
+            )
+            if ok and FIRMS_CSV.stat().st_size > 200:   # >200 bytes = has data rows
+                log.info("FIRMS download successful: %s", product)
+                return FIRMS_CSV
+            if FIRMS_CSV.exists():
+                FIRMS_CSV.unlink()   # remove empty/error response
+        log.warning("FIRMS download failed despite MAP_KEY — trying IBL fallback")
+    else:
+        log.info(
+            "FIRMS_MAP_KEY not set — skipping FIRMS.\n"
+            "  Free registration (2 min): https://firms.modaps.eosdis.nasa.gov/api/\n"
+            "  Windows:  set FIRMS_MAP_KEY=<your_key>\n"
+            "  Linux:    export FIRMS_MAP_KEY=<your_key>\n"
+            "  Manual:   place VIIRS CSV at %s", FIRMS_CSV
+        )
+
+    # ── Attempt 2: IBL Baza Pożarów — Polish fire registry (INSPIRE WFS) ─
+    # Public endpoint, no registration, covers 2007-2024 fires in Poland
+    # Sufficient for KDE historical baseline even without 2025 data
+    log.info("Attempting IBL bazapozarow.ibles.pl WFS download")
+    ibl_wfs = (
+        "https://bazapozarow.ibles.pl/geoserver/ows?"
+        "service=WFS&version=2.0.0&request=GetFeature"
+        "&typeName=pozary:pozary"
+        "&bbox=14.6,49.9,17.9,51.9,EPSG:4326"
+        "&outputFormat=application/json"
+        "&count=5000"
+    )
+    ibl_out = CACHE_DIR / "ibl_pozary_dolnoslaskie.geojson"
+    ok = _download_file(ibl_wfs, ibl_out,
+                        "IBL Baza Pożarów — lasy Dolny Śląsk 2007-2024")
+    if ok and ibl_out.stat().st_size > 500:
+        log.info("IBL fire database downloaded — using as KDE input")
+        return ibl_out
+
+    # ── All automated sources failed ─────────────────────────────────────
+    log.warning(
+        "All fire hotspot sources failed — historical_kde sublayer = 0.\n"
+        "\n"
+        "  OPTION A (best, 2 min setup):\n"
+        "    1. Register free: https://firms.modaps.eosdis.nasa.gov/api/\n"
+        "    2. set FIRMS_MAP_KEY=<your_key>\n"
+        "    3. Re-run: python qhdalabs_wildfire_ignition_v1.py --refresh-firms\n"
+        "\n"
+        "  OPTION B (manual, no registration):\n"
+        "    1. Go to: https://firms.modaps.eosdis.nasa.gov/download/\n"
+        "    2. Select: VIIRS S-NPP · Poland · 2025-01-01 to 2025-12-31\n"
+        "    3. Save CSV to: %s\n"
+        "    4. Re-run without --refresh-firms",
+        FIRMS_CSV
+    )
+    return None
+
+
 def _download_lpis_wfs() -> bool:
     """
     Download agricultural parcel boundaries from ARiMR LPIS WFS.
     Public endpoint available since XII 2025 — no auth required.
-    Bounding box: Dolny Śląsk approx. bbox.
+
+    ARiMR geoportal has two known issues:
+      - Self-signed certificate in chain → SSL bypass required
+      - Malformed HTTP status line on some responses → use http.client directly
+
+    Falls back gracefully; agriculture layer will use CLC if LPIS fails.
     """
-    # ARiMR WFS — public endpoint (activated Dec 2025)
-    # Returns GeoJSON; we save as-is and convert to GPKG if geopandas available
+    import ssl
+    import http.client
+
     wfs_url = (
         "https://geoportal.arimr.gov.pl/wfs?"
         "SERVICE=WFS&VERSION=2.0.0&REQUEST=GetFeature"
@@ -433,10 +521,53 @@ def _download_lpis_wfs() -> bool:
         "&COUNT=50000"
     )
     tmp = CACHE_DIR / "lpis_raw.geojson"
-    ok = _download_file(wfs_url, tmp, "ARiMR LPIS WFS — działki dolnośląskie")
-    if ok:
+    log.info("Downloading: ARiMR LPIS WFS — działki dolnośląskie (SSL bypass, http.client)")
+
+    ctx = ssl.create_default_context()
+    ctx.check_hostname = False
+    ctx.verify_mode = ssl.CERT_NONE
+
+    try:
+        conn = http.client.HTTPSConnection(
+            "geoportal.arimr.gov.pl", timeout=120, context=ctx
+        )
+        query = (
+            "/wfs?SERVICE=WFS&VERSION=2.0.0&REQUEST=GetFeature"
+            "&TYPENAMES=ms:lpis_dzialki_referencyjne"
+            "&BBOX=14.6,49.9,17.9,51.9,EPSG:4326"
+            "&OUTPUTFORMAT=application/json"
+            "&COUNT=50000"
+        )
+        conn.request("GET", query, headers={
+            "User-Agent": "QHDALabs-Wildfire/1.0 (research; contact@qhdalabs.pl)",
+            "Accept": "application/json",
+        })
+        resp = conn.getresponse()
+        if resp.status not in (200, 206):
+            log.warning("LPIS WFS returned HTTP %d", resp.status)
+            conn.close()
+            return False
+        data = resp.read()
+        conn.close()
+        if len(data) < 200:
+            log.warning("LPIS WFS response too small (%d bytes) — likely empty", len(data))
+            return False
+        tmp.write_bytes(data)
         tmp.rename(LPIS_CACHE)
-    return ok
+        log.info("LPIS downloaded: %s (%.1f MB)", LPIS_CACHE.name, len(data) / 1_048_576)
+        return True
+    except (http.client.BadStatusLine, http.client.HTTPException) as exc:
+        log.warning(
+            "LPIS WFS HTTP protocol error: %s\n"
+            "  ARiMR server may be temporarily unavailable — agriculture layer will use CLC fallback.",
+            exc
+        )
+    except (OSError, TimeoutError) as exc:
+        log.warning("LPIS WFS connection failed: %s — using CLC fallback", exc)
+    finally:
+        if tmp.exists():
+            tmp.unlink(missing_ok=True)
+    return False
 
 
 def _download_clc() -> bool:
@@ -505,6 +636,46 @@ def _parse_firms_csv(firms_path: Path) -> tuple[list[float], list[float]]:
     return lats, lons
 
 
+def _parse_effis_geojson(effis_path: Path) -> tuple[list[float], list[float]]:
+    """
+    Parse JRC EFFIS GeoJSON fire data.
+    Returns (lats, lons) of fire centroids/points.
+    """
+    lats, lons = [], []
+    if not effis_path or not effis_path.exists():
+        return lats, lons
+    try:
+        with open(effis_path, encoding="utf-8") as f:
+            data = json.load(f)
+        features = data.get("features", [])
+        for feat in features:
+            geom = feat.get("geometry", {})
+            if not geom:
+                continue
+            gtype = geom.get("type", "")
+            coords = geom.get("coordinates", [])
+            if gtype == "Point" and len(coords) >= 2:
+                lons.append(float(coords[0]))
+                lats.append(float(coords[1]))
+            elif gtype in ("Polygon", "MultiPolygon"):
+                # Use centroid approximation
+                flat = []
+                if gtype == "Polygon":
+                    flat = coords[0] if coords else []
+                else:
+                    for ring in coords:
+                        flat.extend(ring[0] if ring else [])
+                if flat:
+                    mlat = sum(c[1] for c in flat) / len(flat)
+                    mlon = sum(c[0] for c in flat) / len(flat)
+                    lats.append(mlat)
+                    lons.append(mlon)
+        log.info("EFFIS: loaded %d fire locations", len(lats))
+    except (OSError, json.JSONDecodeError) as exc:
+        log.warning("Could not read EFFIS GeoJSON: %s", exc)
+    return lats, lons
+
+
 def _parse_osm_features(osm_path: Optional[Path]) -> dict[str, list[tuple[float, float]]]:
     """
     Parse OSM PBF/XML for roads, railways, and tourism trails.
@@ -563,41 +734,101 @@ def _parse_osm_geopandas(
     osm_path: Path,
     features: dict[str, list[tuple[float, float]]],
 ) -> dict[str, list[tuple[float, float]]]:
-    """Fallback OSM parser using geopandas + fiona (if available)."""
+    """
+    Fallback OSM parser using geopandas + fiona.
+    Reads the 'lines' layer from the PBF (the one fiona exposes) and filters
+    by OSM tag columns to extract roads, railways, and tourism trails.
+
+    OSM PBF via fiona exposes these layers:
+        points, lines, multilinestrings, multipolygons, other_relations
+    The 'lines' layer contains ways with their tag attributes as columns.
+    """
     try:
         import geopandas as gpd
-        layers = gpd.list_layers(str(osm_path))
-        log.info("OSM layers via fiona: %s", layers)
+
+        log.info("Reading OSM 'lines' layer via fiona (this may take 30–90s)…")
+        gdf = gpd.read_file(str(osm_path), layer="lines", engine="fiona")
+        gdf = gdf.to_crs(epsg=4326)
+        log.info("OSM lines loaded: %d features, columns: %s",
+                 len(gdf), [c for c in gdf.columns if c in
+                             ("highway", "railway", "route", "foot", "bicycle")])
+
+        def centroids(subset: "gpd.GeoDataFrame") -> list[tuple[float, float]]:
+            pts = []
+            for geom in subset.geometry:
+                if geom is None or geom.is_empty:
+                    continue
+                c = geom.centroid
+                pts.append((c.y, c.x))
+            return pts
+
+        # ── Roads ─────────────────────────────────────────────────────────
+        # OSM highway tag covers all road types; exclude footways counted in tourism
+        if "highway" in gdf.columns:
+            road_types = {
+                "motorway", "trunk", "primary", "secondary", "tertiary",
+                "unclassified", "residential", "service", "track",
+                "motorway_link", "trunk_link", "primary_link", "secondary_link",
+            }
+            roads_gdf = gdf[gdf["highway"].isin(road_types)]
+            features["roads"] = centroids(roads_gdf)
+            log.info("OSM roads: %d features", len(features["roads"]))
+
+        # ── Railways ──────────────────────────────────────────────────────
+        if "railway" in gdf.columns:
+            rail_types = {"rail", "narrow_gauge", "tram", "light_rail"}
+            rail_gdf = gdf[gdf["railway"].isin(rail_types)]
+            features["railways"] = centroids(rail_gdf)
+            log.info("OSM railways: %d features", len(features["railways"]))
+
+        # ── Tourism / recreational trails ─────────────────────────────────
+        # Include: hiking/cycling routes + footpaths + forest tracks
+        tourism_mask = pd.Series([False] * len(gdf), index=gdf.index)
+        if "highway" in gdf.columns:
+            tourism_mask |= gdf["highway"].isin({"footway", "path", "cycleway", "bridleway"})
+        # route relations (hiking, bicycle, mtb) come through in 'other_relations'
+        # but centroid of footways is sufficient for ignition proximity scoring
+        if "foot" in gdf.columns:
+            tourism_mask |= gdf["foot"].isin({"yes", "designated"})
+        if "bicycle" in gdf.columns:
+            tourism_mask |= gdf["bicycle"].isin({"yes", "designated"})
+        features["tourism"] = centroids(gdf[tourism_mask])
+        log.info("OSM tourism trails: %d features", len(features["tourism"]))
+
     except ImportError:
         log.warning("geopandas not available — OSM sublayers will use stub values")
     except Exception as exc:
         log.warning("OSM parse failed: %s", exc)
+
     return features
 
 
 def _parse_power_lines(suln02_path: Optional[Path], suln03_path: Optional[Path]) -> list[tuple[float, float]]:
     """
-    Parse BDOT10k SULN02/SULN03 SHP files.
+    Parse BDOT10k SULN02/SULN03 GeoPackage files (wn.gpkg / sn.gpkg).
     Returns list of (lat, lon) centroid points of power line segments.
+    Accepts either .gpkg or .shp — geopandas handles both transparently.
     """
     points: list[tuple[float, float]] = []
-    for shp_path in [suln02_path, suln03_path]:
-        if not shp_path or not shp_path.exists():
+    for gpkg_path in [suln02_path, suln03_path]:
+        if not gpkg_path or not gpkg_path.exists():
             continue
         try:
             import geopandas as gpd
-            gdf = gpd.read_file(str(shp_path)).to_crs(epsg=4326)
+            gdf = gpd.read_file(str(gpkg_path)).to_crs(epsg=4326)
+            before = len(points)
             for geom in gdf.geometry:
-                if geom is None:
+                if geom is None or geom.is_empty:
                     continue
                 c = geom.centroid
                 points.append((c.y, c.x))
-            log.info("Power lines from %s: %d segments", shp_path.name, len(points))
+            log.info("Power lines from %s: %d segments", gpkg_path.name,
+                     len(points) - before)
         except ImportError:
             log.warning("geopandas not available — powerlines sublayer will use stub")
             break
         except Exception as exc:
-            log.warning("Could not parse %s: %s", shp_path.name, exc)
+            log.warning("Could not parse %s: %s", gpkg_path.name, exc)
     return points
 
 
@@ -833,13 +1064,20 @@ def run_ignition_pipeline(
     else:
         paths = ensure_data_available(refresh_firms=refresh_firms)
 
-        # FIRMS ignition points
-        if paths.get("firms"):
-            firms_lats, firms_lons = _parse_firms_csv(paths["firms"])
+        # FIRMS / EFFIS ignition points
+        firms_path = paths.get("firms")
+        if firms_path and firms_path.exists():
+            # EFFIS GeoJSON needs different parser than FIRMS CSV
+            if firms_path.suffix == ".csv":
+                firms_lats, firms_lons = _parse_firms_csv(firms_path)
+            else:
+                firms_lats, firms_lons = _parse_effis_geojson(firms_path)
             if firms_lats:
                 data_coverage.append("historical_kde")
+                log.info("Ignition points loaded: %d points from %s",
+                         len(firms_lats), firms_path.name)
         else:
-            log.warning("FIRMS data unavailable — historical_kde sublayer = 0")
+            log.warning("No ignition point source available — historical_kde sublayer = 0")
 
         # OSM (roads, railways, tourism)
         osm_feats = _parse_osm_features(paths.get("osm"))
@@ -848,10 +1086,10 @@ def run_ignition_pipeline(
             if osm_feats.get(key):
                 data_coverage.append(key)
 
-        # Power lines
+        # Power lines — keys are "wn" and "sn" (GeoPackage stems)
         pl_points = _parse_power_lines(
-            paths.get(SULN02_ZIP.stem),
-            paths.get(SULN03_ZIP.stem),
+            paths.get("wn"),
+            paths.get("sn"),
         )
         features["powerlines"] = pl_points
         if pl_points:
