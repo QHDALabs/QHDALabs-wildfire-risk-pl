@@ -1,0 +1,1933 @@
+{
+  "version": "1.0.0",
+  "rdlp": "Wrocław",
+  "neighbor_threshold_km": 60.0,
+  "adjacency": {
+    "bardo_slaskie": [
+      {
+        "id": "klodzko",
+        "name": "Kłodzko",
+        "dist_km": 10.7,
+        "eco": "spruce_mountain"
+      },
+      {
+        "id": "jugow",
+        "name": "Jugów",
+        "dist_km": 15.2,
+        "eco": "spruce_mountain"
+      },
+      {
+        "id": "ladek",
+        "name": "Lądek-Zdrój",
+        "dist_km": 21.4,
+        "eco": "spruce_mountain"
+      },
+      {
+        "id": "bystrzyca",
+        "name": "Bystrzyca Kłodzka",
+        "dist_km": 25.0,
+        "eco": "spruce_mountain"
+      },
+      {
+        "id": "gory_stolowe",
+        "name": "Góry Stołowe",
+        "dist_km": 28.8,
+        "eco": "spruce_mountain"
+      },
+      {
+        "id": "swidnica",
+        "name": "Świdnica",
+        "dist_km": 40.8,
+        "eco": "mixed"
+      },
+      {
+        "id": "olesnica",
+        "name": "Oleśnica Śląska",
+        "dist_km": 41.7,
+        "eco": "mixed"
+      },
+      {
+        "id": "walbrzych",
+        "name": "Wałbrzych",
+        "dist_km": 43.5,
+        "eco": "spruce_mountain"
+      },
+      {
+        "id": "kamienna_gora",
+        "name": "Kamienna Góra",
+        "dist_km": 58.0,
+        "eco": "spruce_mountain"
+      }
+    ],
+    "boleslawiec": [
+      {
+        "id": "lwowek",
+        "name": "Lwówek Śląski",
+        "dist_km": 17.6,
+        "eco": "mixed"
+      },
+      {
+        "id": "wegliniec",
+        "name": "Węgliniec",
+        "dist_km": 24.5,
+        "eco": "pine"
+      },
+      {
+        "id": "zlotoryja",
+        "name": "Złotoryja",
+        "dist_km": 29.5,
+        "eco": "mixed"
+      },
+      {
+        "id": "mysliborskie",
+        "name": "Myśliborskie",
+        "dist_km": 32.7,
+        "eco": "pine"
+      },
+      {
+        "id": "piszowice",
+        "name": "Piszowice",
+        "dist_km": 34.1,
+        "eco": "pine"
+      },
+      {
+        "id": "lesna",
+        "name": "Leśna",
+        "dist_km": 35.6,
+        "eco": "pine"
+      },
+      {
+        "id": "swietoszow",
+        "name": "Świętoszów",
+        "dist_km": 40.7,
+        "eco": "pine"
+      },
+      {
+        "id": "zgorzelec",
+        "name": "Zgorzelec",
+        "dist_km": 40.8,
+        "eco": "pine"
+      },
+      {
+        "id": "legnica",
+        "name": "Legnica",
+        "dist_km": 42.0,
+        "eco": "mixed"
+      },
+      {
+        "id": "ruszow",
+        "name": "Ruszów",
+        "dist_km": 46.7,
+        "eco": "pine"
+      },
+      {
+        "id": "lubin",
+        "name": "Lubin",
+        "dist_km": 47.1,
+        "eco": "mixed"
+      },
+      {
+        "id": "szklarska",
+        "name": "Szklarska Poręba",
+        "dist_km": 48.5,
+        "eco": "spruce_mountain"
+      },
+      {
+        "id": "jawor",
+        "name": "Jawor",
+        "dist_km": 50.9,
+        "eco": "mixed"
+      }
+    ],
+    "bystrzyca": [
+      {
+        "id": "klodzko",
+        "name": "Kłodzko",
+        "dist_km": 15.5,
+        "eco": "spruce_mountain"
+      },
+      {
+        "id": "ladek",
+        "name": "Lądek-Zdrój",
+        "dist_km": 17.4,
+        "eco": "spruce_mountain"
+      },
+      {
+        "id": "bardo_slaskie",
+        "name": "Bardo Śląskie",
+        "dist_km": 25.0,
+        "eco": "mixed"
+      },
+      {
+        "id": "gory_stolowe",
+        "name": "Góry Stołowe",
+        "dist_km": 25.0,
+        "eco": "spruce_mountain"
+      },
+      {
+        "id": "jugow",
+        "name": "Jugów",
+        "dist_km": 31.3,
+        "eco": "spruce_mountain"
+      },
+      {
+        "id": "walbrzych",
+        "name": "Wałbrzych",
+        "dist_km": 58.6,
+        "eco": "spruce_mountain"
+      }
+    ],
+    "gory_stolowe": [
+      {
+        "id": "jugow",
+        "name": "Jugów",
+        "dist_km": 20.8,
+        "eco": "spruce_mountain"
+      },
+      {
+        "id": "klodzko",
+        "name": "Kłodzko",
+        "dist_km": 20.9,
+        "eco": "spruce_mountain"
+      },
+      {
+        "id": "bystrzyca",
+        "name": "Bystrzyca Kłodzka",
+        "dist_km": 25.0,
+        "eco": "spruce_mountain"
+      },
+      {
+        "id": "bardo_slaskie",
+        "name": "Bardo Śląskie",
+        "dist_km": 28.8,
+        "eco": "mixed"
+      },
+      {
+        "id": "ladek",
+        "name": "Lądek-Zdrój",
+        "dist_km": 38.2,
+        "eco": "spruce_mountain"
+      },
+      {
+        "id": "walbrzych",
+        "name": "Wałbrzych",
+        "dist_km": 38.2,
+        "eco": "spruce_mountain"
+      },
+      {
+        "id": "kamienna_gora",
+        "name": "Kamienna Góra",
+        "dist_km": 44.9,
+        "eco": "spruce_mountain"
+      },
+      {
+        "id": "swidnica",
+        "name": "Świdnica",
+        "dist_km": 46.5,
+        "eco": "mixed"
+      }
+    ],
+    "jawor": [
+      {
+        "id": "legnica",
+        "name": "Legnica",
+        "dist_km": 19.1,
+        "eco": "mixed"
+      },
+      {
+        "id": "zlotoryja",
+        "name": "Złotoryja",
+        "dist_km": 21.5,
+        "eco": "mixed"
+      },
+      {
+        "id": "piszowice",
+        "name": "Piszowice",
+        "dist_km": 23.1,
+        "eco": "pine"
+      },
+      {
+        "id": "swidnica",
+        "name": "Świdnica",
+        "dist_km": 30.1,
+        "eco": "mixed"
+      },
+      {
+        "id": "walbrzych",
+        "name": "Wałbrzych",
+        "dist_km": 30.6,
+        "eco": "spruce_mountain"
+      },
+      {
+        "id": "kamienna_gora",
+        "name": "Kamienna Góra",
+        "dist_km": 31.3,
+        "eco": "spruce_mountain"
+      },
+      {
+        "id": "miekinia",
+        "name": "Miękinia",
+        "dist_km": 38.5,
+        "eco": "mixed"
+      },
+      {
+        "id": "lubin",
+        "name": "Lubin",
+        "dist_km": 40.0,
+        "eco": "mixed"
+      },
+      {
+        "id": "lwowek",
+        "name": "Lwówek Śląski",
+        "dist_km": 42.8,
+        "eco": "mixed"
+      },
+      {
+        "id": "wolow",
+        "name": "Wołów",
+        "dist_km": 45.1,
+        "eco": "mixed"
+      },
+      {
+        "id": "boleslawiec",
+        "name": "Bolesławiec",
+        "dist_km": 50.9,
+        "eco": "pine"
+      },
+      {
+        "id": "olesnica",
+        "name": "Oleśnica Śląska",
+        "dist_km": 51.1,
+        "eco": "mixed"
+      },
+      {
+        "id": "szklarska",
+        "name": "Szklarska Poręba",
+        "dist_km": 52.8,
+        "eco": "spruce_mountain"
+      },
+      {
+        "id": "jugow",
+        "name": "Jugów",
+        "dist_km": 57.8,
+        "eco": "spruce_mountain"
+      },
+      {
+        "id": "wroclaw",
+        "name": "Wrocław",
+        "dist_km": 58.7,
+        "eco": "mixed"
+      }
+    ],
+    "jugow": [
+      {
+        "id": "bardo_slaskie",
+        "name": "Bardo Śląskie",
+        "dist_km": 15.2,
+        "eco": "mixed"
+      },
+      {
+        "id": "klodzko",
+        "name": "Kłodzko",
+        "dist_km": 16.8,
+        "eco": "spruce_mountain"
+      },
+      {
+        "id": "gory_stolowe",
+        "name": "Góry Stołowe",
+        "dist_km": 20.8,
+        "eco": "spruce_mountain"
+      },
+      {
+        "id": "walbrzych",
+        "name": "Wałbrzych",
+        "dist_km": 29.1,
+        "eco": "spruce_mountain"
+      },
+      {
+        "id": "swidnica",
+        "name": "Świdnica",
+        "dist_km": 30.3,
+        "eco": "mixed"
+      },
+      {
+        "id": "bystrzyca",
+        "name": "Bystrzyca Kłodzka",
+        "dist_km": 31.3,
+        "eco": "spruce_mountain"
+      },
+      {
+        "id": "ladek",
+        "name": "Lądek-Zdrój",
+        "dist_km": 34.7,
+        "eco": "spruce_mountain"
+      },
+      {
+        "id": "olesnica",
+        "name": "Oleśnica Śląska",
+        "dist_km": 41.1,
+        "eco": "mixed"
+      },
+      {
+        "id": "kamienna_gora",
+        "name": "Kamienna Góra",
+        "dist_km": 42.9,
+        "eco": "spruce_mountain"
+      },
+      {
+        "id": "jawor",
+        "name": "Jawor",
+        "dist_km": 57.8,
+        "eco": "mixed"
+      }
+    ],
+    "kamienna_gora": [
+      {
+        "id": "walbrzych",
+        "name": "Wałbrzych",
+        "dist_km": 17.2,
+        "eco": "spruce_mountain"
+      },
+      {
+        "id": "piszowice",
+        "name": "Piszowice",
+        "dist_km": 30.1,
+        "eco": "pine"
+      },
+      {
+        "id": "jawor",
+        "name": "Jawor",
+        "dist_km": 31.3,
+        "eco": "mixed"
+      },
+      {
+        "id": "swidnica",
+        "name": "Świdnica",
+        "dist_km": 32.3,
+        "eco": "mixed"
+      },
+      {
+        "id": "szklarska",
+        "name": "Szklarska Poręba",
+        "dist_km": 36.7,
+        "eco": "spruce_mountain"
+      },
+      {
+        "id": "zlotoryja",
+        "name": "Złotoryja",
+        "dist_km": 39.5,
+        "eco": "mixed"
+      },
+      {
+        "id": "jugow",
+        "name": "Jugów",
+        "dist_km": 42.9,
+        "eco": "spruce_mountain"
+      },
+      {
+        "id": "gory_stolowe",
+        "name": "Góry Stołowe",
+        "dist_km": 44.9,
+        "eco": "spruce_mountain"
+      },
+      {
+        "id": "lwowek",
+        "name": "Lwówek Śląski",
+        "dist_km": 48.1,
+        "eco": "mixed"
+      },
+      {
+        "id": "legnica",
+        "name": "Legnica",
+        "dist_km": 48.8,
+        "eco": "mixed"
+      },
+      {
+        "id": "klodzko",
+        "name": "Kłodzko",
+        "dist_km": 57.9,
+        "eco": "spruce_mountain"
+      },
+      {
+        "id": "bardo_slaskie",
+        "name": "Bardo Śląskie",
+        "dist_km": 58.0,
+        "eco": "mixed"
+      },
+      {
+        "id": "lesna",
+        "name": "Leśna",
+        "dist_km": 59.5,
+        "eco": "pine"
+      }
+    ],
+    "klodzko": [
+      {
+        "id": "bardo_slaskie",
+        "name": "Bardo Śląskie",
+        "dist_km": 10.7,
+        "eco": "mixed"
+      },
+      {
+        "id": "bystrzyca",
+        "name": "Bystrzyca Kłodzka",
+        "dist_km": 15.5,
+        "eco": "spruce_mountain"
+      },
+      {
+        "id": "jugow",
+        "name": "Jugów",
+        "dist_km": 16.8,
+        "eco": "spruce_mountain"
+      },
+      {
+        "id": "ladek",
+        "name": "Lądek-Zdrój",
+        "dist_km": 19.1,
+        "eco": "spruce_mountain"
+      },
+      {
+        "id": "gory_stolowe",
+        "name": "Góry Stołowe",
+        "dist_km": 20.9,
+        "eco": "spruce_mountain"
+      },
+      {
+        "id": "walbrzych",
+        "name": "Wałbrzych",
+        "dist_km": 45.6,
+        "eco": "spruce_mountain"
+      },
+      {
+        "id": "swidnica",
+        "name": "Świdnica",
+        "dist_km": 46.6,
+        "eco": "mixed"
+      },
+      {
+        "id": "olesnica",
+        "name": "Oleśnica Śląska",
+        "dist_km": 51.7,
+        "eco": "mixed"
+      },
+      {
+        "id": "kamienna_gora",
+        "name": "Kamienna Góra",
+        "dist_km": 57.9,
+        "eco": "spruce_mountain"
+      }
+    ],
+    "ladek": [
+      {
+        "id": "bystrzyca",
+        "name": "Bystrzyca Kłodzka",
+        "dist_km": 17.4,
+        "eco": "spruce_mountain"
+      },
+      {
+        "id": "klodzko",
+        "name": "Kłodzko",
+        "dist_km": 19.1,
+        "eco": "spruce_mountain"
+      },
+      {
+        "id": "bardo_slaskie",
+        "name": "Bardo Śląskie",
+        "dist_km": 21.4,
+        "eco": "mixed"
+      },
+      {
+        "id": "jugow",
+        "name": "Jugów",
+        "dist_km": 34.7,
+        "eco": "spruce_mountain"
+      },
+      {
+        "id": "gory_stolowe",
+        "name": "Góry Stołowe",
+        "dist_km": 38.2,
+        "eco": "spruce_mountain"
+      },
+      {
+        "id": "prudnik",
+        "name": "Prudnik",
+        "dist_km": 49.4,
+        "eco": "mixed"
+      },
+      {
+        "id": "olesnica",
+        "name": "Oleśnica Śląska",
+        "dist_km": 59.8,
+        "eco": "mixed"
+      }
+    ],
+    "legnica": [
+      {
+        "id": "jawor",
+        "name": "Jawor",
+        "dist_km": 19.1,
+        "eco": "mixed"
+      },
+      {
+        "id": "zlotoryja",
+        "name": "Złotoryja",
+        "dist_km": 19.1,
+        "eco": "mixed"
+      },
+      {
+        "id": "lubin",
+        "name": "Lubin",
+        "dist_km": 21.4,
+        "eco": "mixed"
+      },
+      {
+        "id": "piszowice",
+        "name": "Piszowice",
+        "dist_km": 28.8,
+        "eco": "pine"
+      },
+      {
+        "id": "wolow",
+        "name": "Wołów",
+        "dist_km": 36.3,
+        "eco": "mixed"
+      },
+      {
+        "id": "miekinia",
+        "name": "Miękinia",
+        "dist_km": 39.2,
+        "eco": "mixed"
+      },
+      {
+        "id": "lwowek",
+        "name": "Lwówek Śląski",
+        "dist_km": 40.9,
+        "eco": "mixed"
+      },
+      {
+        "id": "boleslawiec",
+        "name": "Bolesławiec",
+        "dist_km": 42.0,
+        "eco": "pine"
+      },
+      {
+        "id": "swidnica",
+        "name": "Świdnica",
+        "dist_km": 47.1,
+        "eco": "mixed"
+      },
+      {
+        "id": "kamienna_gora",
+        "name": "Kamienna Góra",
+        "dist_km": 48.8,
+        "eco": "spruce_mountain"
+      },
+      {
+        "id": "walbrzych",
+        "name": "Wałbrzych",
+        "dist_km": 49.7,
+        "eco": "spruce_mountain"
+      },
+      {
+        "id": "zmigrod",
+        "name": "Żmigród",
+        "dist_km": 59.8,
+        "eco": "pine_wetland"
+      }
+    ],
+    "lesna": [
+      {
+        "id": "zgorzelec",
+        "name": "Zgorzelec",
+        "dist_km": 25.4,
+        "eco": "pine"
+      },
+      {
+        "id": "lwowek",
+        "name": "Lwówek Śląski",
+        "dist_km": 25.6,
+        "eco": "mixed"
+      },
+      {
+        "id": "szklarska",
+        "name": "Szklarska Poręba",
+        "dist_km": 26.3,
+        "eco": "spruce_mountain"
+      },
+      {
+        "id": "wegliniec",
+        "name": "Węgliniec",
+        "dist_km": 30.7,
+        "eco": "pine"
+      },
+      {
+        "id": "boleslawiec",
+        "name": "Bolesławiec",
+        "dist_km": 35.6,
+        "eco": "pine"
+      },
+      {
+        "id": "piszowice",
+        "name": "Piszowice",
+        "dist_km": 42.0,
+        "eco": "pine"
+      },
+      {
+        "id": "mysliborskie",
+        "name": "Myśliborskie",
+        "dist_km": 43.6,
+        "eco": "pine"
+      },
+      {
+        "id": "zlotoryja",
+        "name": "Złotoryja",
+        "dist_km": 47.5,
+        "eco": "mixed"
+      },
+      {
+        "id": "ruszow",
+        "name": "Ruszów",
+        "dist_km": 54.4,
+        "eco": "pine"
+      },
+      {
+        "id": "kamienna_gora",
+        "name": "Kamienna Góra",
+        "dist_km": 59.5,
+        "eco": "spruce_mountain"
+      }
+    ],
+    "lubin": [
+      {
+        "id": "legnica",
+        "name": "Legnica",
+        "dist_km": 21.4,
+        "eco": "mixed"
+      },
+      {
+        "id": "wolow",
+        "name": "Wołów",
+        "dist_km": 31.1,
+        "eco": "mixed"
+      },
+      {
+        "id": "zlotoryja",
+        "name": "Złotoryja",
+        "dist_km": 36.4,
+        "eco": "mixed"
+      },
+      {
+        "id": "jawor",
+        "name": "Jawor",
+        "dist_km": 40.0,
+        "eco": "mixed"
+      },
+      {
+        "id": "miekinia",
+        "name": "Miękinia",
+        "dist_km": 44.4,
+        "eco": "mixed"
+      },
+      {
+        "id": "boleslawiec",
+        "name": "Bolesławiec",
+        "dist_km": 47.1,
+        "eco": "pine"
+      },
+      {
+        "id": "piszowice",
+        "name": "Piszowice",
+        "dist_km": 47.7,
+        "eco": "pine"
+      },
+      {
+        "id": "zmigrod",
+        "name": "Żmigród",
+        "dist_km": 49.6,
+        "eco": "pine_wetland"
+      },
+      {
+        "id": "lwowek",
+        "name": "Lwówek Śląski",
+        "dist_km": 53.5,
+        "eco": "mixed"
+      }
+    ],
+    "lwowek": [
+      {
+        "id": "boleslawiec",
+        "name": "Bolesławiec",
+        "dist_km": 17.6,
+        "eco": "pine"
+      },
+      {
+        "id": "piszowice",
+        "name": "Piszowice",
+        "dist_km": 21.2,
+        "eco": "pine"
+      },
+      {
+        "id": "zlotoryja",
+        "name": "Złotoryja",
+        "dist_km": 22.8,
+        "eco": "mixed"
+      },
+      {
+        "id": "lesna",
+        "name": "Leśna",
+        "dist_km": 25.6,
+        "eco": "pine"
+      },
+      {
+        "id": "szklarska",
+        "name": "Szklarska Poręba",
+        "dist_km": 31.4,
+        "eco": "spruce_mountain"
+      },
+      {
+        "id": "wegliniec",
+        "name": "Węgliniec",
+        "dist_km": 32.7,
+        "eco": "pine"
+      },
+      {
+        "id": "legnica",
+        "name": "Legnica",
+        "dist_km": 40.9,
+        "eco": "mixed"
+      },
+      {
+        "id": "zgorzelec",
+        "name": "Zgorzelec",
+        "dist_km": 41.8,
+        "eco": "pine"
+      },
+      {
+        "id": "jawor",
+        "name": "Jawor",
+        "dist_km": 42.8,
+        "eco": "mixed"
+      },
+      {
+        "id": "mysliborskie",
+        "name": "Myśliborskie",
+        "dist_km": 44.6,
+        "eco": "pine"
+      },
+      {
+        "id": "kamienna_gora",
+        "name": "Kamienna Góra",
+        "dist_km": 48.1,
+        "eco": "spruce_mountain"
+      },
+      {
+        "id": "lubin",
+        "name": "Lubin",
+        "dist_km": 53.5,
+        "eco": "mixed"
+      },
+      {
+        "id": "swietoszow",
+        "name": "Świętoszów",
+        "dist_km": 58.0,
+        "eco": "pine"
+      },
+      {
+        "id": "ruszow",
+        "name": "Ruszów",
+        "dist_km": 58.4,
+        "eco": "pine"
+      }
+    ],
+    "miekinia": [
+      {
+        "id": "wolow",
+        "name": "Wołów",
+        "dist_km": 20.2,
+        "eco": "mixed"
+      },
+      {
+        "id": "wroclaw",
+        "name": "Wrocław",
+        "dist_km": 23.5,
+        "eco": "mixed"
+      },
+      {
+        "id": "olesnica",
+        "name": "Oleśnica Śląska",
+        "dist_km": 33.6,
+        "eco": "mixed"
+      },
+      {
+        "id": "zmigrod",
+        "name": "Żmigród",
+        "dist_km": 37.2,
+        "eco": "pine_wetland"
+      },
+      {
+        "id": "jawor",
+        "name": "Jawor",
+        "dist_km": 38.5,
+        "eco": "mixed"
+      },
+      {
+        "id": "swidnica",
+        "name": "Świdnica",
+        "dist_km": 39.0,
+        "eco": "mixed"
+      },
+      {
+        "id": "legnica",
+        "name": "Legnica",
+        "dist_km": 39.2,
+        "eco": "mixed"
+      },
+      {
+        "id": "lubin",
+        "name": "Lubin",
+        "dist_km": 44.4,
+        "eco": "mixed"
+      },
+      {
+        "id": "olawa",
+        "name": "Oława",
+        "dist_km": 48.0,
+        "eco": "mixed"
+      },
+      {
+        "id": "walbrzych",
+        "name": "Wałbrzych",
+        "dist_km": 52.9,
+        "eco": "spruce_mountain"
+      },
+      {
+        "id": "zlotoryja",
+        "name": "Złotoryja",
+        "dist_km": 55.5,
+        "eco": "mixed"
+      },
+      {
+        "id": "milicz",
+        "name": "Milicz",
+        "dist_km": 57.0,
+        "eco": "pine_wetland"
+      }
+    ],
+    "milicz": [
+      {
+        "id": "zmigrod",
+        "name": "Żmigród",
+        "dist_km": 26.9,
+        "eco": "pine_wetland"
+      },
+      {
+        "id": "sycow",
+        "name": "Syców",
+        "dist_km": 39.1,
+        "eco": "mixed"
+      },
+      {
+        "id": "wolow",
+        "name": "Wołów",
+        "dist_km": 49.7,
+        "eco": "mixed"
+      },
+      {
+        "id": "wroclaw",
+        "name": "Wrocław",
+        "dist_km": 51.3,
+        "eco": "mixed"
+      },
+      {
+        "id": "miekinia",
+        "name": "Miękinia",
+        "dist_km": 57.0,
+        "eco": "mixed"
+      },
+      {
+        "id": "rychtal",
+        "name": "Rychtal",
+        "dist_km": 59.1,
+        "eco": "pine_wetland"
+      }
+    ],
+    "mysliborskie": [
+      {
+        "id": "wegliniec",
+        "name": "Węgliniec",
+        "dist_km": 13.3,
+        "eco": "pine"
+      },
+      {
+        "id": "ruszow",
+        "name": "Ruszów",
+        "dist_km": 14.1,
+        "eco": "pine"
+      },
+      {
+        "id": "zgorzelec",
+        "name": "Zgorzelec",
+        "dist_km": 26.9,
+        "eco": "pine"
+      },
+      {
+        "id": "swietoszow",
+        "name": "Świętoszów",
+        "dist_km": 29.4,
+        "eco": "pine"
+      },
+      {
+        "id": "boleslawiec",
+        "name": "Bolesławiec",
+        "dist_km": 32.7,
+        "eco": "pine"
+      },
+      {
+        "id": "lesna",
+        "name": "Leśna",
+        "dist_km": 43.6,
+        "eco": "pine"
+      },
+      {
+        "id": "lwowek",
+        "name": "Lwówek Śląski",
+        "dist_km": 44.6,
+        "eco": "mixed"
+      }
+    ],
+    "olesnica": [
+      {
+        "id": "wroclaw",
+        "name": "Wrocław",
+        "dist_km": 26.4,
+        "eco": "mixed"
+      },
+      {
+        "id": "swidnica",
+        "name": "Świdnica",
+        "dist_km": 27.8,
+        "eco": "mixed"
+      },
+      {
+        "id": "olawa",
+        "name": "Oława",
+        "dist_km": 30.2,
+        "eco": "mixed"
+      },
+      {
+        "id": "miekinia",
+        "name": "Miękinia",
+        "dist_km": 33.6,
+        "eco": "mixed"
+      },
+      {
+        "id": "jugow",
+        "name": "Jugów",
+        "dist_km": 41.1,
+        "eco": "spruce_mountain"
+      },
+      {
+        "id": "bardo_slaskie",
+        "name": "Bardo Śląskie",
+        "dist_km": 41.7,
+        "eco": "mixed"
+      },
+      {
+        "id": "walbrzych",
+        "name": "Wałbrzych",
+        "dist_km": 43.6,
+        "eco": "spruce_mountain"
+      },
+      {
+        "id": "jawor",
+        "name": "Jawor",
+        "dist_km": 51.1,
+        "eco": "mixed"
+      },
+      {
+        "id": "klodzko",
+        "name": "Kłodzko",
+        "dist_km": 51.7,
+        "eco": "spruce_mountain"
+      },
+      {
+        "id": "wolow",
+        "name": "Wołów",
+        "dist_km": 53.7,
+        "eco": "mixed"
+      },
+      {
+        "id": "ladek",
+        "name": "Lądek-Zdrój",
+        "dist_km": 59.8,
+        "eco": "spruce_mountain"
+      }
+    ],
+    "olawa": [
+      {
+        "id": "wroclaw",
+        "name": "Wrocław",
+        "dist_km": 25.6,
+        "eco": "mixed"
+      },
+      {
+        "id": "olesnica",
+        "name": "Oleśnica Śląska",
+        "dist_km": 30.2,
+        "eco": "mixed"
+      },
+      {
+        "id": "rychtal",
+        "name": "Rychtal",
+        "dist_km": 37.4,
+        "eco": "pine_wetland"
+      },
+      {
+        "id": "miekinia",
+        "name": "Miękinia",
+        "dist_km": 48.0,
+        "eco": "mixed"
+      },
+      {
+        "id": "sycow",
+        "name": "Syców",
+        "dist_km": 50.3,
+        "eco": "mixed"
+      },
+      {
+        "id": "swidnica",
+        "name": "Świdnica",
+        "dist_km": 58.0,
+        "eco": "mixed"
+      }
+    ],
+    "piszowice": [
+      {
+        "id": "zlotoryja",
+        "name": "Złotoryja",
+        "dist_km": 11.6,
+        "eco": "mixed"
+      },
+      {
+        "id": "lwowek",
+        "name": "Lwówek Śląski",
+        "dist_km": 21.2,
+        "eco": "mixed"
+      },
+      {
+        "id": "jawor",
+        "name": "Jawor",
+        "dist_km": 23.1,
+        "eco": "mixed"
+      },
+      {
+        "id": "legnica",
+        "name": "Legnica",
+        "dist_km": 28.8,
+        "eco": "mixed"
+      },
+      {
+        "id": "kamienna_gora",
+        "name": "Kamienna Góra",
+        "dist_km": 30.1,
+        "eco": "spruce_mountain"
+      },
+      {
+        "id": "szklarska",
+        "name": "Szklarska Poręba",
+        "dist_km": 32.6,
+        "eco": "spruce_mountain"
+      },
+      {
+        "id": "boleslawiec",
+        "name": "Bolesławiec",
+        "dist_km": 34.1,
+        "eco": "pine"
+      },
+      {
+        "id": "walbrzych",
+        "name": "Wałbrzych",
+        "dist_km": 40.7,
+        "eco": "spruce_mountain"
+      },
+      {
+        "id": "lesna",
+        "name": "Leśna",
+        "dist_km": 42.0,
+        "eco": "pine"
+      },
+      {
+        "id": "lubin",
+        "name": "Lubin",
+        "dist_km": 47.7,
+        "eco": "mixed"
+      },
+      {
+        "id": "swidnica",
+        "name": "Świdnica",
+        "dist_km": 48.1,
+        "eco": "mixed"
+      },
+      {
+        "id": "wegliniec",
+        "name": "Węgliniec",
+        "dist_km": 53.7,
+        "eco": "pine"
+      }
+    ],
+    "prudnik": [
+      {
+        "id": "ladek",
+        "name": "Lądek-Zdrój",
+        "dist_km": 49.4,
+        "eco": "spruce_mountain"
+      }
+    ],
+    "ruszow": [
+      {
+        "id": "mysliborskie",
+        "name": "Myśliborskie",
+        "dist_km": 14.1,
+        "eco": "pine"
+      },
+      {
+        "id": "wegliniec",
+        "name": "Węgliniec",
+        "dist_km": 26.2,
+        "eco": "pine"
+      },
+      {
+        "id": "swietoszow",
+        "name": "Świętoszów",
+        "dist_km": 32.7,
+        "eco": "pine"
+      },
+      {
+        "id": "zgorzelec",
+        "name": "Zgorzelec",
+        "dist_km": 32.8,
+        "eco": "pine"
+      },
+      {
+        "id": "boleslawiec",
+        "name": "Bolesławiec",
+        "dist_km": 46.7,
+        "eco": "pine"
+      },
+      {
+        "id": "lesna",
+        "name": "Leśna",
+        "dist_km": 54.4,
+        "eco": "pine"
+      },
+      {
+        "id": "lwowek",
+        "name": "Lwówek Śląski",
+        "dist_km": 58.4,
+        "eco": "mixed"
+      }
+    ],
+    "rychtal": [
+      {
+        "id": "sycow",
+        "name": "Syców",
+        "dist_km": 23.8,
+        "eco": "mixed"
+      },
+      {
+        "id": "olawa",
+        "name": "Oława",
+        "dist_km": 37.4,
+        "eco": "mixed"
+      },
+      {
+        "id": "wroclaw",
+        "name": "Wrocław",
+        "dist_km": 51.7,
+        "eco": "mixed"
+      },
+      {
+        "id": "milicz",
+        "name": "Milicz",
+        "dist_km": 59.1,
+        "eco": "pine_wetland"
+      }
+    ],
+    "sycow": [
+      {
+        "id": "rychtal",
+        "name": "Rychtal",
+        "dist_km": 23.8,
+        "eco": "pine_wetland"
+      },
+      {
+        "id": "milicz",
+        "name": "Milicz",
+        "dist_km": 39.1,
+        "eco": "pine_wetland"
+      },
+      {
+        "id": "olawa",
+        "name": "Oława",
+        "dist_km": 50.3,
+        "eco": "mixed"
+      },
+      {
+        "id": "wroclaw",
+        "name": "Wrocław",
+        "dist_km": 53.1,
+        "eco": "mixed"
+      },
+      {
+        "id": "zmigrod",
+        "name": "Żmigród",
+        "dist_km": 59.4,
+        "eco": "pine_wetland"
+      }
+    ],
+    "szklarska": [
+      {
+        "id": "lesna",
+        "name": "Leśna",
+        "dist_km": 26.3,
+        "eco": "pine"
+      },
+      {
+        "id": "lwowek",
+        "name": "Lwówek Śląski",
+        "dist_km": 31.4,
+        "eco": "mixed"
+      },
+      {
+        "id": "piszowice",
+        "name": "Piszowice",
+        "dist_km": 32.6,
+        "eco": "pine"
+      },
+      {
+        "id": "kamienna_gora",
+        "name": "Kamienna Góra",
+        "dist_km": 36.7,
+        "eco": "spruce_mountain"
+      },
+      {
+        "id": "zlotoryja",
+        "name": "Złotoryja",
+        "dist_km": 43.1,
+        "eco": "mixed"
+      },
+      {
+        "id": "boleslawiec",
+        "name": "Bolesławiec",
+        "dist_km": 48.5,
+        "eco": "pine"
+      },
+      {
+        "id": "zgorzelec",
+        "name": "Zgorzelec",
+        "dist_km": 51.6,
+        "eco": "pine"
+      },
+      {
+        "id": "jawor",
+        "name": "Jawor",
+        "dist_km": 52.8,
+        "eco": "mixed"
+      },
+      {
+        "id": "walbrzych",
+        "name": "Wałbrzych",
+        "dist_km": 53.9,
+        "eco": "spruce_mountain"
+      },
+      {
+        "id": "wegliniec",
+        "name": "Węgliniec",
+        "dist_km": 54.3,
+        "eco": "pine"
+      }
+    ],
+    "swidnica": [
+      {
+        "id": "walbrzych",
+        "name": "Wałbrzych",
+        "dist_km": 16.4,
+        "eco": "spruce_mountain"
+      },
+      {
+        "id": "olesnica",
+        "name": "Oleśnica Śląska",
+        "dist_km": 27.8,
+        "eco": "mixed"
+      },
+      {
+        "id": "jawor",
+        "name": "Jawor",
+        "dist_km": 30.1,
+        "eco": "mixed"
+      },
+      {
+        "id": "jugow",
+        "name": "Jugów",
+        "dist_km": 30.3,
+        "eco": "spruce_mountain"
+      },
+      {
+        "id": "kamienna_gora",
+        "name": "Kamienna Góra",
+        "dist_km": 32.3,
+        "eco": "spruce_mountain"
+      },
+      {
+        "id": "miekinia",
+        "name": "Miękinia",
+        "dist_km": 39.0,
+        "eco": "mixed"
+      },
+      {
+        "id": "bardo_slaskie",
+        "name": "Bardo Śląskie",
+        "dist_km": 40.8,
+        "eco": "mixed"
+      },
+      {
+        "id": "gory_stolowe",
+        "name": "Góry Stołowe",
+        "dist_km": 46.5,
+        "eco": "spruce_mountain"
+      },
+      {
+        "id": "klodzko",
+        "name": "Kłodzko",
+        "dist_km": 46.6,
+        "eco": "spruce_mountain"
+      },
+      {
+        "id": "legnica",
+        "name": "Legnica",
+        "dist_km": 47.1,
+        "eco": "mixed"
+      },
+      {
+        "id": "wroclaw",
+        "name": "Wrocław",
+        "dist_km": 47.5,
+        "eco": "mixed"
+      },
+      {
+        "id": "piszowice",
+        "name": "Piszowice",
+        "dist_km": 48.1,
+        "eco": "pine"
+      },
+      {
+        "id": "zlotoryja",
+        "name": "Złotoryja",
+        "dist_km": 50.8,
+        "eco": "mixed"
+      },
+      {
+        "id": "wolow",
+        "name": "Wołów",
+        "dist_km": 56.1,
+        "eco": "mixed"
+      },
+      {
+        "id": "olawa",
+        "name": "Oława",
+        "dist_km": 58.0,
+        "eco": "mixed"
+      }
+    ],
+    "swietoszow": [
+      {
+        "id": "mysliborskie",
+        "name": "Myśliborskie",
+        "dist_km": 29.4,
+        "eco": "pine"
+      },
+      {
+        "id": "ruszow",
+        "name": "Ruszów",
+        "dist_km": 32.7,
+        "eco": "pine"
+      },
+      {
+        "id": "wegliniec",
+        "name": "Węgliniec",
+        "dist_km": 38.4,
+        "eco": "pine"
+      },
+      {
+        "id": "boleslawiec",
+        "name": "Bolesławiec",
+        "dist_km": 40.7,
+        "eco": "pine"
+      },
+      {
+        "id": "zgorzelec",
+        "name": "Zgorzelec",
+        "dist_km": 55.9,
+        "eco": "pine"
+      },
+      {
+        "id": "lwowek",
+        "name": "Lwówek Śląski",
+        "dist_km": 58.0,
+        "eco": "mixed"
+      }
+    ],
+    "walbrzych": [
+      {
+        "id": "swidnica",
+        "name": "Świdnica",
+        "dist_km": 16.4,
+        "eco": "mixed"
+      },
+      {
+        "id": "kamienna_gora",
+        "name": "Kamienna Góra",
+        "dist_km": 17.2,
+        "eco": "spruce_mountain"
+      },
+      {
+        "id": "jugow",
+        "name": "Jugów",
+        "dist_km": 29.1,
+        "eco": "spruce_mountain"
+      },
+      {
+        "id": "jawor",
+        "name": "Jawor",
+        "dist_km": 30.6,
+        "eco": "mixed"
+      },
+      {
+        "id": "gory_stolowe",
+        "name": "Góry Stołowe",
+        "dist_km": 38.2,
+        "eco": "spruce_mountain"
+      },
+      {
+        "id": "piszowice",
+        "name": "Piszowice",
+        "dist_km": 40.7,
+        "eco": "pine"
+      },
+      {
+        "id": "bardo_slaskie",
+        "name": "Bardo Śląskie",
+        "dist_km": 43.5,
+        "eco": "mixed"
+      },
+      {
+        "id": "olesnica",
+        "name": "Oleśnica Śląska",
+        "dist_km": 43.6,
+        "eco": "mixed"
+      },
+      {
+        "id": "klodzko",
+        "name": "Kłodzko",
+        "dist_km": 45.6,
+        "eco": "spruce_mountain"
+      },
+      {
+        "id": "zlotoryja",
+        "name": "Złotoryja",
+        "dist_km": 46.9,
+        "eco": "mixed"
+      },
+      {
+        "id": "legnica",
+        "name": "Legnica",
+        "dist_km": 49.7,
+        "eco": "mixed"
+      },
+      {
+        "id": "miekinia",
+        "name": "Miękinia",
+        "dist_km": 52.9,
+        "eco": "mixed"
+      },
+      {
+        "id": "szklarska",
+        "name": "Szklarska Poręba",
+        "dist_km": 53.9,
+        "eco": "spruce_mountain"
+      },
+      {
+        "id": "bystrzyca",
+        "name": "Bystrzyca Kłodzka",
+        "dist_km": 58.6,
+        "eco": "spruce_mountain"
+      }
+    ],
+    "wegliniec": [
+      {
+        "id": "mysliborskie",
+        "name": "Myśliborskie",
+        "dist_km": 13.3,
+        "eco": "pine"
+      },
+      {
+        "id": "zgorzelec",
+        "name": "Zgorzelec",
+        "dist_km": 19.6,
+        "eco": "pine"
+      },
+      {
+        "id": "boleslawiec",
+        "name": "Bolesławiec",
+        "dist_km": 24.5,
+        "eco": "pine"
+      },
+      {
+        "id": "ruszow",
+        "name": "Ruszów",
+        "dist_km": 26.2,
+        "eco": "pine"
+      },
+      {
+        "id": "lesna",
+        "name": "Leśna",
+        "dist_km": 30.7,
+        "eco": "pine"
+      },
+      {
+        "id": "lwowek",
+        "name": "Lwówek Śląski",
+        "dist_km": 32.7,
+        "eco": "mixed"
+      },
+      {
+        "id": "swietoszow",
+        "name": "Świętoszów",
+        "dist_km": 38.4,
+        "eco": "pine"
+      },
+      {
+        "id": "zlotoryja",
+        "name": "Złotoryja",
+        "dist_km": 52.3,
+        "eco": "mixed"
+      },
+      {
+        "id": "piszowice",
+        "name": "Piszowice",
+        "dist_km": 53.7,
+        "eco": "pine"
+      },
+      {
+        "id": "szklarska",
+        "name": "Szklarska Poręba",
+        "dist_km": 54.3,
+        "eco": "spruce_mountain"
+      }
+    ],
+    "wolow": [
+      {
+        "id": "miekinia",
+        "name": "Miękinia",
+        "dist_km": 20.2,
+        "eco": "mixed"
+      },
+      {
+        "id": "zmigrod",
+        "name": "Żmigród",
+        "dist_km": 24.1,
+        "eco": "pine_wetland"
+      },
+      {
+        "id": "lubin",
+        "name": "Lubin",
+        "dist_km": 31.1,
+        "eco": "mixed"
+      },
+      {
+        "id": "legnica",
+        "name": "Legnica",
+        "dist_km": 36.3,
+        "eco": "mixed"
+      },
+      {
+        "id": "wroclaw",
+        "name": "Wrocław",
+        "dist_km": 38.5,
+        "eco": "mixed"
+      },
+      {
+        "id": "jawor",
+        "name": "Jawor",
+        "dist_km": 45.1,
+        "eco": "mixed"
+      },
+      {
+        "id": "milicz",
+        "name": "Milicz",
+        "dist_km": 49.7,
+        "eco": "pine_wetland"
+      },
+      {
+        "id": "olesnica",
+        "name": "Oleśnica Śląska",
+        "dist_km": 53.7,
+        "eco": "mixed"
+      },
+      {
+        "id": "zlotoryja",
+        "name": "Złotoryja",
+        "dist_km": 55.3,
+        "eco": "mixed"
+      },
+      {
+        "id": "swidnica",
+        "name": "Świdnica",
+        "dist_km": 56.1,
+        "eco": "mixed"
+      }
+    ],
+    "wroclaw": [
+      {
+        "id": "miekinia",
+        "name": "Miękinia",
+        "dist_km": 23.5,
+        "eco": "mixed"
+      },
+      {
+        "id": "olawa",
+        "name": "Oława",
+        "dist_km": 25.6,
+        "eco": "mixed"
+      },
+      {
+        "id": "olesnica",
+        "name": "Oleśnica Śląska",
+        "dist_km": 26.4,
+        "eco": "mixed"
+      },
+      {
+        "id": "wolow",
+        "name": "Wołów",
+        "dist_km": 38.5,
+        "eco": "mixed"
+      },
+      {
+        "id": "zmigrod",
+        "name": "Żmigród",
+        "dist_km": 42.9,
+        "eco": "pine_wetland"
+      },
+      {
+        "id": "swidnica",
+        "name": "Świdnica",
+        "dist_km": 47.5,
+        "eco": "mixed"
+      },
+      {
+        "id": "milicz",
+        "name": "Milicz",
+        "dist_km": 51.3,
+        "eco": "pine_wetland"
+      },
+      {
+        "id": "rychtal",
+        "name": "Rychtal",
+        "dist_km": 51.7,
+        "eco": "pine_wetland"
+      },
+      {
+        "id": "sycow",
+        "name": "Syców",
+        "dist_km": 53.1,
+        "eco": "mixed"
+      },
+      {
+        "id": "jawor",
+        "name": "Jawor",
+        "dist_km": 58.7,
+        "eco": "mixed"
+      }
+    ],
+    "zlotoryja": [
+      {
+        "id": "piszowice",
+        "name": "Piszowice",
+        "dist_km": 11.6,
+        "eco": "pine"
+      },
+      {
+        "id": "legnica",
+        "name": "Legnica",
+        "dist_km": 19.1,
+        "eco": "mixed"
+      },
+      {
+        "id": "jawor",
+        "name": "Jawor",
+        "dist_km": 21.5,
+        "eco": "mixed"
+      },
+      {
+        "id": "lwowek",
+        "name": "Lwówek Śląski",
+        "dist_km": 22.8,
+        "eco": "mixed"
+      },
+      {
+        "id": "boleslawiec",
+        "name": "Bolesławiec",
+        "dist_km": 29.5,
+        "eco": "pine"
+      },
+      {
+        "id": "lubin",
+        "name": "Lubin",
+        "dist_km": 36.4,
+        "eco": "mixed"
+      },
+      {
+        "id": "kamienna_gora",
+        "name": "Kamienna Góra",
+        "dist_km": 39.5,
+        "eco": "spruce_mountain"
+      },
+      {
+        "id": "szklarska",
+        "name": "Szklarska Poręba",
+        "dist_km": 43.1,
+        "eco": "spruce_mountain"
+      },
+      {
+        "id": "walbrzych",
+        "name": "Wałbrzych",
+        "dist_km": 46.9,
+        "eco": "spruce_mountain"
+      },
+      {
+        "id": "lesna",
+        "name": "Leśna",
+        "dist_km": 47.5,
+        "eco": "pine"
+      },
+      {
+        "id": "swidnica",
+        "name": "Świdnica",
+        "dist_km": 50.8,
+        "eco": "mixed"
+      },
+      {
+        "id": "wegliniec",
+        "name": "Węgliniec",
+        "dist_km": 52.3,
+        "eco": "pine"
+      },
+      {
+        "id": "wolow",
+        "name": "Wołów",
+        "dist_km": 55.3,
+        "eco": "mixed"
+      },
+      {
+        "id": "miekinia",
+        "name": "Miękinia",
+        "dist_km": 55.5,
+        "eco": "mixed"
+      }
+    ],
+    "zmigrod": [
+      {
+        "id": "wolow",
+        "name": "Wołów",
+        "dist_km": 24.1,
+        "eco": "mixed"
+      },
+      {
+        "id": "milicz",
+        "name": "Milicz",
+        "dist_km": 26.9,
+        "eco": "pine_wetland"
+      },
+      {
+        "id": "miekinia",
+        "name": "Miękinia",
+        "dist_km": 37.2,
+        "eco": "mixed"
+      },
+      {
+        "id": "wroclaw",
+        "name": "Wrocław",
+        "dist_km": 42.9,
+        "eco": "mixed"
+      },
+      {
+        "id": "lubin",
+        "name": "Lubin",
+        "dist_km": 49.6,
+        "eco": "mixed"
+      },
+      {
+        "id": "sycow",
+        "name": "Syców",
+        "dist_km": 59.4,
+        "eco": "mixed"
+      },
+      {
+        "id": "legnica",
+        "name": "Legnica",
+        "dist_km": 59.8,
+        "eco": "mixed"
+      }
+    ],
+    "zgorzelec": [
+      {
+        "id": "wegliniec",
+        "name": "Węgliniec",
+        "dist_km": 19.6,
+        "eco": "pine"
+      },
+      {
+        "id": "lesna",
+        "name": "Leśna",
+        "dist_km": 25.4,
+        "eco": "pine"
+      },
+      {
+        "id": "mysliborskie",
+        "name": "Myśliborskie",
+        "dist_km": 26.9,
+        "eco": "pine"
+      },
+      {
+        "id": "ruszow",
+        "name": "Ruszów",
+        "dist_km": 32.8,
+        "eco": "pine"
+      },
+      {
+        "id": "boleslawiec",
+        "name": "Bolesławiec",
+        "dist_km": 40.8,
+        "eco": "pine"
+      },
+      {
+        "id": "lwowek",
+        "name": "Lwówek Śląski",
+        "dist_km": 41.8,
+        "eco": "mixed"
+      },
+      {
+        "id": "szklarska",
+        "name": "Szklarska Poręba",
+        "dist_km": 51.6,
+        "eco": "spruce_mountain"
+      },
+      {
+        "id": "swietoszow",
+        "name": "Świętoszów",
+        "dist_km": 55.9,
+        "eco": "pine"
+      }
+    ]
+  }
+}

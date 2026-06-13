@@ -1,0 +1,1668 @@
+{
+  "version": "1.0.0",
+  "generated_at": "2026-06-03T18:13:58.968252+00:00",
+  "rdlp": "Wrocław",
+  "fusion_weights": {
+    "ndwi_satellite": 0.45,
+    "qte_quantum": 0.3,
+    "fwi_weather": 0.15,
+    "ndwi_trend": 0.1
+  },
+  "alert_thresholds": {
+    "CRITICAL": 0.75,
+    "HIGH": 0.6,
+    "MODERATE": 0.45
+  },
+  "scores": [
+    {
+      "node_id": "lesna",
+      "node_name": "Leśna",
+      "lat": 51.001,
+      "lon": 15.268,
+      "eco": "pine",
+      "final_score": 1.0,
+      "tier": "CRITICAL",
+      "signals": {
+        "ndwi_stress": 0.9411,
+        "ndwi_trend_14d": -0.07445,
+        "ndwi_latest": -0.6852,
+        "qte_score": 0.7868,
+        "bridge_fired": true,
+        "fwi_score": 0.4214,
+        "network_stress": 0.7965
+      },
+      "modifiers": {
+        "eco_multiplier": 1.3,
+        "base_score": 0.7451
+      },
+      "context": {
+        "drought_days": 0,
+        "temp_max": 16.1,
+        "wind_max": 15.4,
+        "rh_min": 59.0
+      },
+      "explanation": [
+        {
+          "factor": "ndwi_satellite",
+          "contribution": 0.551,
+          "label": "NDWI stress 0.94 × eco 1.30"
+        },
+        {
+          "factor": "quantum_temporal",
+          "contribution": 0.307,
+          "label": "QTE score 0.787 × eco 1.30"
+        },
+        {
+          "factor": "weather_fwi",
+          "contribution": 0.082,
+          "label": "FWI 0.421 × eco 1.30"
+        },
+        {
+          "factor": "quantum_bridge",
+          "contribution": 0.08,
+          "label": "Sequential dry→wind pattern confirmed 🔥"
+        }
+      ]
+    },
+    {
+      "node_id": "piszowice",
+      "node_name": "Piszowice",
+      "lat": 51.026,
+      "lon": 15.867,
+      "eco": "pine",
+      "final_score": 1.0,
+      "tier": "CRITICAL",
+      "signals": {
+        "ndwi_stress": 0.9852,
+        "ndwi_trend_14d": -0.0857,
+        "ndwi_latest": -0.6963,
+        "qte_score": 0.7747,
+        "bridge_fired": true,
+        "fwi_score": 0.4216,
+        "network_stress": 0.744
+      },
+      "modifiers": {
+        "eco_multiplier": 1.3,
+        "base_score": 0.7647
+      },
+      "context": {
+        "drought_days": 0,
+        "temp_max": 16.7,
+        "wind_max": 17.1,
+        "rh_min": 61.0
+      },
+      "explanation": [
+        {
+          "factor": "ndwi_satellite",
+          "contribution": 0.576,
+          "label": "NDWI stress 0.99 × eco 1.30"
+        },
+        {
+          "factor": "quantum_temporal",
+          "contribution": 0.302,
+          "label": "QTE score 0.775 × eco 1.30"
+        },
+        {
+          "factor": "weather_fwi",
+          "contribution": 0.082,
+          "label": "FWI 0.422 × eco 1.30"
+        },
+        {
+          "factor": "quantum_bridge",
+          "contribution": 0.08,
+          "label": "Sequential dry→wind pattern confirmed 🔥"
+        }
+      ]
+    },
+    {
+      "node_id": "mysliborskie",
+      "node_name": "Myśliborskie",
+      "lat": 51.383,
+      "lon": 15.128,
+      "eco": "pine",
+      "final_score": 0.9393,
+      "tier": "CRITICAL",
+      "signals": {
+        "ndwi_stress": 0.8441,
+        "ndwi_trend_14d": -0.06645,
+        "ndwi_latest": -0.6608,
+        "qte_score": 0.7738,
+        "bridge_fired": false,
+        "fwi_score": 0.4195,
+        "network_stress": 0.7197
+      },
+      "modifiers": {
+        "eco_multiplier": 1.3,
+        "base_score": 0.6948
+      },
+      "context": {
+        "drought_days": 0,
+        "temp_max": 16.9,
+        "wind_max": 15.2,
+        "rh_min": 62.0
+      },
+      "explanation": [
+        {
+          "factor": "ndwi_satellite",
+          "contribution": 0.494,
+          "label": "NDWI stress 0.84 × eco 1.30"
+        },
+        {
+          "factor": "quantum_temporal",
+          "contribution": 0.302,
+          "label": "QTE score 0.774 × eco 1.30"
+        },
+        {
+          "factor": "weather_fwi",
+          "contribution": 0.082,
+          "label": "FWI 0.419 × eco 1.30"
+        },
+        {
+          "factor": "network_propagation",
+          "contribution": 0.036,
+          "label": "Neighbour stress 0.72"
+        }
+      ]
+    },
+    {
+      "node_id": "ruszow",
+      "node_name": "Ruszów",
+      "lat": 51.449,
+      "lon": 14.955,
+      "eco": "pine",
+      "final_score": 0.8678,
+      "tier": "CRITICAL",
+      "signals": {
+        "ndwi_stress": 0.6716,
+        "ndwi_trend_14d": -0.0389,
+        "ndwi_latest": -0.6174,
+        "qte_score": 0.6634,
+        "bridge_fired": true,
+        "fwi_score": 0.4296,
+        "network_stress": 0.7443
+      },
+      "modifiers": {
+        "eco_multiplier": 1.3,
+        "base_score": 0.5773
+      },
+      "context": {
+        "drought_days": 0,
+        "temp_max": 17.6,
+        "wind_max": 15.5,
+        "rh_min": 60.0
+      },
+      "explanation": [
+        {
+          "factor": "ndwi_satellite",
+          "contribution": 0.393,
+          "label": "NDWI stress 0.67 × eco 1.30"
+        },
+        {
+          "factor": "quantum_temporal",
+          "contribution": 0.259,
+          "label": "QTE score 0.663 × eco 1.30"
+        },
+        {
+          "factor": "weather_fwi",
+          "contribution": 0.084,
+          "label": "FWI 0.430 × eco 1.30"
+        },
+        {
+          "factor": "quantum_bridge",
+          "contribution": 0.08,
+          "label": "Sequential dry→wind pattern confirmed 🔥"
+        }
+      ]
+    },
+    {
+      "node_id": "zgorzelec",
+      "node_name": "Zgorzelec",
+      "lat": 51.155,
+      "lon": 14.999,
+      "eco": "pine",
+      "final_score": 0.865,
+      "tier": "CRITICAL",
+      "signals": {
+        "ndwi_stress": 0.645,
+        "ndwi_trend_14d": -0.0548,
+        "ndwi_latest": -0.6107,
+        "qte_score": 0.6836,
+        "bridge_fired": true,
+        "fwi_score": 0.4176,
+        "network_stress": 0.7661
+      },
+      "modifiers": {
+        "eco_multiplier": 1.3,
+        "base_score": 0.5744
+      },
+      "context": {
+        "drought_days": 0,
+        "temp_max": 16.7,
+        "wind_max": 15.2,
+        "rh_min": 63.0
+      },
+      "explanation": [
+        {
+          "factor": "ndwi_satellite",
+          "contribution": 0.377,
+          "label": "NDWI stress 0.65 × eco 1.30"
+        },
+        {
+          "factor": "quantum_temporal",
+          "contribution": 0.267,
+          "label": "QTE score 0.684 × eco 1.30"
+        },
+        {
+          "factor": "weather_fwi",
+          "contribution": 0.081,
+          "label": "FWI 0.418 × eco 1.30"
+        },
+        {
+          "factor": "quantum_bridge",
+          "contribution": 0.08,
+          "label": "Sequential dry→wind pattern confirmed 🔥"
+        }
+      ]
+    },
+    {
+      "node_id": "wegliniec",
+      "node_name": "Węgliniec",
+      "lat": 51.274,
+      "lon": 15.207,
+      "eco": "pine",
+      "final_score": 0.8612,
+      "tier": "CRITICAL",
+      "signals": {
+        "ndwi_stress": 0.7626,
+        "ndwi_trend_14d": -0.043,
+        "ndwi_latest": -0.6403,
+        "qte_score": 0.7127,
+        "bridge_fired": false,
+        "fwi_score": 0.4146,
+        "network_stress": 0.7892
+      },
+      "modifiers": {
+        "eco_multiplier": 1.3,
+        "base_score": 0.6321
+      },
+      "context": {
+        "drought_days": 0,
+        "temp_max": 16.6,
+        "wind_max": 14.4,
+        "rh_min": 61.0
+      },
+      "explanation": [
+        {
+          "factor": "ndwi_satellite",
+          "contribution": 0.446,
+          "label": "NDWI stress 0.76 × eco 1.30"
+        },
+        {
+          "factor": "quantum_temporal",
+          "contribution": 0.278,
+          "label": "QTE score 0.713 × eco 1.30"
+        },
+        {
+          "factor": "weather_fwi",
+          "contribution": 0.081,
+          "label": "FWI 0.415 × eco 1.30"
+        },
+        {
+          "factor": "network_propagation",
+          "contribution": 0.039,
+          "label": "Neighbour stress 0.79"
+        }
+      ]
+    },
+    {
+      "node_id": "boleslawiec",
+      "node_name": "Bolesławiec",
+      "lat": 51.264,
+      "lon": 15.559,
+      "eco": "pine",
+      "final_score": 0.8438,
+      "tier": "CRITICAL",
+      "signals": {
+        "ndwi_stress": 0.6707,
+        "ndwi_trend_14d": -0.03265,
+        "ndwi_latest": -0.6172,
+        "qte_score": 0.5947,
+        "bridge_fired": true,
+        "fwi_score": 0.457,
+        "network_stress": 0.7524
+      },
+      "modifiers": {
+        "eco_multiplier": 1.3,
+        "base_score": 0.5586
+      },
+      "context": {
+        "drought_days": 0,
+        "temp_max": 18.9,
+        "wind_max": 17.2,
+        "rh_min": 53.0
+      },
+      "explanation": [
+        {
+          "factor": "ndwi_satellite",
+          "contribution": 0.392,
+          "label": "NDWI stress 0.67 × eco 1.30"
+        },
+        {
+          "factor": "quantum_temporal",
+          "contribution": 0.232,
+          "label": "QTE score 0.595 × eco 1.30"
+        },
+        {
+          "factor": "weather_fwi",
+          "contribution": 0.089,
+          "label": "FWI 0.457 × eco 1.30"
+        },
+        {
+          "factor": "quantum_bridge",
+          "contribution": 0.08,
+          "label": "Sequential dry→wind pattern confirmed 🔥"
+        }
+      ]
+    },
+    {
+      "node_id": "zlotoryja",
+      "node_name": "Złotoryja",
+      "lat": 51.125,
+      "lon": 15.919,
+      "eco": "mixed",
+      "final_score": 0.8221,
+      "tier": "CRITICAL",
+      "signals": {
+        "ndwi_stress": 0.8955,
+        "ndwi_trend_14d": -0.06785,
+        "ndwi_latest": -0.6737,
+        "qte_score": 0.7052,
+        "bridge_fired": true,
+        "fwi_score": 0.4671,
+        "network_stress": 0.7422
+      },
+      "modifiers": {
+        "eco_multiplier": 1.0,
+        "base_score": 0.705
+      },
+      "context": {
+        "drought_days": 0,
+        "temp_max": 18.2,
+        "wind_max": 22.6,
+        "rh_min": 55.0
+      },
+      "explanation": [
+        {
+          "factor": "ndwi_satellite",
+          "contribution": 0.403,
+          "label": "NDWI stress 0.90 × eco 1.00"
+        },
+        {
+          "factor": "quantum_temporal",
+          "contribution": 0.212,
+          "label": "QTE score 0.705 × eco 1.00"
+        },
+        {
+          "factor": "quantum_bridge",
+          "contribution": 0.08,
+          "label": "Sequential dry→wind pattern confirmed 🔥"
+        },
+        {
+          "factor": "weather_fwi",
+          "contribution": 0.07,
+          "label": "FWI 0.467 × eco 1.00"
+        }
+      ]
+    },
+    {
+      "node_id": "bardo_slaskie",
+      "node_name": "Bardo Śląskie",
+      "lat": 50.514,
+      "lon": 16.749,
+      "eco": "mixed",
+      "final_score": 0.8075,
+      "tier": "CRITICAL",
+      "signals": {
+        "ndwi_stress": 0.9726,
+        "ndwi_trend_14d": -0.0573,
+        "ndwi_latest": -0.6931,
+        "qte_score": 0.5621,
+        "bridge_fired": true,
+        "fwi_score": 0.442,
+        "network_stress": 0.7548
+      },
+      "modifiers": {
+        "eco_multiplier": 1.0,
+        "base_score": 0.6898
+      },
+      "context": {
+        "drought_days": 0,
+        "temp_max": 20.5,
+        "wind_max": 15.2,
+        "rh_min": 62.0
+      },
+      "explanation": [
+        {
+          "factor": "ndwi_satellite",
+          "contribution": 0.438,
+          "label": "NDWI stress 0.97 × eco 1.00"
+        },
+        {
+          "factor": "quantum_temporal",
+          "contribution": 0.169,
+          "label": "QTE score 0.562 × eco 1.00"
+        },
+        {
+          "factor": "quantum_bridge",
+          "contribution": 0.08,
+          "label": "Sequential dry→wind pattern confirmed 🔥"
+        },
+        {
+          "factor": "weather_fwi",
+          "contribution": 0.066,
+          "label": "FWI 0.442 × eco 1.00"
+        }
+      ]
+    },
+    {
+      "node_id": "lwowek",
+      "node_name": "Lwówek Śląski",
+      "lat": 51.107,
+      "lon": 15.593,
+      "eco": "mixed",
+      "final_score": 0.7891,
+      "tier": "CRITICAL",
+      "signals": {
+        "ndwi_stress": 0.8199,
+        "ndwi_trend_14d": -0.04735,
+        "ndwi_latest": -0.6547,
+        "qte_score": 0.756,
+        "bridge_fired": true,
+        "fwi_score": 0.4127,
+        "network_stress": 0.7436
+      },
+      "modifiers": {
+        "eco_multiplier": 1.0,
+        "base_score": 0.6719
+      },
+      "context": {
+        "drought_days": 0,
+        "temp_max": 16.5,
+        "wind_max": 16.5,
+        "rh_min": 63.0
+      },
+      "explanation": [
+        {
+          "factor": "ndwi_satellite",
+          "contribution": 0.369,
+          "label": "NDWI stress 0.82 × eco 1.00"
+        },
+        {
+          "factor": "quantum_temporal",
+          "contribution": 0.227,
+          "label": "QTE score 0.756 × eco 1.00"
+        },
+        {
+          "factor": "quantum_bridge",
+          "contribution": 0.08,
+          "label": "Sequential dry→wind pattern confirmed 🔥"
+        },
+        {
+          "factor": "weather_fwi",
+          "contribution": 0.062,
+          "label": "FWI 0.413 × eco 1.00"
+        }
+      ]
+    },
+    {
+      "node_id": "jawor",
+      "node_name": "Jawor",
+      "lat": 51.041,
+      "lon": 16.197,
+      "eco": "mixed",
+      "final_score": 0.7632,
+      "tier": "CRITICAL",
+      "signals": {
+        "ndwi_stress": 0.8155,
+        "ndwi_trend_14d": -0.03235,
+        "ndwi_latest": -0.6536,
+        "qte_score": 0.6826,
+        "bridge_fired": true,
+        "fwi_score": 0.4538,
+        "network_stress": 0.6726
+      },
+      "modifiers": {
+        "eco_multiplier": 1.0,
+        "base_score": 0.6495
+      },
+      "context": {
+        "drought_days": 0,
+        "temp_max": 18.3,
+        "wind_max": 21.8,
+        "rh_min": 57.0
+      },
+      "explanation": [
+        {
+          "factor": "ndwi_satellite",
+          "contribution": 0.367,
+          "label": "NDWI stress 0.82 × eco 1.00"
+        },
+        {
+          "factor": "quantum_temporal",
+          "contribution": 0.205,
+          "label": "QTE score 0.683 × eco 1.00"
+        },
+        {
+          "factor": "quantum_bridge",
+          "contribution": 0.08,
+          "label": "Sequential dry→wind pattern confirmed 🔥"
+        },
+        {
+          "factor": "weather_fwi",
+          "contribution": 0.068,
+          "label": "FWI 0.454 × eco 1.00"
+        }
+      ]
+    },
+    {
+      "node_id": "rychtal",
+      "node_name": "Rychtal",
+      "lat": 51.096,
+      "lon": 17.773,
+      "eco": "pine_wetland",
+      "final_score": 0.7313,
+      "tier": "HIGH",
+      "signals": {
+        "ndwi_stress": 0.7412,
+        "ndwi_trend_14d": -0.055,
+        "ndwi_latest": -0.6349,
+        "qte_score": 0.4818,
+        "bridge_fired": true,
+        "fwi_score": 0.5253,
+        "network_stress": 0.411
+      },
+      "modifiers": {
+        "eco_multiplier": 1.1,
+        "base_score": 0.5734
+      },
+      "context": {
+        "drought_days": 0,
+        "temp_max": 24.1,
+        "wind_max": 18.7,
+        "rh_min": 44.0
+      },
+      "explanation": [
+        {
+          "factor": "ndwi_satellite",
+          "contribution": 0.367,
+          "label": "NDWI stress 0.74 × eco 1.10"
+        },
+        {
+          "factor": "quantum_temporal",
+          "contribution": 0.159,
+          "label": "QTE score 0.482 × eco 1.10"
+        },
+        {
+          "factor": "weather_fwi",
+          "contribution": 0.087,
+          "label": "FWI 0.525 × eco 1.10"
+        },
+        {
+          "factor": "quantum_bridge",
+          "contribution": 0.08,
+          "label": "Sequential dry→wind pattern confirmed 🔥"
+        }
+      ]
+    },
+    {
+      "node_id": "milicz",
+      "node_name": "Milicz",
+      "lat": 51.531,
+      "lon": 17.284,
+      "eco": "pine_wetland",
+      "final_score": 0.722,
+      "tier": "HIGH",
+      "signals": {
+        "ndwi_stress": 0.6521,
+        "ndwi_trend_14d": -0.0374,
+        "ndwi_latest": -0.6125,
+        "qte_score": 0.5735,
+        "bridge_fired": true,
+        "fwi_score": 0.5493,
+        "network_stress": 0.5403
+      },
+      "modifiers": {
+        "eco_multiplier": 1.1,
+        "base_score": 0.5591
+      },
+      "context": {
+        "drought_days": 0,
+        "temp_max": 25.9,
+        "wind_max": 22.4,
+        "rh_min": 42.0
+      },
+      "explanation": [
+        {
+          "factor": "ndwi_satellite",
+          "contribution": 0.323,
+          "label": "NDWI stress 0.65 × eco 1.10"
+        },
+        {
+          "factor": "quantum_temporal",
+          "contribution": 0.189,
+          "label": "QTE score 0.574 × eco 1.10"
+        },
+        {
+          "factor": "weather_fwi",
+          "contribution": 0.091,
+          "label": "FWI 0.549 × eco 1.10"
+        },
+        {
+          "factor": "quantum_bridge",
+          "contribution": 0.08,
+          "label": "Sequential dry→wind pattern confirmed 🔥"
+        }
+      ]
+    },
+    {
+      "node_id": "gory_stolowe",
+      "node_name": "Góry Stołowe",
+      "lat": 50.431,
+      "lon": 16.364,
+      "eco": "spruce_mountain",
+      "final_score": 0.7098,
+      "tier": "HIGH",
+      "signals": {
+        "ndwi_stress": 0.9439,
+        "ndwi_trend_14d": -0.0604,
+        "ndwi_latest": -0.6859,
+        "qte_score": 0.7695,
+        "bridge_fired": true,
+        "fwi_score": 0.4235,
+        "network_stress": 0.8005
+      },
+      "modifiers": {
+        "eco_multiplier": 0.8,
+        "base_score": 0.7372
+      },
+      "context": {
+        "drought_days": 0,
+        "temp_max": 16.8,
+        "wind_max": 15.4,
+        "rh_min": 58.0
+      },
+      "explanation": [
+        {
+          "factor": "ndwi_satellite",
+          "contribution": 0.34,
+          "label": "NDWI stress 0.94 × eco 0.80"
+        },
+        {
+          "factor": "quantum_temporal",
+          "contribution": 0.185,
+          "label": "QTE score 0.769 × eco 0.80"
+        },
+        {
+          "factor": "quantum_bridge",
+          "contribution": 0.08,
+          "label": "Sequential dry→wind pattern confirmed 🔥"
+        },
+        {
+          "factor": "weather_fwi",
+          "contribution": 0.051,
+          "label": "FWI 0.423 × eco 0.80"
+        }
+      ]
+    },
+    {
+      "node_id": "ladek",
+      "node_name": "Lądek-Zdrój",
+      "lat": 50.342,
+      "lon": 16.884,
+      "eco": "spruce_mountain",
+      "final_score": 0.7089,
+      "tier": "HIGH",
+      "signals": {
+        "ndwi_stress": 1.0,
+        "ndwi_trend_14d": -0.0606,
+        "ndwi_latest": -0.705,
+        "qte_score": 0.6916,
+        "bridge_fired": true,
+        "fwi_score": 0.4228,
+        "network_stress": 0.7517
+      },
+      "modifiers": {
+        "eco_multiplier": 0.8,
+        "base_score": 0.7391
+      },
+      "context": {
+        "drought_days": 0,
+        "temp_max": 18.6,
+        "wind_max": 17.0,
+        "rh_min": 64.0
+      },
+      "explanation": [
+        {
+          "factor": "ndwi_satellite",
+          "contribution": 0.36,
+          "label": "NDWI stress 1.00 × eco 0.80"
+        },
+        {
+          "factor": "quantum_temporal",
+          "contribution": 0.166,
+          "label": "QTE score 0.692 × eco 0.80"
+        },
+        {
+          "factor": "quantum_bridge",
+          "contribution": 0.08,
+          "label": "Sequential dry→wind pattern confirmed 🔥"
+        },
+        {
+          "factor": "weather_fwi",
+          "contribution": 0.051,
+          "label": "FWI 0.423 × eco 0.80"
+        }
+      ]
+    },
+    {
+      "node_id": "walbrzych",
+      "node_name": "Wałbrzych",
+      "lat": 50.771,
+      "lon": 16.284,
+      "eco": "spruce_mountain",
+      "final_score": 0.6715,
+      "tier": "HIGH",
+      "signals": {
+        "ndwi_stress": 0.8493,
+        "ndwi_trend_14d": -0.08475,
+        "ndwi_latest": -0.6621,
+        "qte_score": 0.725,
+        "bridge_fired": true,
+        "fwi_score": 0.442,
+        "network_stress": 0.7682
+      },
+      "modifiers": {
+        "eco_multiplier": 0.8,
+        "base_score": 0.6914
+      },
+      "context": {
+        "drought_days": 0,
+        "temp_max": 17.6,
+        "wind_max": 19.6,
+        "rh_min": 58.0
+      },
+      "explanation": [
+        {
+          "factor": "ndwi_satellite",
+          "contribution": 0.306,
+          "label": "NDWI stress 0.85 × eco 0.80"
+        },
+        {
+          "factor": "quantum_temporal",
+          "contribution": 0.174,
+          "label": "QTE score 0.725 × eco 0.80"
+        },
+        {
+          "factor": "quantum_bridge",
+          "contribution": 0.08,
+          "label": "Sequential dry→wind pattern confirmed 🔥"
+        },
+        {
+          "factor": "weather_fwi",
+          "contribution": 0.053,
+          "label": "FWI 0.442 × eco 0.80"
+        }
+      ]
+    },
+    {
+      "node_id": "jugow",
+      "node_name": "Jugów",
+      "lat": 50.573,
+      "lon": 16.555,
+      "eco": "spruce_mountain",
+      "final_score": 0.6486,
+      "tier": "HIGH",
+      "signals": {
+        "ndwi_stress": 0.9034,
+        "ndwi_trend_14d": 0.0,
+        "ndwi_latest": -0.6757,
+        "qte_score": 0.6347,
+        "bridge_fired": true,
+        "fwi_score": 0.4392,
+        "network_stress": 0.7678
+      },
+      "modifiers": {
+        "eco_multiplier": 0.8,
+        "base_score": 0.6628
+      },
+      "context": {
+        "drought_days": 0,
+        "temp_max": 19.4,
+        "wind_max": 16.6,
+        "rh_min": 62.0
+      },
+      "explanation": [
+        {
+          "factor": "ndwi_satellite",
+          "contribution": 0.325,
+          "label": "NDWI stress 0.90 × eco 0.80"
+        },
+        {
+          "factor": "quantum_temporal",
+          "contribution": 0.152,
+          "label": "QTE score 0.635 × eco 0.80"
+        },
+        {
+          "factor": "quantum_bridge",
+          "contribution": 0.08,
+          "label": "Sequential dry→wind pattern confirmed 🔥"
+        },
+        {
+          "factor": "weather_fwi",
+          "contribution": 0.053,
+          "label": "FWI 0.439 × eco 0.80"
+        }
+      ]
+    },
+    {
+      "node_id": "prudnik",
+      "node_name": "Prudnik",
+      "lat": 50.323,
+      "lon": 17.58,
+      "eco": "mixed",
+      "final_score": 0.6434,
+      "tier": "HIGH",
+      "signals": {
+        "ndwi_stress": 0.6457,
+        "ndwi_trend_14d": -0.03795,
+        "ndwi_latest": -0.6109,
+        "qte_score": 0.4794,
+        "bridge_fired": true,
+        "fwi_score": 0.4508,
+        "network_stress": 1.0
+      },
+      "modifiers": {
+        "eco_multiplier": 1.0,
+        "base_score": 0.5134
+      },
+      "context": {
+        "drought_days": 0,
+        "temp_max": 20.4,
+        "wind_max": 22.2,
+        "rh_min": 61.0
+      },
+      "explanation": [
+        {
+          "factor": "ndwi_satellite",
+          "contribution": 0.291,
+          "label": "NDWI stress 0.65 × eco 1.00"
+        },
+        {
+          "factor": "quantum_temporal",
+          "contribution": 0.144,
+          "label": "QTE score 0.479 × eco 1.00"
+        },
+        {
+          "factor": "quantum_bridge",
+          "contribution": 0.08,
+          "label": "Sequential dry→wind pattern confirmed 🔥"
+        },
+        {
+          "factor": "weather_fwi",
+          "contribution": 0.068,
+          "label": "FWI 0.451 × eco 1.00"
+        }
+      ]
+    },
+    {
+      "node_id": "szklarska",
+      "node_name": "Szklarska Poręba",
+      "lat": 50.828,
+      "lon": 15.523,
+      "eco": "spruce_mountain",
+      "final_score": 0.6211,
+      "tier": "HIGH",
+      "signals": {
+        "ndwi_stress": 0.8919,
+        "ndwi_trend_14d": -0.1622,
+        "ndwi_latest": -0.6728,
+        "qte_score": 0.7161,
+        "bridge_fired": false,
+        "fwi_score": 0.4036,
+        "network_stress": 0.8163
+      },
+      "modifiers": {
+        "eco_multiplier": 0.8,
+        "base_score": 0.7254
+      },
+      "context": {
+        "drought_days": 0,
+        "temp_max": 14.8,
+        "wind_max": 18.0,
+        "rh_min": 62.0
+      },
+      "explanation": [
+        {
+          "factor": "ndwi_satellite",
+          "contribution": 0.321,
+          "label": "NDWI stress 0.89 × eco 0.80"
+        },
+        {
+          "factor": "quantum_temporal",
+          "contribution": 0.172,
+          "label": "QTE score 0.716 × eco 0.80"
+        },
+        {
+          "factor": "weather_fwi",
+          "contribution": 0.048,
+          "label": "FWI 0.404 × eco 0.80"
+        },
+        {
+          "factor": "network_propagation",
+          "contribution": 0.041,
+          "label": "Neighbour stress 0.82"
+        }
+      ]
+    },
+    {
+      "node_id": "miekinia",
+      "node_name": "Miękinia",
+      "lat": 51.163,
+      "lon": 16.713,
+      "eco": "mixed",
+      "final_score": 0.6147,
+      "tier": "HIGH",
+      "signals": {
+        "ndwi_stress": 0.7208,
+        "ndwi_trend_14d": -0.016,
+        "ndwi_latest": -0.6298,
+        "qte_score": 0.3424,
+        "bridge_fired": true,
+        "fwi_score": 0.4986,
+        "network_stress": 0.5598
+      },
+      "modifiers": {
+        "eco_multiplier": 1.0,
+        "base_score": 0.5067
+      },
+      "context": {
+        "drought_days": 0,
+        "temp_max": 22.5,
+        "wind_max": 22.1,
+        "rh_min": 50.0
+      },
+      "explanation": [
+        {
+          "factor": "ndwi_satellite",
+          "contribution": 0.324,
+          "label": "NDWI stress 0.72 × eco 1.00"
+        },
+        {
+          "factor": "quantum_temporal",
+          "contribution": 0.103,
+          "label": "QTE score 0.342 × eco 1.00"
+        },
+        {
+          "factor": "quantum_bridge",
+          "contribution": 0.08,
+          "label": "Sequential dry→wind pattern confirmed 🔥"
+        },
+        {
+          "factor": "weather_fwi",
+          "contribution": 0.075,
+          "label": "FWI 0.499 × eco 1.00"
+        }
+      ]
+    },
+    {
+      "node_id": "swietoszow",
+      "node_name": "Świętoszów",
+      "lat": 51.607,
+      "lon": 15.353,
+      "eco": "pine",
+      "final_score": 0.6111,
+      "tier": "HIGH",
+      "signals": {
+        "ndwi_stress": 0.5269,
+        "ndwi_trend_14d": -0.0225,
+        "ndwi_latest": -0.581,
+        "qte_score": 0.4268,
+        "bridge_fired": false,
+        "fwi_score": 0.4657,
+        "network_stress": 0.7357
+      },
+      "modifiers": {
+        "eco_multiplier": 1.3,
+        "base_score": 0.4418
+      },
+      "context": {
+        "drought_days": 0,
+        "temp_max": 19.4,
+        "wind_max": 15.7,
+        "rh_min": 50.0
+      },
+      "explanation": [
+        {
+          "factor": "ndwi_satellite",
+          "contribution": 0.308,
+          "label": "NDWI stress 0.53 × eco 1.30"
+        },
+        {
+          "factor": "quantum_temporal",
+          "contribution": 0.166,
+          "label": "QTE score 0.427 × eco 1.30"
+        },
+        {
+          "factor": "weather_fwi",
+          "contribution": 0.091,
+          "label": "FWI 0.466 × eco 1.30"
+        },
+        {
+          "factor": "network_propagation",
+          "contribution": 0.037,
+          "label": "Neighbour stress 0.74"
+        }
+      ]
+    },
+    {
+      "node_id": "wolow",
+      "node_name": "Wołów",
+      "lat": 51.338,
+      "lon": 16.637,
+      "eco": "mixed",
+      "final_score": 0.5976,
+      "tier": "MODERATE",
+      "signals": {
+        "ndwi_stress": 0.6521,
+        "ndwi_trend_14d": -0.04985,
+        "ndwi_latest": -0.6125,
+        "qte_score": 0.3539,
+        "bridge_fired": true,
+        "fwi_score": 0.5023,
+        "network_stress": 0.5539
+      },
+      "modifiers": {
+        "eco_multiplier": 1.0,
+        "base_score": 0.4899
+      },
+      "context": {
+        "drought_days": 0,
+        "temp_max": 23.0,
+        "wind_max": 20.7,
+        "rh_min": 50.0
+      },
+      "explanation": [
+        {
+          "factor": "ndwi_satellite",
+          "contribution": 0.293,
+          "label": "NDWI stress 0.65 × eco 1.00"
+        },
+        {
+          "factor": "quantum_temporal",
+          "contribution": 0.106,
+          "label": "QTE score 0.354 × eco 1.00"
+        },
+        {
+          "factor": "quantum_bridge",
+          "contribution": 0.08,
+          "label": "Sequential dry→wind pattern confirmed 🔥"
+        },
+        {
+          "factor": "weather_fwi",
+          "contribution": 0.075,
+          "label": "FWI 0.502 × eco 1.00"
+        }
+      ]
+    },
+    {
+      "node_id": "zmigrod",
+      "node_name": "Żmigród",
+      "lat": 51.475,
+      "lon": 16.906,
+      "eco": "pine_wetland",
+      "final_score": 0.5965,
+      "tier": "MODERATE",
+      "signals": {
+        "ndwi_stress": 0.5337,
+        "ndwi_trend_14d": -0.0495,
+        "ndwi_latest": -0.5827,
+        "qte_score": 0.3879,
+        "bridge_fired": true,
+        "fwi_score": 0.4983,
+        "network_stress": 0.5144
+      },
+      "modifiers": {
+        "eco_multiplier": 1.1,
+        "base_score": 0.4461
+      },
+      "context": {
+        "drought_days": 0,
+        "temp_max": 24.2,
+        "wind_max": 23.2,
+        "rh_min": 53.0
+      },
+      "explanation": [
+        {
+          "factor": "ndwi_satellite",
+          "contribution": 0.264,
+          "label": "NDWI stress 0.53 × eco 1.10"
+        },
+        {
+          "factor": "quantum_temporal",
+          "contribution": 0.128,
+          "label": "QTE score 0.388 × eco 1.10"
+        },
+        {
+          "factor": "weather_fwi",
+          "contribution": 0.082,
+          "label": "FWI 0.498 × eco 1.10"
+        },
+        {
+          "factor": "quantum_bridge",
+          "contribution": 0.08,
+          "label": "Sequential dry→wind pattern confirmed 🔥"
+        }
+      ]
+    },
+    {
+      "node_id": "sycow",
+      "node_name": "Syców",
+      "lat": 51.307,
+      "lon": 17.718,
+      "eco": "mixed",
+      "final_score": 0.5842,
+      "tier": "MODERATE",
+      "signals": {
+        "ndwi_stress": 0.5937,
+        "ndwi_trend_14d": -0.0285,
+        "ndwi_latest": -0.5978,
+        "qte_score": 0.4218,
+        "bridge_fired": true,
+        "fwi_score": 0.5246,
+        "network_stress": 0.465
+      },
+      "modifiers": {
+        "eco_multiplier": 1.0,
+        "base_score": 0.4809
+      },
+      "context": {
+        "drought_days": 0,
+        "temp_max": 24.2,
+        "wind_max": 16.3,
+        "rh_min": 45.0
+      },
+      "explanation": [
+        {
+          "factor": "ndwi_satellite",
+          "contribution": 0.267,
+          "label": "NDWI stress 0.59 × eco 1.00"
+        },
+        {
+          "factor": "quantum_temporal",
+          "contribution": 0.127,
+          "label": "QTE score 0.422 × eco 1.00"
+        },
+        {
+          "factor": "quantum_bridge",
+          "contribution": 0.08,
+          "label": "Sequential dry→wind pattern confirmed 🔥"
+        },
+        {
+          "factor": "weather_fwi",
+          "contribution": 0.079,
+          "label": "FWI 0.525 × eco 1.00"
+        }
+      ]
+    },
+    {
+      "node_id": "bystrzyca",
+      "node_name": "Bystrzyca Kłodzka",
+      "lat": 50.298,
+      "lon": 16.649,
+      "eco": "spruce_mountain",
+      "final_score": 0.5798,
+      "tier": "MODERATE",
+      "signals": {
+        "ndwi_stress": 0.6951,
+        "ndwi_trend_14d": -0.05005,
+        "ndwi_latest": -0.6233,
+        "qte_score": 0.5993,
+        "bridge_fired": true,
+        "fwi_score": 0.4094,
+        "network_stress": 0.8921
+      },
+      "modifiers": {
+        "eco_multiplier": 0.8,
+        "base_score": 0.569
+      },
+      "context": {
+        "drought_days": 0,
+        "temp_max": 19.0,
+        "wind_max": 13.0,
+        "rh_min": 64.0
+      },
+      "explanation": [
+        {
+          "factor": "ndwi_satellite",
+          "contribution": 0.25,
+          "label": "NDWI stress 0.70 × eco 0.80"
+        },
+        {
+          "factor": "quantum_temporal",
+          "contribution": 0.144,
+          "label": "QTE score 0.599 × eco 0.80"
+        },
+        {
+          "factor": "quantum_bridge",
+          "contribution": 0.08,
+          "label": "Sequential dry→wind pattern confirmed 🔥"
+        },
+        {
+          "factor": "weather_fwi",
+          "contribution": 0.049,
+          "label": "FWI 0.409 × eco 0.80"
+        }
+      ]
+    },
+    {
+      "node_id": "legnica",
+      "node_name": "Legnica",
+      "lat": 51.211,
+      "lon": 16.156,
+      "eco": "mixed",
+      "final_score": 0.5687,
+      "tier": "MODERATE",
+      "signals": {
+        "ndwi_stress": 0.5288,
+        "ndwi_trend_14d": -0.02765,
+        "ndwi_latest": -0.5815,
+        "qte_score": 0.4457,
+        "bridge_fired": true,
+        "fwi_score": 0.4833,
+        "network_stress": 0.7246
+      },
+      "modifiers": {
+        "eco_multiplier": 1.0,
+        "base_score": 0.4525
+      },
+      "context": {
+        "drought_days": 0,
+        "temp_max": 20.0,
+        "wind_max": 21.4,
+        "rh_min": 52.0
+      },
+      "explanation": [
+        {
+          "factor": "ndwi_satellite",
+          "contribution": 0.238,
+          "label": "NDWI stress 0.53 × eco 1.00"
+        },
+        {
+          "factor": "quantum_temporal",
+          "contribution": 0.134,
+          "label": "QTE score 0.446 × eco 1.00"
+        },
+        {
+          "factor": "quantum_bridge",
+          "contribution": 0.08,
+          "label": "Sequential dry→wind pattern confirmed 🔥"
+        },
+        {
+          "factor": "weather_fwi",
+          "contribution": 0.072,
+          "label": "FWI 0.483 × eco 1.00"
+        }
+      ]
+    },
+    {
+      "node_id": "swidnica",
+      "node_name": "Świdnica",
+      "lat": 50.842,
+      "lon": 16.488,
+      "eco": "mixed",
+      "final_score": 0.5591,
+      "tier": "MODERATE",
+      "signals": {
+        "ndwi_stress": 0.5213,
+        "ndwi_trend_14d": -0.03275,
+        "ndwi_latest": -0.5796,
+        "qte_score": 0.4339,
+        "bridge_fired": true,
+        "fwi_score": 0.4628,
+        "network_stress": 0.703
+      },
+      "modifiers": {
+        "eco_multiplier": 1.0,
+        "base_score": 0.444
+      },
+      "context": {
+        "drought_days": 0,
+        "temp_max": 20.1,
+        "wind_max": 22.5,
+        "rh_min": 61.0
+      },
+      "explanation": [
+        {
+          "factor": "ndwi_satellite",
+          "contribution": 0.235,
+          "label": "NDWI stress 0.52 × eco 1.00"
+        },
+        {
+          "factor": "quantum_temporal",
+          "contribution": 0.13,
+          "label": "QTE score 0.434 × eco 1.00"
+        },
+        {
+          "factor": "quantum_bridge",
+          "contribution": 0.08,
+          "label": "Sequential dry→wind pattern confirmed 🔥"
+        },
+        {
+          "factor": "weather_fwi",
+          "contribution": 0.069,
+          "label": "FWI 0.463 × eco 1.00"
+        }
+      ]
+    },
+    {
+      "node_id": "klodzko",
+      "node_name": "Kłodzko",
+      "lat": 50.437,
+      "lon": 16.659,
+      "eco": "spruce_mountain",
+      "final_score": 0.5559,
+      "tier": "MODERATE",
+      "signals": {
+        "ndwi_stress": 0.6836,
+        "ndwi_trend_14d": -0.0442,
+        "ndwi_latest": -0.6204,
+        "qte_score": 0.5338,
+        "bridge_fired": true,
+        "fwi_score": 0.4312,
+        "network_stress": 0.7869
+      },
+      "modifiers": {
+        "eco_multiplier": 0.8,
+        "base_score": 0.5457
+      },
+      "context": {
+        "drought_days": 0,
+        "temp_max": 19.9,
+        "wind_max": 15.7,
+        "rh_min": 66.0
+      },
+      "explanation": [
+        {
+          "factor": "ndwi_satellite",
+          "contribution": 0.246,
+          "label": "NDWI stress 0.68 × eco 0.80"
+        },
+        {
+          "factor": "quantum_temporal",
+          "contribution": 0.128,
+          "label": "QTE score 0.534 × eco 0.80"
+        },
+        {
+          "factor": "quantum_bridge",
+          "contribution": 0.08,
+          "label": "Sequential dry→wind pattern confirmed 🔥"
+        },
+        {
+          "factor": "weather_fwi",
+          "contribution": 0.052,
+          "label": "FWI 0.431 × eco 0.80"
+        }
+      ]
+    },
+    {
+      "node_id": "kamienna_gora",
+      "node_name": "Kamienna Góra",
+      "lat": 50.778,
+      "lon": 16.039,
+      "eco": "spruce_mountain",
+      "final_score": 0.553,
+      "tier": "MODERATE",
+      "signals": {
+        "ndwi_stress": 0.7786,
+        "ndwi_trend_14d": -0.0932,
+        "ndwi_latest": -0.6443,
+        "qte_score": 0.6567,
+        "bridge_fired": false,
+        "fwi_score": 0.4281,
+        "network_stress": 0.8271
+      },
+      "modifiers": {
+        "eco_multiplier": 0.8,
+        "base_score": 0.6396
+      },
+      "context": {
+        "drought_days": 0,
+        "temp_max": 16.3,
+        "wind_max": 21.8,
+        "rh_min": 62.0
+      },
+      "explanation": [
+        {
+          "factor": "ndwi_satellite",
+          "contribution": 0.28,
+          "label": "NDWI stress 0.78 × eco 0.80"
+        },
+        {
+          "factor": "quantum_temporal",
+          "contribution": 0.158,
+          "label": "QTE score 0.657 × eco 0.80"
+        },
+        {
+          "factor": "weather_fwi",
+          "contribution": 0.051,
+          "label": "FWI 0.428 × eco 0.80"
+        },
+        {
+          "factor": "network_propagation",
+          "contribution": 0.041,
+          "label": "Neighbour stress 0.83"
+        }
+      ]
+    },
+    {
+      "node_id": "olesnica",
+      "node_name": "Oleśnica Śląska",
+      "lat": 50.88,
+      "lon": 16.88,
+      "eco": "mixed",
+      "final_score": 0.4462,
+      "tier": "LOW",
+      "signals": {
+        "ndwi_stress": 0.4179,
+        "ndwi_trend_14d": -0.04395,
+        "ndwi_latest": -0.5536,
+        "qte_score": 0.1845,
+        "bridge_fired": true,
+        "fwi_score": 0.5027,
+        "network_stress": 0.6833
+      },
+      "modifiers": {
+        "eco_multiplier": 1.0,
+        "base_score": 0.332
+      },
+      "context": {
+        "drought_days": 0,
+        "temp_max": 22.4,
+        "wind_max": 25.7,
+        "rh_min": 55.0
+      },
+      "explanation": [
+        {
+          "factor": "ndwi_satellite",
+          "contribution": 0.188,
+          "label": "NDWI stress 0.42 × eco 1.00"
+        },
+        {
+          "factor": "quantum_bridge",
+          "contribution": 0.08,
+          "label": "Sequential dry→wind pattern confirmed 🔥"
+        },
+        {
+          "factor": "weather_fwi",
+          "contribution": 0.075,
+          "label": "FWI 0.503 × eco 1.00"
+        },
+        {
+          "factor": "quantum_temporal",
+          "contribution": 0.055,
+          "label": "QTE score 0.184 × eco 1.00"
+        }
+      ]
+    },
+    {
+      "node_id": "olawa",
+      "node_name": "Oława",
+      "lat": 50.939,
+      "lon": 17.3,
+      "eco": "mixed",
+      "final_score": 0.4366,
+      "tier": "LOW",
+      "signals": {
+        "ndwi_stress": 0.398,
+        "ndwi_trend_14d": 0.0,
+        "ndwi_latest": -0.5486,
+        "qte_score": 0.2626,
+        "bridge_fired": true,
+        "fwi_score": 0.4917,
+        "network_stress": 0.4992
+      },
+      "modifiers": {
+        "eco_multiplier": 1.0,
+        "base_score": 0.3316
+      },
+      "context": {
+        "drought_days": 0,
+        "temp_max": 23.7,
+        "wind_max": 22.6,
+        "rh_min": 54.0
+      },
+      "explanation": [
+        {
+          "factor": "ndwi_satellite",
+          "contribution": 0.179,
+          "label": "NDWI stress 0.40 × eco 1.00"
+        },
+        {
+          "factor": "quantum_bridge",
+          "contribution": 0.08,
+          "label": "Sequential dry→wind pattern confirmed 🔥"
+        },
+        {
+          "factor": "quantum_temporal",
+          "contribution": 0.079,
+          "label": "QTE score 0.263 × eco 1.00"
+        },
+        {
+          "factor": "weather_fwi",
+          "contribution": 0.074,
+          "label": "FWI 0.492 × eco 1.00"
+        }
+      ]
+    },
+    {
+      "node_id": "lubin",
+      "node_name": "Lubin",
+      "lat": 51.401,
+      "lon": 16.201,
+      "eco": "mixed",
+      "final_score": 0.415,
+      "tier": "LOW",
+      "signals": {
+        "ndwi_stress": 0.453,
+        "ndwi_trend_14d": -0.0289,
+        "ndwi_latest": -0.5624,
+        "qte_score": 0.3148,
+        "bridge_fired": false,
+        "fwi_score": 0.4752,
+        "network_stress": 0.7358
+      },
+      "modifiers": {
+        "eco_multiplier": 1.0,
+        "base_score": 0.3782
+      },
+      "context": {
+        "drought_days": 0,
+        "temp_max": 19.8,
+        "wind_max": 19.0,
+        "rh_min": 54.0
+      },
+      "explanation": [
+        {
+          "factor": "ndwi_satellite",
+          "contribution": 0.204,
+          "label": "NDWI stress 0.45 × eco 1.00"
+        },
+        {
+          "factor": "quantum_temporal",
+          "contribution": 0.094,
+          "label": "QTE score 0.315 × eco 1.00"
+        },
+        {
+          "factor": "weather_fwi",
+          "contribution": 0.071,
+          "label": "FWI 0.475 × eco 1.00"
+        },
+        {
+          "factor": "network_propagation",
+          "contribution": 0.037,
+          "label": "Neighbour stress 0.74"
+        }
+      ]
+    },
+    {
+      "node_id": "wroclaw",
+      "node_name": "Wrocław",
+      "lat": 51.097,
+      "lon": 17.033,
+      "eco": "mixed",
+      "final_score": 0.3355,
+      "tier": "LOW",
+      "signals": {
+        "ndwi_stress": 0.2814,
+        "ndwi_trend_14d": 0.0307,
+        "ndwi_latest": -0.4485,
+        "qte_score": 0.3374,
+        "bridge_fired": false,
+        "fwi_score": 0.5163,
+        "network_stress": 0.6046
+      },
+      "modifiers": {
+        "eco_multiplier": 1.0,
+        "base_score": 0.3053
+      },
+      "context": {
+        "drought_days": 0,
+        "temp_max": 24.3,
+        "wind_max": 23.4,
+        "rh_min": 48.0
+      },
+      "explanation": [
+        {
+          "factor": "ndwi_satellite",
+          "contribution": 0.127,
+          "label": "NDWI stress 0.28 × eco 1.00"
+        },
+        {
+          "factor": "quantum_temporal",
+          "contribution": 0.101,
+          "label": "QTE score 0.337 × eco 1.00"
+        },
+        {
+          "factor": "weather_fwi",
+          "contribution": 0.077,
+          "label": "FWI 0.516 × eco 1.00"
+        },
+        {
+          "factor": "network_propagation",
+          "contribution": 0.03,
+          "label": "Neighbour stress 0.60"
+        }
+      ]
+    }
+  ]
+}
