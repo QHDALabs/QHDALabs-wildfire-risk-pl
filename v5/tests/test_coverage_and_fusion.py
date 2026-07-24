@@ -5,6 +5,7 @@ from pathlib import Path
 import pytest
 
 import qhdalabs_wildfire_ignition_v1 as ignition
+from ignition_data import FirmsDownloadResult
 from qhdalabs_wildfire_fusion_v1 import compute_risk_score
 
 
@@ -125,3 +126,29 @@ def test_existing_valid_cache_works_without_network(
     monkeypatch.delenv("FIRMS_MAP_KEY", raising=False)
     assert ignition._download_firms_or_effis(refresh_firms=False) == cache
     assert ignition._download_firms_or_effis(refresh_firms=True) == cache
+
+
+def test_partial_sp_does_not_automatically_start_nrt(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    requested_sources: list[str] = []
+
+    def partial_download(destination: Path, **kwargs) -> FirmsDownloadResult:
+        requested_sources.append(kwargs["source"])
+        return FirmsDownloadResult(
+            status="resumable_partial",
+            source=kwargs["source"],
+            completed_windows=12,
+            total_windows=73,
+        )
+
+    monkeypatch.setattr(ignition, "FIRMS_CSV", tmp_path / "firms.csv")
+    monkeypatch.setattr(ignition, "FIRMS_PARTS_DIR", tmp_path / "parts")
+    monkeypatch.setattr(ignition, "IBL_GEOJSON", tmp_path / "ibl.geojson")
+    monkeypatch.setattr(ignition, "EFFIS_CSV", tmp_path / "effis.csv")
+    monkeypatch.setattr(ignition, "download_firms_year", partial_download)
+    monkeypatch.setenv("FIRMS_MAP_KEY", "secret")
+    monkeypatch.delenv("FIRMS_SOURCE", raising=False)
+
+    assert ignition._download_firms_or_effis(refresh_firms=True) is None
+    assert requested_sources == ["VIIRS_SNPP_SP"]

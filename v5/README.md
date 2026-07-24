@@ -57,9 +57,55 @@ URL są maskowane przed logowaniem. Rejestracja i bieżąca dokumentacja są
 dostępne na stronie
 [NASA FIRMS API](https://firms.modaps.eosdis.nasa.gov/api/).
 
-`--refresh-firms` pobiera pełny rok 2025 w oknach po najwyżej pięć dni,
-waliduje każdą odpowiedź, łączy i deduplikuje rekordy, a następnie atomowo
-zastępuje cache. Bez klucza poprawny istniejący cache pozostaje używany.
+Domyślnym i jedynym automatycznie wybranym produktem jest
+`VIIRS_SNPP_SP`. Zmiana na NRT wymaga jawnej polityki źródłowej:
+
+```powershell
+$env:FIRMS_SOURCE = "VIIRS_SNPP_NRT"
+python qhdalabs_wildfire_ignition_v1.py --refresh-firms
+```
+
+Pipeline nigdy nie dołącza fragmentów SP do NRT ani nie uruchamia NRT po
+częściowym pobraniu SP. Każdy produkt ma osobny katalog checkpointów.
+
+`--refresh-firms` pobiera lub wznawia pełny rok 2025 w oknach po najwyżej pięć
+dni. Każde okno jest walidowane i atomowo zapisywane jako:
+
+```text
+topology/ignition_cache/firms_parts/<SOURCE>/2025-01-01.csv
+topology/ignition_cache/firms_parts/<SOURCE>/2025-01-01.meta.json
+```
+
+Metadane zawierają źródło, zakres dat, bbox, liczbę wierszy i SHA-256. Przy
+ponownym uruchomieniu poprawne fragmenty są pomijane, a błędne lub brakujące
+pobierane ponownie. Produkcyjny `firms_viirs_dolnoslaskie_2025.csv` jest
+łączony, deduplikowany i atomowo zastępowany dopiero po ponownej walidacji
+wszystkich 73 okien jednego produktu. Bez klucza poprawny istniejący cache
+pozostaje używany.
+
+Żądania są domyślnie rozdzielone odstępem 0,25 sekundy. Opcjonalna kontrola
+licznika transakcji może być wykonywana co N nowych okien:
+
+```powershell
+$env:FIRMS_TRANSACTION_CHECK_EVERY = "10"
+```
+
+Stan serii znajduje się w `firms_parts/<SOURCE>/status.json` i ma jedną z
+wartości:
+
+- `complete` — wszystkie okna scalono i opublikowano;
+- `resumable_partial` — checkpointy są poprawne, brakuje części okien;
+- `authorization_failed` — HTTP 401; status klucza rozróżnia `invalid_key`,
+  `exhausted_transaction_window` lub `unknown_authorization_failure`;
+- `rate_limited` — HTTP 429 albo osiągnięty limit transakcji; pole
+  `retry_after_seconds` określa najwcześniejsze zalecane wznowienie;
+- `source_unavailable` — nie udało się zapisać żadnego poprawnego okna.
+
+HTTP 401 natychmiast zatrzymuje serię i uruchamia pojedyncze, maskowane
+sprawdzenie `mapkey_status`. HTTP 429 nie jest ponawiane w tej samej serii i
+zatrzymuje dalsze żądania zgodnie z `Retry-After`. Timeouty oraz HTTP 500, 502,
+503 i 504 są ponawiane z exponential backoff i jitter; wyczerpanie prób
+pozostawia pobrane checkpointy do następnego uruchomienia.
 
 ## Uruchomienie
 
@@ -87,6 +133,7 @@ Katalog `topology/ignition_cache/` jest ignorowany przez Git. Może zawierać:
 | Plik | Źródło | Tryb |
 | --- | --- | --- |
 | `firms_viirs_dolnoslaskie_2025.csv` | NASA FIRMS | Auto lub ręczny |
+| `firms_parts/<SOURCE>/*.csv` | NASA FIRMS | Trwałe checkpointy |
 | `dolnoslaskie-latest.osm.pbf` | Geofabrik OpenStreetMap | Automatyczny |
 | `wn.gpkg` i `sn.gpkg` | GIS-Support BDOT10k | Automatyczny |
 | `clc18_dolnoslaskie.geojson` | EEA CLC 2018 REST | Automatyczny |
@@ -172,8 +219,10 @@ python effis_validator.py severity_2025.tiff --scores topology/risk_scores.json
 
 ## Diagnostyka
 
-`FIRMS HTTP 400` zwykle oznacza błędny klucz, produkt lub składnię URL. Błędy
-400, 401, 403 i 404 nie są ponawiane.
+`FIRMS HTTP 400` zwykle oznacza błędny produkt lub składnię URL. Błędy 400,
+401, 403 i 404 nie są ponawiane. Po HTTP 401 należy sprawdzić klasyfikację w
+`firms_parts/<SOURCE>/status.json`; po 429 wznowić nie wcześniej niż wskazuje
+`retry_after_seconds`.
 
 `osmium-tool not found` oznacza przejście do Pyogrio lub Fiona. Informacja o
 braku GeoPandas pojawia się tylko wtedy, gdy nie można zaimportować samego

@@ -101,6 +101,7 @@ log = logging.getLogger(__name__)
 OUTPUT_DIR = Path("topology")
 CACHE_DIR = OUTPUT_DIR / "ignition_cache"
 FIRMS_CSV = CACHE_DIR / "firms_viirs_dolnoslaskie_2025.csv"
+FIRMS_PARTS_DIR = CACHE_DIR / "firms_parts"
 OSM_PBF = CACHE_DIR / "dolnoslaskie-latest.osm.pbf"
 SULN02_GPKG = CACHE_DIR / "wn.gpkg"  # GIS-Support: linie WN ~7 MB
 SULN03_GPKG = CACHE_DIR / "sn.gpkg"  # GIS-Support: linie SN ~169 MB
@@ -451,49 +452,95 @@ def ensure_data_available(refresh_firms: bool = False) -> dict[str, Optional[Pat
 
 def _download_firms_or_effis(refresh_firms: bool = False) -> Optional[Path]:
     """Return a validated cache or download the complete FIRMS 2025 year."""
-    if FIRMS_CSV.exists() and not refresh_firms:
+    validated_existing_cache = False
+    if FIRMS_CSV.exists():
         try:
             parse_firms_csv_response(HTTPResponse(FIRMS_CSV.read_bytes(), "text/csv"))
-            log.info("FIRMS cache hit: %s", FIRMS_CSV.name)
-            return FIRMS_CSV
+            validated_existing_cache = True
+            if not refresh_firms:
+                log.info("FIRMS cache hit: %s", FIRMS_CSV.name)
+                return FIRMS_CSV
         except (OSError, ResponseValidationError) as exc:
             log.warning("Ignoring invalid FIRMS cache %s: %s", FIRMS_CSV, exc)
 
     map_key = os.environ.get("FIRMS_MAP_KEY", "").strip()
     if not map_key:
-        if FIRMS_CSV.exists():
-            try:
-                parse_firms_csv_response(
-                    HTTPResponse(FIRMS_CSV.read_bytes(), "text/csv")
-                )
-                log.warning(
-                    "--refresh-firms requested without FIRMS_MAP_KEY; "
-                    "retaining the validated cache"
-                )
-                return FIRMS_CSV
-            except (OSError, ResponseValidationError):
-                pass
+        if validated_existing_cache:
+            log.warning(
+                "--refresh-firms requested without FIRMS_MAP_KEY; "
+                "retaining the validated cache"
+            )
+            return FIRMS_CSV
         log.warning(
             "FIRMS_MAP_KEY is not set; historical_kde is unavailable. "
             "Set it in the environment or place a validated CSV at %s",
             FIRMS_CSV,
         )
     else:
-        for source in ("VIIRS_SNPP_SP", "VIIRS_SNPP_NRT"):
+        source = os.environ.get("FIRMS_SOURCE", "VIIRS_SNPP_SP").strip()
+        if source not in {"VIIRS_SNPP_SP", "VIIRS_SNPP_NRT"}:
+            log.error(
+                "Unsupported FIRMS_SOURCE=%r; choose VIIRS_SNPP_SP or VIIRS_SNPP_NRT",
+                source,
+            )
+        else:
+            raw_check_every = os.environ.get(
+                "FIRMS_TRANSACTION_CHECK_EVERY", ""
+            ).strip()
             try:
-                row_count = download_firms_year(
-                    FIRMS_CSV,
-                    map_key=map_key,
-                    year=2025,
-                    bbox=(14.6, 49.9, 17.9, 51.9),
-                    source=source,
+                check_every = int(raw_check_every) if raw_check_every else None
+            except ValueError:
+                log.warning(
+                    "Ignoring invalid FIRMS_TRANSACTION_CHECK_EVERY=%r",
+                    raw_check_every,
                 )
-                log.info(
-                    "FIRMS %s download complete: %d unique rows", source, row_count
+                check_every = None
+            if check_every is not None and check_every < 1:
+                log.warning(
+                    "Ignoring non-positive FIRMS_TRANSACTION_CHECK_EVERY=%r",
+                    raw_check_every,
+                )
+                check_every = None
+            result = download_firms_year(
+                FIRMS_CSV,
+                map_key=map_key,
+                year=2025,
+                bbox=(14.6, 49.9, 17.9, 51.9),
+                source=source,
+                parts_root=FIRMS_PARTS_DIR,
+                transaction_check_every=check_every,
+            )
+            log.info(
+                "FIRMS %s status=%s windows=%d/%d rows=%d",
+                result.source,
+                result.status,
+                result.completed_windows,
+                result.total_windows,
+                result.row_count,
+            )
+            if result.authorization_reason:
+                log.error(
+                    "FIRMS authorization classification: %s",
+                    result.authorization_reason,
+                )
+            if result.retry_after_seconds is not None:
+                log.warning(
+                    "FIRMS resume delay: at least %.0f seconds",
+                    result.retry_after_seconds,
+                )
+            if result.status == "complete":
+                return FIRMS_CSV
+            if validated_existing_cache:
+                log.warning(
+                    "FIRMS refresh is incomplete; retaining the previous "
+                    "validated production cache"
                 )
                 return FIRMS_CSV
-            except DataAcquisitionError as exc:
-                log.warning("FIRMS %s unavailable: %s", source, exc)
+            log.warning(
+                "FIRMS %s is incomplete; checkpoints were preserved and no "
+                "automatic fallback to another FIRMS product was attempted",
+                source,
+            )
 
     # The previously hard-coded IBL GeoServer endpoint returns HTTP 404.
     # A manually provided FeatureCollection remains supported.
@@ -1497,7 +1544,7 @@ Output:
         "--refresh-firms",
         action="store_true",
         dest="refresh_firms",
-        help="Force re-download of NASA FIRMS 2025 cache",
+        help="Resume or refresh the source-specific NASA FIRMS 2025 cache",
     )
     parser.add_argument(
         "--nodes",
