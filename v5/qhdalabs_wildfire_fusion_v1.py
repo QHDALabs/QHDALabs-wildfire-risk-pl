@@ -1,71 +1,75 @@
-    # =============================================================================
-    # Project       : QHDALabs - Wildfire Risk PL
-    # Module        : Step 4 — Fusion Risk Scorer & Alert Engine
-    # File          : qhdalabs_wildfire_fusion_v1.py
-    # Version       : 1.0.0
-    #
-    # Description
-    # -----------------------------------------------------------------------------
-    # Integrates all three signal layers into one unified wildfire risk score
-    # per nadleśnictwo and generates operational alerts.
-    #
-    # Signal layers
-    # -----------------------------------------------------------------------------
-    #  Layer 1 — Satellite (Sentinel-2 NDWI)           weight: 45%
-    #    Real physiological state of the forest canopy.
-    #    Source: topology/nodes_enriched.json (Step 2)
-    #
-    #  Layer 2 — Quantum Temporal Encoder (QTE)         weight: 30%
-    #    Sequential pattern: was dry THEN wind rose.
-    #    Captures what RF cannot see: order matters.
-    #    Source: topology/qte_results.json (Step 3)
-    #
-    #  Layer 3 — Weather proxy (Open-Meteo FWI)         weight: 15%
-    #    Current meteorological fire danger.
-    #    Source: topology/nodes_enriched.json (Step 2, weather history)
-    #
-    #  Layer 4 — NDWI drying trend                     weight: 10%
-    #    Velocity of vegetation stress change.
-    #    Negative trend = accelerating drought.
-    #
-    # Modifiers (applied after blending)
-    # -----------------------------------------------------------------------------
-    #  Ecosystem multiplier   pine: ×1.30, mixed: ×1.00, spruce: ×0.80
-    #    Pine forests ignite more easily; spruce wetter but catastrophic when burned
-    #
-    #  Bridge bonus           +0.08 if QTE bridge fired (sequential pattern)
-    #    This is the key quantum contribution — marks nodes where the
-    #    pre-fire sequence (dry→wind) is confirmed, not just current conditions
-    #
-    #  Network propagation    +0.05 × neighbour_stress
-    #    Modelling the mycelium: stressed neighbours lower your alert threshold
-    #
-    # Alert tiers
-    # -----------------------------------------------------------------------------
-    #  CRITICAL  > 0.75  — immediate drone verification recommended
-    #  HIGH      > 0.60  — elevated patrol priority
-    #  MODERATE  > 0.45  — monitoring flag
-    #  LOW       ≤ 0.45  — normal monitoring
-    #
-    # Outputs
-    # -----------------------------------------------------------------------------
-    #  topology/risk_scores.json     — full scored results
-    #  topology/alerts.json          — CRITICAL/HIGH alerts only
-    #  topology/final_map.html       — operational map with all layers visible
-    #
-    # Author        : Krzysztof W. Banasiewicz / QHDALabs
-    # License       : MIT
-    # =============================================================================
+# =============================================================================
+# Project       : QHDALabs - Wildfire Risk PL
+# Module        : Step 4 — Fusion Risk Scorer & Alert Engine
+# File          : qhdalabs_wildfire_fusion_v1.py
+# Version       : 1.0.0
+#
+# Description
+# -----------------------------------------------------------------------------
+# Integrates all three signal layers into one unified wildfire risk score
+# per nadleśnictwo and generates operational alerts.
+#
+# Signal layers
+# -----------------------------------------------------------------------------
+#  Layer 1 — Satellite (Sentinel-2 NDWI)           weight: 45%
+#    Real physiological state of the forest canopy.
+#    Source: topology/nodes_enriched.json (Step 2)
+#
+#  Layer 2 — Quantum Temporal Encoder (QTE)         weight: 30%
+#    Sequential pattern: was dry THEN wind rose.
+#    Captures what RF cannot see: order matters.
+#    Source: topology/qte_results.json (Step 3)
+#
+#  Layer 3 — Weather proxy (Open-Meteo FWI)         weight: 15%
+#    Current meteorological fire danger.
+#    Source: topology/nodes_enriched.json (Step 2, weather history)
+#
+#  Layer 4 — NDWI drying trend                     weight: 10%
+#    Velocity of vegetation stress change.
+#    Negative trend = accelerating drought.
+#
+# Modifiers (applied after blending)
+# -----------------------------------------------------------------------------
+#  Ecosystem multiplier   pine: ×1.30, mixed: ×1.00, spruce: ×0.80
+#    Pine forests ignite more easily; spruce wetter but catastrophic when burned
+#
+#  Bridge bonus           +0.08 if QTE bridge fired (sequential pattern)
+#    This is the key quantum contribution — marks nodes where the
+#    pre-fire sequence (dry→wind) is confirmed, not just current conditions
+#
+#  Network propagation    +0.05 × neighbour_stress
+#    Modelling the mycelium: stressed neighbours lower your alert threshold
+#
+# Alert tiers
+# -----------------------------------------------------------------------------
+#  CRITICAL  > 0.75  — immediate drone verification recommended
+#  HIGH      > 0.60  — elevated patrol priority
+#  MODERATE  > 0.45  — monitoring flag
+#  LOW       ≤ 0.45  — normal monitoring
+#
+# Outputs
+# -----------------------------------------------------------------------------
+#  topology/risk_scores.json     — full scored results
+#  topology/alerts.json          — CRITICAL/HIGH alerts only
+#  topology/final_map.html       — operational map with all layers visible
+#
+# Author        : Krzysztof W. Banasiewicz / QHDALabs
+# License       : MIT
+# =============================================================================
 
 from __future__ import annotations
 
 import json
 import logging
-import math
 import os
 from dataclasses import dataclass
 from datetime import datetime, timezone
-from qhdalabs_wildfire_ignition_v1 import load_ignition_map, compute_fei, compute_qies
+from qhdalabs_wildfire_ignition_v1 import (
+    IgnitionScore,
+    compute_fei,
+    compute_qies,
+    load_ignition_map,
+)
 import numpy as np
 
 logging.basicConfig(
@@ -80,24 +84,25 @@ OUTPUT_DIR = "topology"
 # =========================
 # FUSION CONFIG
 # =========================
-W_NDWI    = 0.45   # satellite vegetation stress
-W_QTE     = 0.30   # quantum temporal encoder
-W_FWI     = 0.15   # weather fire index
-W_TREND   = 0.10   # drying velocity (negative trend = higher risk)
+W_NDWI = 0.45  # satellite vegetation stress
+W_QTE = 0.30  # quantum temporal encoder
+W_FWI = 0.15  # weather fire index
+W_TREND = 0.10  # drying velocity (negative trend = higher risk)
 
-BRIDGE_BONUS  = 0.08   # sequential pattern confirmed by QTE bridge
-NETWORK_COEFF = 0.05   # neighbour propagation weight
+BRIDGE_BONUS = 0.08  # sequential pattern confirmed by QTE bridge
+NETWORK_COEFF = 0.05  # neighbour propagation weight
 
 ALERT_CRITICAL = 0.75
-ALERT_HIGH     = 0.60
+ALERT_HIGH = 0.60
 ALERT_MODERATE = 0.45
 
 ECO_MULTIPLIERS = {
-    "pine":             1.30,
-    "pine_wetland":     1.10,
-    "mixed":            1.00,
-    "spruce_mountain":  0.80,
+    "pine": 1.30,
+    "pine_wetland": 1.10,
+    "mixed": 1.00,
+    "spruce_mountain": 0.80,
 }
+
 
 # =========================
 # FWI PROXY (from weather)
@@ -105,24 +110,36 @@ ECO_MULTIPLIERS = {
 def _fwi_from_weather(node: dict) -> float:
     """Compute FWI proxy from latest weather data."""
     latest = node.get("latest", {})
-    vpd    = float(latest.get("vpd_mean")  or node.get("weather_history", {}).get("vpd_mean", [0.5])[-1] if node.get("weather_history") else 0.5)
-    soil   = float(latest.get("soil_min")  or 0.20)
-    temp   = float(latest.get("temp_max")  or 20.0)
-    rh     = float(latest.get("rh_min")    or 55.0)
-    wind   = float(latest.get("wind_max")  or 5.0)
-    rain   = float(latest.get("rain_total") or 0.0)
-    drought= int(node.get("drought_days",  0))
+    vpd = float(
+        latest.get("vpd_mean")
+        or node.get("weather_history", {}).get("vpd_mean", [0.5])[-1]
+        if node.get("weather_history")
+        else 0.5
+    )
+    soil = float(latest.get("soil_min") or 0.20)
+    temp = float(latest.get("temp_max") or 20.0)
+    rh = float(latest.get("rh_min") or 55.0)
+    wind = float(latest.get("wind_max") or 5.0)
+    rain = float(latest.get("rain_total") or 0.0)
+    drought = int(node.get("drought_days", 0))
 
-    vpd_n    = min(1.0, vpd / 3.5)
-    soil_n   = max(0.0, min(1.0, 1.0 - soil / 0.30))
-    temp_n   = max(0.0, min(1.0, (temp - 10.0) / 25.0))
-    wind_n   = min(1.0, wind / 15.0)
-    rh_n     = max(0.0, (72.0 - rh) / 72.0)
-    drought_n= min(1.0, drought / 45.0)
+    vpd_n = min(1.0, vpd / 3.5)
+    soil_n = max(0.0, min(1.0, 1.0 - soil / 0.30))
+    temp_n = max(0.0, min(1.0, (temp - 10.0) / 25.0))
+    wind_n = min(1.0, wind / 15.0)
+    rh_n = max(0.0, (72.0 - rh) / 72.0)
+    drought_n = min(1.0, drought / 45.0)
     rain_pen = max(0.0, 1.0 - rain / 4.0)
 
-    raw = (0.22*vpd_n + 0.20*soil_n + 0.14*temp_n + 0.14*wind_n
-           + 0.17*rh_n + 0.08*drought_n + 0.05*rain_pen)
+    raw = (
+        0.22 * vpd_n
+        + 0.20 * soil_n
+        + 0.14 * temp_n
+        + 0.14 * wind_n
+        + 0.17 * rh_n
+        + 0.08 * drought_n
+        + 0.05 * rain_pen
+    )
     return float(np.clip(raw, 0.0, 1.0))
 
 
@@ -131,32 +148,37 @@ def _fwi_from_weather(node: dict) -> float:
 # =========================
 @dataclass
 class RiskScore:
-    node_id:           str
-    node_name:         str
-    lat:               float
-    lon:               float
-    eco:               str
+    node_id: str
+    node_name: str
+    lat: float
+    lon: float
+    eco: str
     # Input signals
-    ndwi_stress:       float   # satellite [0,1]
-    ndwi_trend_14d:    float   # slope (neg = drying)
-    qte_score:         float   # quantum [0,1]
-    bridge_fired:      bool    # sequential pattern
-    fwi_score:         float   # weather [0,1]
-    network_stress:    float   # propagated [0,1]
+    ndwi_stress: float  # satellite [0,1]
+    ndwi_trend_14d: float  # slope (neg = drying)
+    qte_score: float  # quantum [0,1]
+    bridge_fired: bool  # sequential pattern
+    fwi_score: float  # weather [0,1]
+    network_stress: float  # propagated [0,1]
+    ignition_score: float | None
+    ignition_coverage_percent: float
+    ignition_valid_for_fusion: bool
+    fei: float | None
+    qies: float | None
     # Components
-    base_score:        float   # before modifiers
-    eco_multiplier:    float
+    base_score: float  # before modifiers
+    eco_multiplier: float
     # Final
-    final_score:       float
-    tier:              str     # CRITICAL | HIGH | MODERATE | LOW
+    final_score: float
+    tier: str  # CRITICAL | HIGH | MODERATE | LOW
     # Context
-    drought_days:      int
-    temp_max:          float | None
-    wind_max:          float | None
-    rh_min:            float | None
-    ndwi_latest:       float | None
+    drought_days: int
+    temp_max: float | None
+    wind_max: float | None
+    rh_min: float | None
+    ndwi_latest: float | None
     # Explanation
-    top_drivers:       list[dict]
+    top_drivers: list[dict]
 
 
 def _trend_signal(trend: float) -> float:
@@ -165,61 +187,86 @@ def _trend_signal(trend: float) -> float:
 
 
 def _tier(score: float) -> str:
-    if score > ALERT_CRITICAL: return "CRITICAL"
-    if score > ALERT_HIGH:     return "HIGH"
-    if score > ALERT_MODERATE: return "MODERATE"
+    if score > ALERT_CRITICAL:
+        return "CRITICAL"
+    if score > ALERT_HIGH:
+        return "HIGH"
+    if score > ALERT_MODERATE:
+        return "MODERATE"
     return "LOW"
 
 
 def _explain(ndwi, qte, fwi, trend_s, eco_mult, bridge, net_stress) -> list[dict]:
     """Return top contributing factors sorted by impact."""
     factors = [
-        {"factor": "ndwi_satellite",   "contribution": round(W_NDWI * ndwi * eco_mult, 3),
-         "label": f"NDWI stress {ndwi:.2f} × eco {eco_mult:.2f}"},
-        {"factor": "quantum_temporal", "contribution": round(W_QTE * qte * eco_mult, 3),
-         "label": f"QTE score {qte:.3f} × eco {eco_mult:.2f}"},
-        {"factor": "weather_fwi",      "contribution": round(W_FWI * fwi * eco_mult, 3),
-         "label": f"FWI {fwi:.3f} × eco {eco_mult:.2f}"},
-        {"factor": "drying_trend",     "contribution": round(W_TREND * trend_s * eco_mult, 3),
-         "label": f"14d trend signal {trend_s:.3f}"},
+        {
+            "factor": "ndwi_satellite",
+            "contribution": round(W_NDWI * ndwi * eco_mult, 3),
+            "label": f"NDWI stress {ndwi:.2f} × eco {eco_mult:.2f}",
+        },
+        {
+            "factor": "quantum_temporal",
+            "contribution": round(W_QTE * qte * eco_mult, 3),
+            "label": f"QTE score {qte:.3f} × eco {eco_mult:.2f}",
+        },
+        {
+            "factor": "weather_fwi",
+            "contribution": round(W_FWI * fwi * eco_mult, 3),
+            "label": f"FWI {fwi:.3f} × eco {eco_mult:.2f}",
+        },
+        {
+            "factor": "drying_trend",
+            "contribution": round(W_TREND * trend_s * eco_mult, 3),
+            "label": f"14d trend signal {trend_s:.3f}",
+        },
     ]
     if bridge:
-        factors.append({"factor": "quantum_bridge",
-                        "contribution": BRIDGE_BONUS,
-                        "label": "Sequential dry→wind pattern confirmed 🔥"})
+        factors.append(
+            {
+                "factor": "quantum_bridge",
+                "contribution": BRIDGE_BONUS,
+                "label": "Sequential dry→wind pattern confirmed 🔥",
+            }
+        )
     if net_stress > 0.3:
-        factors.append({"factor": "network_propagation",
-                        "contribution": round(NETWORK_COEFF * net_stress, 3),
-                        "label": f"Neighbour stress {net_stress:.2f}"})
+        factors.append(
+            {
+                "factor": "network_propagation",
+                "contribution": round(NETWORK_COEFF * net_stress, 3),
+                "label": f"Neighbour stress {net_stress:.2f}",
+            }
+        )
     return sorted(factors, key=lambda x: x["contribution"], reverse=True)[:4]
 
 
 def compute_risk_score(
-    node:    dict,
+    node: dict,
     qte_map: dict[str, dict],
-    graph:   dict,
+    graph: dict,
     all_nodes: dict[str, dict],
+    ignition_map: dict[str, IgnitionScore] | None = None,
 ) -> RiskScore:
     """Compute unified risk score for one node."""
-    nid    = node["id"]
+    nid = node["id"]
     latest = node.get("latest", {})
     ndwi_s = node.get("ndwi_sentinel", {})
-    eco    = node.get("eco", "mixed")
+    eco = node.get("eco", "mixed")
 
     # ── Signals ──────────────────────────────────────────────────────────
-    ndwi_stress  = float(node.get("ndwi_stress_normalised") or
-                         node.get("ndwi_stress_latest", 0.0))
-    ndwi_trend   = float(node.get("ndwi_trend_14d") or 0.0)
-    trend_s      = _trend_signal(ndwi_trend)
+    ndwi_stress = float(
+        node.get("ndwi_stress_normalised") or node.get("ndwi_stress_latest", 0.0)
+    )
+    ndwi_trend = float(node.get("ndwi_trend_14d") or 0.0)
+    trend_s = _trend_signal(ndwi_trend)
 
-    qte_data     = qte_map.get(nid, {})
-    qte_score    = float(qte_data.get("qte_score", 0.0))
+    qte_data = qte_map.get(nid, {})
+    qte_score = float(qte_data.get("qte_score", 0.0))
     bridge_fired = bool(qte_data.get("bridge_fired", False))
 
-    fwi          = _fwi_from_weather(node)
+    fwi = _fwi_from_weather(node)
 
     # Network propagation: average normalised NDWI of neighbours
-    neighbours   = graph.get(nid, [])
+    neighbours = graph.get(nid, [])
     if neighbours:
         nb_stresses = []
         for nb in neighbours:
@@ -234,10 +281,7 @@ def compute_risk_score(
     eco_mult = ECO_MULTIPLIERS.get(eco, 1.0)
 
     # ── Base fusion ───────────────────────────────────────────────────────
-    base = (W_NDWI  * ndwi_stress
-          + W_QTE   * qte_score
-          + W_FWI   * fwi
-          + W_TREND * trend_s)
+    base = W_NDWI * ndwi_stress + W_QTE * qte_score + W_FWI * fwi + W_TREND * trend_s
 
     # ── Apply modifiers ───────────────────────────────────────────────────
     modified = base * eco_mult
@@ -246,32 +290,57 @@ def compute_risk_score(
 
     final = float(np.clip(modified, 0.0, 1.0))
 
+    ignition = (ignition_map or {}).get(nid)
+    ignition_valid = bool(
+        ignition and ignition.valid_for_fusion and ignition.ignition_score is not None
+    )
+    ignition_score = ignition.ignition_score if ignition_valid else None
+    ignition_coverage = ignition.coverage_percent if ignition else 0.0
+    fei = (
+        compute_fei(final * 100.0, ignition_score)
+        if ignition_score is not None
+        else None
+    )
+    qies = (
+        compute_qies(final * 100.0, ignition_score)
+        if ignition_score is not None
+        else None
+    )
+
     # ── Explanability ─────────────────────────────────────────────────────
-    drivers = _explain(ndwi_stress, qte_score, fwi, trend_s,
-                       eco_mult, bridge_fired, net_stress)
+    drivers = _explain(
+        ndwi_stress, qte_score, fwi, trend_s, eco_mult, bridge_fired, net_stress
+    )
 
     return RiskScore(
-        node_id        = nid,
-        node_name      = node["name"],
-        lat            = node["lat"],
-        lon            = node["lon"],
-        eco            = eco,
-        ndwi_stress    = round(ndwi_stress, 4),
-        ndwi_trend_14d = round(ndwi_trend,  5),
-        qte_score      = round(qte_score,   4),
-        bridge_fired   = bridge_fired,
-        fwi_score      = round(fwi,         4),
-        network_stress = round(net_stress,  4),
-        base_score     = round(base,        4),
-        eco_multiplier = eco_mult,
-        final_score    = round(final,       4),
-        tier           = _tier(final),
-        drought_days   = int(node.get("drought_days", 0)),
-        temp_max       = latest.get("temp_max"),
-        wind_max       = latest.get("wind_max"),
-        rh_min         = latest.get("rh_min"),
-        ndwi_latest    = ndwi_s.get("ndwi_latest"),
-        top_drivers    = drivers,
+        node_id=nid,
+        node_name=node["name"],
+        lat=node["lat"],
+        lon=node["lon"],
+        eco=eco,
+        ndwi_stress=round(ndwi_stress, 4),
+        ndwi_trend_14d=round(ndwi_trend, 5),
+        qte_score=round(qte_score, 4),
+        bridge_fired=bridge_fired,
+        fwi_score=round(fwi, 4),
+        network_stress=round(net_stress, 4),
+        ignition_score=(
+            round(ignition_score, 2) if ignition_score is not None else None
+        ),
+        ignition_coverage_percent=round(ignition_coverage, 2),
+        ignition_valid_for_fusion=ignition_valid,
+        fei=round(fei, 2) if fei is not None else None,
+        qies=round(qies, 2) if qies is not None else None,
+        base_score=round(base, 4),
+        eco_multiplier=eco_mult,
+        final_score=round(final, 4),
+        tier=_tier(final),
+        drought_days=int(node.get("drought_days", 0)),
+        temp_max=latest.get("temp_max"),
+        wind_max=latest.get("wind_max"),
+        rh_min=latest.get("rh_min"),
+        ndwi_latest=ndwi_s.get("ndwi_latest"),
+        top_drivers=drivers,
     )
 
 
@@ -280,10 +349,9 @@ def compute_risk_score(
 # =========================
 def run_fusion_pipeline(
     enriched_json: str = os.path.join(OUTPUT_DIR, "nodes_enriched.json"),
-    qte_json:      str = os.path.join(OUTPUT_DIR, "qte_results.json"),
-    graph_json:    str = os.path.join(OUTPUT_DIR, "graph.json"),
+    qte_json: str = os.path.join(OUTPUT_DIR, "qte_results.json"),
+    graph_json: str = os.path.join(OUTPUT_DIR, "graph.json"),
 ) -> list[RiskScore]:
-
     log.info("=== QHDALabs Wildfire — Step 4: Fusion Risk Scorer ===")
 
     # ── Load data ─────────────────────────────────────────────────────────
@@ -298,17 +366,25 @@ def run_fusion_pipeline(
     with open(graph_json, encoding="utf-8") as f:
         graph_data = json.load(f)
 
-    nodes    = enriched["nodes"]
-    graph    = graph_data["adjacency"]
+    nodes = enriched["nodes"]
+    graph = graph_data["adjacency"]
     all_nodes = {n["id"]: n for n in nodes}
 
     # QTE lookup: node_id -> result dict
     qte_map = {r["node_id"]: r for r in qte_raw.get("results", [])}
-    log.info("Loaded %d nodes | %d QTE results", len(nodes), len(qte_map))
+    ignition_map = load_ignition_map()
+    valid_ignition = sum(1 for item in ignition_map.values() if item.valid_for_fusion)
+    log.info(
+        "Loaded %d nodes | %d QTE results | %d/%d fusion-valid ignition scores",
+        len(nodes),
+        len(qte_map),
+        valid_ignition,
+        len(ignition_map),
+    )
 
     # ── Score all nodes ───────────────────────────────────────────────────
     scores = [
-        compute_risk_score(node, qte_map, graph, all_nodes)
+        compute_risk_score(node, qte_map, graph, all_nodes, ignition_map)
         for node in nodes
     ]
     scores.sort(key=lambda s: s.final_score, reverse=True)
@@ -332,26 +408,45 @@ def _print_summary(scores: list[RiskScore]) -> None:
         tier_counts[s.tier] += 1
 
     log.info("\n%s", "═" * 82)
-    log.info("RDLP Wrocław — Unified Wildfire Risk  |  %s",
-             datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M UTC"))
-    log.info("Signals: Sentinel-2 NDWI (45%%) + QTE quantum (30%%) + FWI weather (15%%) + trend (10%%)")
+    log.info(
+        "RDLP Wrocław — Unified Wildfire Risk  |  %s",
+        datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M UTC"),
+    )
+    log.info(
+        "Signals: Sentinel-2 NDWI (45%%) + QTE quantum (30%%) + FWI weather (15%%) + trend (10%%)"
+    )
     log.info("%s", "═" * 82)
-    log.info("%-24s %-6s %-6s %-6s %-6s %7s  tier   top driver",
-             "Nadleśnictwo", "NDWI", "QTE", "FWI", "brg", "SCORE")
+    log.info(
+        "%-24s %-6s %-6s %-6s %-6s %7s  tier   top driver",
+        "Nadleśnictwo",
+        "NDWI",
+        "QTE",
+        "FWI",
+        "brg",
+        "SCORE",
+    )
     log.info("%s", "─" * 82)
 
     tier_colors = {"CRITICAL": "🔴", "HIGH": "🟠", "MODERATE": "🟡", "LOW": "🟢"}
     for s in scores:
-        bflag  = "🔥" if s.bridge_fired else "  "
-        icon   = tier_colors[s.tier]
+        bflag = "🔥" if s.bridge_fired else "  "
+        icon = tier_colors[s.tier]
         driver = s.top_drivers[0]["factor"] if s.top_drivers else ""
-        log.info("%-24s %6.3f %6.3f %6.3f %6s %7.3f  %s %s  %s",
-                 s.node_name[:24],
-                 s.ndwi_stress, s.qte_score, s.fwi_score, bflag,
-                 s.final_score, icon, s.tier[:4], driver)
+        log.info(
+            "%-24s %6.3f %6.3f %6.3f %6s %7.3f  %s %s  %s",
+            s.node_name[:24],
+            s.ndwi_stress,
+            s.qte_score,
+            s.fwi_score,
+            bflag,
+            s.final_score,
+            icon,
+            s.tier[:4],
+            driver,
+        )
 
     log.info("%s", "═" * 82)
-    log.info("Tier counts: %s", "  ".join(f"{k}:{v}" for k,v in tier_counts.items()))
+    log.info("Tier counts: %s", "  ".join(f"{k}:{v}" for k, v in tier_counts.items()))
     bridge_n = sum(1 for s in scores if s.bridge_fired)
     log.info("Bridge fired (sequential dry→wind): %d/%d nodes", bridge_n, len(scores))
 
@@ -360,47 +455,52 @@ def _save_results(scores: list[RiskScore]) -> None:
     # Full results
     risk_path = os.path.join(OUTPUT_DIR, "risk_scores.json")
     payload = {
-        "version":      "1.0.0",
+        "version": "1.0.0",
         "generated_at": datetime.now(timezone.utc).isoformat(),
-        "rdlp":         "Wrocław",
+        "rdlp": "Wrocław",
         "fusion_weights": {
             "ndwi_satellite": W_NDWI,
-            "qte_quantum":    W_QTE,
-            "fwi_weather":    W_FWI,
-            "ndwi_trend":     W_TREND,
+            "qte_quantum": W_QTE,
+            "fwi_weather": W_FWI,
+            "ndwi_trend": W_TREND,
         },
         "alert_thresholds": {
             "CRITICAL": ALERT_CRITICAL,
-            "HIGH":     ALERT_HIGH,
+            "HIGH": ALERT_HIGH,
             "MODERATE": ALERT_MODERATE,
         },
         "scores": [
             {
-                "node_id":       s.node_id,
-                "node_name":     s.node_name,
-                "lat":           s.lat,
-                "lon":           s.lon,
-                "eco":           s.eco,
-                "final_score":   s.final_score,
-                "tier":          s.tier,
+                "node_id": s.node_id,
+                "node_name": s.node_name,
+                "lat": s.lat,
+                "lon": s.lon,
+                "eco": s.eco,
+                "final_score": s.final_score,
+                "tier": s.tier,
                 "signals": {
-                    "ndwi_stress":    s.ndwi_stress,
+                    "ndwi_stress": s.ndwi_stress,
                     "ndwi_trend_14d": s.ndwi_trend_14d,
-                    "ndwi_latest":    s.ndwi_latest,
-                    "qte_score":      s.qte_score,
-                    "bridge_fired":   s.bridge_fired,
-                    "fwi_score":      s.fwi_score,
+                    "ndwi_latest": s.ndwi_latest,
+                    "qte_score": s.qte_score,
+                    "bridge_fired": s.bridge_fired,
+                    "fwi_score": s.fwi_score,
                     "network_stress": s.network_stress,
+                    "ignition_score": s.ignition_score,
+                    "ignition_coverage_percent": s.ignition_coverage_percent,
+                    "ignition_valid_for_fusion": s.ignition_valid_for_fusion,
+                    "fei": s.fei,
+                    "qies": s.qies,
                 },
                 "modifiers": {
                     "eco_multiplier": s.eco_multiplier,
-                    "base_score":     s.base_score,
+                    "base_score": s.base_score,
                 },
                 "context": {
                     "drought_days": s.drought_days,
-                    "temp_max":     s.temp_max,
-                    "wind_max":     s.wind_max,
-                    "rh_min":       s.rh_min,
+                    "temp_max": s.temp_max,
+                    "wind_max": s.wind_max,
+                    "rh_min": s.rh_min,
                 },
                 "explanation": s.top_drivers,
             }
@@ -415,23 +515,23 @@ def _save_results(scores: list[RiskScore]) -> None:
     alerts = [s for s in scores if s.tier in ("CRITICAL", "HIGH")]
     alerts_path = os.path.join(OUTPUT_DIR, "alerts.json")
     alerts_payload = {
-        "version":      "1.0.0",
+        "version": "1.0.0",
         "generated_at": datetime.now(timezone.utc).isoformat(),
-        "alert_count":  len(alerts),
+        "alert_count": len(alerts),
         "alerts": [
             {
-                "priority":    1 if s.tier == "CRITICAL" else 2,
-                "tier":        s.tier,
-                "node_id":     s.node_id,
-                "node_name":   s.node_name,
-                "lat":         s.lat,
-                "lon":         s.lon,
-                "score":       s.final_score,
-                "eco":         s.eco,
-                "bridge_fired":s.bridge_fired,
+                "priority": 1 if s.tier == "CRITICAL" else 2,
+                "tier": s.tier,
+                "node_id": s.node_id,
+                "node_name": s.node_name,
+                "lat": s.lat,
+                "lon": s.lon,
+                "score": s.final_score,
+                "eco": s.eco,
+                "bridge_fired": s.bridge_fired,
                 "ndwi_latest": s.ndwi_latest,
-                "drought_days":s.drought_days,
-                "reason":      " | ".join(d["label"] for d in s.top_drivers[:2]),
+                "drought_days": s.drought_days,
+                "reason": " | ".join(d["label"] for d in s.top_drivers[:2]),
                 "drone_recommended": s.tier == "CRITICAL",
             }
             for s in alerts
@@ -443,30 +543,30 @@ def _save_results(scores: list[RiskScore]) -> None:
 
 
 def _generate_final_map(scores: list[RiskScore], graph: dict) -> None:
-    score_map = {s.node_id: s for s in scores}
-
     node_js = []
     for s in scores:
-        node_js.append({
-            "id":           s.node_id,
-            "name":         s.node_name,
-            "lat":          s.lat,
-            "lon":          s.lon,
-            "eco":          s.eco,
-            "score":        s.final_score,
-            "tier":         s.tier,
-            "ndwi":         s.ndwi_stress,
-            "ndwi_val":     s.ndwi_latest or 0,
-            "qte":          s.qte_score,
-            "fwi":          s.fwi_score,
-            "bridge":       s.bridge_fired,
-            "drought":      s.drought_days,
-            "temp":         s.temp_max,
-            "wind":         s.wind_max,
-            "rh":           s.rh_min,
-            "drivers":      s.top_drivers,
-            "neighbors":    [nb["id"] for nb in graph.get(s.node_id, [])],
-        })
+        node_js.append(
+            {
+                "id": s.node_id,
+                "name": s.node_name,
+                "lat": s.lat,
+                "lon": s.lon,
+                "eco": s.eco,
+                "score": s.final_score,
+                "tier": s.tier,
+                "ndwi": s.ndwi_stress,
+                "ndwi_val": s.ndwi_latest or 0,
+                "qte": s.qte_score,
+                "fwi": s.fwi_score,
+                "bridge": s.bridge_fired,
+                "drought": s.drought_days,
+                "temp": s.temp_max,
+                "wind": s.wind_max,
+                "rh": s.rh_min,
+                "drivers": s.top_drivers,
+                "neighbors": [nb["id"] for nb in graph.get(s.node_id, [])],
+            }
+        )
 
     node_data = json.dumps(node_js, ensure_ascii=False)
 
@@ -610,8 +710,12 @@ if __name__ == "__main__":
         for a in alerts:
             drone = " → DRONE RECOMMENDED" if a.tier == "CRITICAL" else ""
             log.info("[%s] %s%s", a.tier, a.node_name, drone)
-            log.info("  Score: %.3f | NDWI: %.4f | Bridge: %s",
-                     a.final_score, a.ndwi_latest or 0, "🔥" if a.bridge_fired else "—")
+            log.info(
+                "  Score: %.3f | NDWI: %.4f | Bridge: %s",
+                a.final_score,
+                a.ndwi_latest or 0,
+                "🔥" if a.bridge_fired else "—",
+            )
             if a.top_drivers:
                 log.info("  Reason: %s", a.top_drivers[0]["label"])
         log.info("%s", "=" * 60)
