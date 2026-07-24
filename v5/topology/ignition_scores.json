@@ -1,7 +1,7 @@
 {
   "version": "1.1.0",
   "module": "qhdalabs_wildfire_ignition_v1",
-  "generated_at": "2026-07-24T19:48:39.657852+00:00",
+  "generated_at": "2026-07-24T22:06:51.635951+00:00",
   "rdlp": "Wrocław",
   "config": {
     "ignition_weights": {
@@ -35,38 +35,34 @@
       "node_name": "Kłodzko",
       "lat": 50.437,
       "lon": 16.659,
-      "ignition_score": 62.17,
-      "ignition_score_raw": 62.17,
-      "ignition_score_available": 69.08,
+      "ignition_score": 62.2,
+      "ignition_score_raw": 62.2,
+      "ignition_score_available": 62.2,
       "extreme_ignition": false,
       "dominant_source": "roads",
       "data_coverage": [
         "agriculture",
+        "historical_kde",
         "powerlines",
         "railways",
         "roads",
         "tourism"
       ],
-      "missing_sublayers": [
-        "historical_kde"
-      ],
-      "coverage_weight": 0.9,
-      "coverage_percent": 90.0,
-      "score_status": "partial",
+      "missing_sublayers": [],
+      "coverage_weight": 1.0,
+      "coverage_percent": 100.0,
+      "score_status": "complete",
       "valid_for_fusion": true,
-      "warnings": [
-        "Historical ignition data is unavailable",
-        "Missing sublayers are null and excluded from the available-layer normalization"
-      ],
+      "warnings": [],
       "sublayers": {
         "roads": 96.19,
         "railways": 91.14,
         "powerlines": 2.8,
         "tourism": 98.96,
         "agriculture": 30.88,
-        "historical_kde": null
+        "historical_kde": 0.24
       },
-      "computed_at": "2026-07-24T19:47:30.414122+00:00"
+      "computed_at": "2026-07-24T22:05:36.654679+00:00"
     },
     {
       "node_id": "boleslawiec",
@@ -75,74 +71,66 @@
       "lon": 15.559,
       "ignition_score": 56.85,
       "ignition_score_raw": 56.85,
-      "ignition_score_available": 63.16,
+      "ignition_score_available": 56.85,
       "extreme_ignition": false,
       "dominant_source": "roads",
       "data_coverage": [
         "agriculture",
+        "historical_kde",
         "powerlines",
         "railways",
         "roads",
         "tourism"
       ],
-      "missing_sublayers": [
-        "historical_kde"
-      ],
-      "coverage_weight": 0.9,
-      "coverage_percent": 90.0,
-      "score_status": "partial",
+      "missing_sublayers": [],
+      "coverage_weight": 1.0,
+      "coverage_percent": 100.0,
+      "score_status": "complete",
       "valid_for_fusion": true,
-      "warnings": [
-        "Historical ignition data is unavailable",
-        "Missing sublayers are null and excluded from the available-layer normalization"
-      ],
+      "warnings": [],
       "sublayers": {
         "roads": 95.96,
         "railways": 78.3,
         "powerlines": 5.4,
         "tourism": 98.02,
         "agriculture": 11.23,
-        "historical_kde": null
+        "historical_kde": 0.03
       },
-      "computed_at": "2026-07-24T19:47:14.418420+00:00"
+      "computed_at": "2026-07-24T22:05:24.028467+00:00"
     },
     {
       "node_id": "zmigrod",
       "node_name": "Żmigród",
       "lat": 51.475,
       "lon": 16.906,
-      "ignition_score": 55.79,
-      "ignition_score_raw": 55.79,
-      "ignition_score_available": 61.99,
+      "ignition_score": 55.82,
+      "ignition_score_raw": 55.82,
+      "ignition_score_available": 55.82,
       "extreme_ignition": false,
       "dominant_source": "roads",
       "data_coverage": [
         "agriculture",
+        "historical_kde",
         "powerlines",
         "railways",
         "roads",
         "tourism"
       ],
-      "missing_sublayers": [
-        "historical_kde"
-      ],
-      "coverage_weight": 0.9,
-      "coverage_percent": 90.0,
-      "score_status": "partial",
+      "missing_sublayers": [],
+      "coverage_weight": 1.0,
+      "coverage_percent": 100.0,
+      "score_status": "complete",
       "valid_for_fusion": true,
-      "warnings": [
-        "Historical ignition data is unavailable",
-        "Missing sublayers are null and excluded from the available-layer normalization"
-      ],
+      "warnings": [],
       "sublayers": {
         "roads": 86.17,
         "railways": 34.69,
         "powerlines": 52.61,
         "tourism": 89.77,
         "agriculture": 39.69,
-        "historical_kde": null
+        "historical_kde": 0.27
       },
-      "computed_at": "2026-07-24T19:48:37.088838+00:00"
+      "computed_at": "2026-07-24T22:06:49.460997+00:00"
     },
     {
       "node_id": "wroclaw",
@@ -151,36 +139,32 @@
       "lon": 17.033,
       "ignition_score": 55.72,
       "ignition_score_raw": 55.72,
-      "ignition_score_available": 61.91,
+      "ignition_score_available": 55.72,
       "extreme_ignition": false,
       "dominant_source": "roads",
       "data_coverage": [
         "agriculture",
+        "historical_kde",
         "powerlines",
         "railways",
         "roads",
         "tourism"
       ],
-      "missing_sublayers": [
-        "historical_kde"
-      ],
-      "coverage_weight": 0.9,
-      "coverage_percent": 90.0,
-      "score_status": "partial",
+      "missing_sublayers": [],
+      "coverage_weight": 1.0,
+      "coverage_percent": 100.0,
+      "score_status": "complete",
       "valid_for_fusion": true,
-      "warnings": [
-        "Historical ignition data is unavailable",
-        "Missing sublayers are null and excluded from the available-layer normalization"
-      ],
+      "warnings": [],
       "sublayers": {
         "roads": 98.21,
         "railways": 79.62,
         "powerlines": 0.02,
         "tourism": 99.45,
         "agriculture": 2.17,
-        "historical_kde": null
+        "historical_kde": 0.01
       },
-      "computed_at": "2026-07-24T19:48:31.084341+00:00"
+      "computed_at": "2026-07-24T22:06:44.795691+00:00"
     },
     {
       "node_id": "lwowek",
@@ -189,36 +173,32 @@
       "lon": 15.593,
       "ignition_score": 52.25,
       "ignition_score_raw": 52.25,
-      "ignition_score_available": 58.05,
+      "ignition_score_available": 52.25,
       "extreme_ignition": false,
       "dominant_source": "roads",
       "data_coverage": [
         "agriculture",
+        "historical_kde",
         "powerlines",
         "railways",
         "roads",
         "tourism"
       ],
-      "missing_sublayers": [
-        "historical_kde"
-      ],
-      "coverage_weight": 0.9,
-      "coverage_percent": 90.0,
-      "score_status": "partial",
+      "missing_sublayers": [],
+      "coverage_weight": 1.0,
+      "coverage_percent": 100.0,
+      "score_status": "complete",
       "valid_for_fusion": true,
-      "warnings": [
-        "Historical ignition data is unavailable",
-        "Missing sublayers are null and excluded from the available-layer normalization"
-      ],
+      "warnings": [],
       "sublayers": {
         "roads": 95.39,
         "railways": 0.19,
         "powerlines": 22.55,
         "tourism": 99.22,
         "agriculture": 67.29,
-        "historical_kde": null
+        "historical_kde": 0.01
       },
-      "computed_at": "2026-07-24T19:47:43.228786+00:00"
+      "computed_at": "2026-07-24T22:05:50.128464+00:00"
     },
     {
       "node_id": "ladek",
@@ -227,36 +207,32 @@
       "lon": 16.884,
       "ignition_score": 50.76,
       "ignition_score_raw": 50.76,
-      "ignition_score_available": 56.4,
+      "ignition_score_available": 50.76,
       "extreme_ignition": false,
       "dominant_source": "roads",
       "data_coverage": [
         "agriculture",
+        "historical_kde",
         "powerlines",
         "railways",
         "roads",
         "tourism"
       ],
-      "missing_sublayers": [
-        "historical_kde"
-      ],
-      "coverage_weight": 0.9,
-      "coverage_percent": 90.0,
-      "score_status": "partial",
+      "missing_sublayers": [],
+      "coverage_weight": 1.0,
+      "coverage_percent": 100.0,
+      "score_status": "complete",
       "valid_for_fusion": true,
-      "warnings": [
-        "Historical ignition data is unavailable",
-        "Missing sublayers are null and excluded from the available-layer normalization"
-      ],
+      "warnings": [],
       "sublayers": {
         "roads": 88.64,
         "railways": 0.0,
         "powerlines": 42.52,
         "tourism": 92.8,
         "agriculture": 55.33,
-        "historical_kde": null
+        "historical_kde": 0.06
       },
-      "computed_at": "2026-07-24T19:47:32.943243+00:00"
+      "computed_at": "2026-07-24T22:05:38.754682+00:00"
     },
     {
       "node_id": "bystrzyca",
@@ -265,74 +241,66 @@
       "lon": 16.649,
       "ignition_score": 49.95,
       "ignition_score_raw": 49.95,
-      "ignition_score_available": 55.5,
+      "ignition_score_available": 49.95,
       "extreme_ignition": false,
       "dominant_source": "roads",
       "data_coverage": [
         "agriculture",
+        "historical_kde",
         "powerlines",
         "railways",
         "roads",
         "tourism"
       ],
-      "missing_sublayers": [
-        "historical_kde"
-      ],
-      "coverage_weight": 0.9,
-      "coverage_percent": 90.0,
-      "score_status": "partial",
+      "missing_sublayers": [],
+      "coverage_weight": 1.0,
+      "coverage_percent": 100.0,
+      "score_status": "complete",
       "valid_for_fusion": true,
-      "warnings": [
-        "Historical ignition data is unavailable",
-        "Missing sublayers are null and excluded from the available-layer normalization"
-      ],
+      "warnings": [],
       "sublayers": {
         "roads": 95.81,
         "railways": 20.27,
         "powerlines": 25.37,
         "tourism": 93.97,
         "agriculture": 26.97,
-        "historical_kde": null
+        "historical_kde": 0.01
       },
-      "computed_at": "2026-07-24T19:47:16.959123+00:00"
+      "computed_at": "2026-07-24T22:05:26.091087+00:00"
     },
     {
       "node_id": "bardo_slaskie",
       "node_name": "Bardo Śląskie",
       "lat": 50.514,
       "lon": 16.749,
-      "ignition_score": 49.38,
-      "ignition_score_raw": 49.38,
-      "ignition_score_available": 54.87,
+      "ignition_score": 49.39,
+      "ignition_score_raw": 49.39,
+      "ignition_score_available": 49.39,
       "extreme_ignition": false,
       "dominant_source": "roads",
       "data_coverage": [
         "agriculture",
+        "historical_kde",
         "powerlines",
         "railways",
         "roads",
         "tourism"
       ],
-      "missing_sublayers": [
-        "historical_kde"
-      ],
-      "coverage_weight": 0.9,
-      "coverage_percent": 90.0,
-      "score_status": "partial",
+      "missing_sublayers": [],
+      "coverage_weight": 1.0,
+      "coverage_percent": 100.0,
+      "score_status": "complete",
       "valid_for_fusion": true,
-      "warnings": [
-        "Historical ignition data is unavailable",
-        "Missing sublayers are null and excluded from the available-layer normalization"
-      ],
+      "warnings": [],
       "sublayers": {
         "roads": 72.37,
         "railways": 6.99,
         "powerlines": 62.56,
         "tourism": 79.97,
         "agriculture": 56.77,
-        "historical_kde": null
+        "historical_kde": 0.06
       },
-      "computed_at": "2026-07-24T19:47:11.762099+00:00"
+      "computed_at": "2026-07-24T22:05:22.042368+00:00"
     },
     {
       "node_id": "kamienna_gora",
@@ -341,112 +309,100 @@
       "lon": 16.039,
       "ignition_score": 49.27,
       "ignition_score_raw": 49.27,
-      "ignition_score_available": 54.74,
+      "ignition_score_available": 49.27,
       "extreme_ignition": false,
       "dominant_source": "roads",
       "data_coverage": [
         "agriculture",
+        "historical_kde",
         "powerlines",
         "railways",
         "roads",
         "tourism"
       ],
-      "missing_sublayers": [
-        "historical_kde"
-      ],
-      "coverage_weight": 0.9,
-      "coverage_percent": 90.0,
-      "score_status": "partial",
+      "missing_sublayers": [],
+      "coverage_weight": 1.0,
+      "coverage_percent": 100.0,
+      "score_status": "complete",
       "valid_for_fusion": true,
-      "warnings": [
-        "Historical ignition data is unavailable",
-        "Missing sublayers are null and excluded from the available-layer normalization"
-      ],
+      "warnings": [],
       "sublayers": {
         "roads": 88.27,
         "railways": 0.82,
         "powerlines": 9.75,
         "tourism": 97.69,
         "agriculture": 72.79,
-        "historical_kde": null
+        "historical_kde": 0.05
       },
-      "computed_at": "2026-07-24T19:47:27.904430+00:00"
+      "computed_at": "2026-07-24T22:05:34.631487+00:00"
     },
     {
       "node_id": "wolow",
       "node_name": "Wołów",
       "lat": 51.338,
       "lon": 16.637,
-      "ignition_score": 48.71,
-      "ignition_score_raw": 48.71,
-      "ignition_score_available": 54.12,
+      "ignition_score": 48.72,
+      "ignition_score_raw": 48.72,
+      "ignition_score_available": 48.72,
       "extreme_ignition": false,
       "dominant_source": "roads",
       "data_coverage": [
         "agriculture",
+        "historical_kde",
         "powerlines",
         "railways",
         "roads",
         "tourism"
       ],
-      "missing_sublayers": [
-        "historical_kde"
-      ],
-      "coverage_weight": 0.9,
-      "coverage_percent": 90.0,
-      "score_status": "partial",
+      "missing_sublayers": [],
+      "coverage_weight": 1.0,
+      "coverage_percent": 100.0,
+      "score_status": "complete",
       "valid_for_fusion": true,
-      "warnings": [
-        "Historical ignition data is unavailable",
-        "Missing sublayers are null and excluded from the available-layer normalization"
-      ],
+      "warnings": [],
       "sublayers": {
         "roads": 96.52,
         "railways": 21.68,
         "powerlines": 11.14,
         "tourism": 94.05,
         "agriculture": 29.77,
-        "historical_kde": null
+        "historical_kde": 0.1
       },
-      "computed_at": "2026-07-24T19:48:27.628208+00:00"
+      "computed_at": "2026-07-24T22:06:42.280711+00:00"
     },
     {
       "node_id": "legnica",
       "node_name": "Legnica",
       "lat": 51.211,
       "lon": 16.156,
-      "ignition_score": 47.44,
-      "ignition_score_raw": 47.44,
-      "ignition_score_available": 52.71,
+      "ignition_score": 48.49,
+      "ignition_score_raw": 48.49,
+      "ignition_score_available": 48.49,
       "extreme_ignition": false,
       "dominant_source": "roads",
       "data_coverage": [
         "agriculture",
+        "historical_kde",
         "powerlines",
         "railways",
         "roads",
         "tourism"
       ],
-      "missing_sublayers": [
-        "historical_kde"
-      ],
-      "coverage_weight": 0.9,
-      "coverage_percent": 90.0,
-      "score_status": "partial",
+      "missing_sublayers": [],
+      "coverage_weight": 1.0,
+      "coverage_percent": 100.0,
+      "score_status": "complete",
       "valid_for_fusion": true,
-      "warnings": [
-        "Historical ignition data is unavailable",
-        "Missing sublayers are null and excluded from the available-layer normalization"
-      ],
+      "warnings": [],
       "sublayers": {
         "roads": 84.5,
         "railways": 36.13,
         "powerlines": 4.11,
         "tourism": 95.78,
         "agriculture": 27.37,
-        "historical_kde": null
+        "historical_kde": 10.51
       },
-      "computed_at": "2026-07-24T19:47:35.487604+00:00"
+      "computed_at": "2026-07-24T22:05:41.150191+00:00"
     },
     {
       "node_id": "sycow",
@@ -455,74 +411,66 @@
       "lon": 17.718,
       "ignition_score": 46.91,
       "ignition_score_raw": 46.91,
-      "ignition_score_available": 52.13,
+      "ignition_score_available": 46.91,
       "extreme_ignition": false,
       "dominant_source": "roads",
       "data_coverage": [
         "agriculture",
+        "historical_kde",
         "powerlines",
         "railways",
         "roads",
         "tourism"
       ],
-      "missing_sublayers": [
-        "historical_kde"
-      ],
-      "coverage_weight": 0.9,
-      "coverage_percent": 90.0,
-      "score_status": "partial",
+      "missing_sublayers": [],
+      "coverage_weight": 1.0,
+      "coverage_percent": 100.0,
+      "score_status": "complete",
       "valid_for_fusion": true,
-      "warnings": [
-        "Historical ignition data is unavailable",
-        "Missing sublayers are null and excluded from the available-layer normalization"
-      ],
+      "warnings": [],
       "sublayers": {
         "roads": 95.87,
         "railways": 0.0,
         "powerlines": 20.8,
         "tourism": 98.35,
         "agriculture": 33.83,
-        "historical_kde": null
+        "historical_kde": 0.0
       },
-      "computed_at": "2026-07-24T19:48:10.696625+00:00"
+      "computed_at": "2026-07-24T22:06:21.440815+00:00"
     },
     {
       "node_id": "lubin",
       "node_name": "Lubin",
       "lat": 51.401,
       "lon": 16.201,
-      "ignition_score": 46.87,
-      "ignition_score_raw": 46.87,
-      "ignition_score_available": 52.07,
+      "ignition_score": 46.88,
+      "ignition_score_raw": 46.88,
+      "ignition_score_available": 46.88,
       "extreme_ignition": false,
       "dominant_source": "roads",
       "data_coverage": [
         "agriculture",
+        "historical_kde",
         "powerlines",
         "railways",
         "roads",
         "tourism"
       ],
-      "missing_sublayers": [
-        "historical_kde"
-      ],
-      "coverage_weight": 0.9,
-      "coverage_percent": 90.0,
-      "score_status": "partial",
+      "missing_sublayers": [],
+      "coverage_weight": 1.0,
+      "coverage_percent": 100.0,
+      "score_status": "complete",
       "valid_for_fusion": true,
-      "warnings": [
-        "Historical ignition data is unavailable",
-        "Missing sublayers are null and excluded from the available-layer normalization"
-      ],
+      "warnings": [],
       "sublayers": {
         "roads": 97.03,
         "railways": 28.07,
         "powerlines": 1.43,
         "tourism": 98.52,
         "agriculture": 13.33,
-        "historical_kde": null
+        "historical_kde": 0.15
       },
-      "computed_at": "2026-07-24T19:47:40.657636+00:00"
+      "computed_at": "2026-07-24T22:05:47.593577+00:00"
     },
     {
       "node_id": "szklarska",
@@ -531,36 +479,32 @@
       "lon": 15.523,
       "ignition_score": 46.29,
       "ignition_score_raw": 46.29,
-      "ignition_score_available": 51.44,
+      "ignition_score_available": 46.29,
       "extreme_ignition": false,
       "dominant_source": "roads",
       "data_coverage": [
         "agriculture",
+        "historical_kde",
         "powerlines",
         "railways",
         "roads",
         "tourism"
       ],
-      "missing_sublayers": [
-        "historical_kde"
-      ],
-      "coverage_weight": 0.9,
-      "coverage_percent": 90.0,
-      "score_status": "partial",
+      "missing_sublayers": [],
+      "coverage_weight": 1.0,
+      "coverage_percent": 100.0,
+      "score_status": "complete",
       "valid_for_fusion": true,
-      "warnings": [
-        "Historical ignition data is unavailable",
-        "Missing sublayers are null and excluded from the available-layer normalization"
-      ],
+      "warnings": [],
       "sublayers": {
         "roads": 91.9,
         "railways": 15.8,
         "powerlines": 7.62,
         "tourism": 93.29,
         "agriculture": 33.47,
-        "historical_kde": null
+        "historical_kde": 0.0
       },
-      "computed_at": "2026-07-24T19:48:13.320684+00:00"
+      "computed_at": "2026-07-24T22:06:29.750109+00:00"
     },
     {
       "node_id": "milicz",
@@ -569,36 +513,32 @@
       "lon": 17.284,
       "ignition_score": 45.76,
       "ignition_score_raw": 45.76,
-      "ignition_score_available": 50.85,
+      "ignition_score_available": 45.76,
       "extreme_ignition": false,
       "dominant_source": "roads",
       "data_coverage": [
         "agriculture",
+        "historical_kde",
         "powerlines",
         "railways",
         "roads",
         "tourism"
       ],
-      "missing_sublayers": [
-        "historical_kde"
-      ],
-      "coverage_weight": 0.9,
-      "coverage_percent": 90.0,
-      "score_status": "partial",
+      "missing_sublayers": [],
+      "coverage_weight": 1.0,
+      "coverage_percent": 100.0,
+      "score_status": "complete",
       "valid_for_fusion": true,
-      "warnings": [
-        "Historical ignition data is unavailable",
-        "Missing sublayers are null and excluded from the available-layer normalization"
-      ],
+      "warnings": [],
       "sublayers": {
         "roads": 71.81,
         "railways": 13.44,
         "powerlines": 58.06,
         "tourism": 62.05,
         "agriculture": 47.37,
-        "historical_kde": null
+        "historical_kde": 0.0
       },
-      "computed_at": "2026-07-24T19:47:49.037783+00:00"
+      "computed_at": "2026-07-24T22:05:56.315376+00:00"
     },
     {
       "node_id": "piszowice",
@@ -607,74 +547,66 @@
       "lon": 15.867,
       "ignition_score": 44.18,
       "ignition_score_raw": 44.18,
-      "ignition_score_available": 49.09,
+      "ignition_score_available": 44.18,
       "extreme_ignition": false,
       "dominant_source": "roads",
       "data_coverage": [
         "agriculture",
+        "historical_kde",
         "powerlines",
         "railways",
         "roads",
         "tourism"
       ],
-      "missing_sublayers": [
-        "historical_kde"
-      ],
-      "coverage_weight": 0.9,
-      "coverage_percent": 90.0,
-      "score_status": "partial",
+      "missing_sublayers": [],
+      "coverage_weight": 1.0,
+      "coverage_percent": 100.0,
+      "score_status": "complete",
       "valid_for_fusion": true,
-      "warnings": [
-        "Historical ignition data is unavailable",
-        "Missing sublayers are null and excluded from the available-layer normalization"
-      ],
+      "warnings": [],
       "sublayers": {
         "roads": 79.83,
         "railways": 0.0,
         "powerlines": 80.91,
         "tourism": 51.82,
         "agriculture": 28.77,
-        "historical_kde": null
+        "historical_kde": 0.0
       },
-      "computed_at": "2026-07-24T19:47:59.914171+00:00"
+      "computed_at": "2026-07-24T22:06:06.888474+00:00"
     },
     {
       "node_id": "zlotoryja",
       "node_name": "Złotoryja",
       "lat": 51.125,
       "lon": 15.919,
-      "ignition_score": 44.13,
-      "ignition_score_raw": 44.13,
-      "ignition_score_available": 49.04,
+      "ignition_score": 44.16,
+      "ignition_score_raw": 44.16,
+      "ignition_score_available": 44.16,
       "extreme_ignition": false,
       "dominant_source": "roads",
       "data_coverage": [
         "agriculture",
+        "historical_kde",
         "powerlines",
         "railways",
         "roads",
         "tourism"
       ],
-      "missing_sublayers": [
-        "historical_kde"
-      ],
-      "coverage_weight": 0.9,
-      "coverage_percent": 90.0,
-      "score_status": "partial",
+      "missing_sublayers": [],
+      "coverage_weight": 1.0,
+      "coverage_percent": 100.0,
+      "score_status": "complete",
       "valid_for_fusion": true,
-      "warnings": [
-        "Historical ignition data is unavailable",
-        "Missing sublayers are null and excluded from the available-layer normalization"
-      ],
+      "warnings": [],
       "sublayers": {
         "roads": 94.45,
         "railways": 0.0,
         "powerlines": 5.72,
         "tourism": 94.64,
         "agriculture": 36.46,
-        "historical_kde": null
+        "historical_kde": 0.21
       },
-      "computed_at": "2026-07-24T19:48:34.428198+00:00"
+      "computed_at": "2026-07-24T22:06:47.049290+00:00"
     },
     {
       "node_id": "swidnica",
@@ -683,150 +615,134 @@
       "lon": 16.488,
       "ignition_score": 44.03,
       "ignition_score_raw": 44.03,
-      "ignition_score_available": 48.92,
+      "ignition_score_available": 44.03,
       "extreme_ignition": false,
       "dominant_source": "roads",
       "data_coverage": [
         "agriculture",
+        "historical_kde",
         "powerlines",
         "railways",
         "roads",
         "tourism"
       ],
-      "missing_sublayers": [
-        "historical_kde"
-      ],
-      "coverage_weight": 0.9,
-      "coverage_percent": 90.0,
-      "score_status": "partial",
+      "missing_sublayers": [],
+      "coverage_weight": 1.0,
+      "coverage_percent": 100.0,
+      "score_status": "complete",
       "valid_for_fusion": true,
-      "warnings": [
-        "Historical ignition data is unavailable",
-        "Missing sublayers are null and excluded from the available-layer normalization"
-      ],
+      "warnings": [],
       "sublayers": {
         "roads": 94.46,
         "railways": 21.27,
         "powerlines": 2.11,
         "tourism": 97.19,
         "agriculture": 8.44,
-        "historical_kde": null
+        "historical_kde": 0.0
       },
-      "computed_at": "2026-07-24T19:48:15.931081+00:00"
+      "computed_at": "2026-07-24T22:06:32.560763+00:00"
     },
     {
       "node_id": "zgorzelec",
       "node_name": "Zgorzelec",
       "lat": 51.155,
       "lon": 14.999,
-      "ignition_score": 43.38,
-      "ignition_score_raw": 43.38,
-      "ignition_score_available": 48.2,
+      "ignition_score": 43.4,
+      "ignition_score_raw": 43.4,
+      "ignition_score_available": 43.4,
       "extreme_ignition": false,
       "dominant_source": "roads",
       "data_coverage": [
         "agriculture",
+        "historical_kde",
         "powerlines",
         "railways",
         "roads",
         "tourism"
       ],
-      "missing_sublayers": [
-        "historical_kde"
-      ],
-      "coverage_weight": 0.9,
-      "coverage_percent": 90.0,
-      "score_status": "partial",
+      "missing_sublayers": [],
+      "coverage_weight": 1.0,
+      "coverage_percent": 100.0,
+      "score_status": "complete",
       "valid_for_fusion": true,
-      "warnings": [
-        "Historical ignition data is unavailable",
-        "Missing sublayers are null and excluded from the available-layer normalization"
-      ],
+      "warnings": [],
       "sublayers": {
         "roads": 93.23,
         "railways": 4.76,
         "powerlines": 0.1,
         "tourism": 93.27,
         "agriculture": 34.13,
-        "historical_kde": null
+        "historical_kde": 0.2
       },
-      "computed_at": "2026-07-24T19:48:39.625492+00:00"
+      "computed_at": "2026-07-24T22:06:51.622382+00:00"
     },
     {
       "node_id": "walbrzych",
       "node_name": "Wałbrzych",
       "lat": 50.771,
       "lon": 16.284,
-      "ignition_score": 42.14,
-      "ignition_score_raw": 42.14,
-      "ignition_score_available": 46.82,
+      "ignition_score": 42.22,
+      "ignition_score_raw": 42.22,
+      "ignition_score_available": 42.22,
       "extreme_ignition": false,
       "dominant_source": "roads",
       "data_coverage": [
         "agriculture",
+        "historical_kde",
         "powerlines",
         "railways",
         "roads",
         "tourism"
       ],
-      "missing_sublayers": [
-        "historical_kde"
-      ],
-      "coverage_weight": 0.9,
-      "coverage_percent": 90.0,
-      "score_status": "partial",
+      "missing_sublayers": [],
+      "coverage_weight": 1.0,
+      "coverage_percent": 100.0,
+      "score_status": "complete",
       "valid_for_fusion": true,
-      "warnings": [
-        "Historical ignition data is unavailable",
-        "Missing sublayers are null and excluded from the available-layer normalization"
-      ],
+      "warnings": [],
       "sublayers": {
         "roads": 95.01,
         "railways": 5.41,
         "powerlines": 1.26,
         "tourism": 95.97,
         "agriculture": 18.11,
-        "historical_kde": null
+        "historical_kde": 0.89
       },
-      "computed_at": "2026-07-24T19:48:21.965740+00:00"
+      "computed_at": "2026-07-24T22:06:37.050453+00:00"
     },
     {
       "node_id": "olawa",
       "node_name": "Oława",
       "lat": 50.939,
       "lon": 17.3,
-      "ignition_score": 41.87,
-      "ignition_score_raw": 41.87,
-      "ignition_score_available": 46.52,
+      "ignition_score": 41.88,
+      "ignition_score_raw": 41.88,
+      "ignition_score_available": 41.88,
       "extreme_ignition": false,
       "dominant_source": "roads",
       "data_coverage": [
         "agriculture",
+        "historical_kde",
         "powerlines",
         "railways",
         "roads",
         "tourism"
       ],
-      "missing_sublayers": [
-        "historical_kde"
-      ],
-      "coverage_weight": 0.9,
-      "coverage_percent": 90.0,
-      "score_status": "partial",
+      "missing_sublayers": [],
+      "coverage_weight": 1.0,
+      "coverage_percent": 100.0,
+      "score_status": "complete",
       "valid_for_fusion": true,
-      "warnings": [
-        "Historical ignition data is unavailable",
-        "Missing sublayers are null and excluded from the available-layer normalization"
-      ],
+      "warnings": [],
       "sublayers": {
         "roads": 92.25,
         "railways": 6.6,
         "powerlines": 1.96,
         "tourism": 98.78,
         "agriculture": 15.85,
-        "historical_kde": null
+        "historical_kde": 0.08
       },
-      "computed_at": "2026-07-24T19:47:57.389366+00:00"
+      "computed_at": "2026-07-24T22:06:04.455086+00:00"
     },
     {
       "node_id": "gory_stolowe",
@@ -835,36 +751,32 @@
       "lon": 16.364,
       "ignition_score": 41.21,
       "ignition_score_raw": 41.21,
-      "ignition_score_available": 45.79,
+      "ignition_score_available": 41.21,
       "extreme_ignition": false,
       "dominant_source": "roads",
       "data_coverage": [
         "agriculture",
+        "historical_kde",
         "powerlines",
         "railways",
         "roads",
         "tourism"
       ],
-      "missing_sublayers": [
-        "historical_kde"
-      ],
-      "coverage_weight": 0.9,
-      "coverage_percent": 90.0,
-      "score_status": "partial",
+      "missing_sublayers": [],
+      "coverage_weight": 1.0,
+      "coverage_percent": 100.0,
+      "score_status": "complete",
       "valid_for_fusion": true,
-      "warnings": [
-        "Historical ignition data is unavailable",
-        "Missing sublayers are null and excluded from the available-layer normalization"
-      ],
+      "warnings": [],
       "sublayers": {
         "roads": 68.65,
         "railways": 0.0,
         "powerlines": 51.15,
         "tourism": 43.66,
         "agriculture": 65.5,
-        "historical_kde": null
+        "historical_kde": 0.05
       },
-      "computed_at": "2026-07-24T19:47:20.294325+00:00"
+      "computed_at": "2026-07-24T22:05:28.143187+00:00"
     },
     {
       "node_id": "jugow",
@@ -873,74 +785,66 @@
       "lon": 16.555,
       "ignition_score": 35.75,
       "ignition_score_raw": 35.75,
-      "ignition_score_available": 39.73,
+      "ignition_score_available": 35.75,
       "extreme_ignition": false,
       "dominant_source": "roads",
       "data_coverage": [
         "agriculture",
+        "historical_kde",
         "powerlines",
         "railways",
         "roads",
         "tourism"
       ],
-      "missing_sublayers": [
-        "historical_kde"
-      ],
-      "coverage_weight": 0.9,
-      "coverage_percent": 90.0,
-      "score_status": "partial",
+      "missing_sublayers": [],
+      "coverage_weight": 1.0,
+      "coverage_percent": 100.0,
+      "score_status": "complete",
       "valid_for_fusion": true,
-      "warnings": [
-        "Historical ignition data is unavailable",
-        "Missing sublayers are null and excluded from the available-layer normalization"
-      ],
+      "warnings": [],
       "sublayers": {
         "roads": 78.54,
         "railways": 1.03,
         "powerlines": 16.08,
         "tourism": 46.13,
         "agriculture": 43.88,
-        "historical_kde": null
+        "historical_kde": 0.0
       },
-      "computed_at": "2026-07-24T19:47:25.340247+00:00"
+      "computed_at": "2026-07-24T22:05:32.543544+00:00"
     },
     {
       "node_id": "jawor",
       "node_name": "Jawor",
       "lat": 51.041,
       "lon": 16.197,
-      "ignition_score": 33.48,
-      "ignition_score_raw": 33.48,
-      "ignition_score_available": 37.2,
+      "ignition_score": 33.5,
+      "ignition_score_raw": 33.5,
+      "ignition_score_available": 33.5,
       "extreme_ignition": false,
       "dominant_source": "roads",
       "data_coverage": [
         "agriculture",
+        "historical_kde",
         "powerlines",
         "railways",
         "roads",
         "tourism"
       ],
-      "missing_sublayers": [
-        "historical_kde"
-      ],
-      "coverage_weight": 0.9,
-      "coverage_percent": 90.0,
-      "score_status": "partial",
+      "missing_sublayers": [],
+      "coverage_weight": 1.0,
+      "coverage_percent": 100.0,
+      "score_status": "complete",
       "valid_for_fusion": true,
-      "warnings": [
-        "Historical ignition data is unavailable",
-        "Missing sublayers are null and excluded from the available-layer normalization"
-      ],
+      "warnings": [],
       "sublayers": {
         "roads": 60.34,
         "railways": 0.63,
         "powerlines": 16.24,
         "tourism": 78.72,
         "agriculture": 26.86,
-        "historical_kde": null
+        "historical_kde": 0.15
       },
-      "computed_at": "2026-07-24T19:47:22.864034+00:00"
+      "computed_at": "2026-07-24T22:05:30.467730+00:00"
     },
     {
       "node_id": "miekinia",
@@ -949,36 +853,32 @@
       "lon": 16.713,
       "ignition_score": 33.31,
       "ignition_score_raw": 33.31,
-      "ignition_score_available": 37.01,
+      "ignition_score_available": 33.31,
       "extreme_ignition": false,
       "dominant_source": "roads",
       "data_coverage": [
         "agriculture",
+        "historical_kde",
         "powerlines",
         "railways",
         "roads",
         "tourism"
       ],
-      "missing_sublayers": [
-        "historical_kde"
-      ],
-      "coverage_weight": 0.9,
-      "coverage_percent": 90.0,
-      "score_status": "partial",
+      "missing_sublayers": [],
+      "coverage_weight": 1.0,
+      "coverage_percent": 100.0,
+      "score_status": "complete",
       "valid_for_fusion": true,
-      "warnings": [
-        "Historical ignition data is unavailable",
-        "Missing sublayers are null and excluded from the available-layer normalization"
-      ],
+      "warnings": [],
       "sublayers": {
         "roads": 91.87,
         "railways": 0.0,
         "powerlines": 10.36,
         "tourism": 36.31,
         "agriculture": 22.24,
-        "historical_kde": null
+        "historical_kde": 0.01
       },
-      "computed_at": "2026-07-24T19:47:45.814190+00:00"
+      "computed_at": "2026-07-24T22:05:52.249345+00:00"
     },
     {
       "node_id": "wegliniec",
@@ -987,36 +887,32 @@
       "lon": 15.207,
       "ignition_score": 24.97,
       "ignition_score_raw": 24.97,
-      "ignition_score_available": 27.75,
+      "ignition_score_available": 24.97,
       "extreme_ignition": false,
       "dominant_source": "roads",
       "data_coverage": [
         "agriculture",
+        "historical_kde",
         "powerlines",
         "railways",
         "roads",
         "tourism"
       ],
-      "missing_sublayers": [
-        "historical_kde"
-      ],
-      "coverage_weight": 0.9,
-      "coverage_percent": 90.0,
-      "score_status": "partial",
+      "missing_sublayers": [],
+      "coverage_weight": 1.0,
+      "coverage_percent": 100.0,
+      "score_status": "complete",
       "valid_for_fusion": true,
-      "warnings": [
-        "Historical ignition data is unavailable",
-        "Missing sublayers are null and excluded from the available-layer normalization"
-      ],
+      "warnings": [],
       "sublayers": {
         "roads": 42.26,
         "railways": 0.56,
         "powerlines": 3.07,
         "tourism": 62.24,
         "agriculture": 30.0,
-        "historical_kde": null
+        "historical_kde": 0.0
       },
-      "computed_at": "2026-07-24T19:48:24.610521+00:00"
+      "computed_at": "2026-07-24T22:06:39.206212+00:00"
     },
     {
       "node_id": "olesnica",
@@ -1025,36 +921,32 @@
       "lon": 16.88,
       "ignition_score": 24.04,
       "ignition_score_raw": 24.04,
-      "ignition_score_available": 26.71,
+      "ignition_score_available": 24.04,
       "extreme_ignition": false,
       "dominant_source": "roads",
       "data_coverage": [
         "agriculture",
+        "historical_kde",
         "powerlines",
         "railways",
         "roads",
         "tourism"
       ],
-      "missing_sublayers": [
-        "historical_kde"
-      ],
-      "coverage_weight": 0.9,
-      "coverage_percent": 90.0,
-      "score_status": "partial",
+      "missing_sublayers": [],
+      "coverage_weight": 1.0,
+      "coverage_percent": 100.0,
+      "score_status": "complete",
       "valid_for_fusion": true,
-      "warnings": [
-        "Historical ignition data is unavailable",
-        "Missing sublayers are null and excluded from the available-layer normalization"
-      ],
+      "warnings": [],
       "sublayers": {
         "roads": 51.66,
         "railways": 0.0,
         "powerlines": 36.64,
         "tourism": 13.84,
         "agriculture": 23.7,
-        "historical_kde": null
+        "historical_kde": 0.0
       },
-      "computed_at": "2026-07-24T19:47:54.707358+00:00"
+      "computed_at": "2026-07-24T22:06:01.910068+00:00"
     },
     {
       "node_id": "lesna",
@@ -1063,36 +955,32 @@
       "lon": 15.268,
       "ignition_score": 22.42,
       "ignition_score_raw": 22.42,
-      "ignition_score_available": 24.91,
+      "ignition_score_available": 22.42,
       "extreme_ignition": false,
       "dominant_source": "agriculture",
       "data_coverage": [
         "agriculture",
+        "historical_kde",
         "powerlines",
         "railways",
         "roads",
         "tourism"
       ],
-      "missing_sublayers": [
-        "historical_kde"
-      ],
-      "coverage_weight": 0.9,
-      "coverage_percent": 90.0,
-      "score_status": "partial",
+      "missing_sublayers": [],
+      "coverage_weight": 1.0,
+      "coverage_percent": 100.0,
+      "score_status": "complete",
       "valid_for_fusion": true,
-      "warnings": [
-        "Historical ignition data is unavailable",
-        "Missing sublayers are null and excluded from the available-layer normalization"
-      ],
+      "warnings": [],
       "sublayers": {
         "roads": 31.69,
         "railways": 0.0,
         "powerlines": 8.67,
         "tourism": 23.55,
         "agriculture": 64.42,
-        "historical_kde": null
+        "historical_kde": 0.06
       },
-      "computed_at": "2026-07-24T19:47:38.031743+00:00"
+      "computed_at": "2026-07-24T22:05:45.002180+00:00"
     },
     {
       "node_id": "mysliborskie",
@@ -1101,112 +989,100 @@
       "lon": 15.128,
       "ignition_score": 10.51,
       "ignition_score_raw": 10.51,
-      "ignition_score_available": 11.67,
+      "ignition_score_available": 10.51,
       "extreme_ignition": false,
       "dominant_source": "roads",
       "data_coverage": [
         "agriculture",
+        "historical_kde",
         "powerlines",
         "railways",
         "roads",
         "tourism"
       ],
-      "missing_sublayers": [
-        "historical_kde"
-      ],
-      "coverage_weight": 0.9,
-      "coverage_percent": 90.0,
-      "score_status": "partial",
+      "missing_sublayers": [],
+      "coverage_weight": 1.0,
+      "coverage_percent": 100.0,
+      "score_status": "complete",
       "valid_for_fusion": true,
-      "warnings": [
-        "Historical ignition data is unavailable",
-        "Missing sublayers are null and excluded from the available-layer normalization"
-      ],
+      "warnings": [],
       "sublayers": {
         "roads": 31.45,
         "railways": 0.0,
         "powerlines": 0.0,
         "tourism": 8.11,
         "agriculture": 9.51,
-        "historical_kde": null
+        "historical_kde": 0.0
       },
-      "computed_at": "2026-07-24T19:47:51.721687+00:00"
+      "computed_at": "2026-07-24T22:05:59.699281+00:00"
     },
     {
       "node_id": "prudnik",
       "node_name": "Prudnik",
       "lat": 50.323,
       "lon": 17.58,
-      "ignition_score": 10.18,
-      "ignition_score_raw": 10.18,
-      "ignition_score_available": 11.31,
+      "ignition_score": 10.19,
+      "ignition_score_raw": 10.19,
+      "ignition_score_available": 10.19,
       "extreme_ignition": false,
       "dominant_source": "powerlines",
       "data_coverage": [
         "agriculture",
+        "historical_kde",
         "powerlines",
         "railways",
         "roads",
         "tourism"
       ],
-      "missing_sublayers": [
-        "historical_kde"
-      ],
-      "coverage_weight": 0.9,
-      "coverage_percent": 90.0,
-      "score_status": "partial",
+      "missing_sublayers": [],
+      "coverage_weight": 1.0,
+      "coverage_percent": 100.0,
+      "score_status": "complete",
       "valid_for_fusion": true,
-      "warnings": [
-        "Historical ignition data is unavailable",
-        "Missing sublayers are null and excluded from the available-layer normalization"
-      ],
+      "warnings": [],
       "sublayers": {
         "roads": 0.0,
         "railways": 0.0,
         "powerlines": 45.75,
         "tourism": 0.0,
         "agriculture": 22.13,
-        "historical_kde": null
+        "historical_kde": 0.12
       },
-      "computed_at": "2026-07-24T19:48:02.536377+00:00"
+      "computed_at": "2026-07-24T22:06:09.278102+00:00"
     },
     {
       "node_id": "ruszow",
       "node_name": "Ruszów",
       "lat": 51.449,
       "lon": 14.955,
-      "ignition_score": 10.11,
-      "ignition_score_raw": 10.11,
-      "ignition_score_available": 11.23,
+      "ignition_score": 10.12,
+      "ignition_score_raw": 10.12,
+      "ignition_score_available": 10.12,
       "extreme_ignition": false,
       "dominant_source": "agriculture",
       "data_coverage": [
         "agriculture",
+        "historical_kde",
         "powerlines",
         "railways",
         "roads",
         "tourism"
       ],
-      "missing_sublayers": [
-        "historical_kde"
-      ],
-      "coverage_weight": 0.9,
-      "coverage_percent": 90.0,
-      "score_status": "partial",
+      "missing_sublayers": [],
+      "coverage_weight": 1.0,
+      "coverage_percent": 100.0,
+      "score_status": "complete",
       "valid_for_fusion": true,
-      "warnings": [
-        "Historical ignition data is unavailable",
-        "Missing sublayers are null and excluded from the available-layer normalization"
-      ],
+      "warnings": [],
       "sublayers": {
         "roads": 0.0,
         "railways": 0.0,
         "powerlines": 1.78,
         "tourism": 0.0,
         "agriculture": 65.63,
-        "historical_kde": null
+        "historical_kde": 0.14
       },
-      "computed_at": "2026-07-24T19:48:05.055397+00:00"
+      "computed_at": "2026-07-24T22:06:11.625181+00:00"
     },
     {
       "node_id": "swietoszow",
@@ -1215,74 +1091,66 @@
       "lon": 15.353,
       "ignition_score": 9.3,
       "ignition_score_raw": 9.3,
-      "ignition_score_available": 10.33,
+      "ignition_score_available": 9.3,
       "extreme_ignition": false,
       "dominant_source": "agriculture",
       "data_coverage": [
         "agriculture",
+        "historical_kde",
         "powerlines",
         "railways",
         "roads",
         "tourism"
       ],
-      "missing_sublayers": [
-        "historical_kde"
-      ],
-      "coverage_weight": 0.9,
-      "coverage_percent": 90.0,
-      "score_status": "partial",
+      "missing_sublayers": [],
+      "coverage_weight": 1.0,
+      "coverage_percent": 100.0,
+      "score_status": "complete",
       "valid_for_fusion": true,
-      "warnings": [
-        "Historical ignition data is unavailable",
-        "Missing sublayers are null and excluded from the available-layer normalization"
-      ],
+      "warnings": [],
       "sublayers": {
         "roads": 0.0,
         "railways": 0.0,
         "powerlines": 26.45,
         "tourism": 0.0,
         "agriculture": 35.52,
-        "historical_kde": null
+        "historical_kde": 0.0
       },
-      "computed_at": "2026-07-24T19:48:19.328714+00:00"
+      "computed_at": "2026-07-24T22:06:35.046375+00:00"
     },
     {
       "node_id": "rychtal",
       "node_name": "Rychtal",
       "lat": 51.096,
       "lon": 17.773,
-      "ignition_score": 5.68,
-      "ignition_score_raw": 5.68,
-      "ignition_score_available": 6.31,
+      "ignition_score": 5.69,
+      "ignition_score_raw": 5.69,
+      "ignition_score_available": 5.69,
       "extreme_ignition": false,
       "dominant_source": "agriculture",
       "data_coverage": [
         "agriculture",
+        "historical_kde",
         "powerlines",
         "railways",
         "roads",
         "tourism"
       ],
-      "missing_sublayers": [
-        "historical_kde"
-      ],
-      "coverage_weight": 0.9,
-      "coverage_percent": 90.0,
-      "score_status": "partial",
+      "missing_sublayers": [],
+      "coverage_weight": 1.0,
+      "coverage_percent": 100.0,
+      "score_status": "complete",
       "valid_for_fusion": true,
-      "warnings": [
-        "Historical ignition data is unavailable",
-        "Missing sublayers are null and excluded from the available-layer normalization"
-      ],
+      "warnings": [],
       "sublayers": {
         "roads": 0.0,
         "railways": 0.0,
         "powerlines": 1.29,
         "tourism": 0.0,
         "agriculture": 36.6,
-        "historical_kde": null
+        "historical_kde": 0.07
       },
-      "computed_at": "2026-07-24T19:48:07.749876+00:00"
+      "computed_at": "2026-07-24T22:06:14.178989+00:00"
     }
   ]
 }
