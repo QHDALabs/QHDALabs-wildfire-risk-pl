@@ -18,14 +18,29 @@ porównać wynik z rastrem EFFIS.
 ## Wymagania
 
 Wymagany jest Python 3.11 lub nowszy. Minimalne zależności obliczeniowe są w
-`requirements.txt`.
+`requirements.txt`. Zalecany jest lokalny interpreter `v5/.venv`; runner
+automatycznie uruchomi się ponownie przez ten interpreter, jeżeli został
+wywołany przez globalne `py` albo `python`.
 
 ```powershell
-python -m pip install -r requirements.txt
+py -3.14 -m venv .venv
+.\.venv\Scripts\python.exe -m pip install --upgrade pip
+.\.venv\Scripts\python.exe -m pip install -r requirements-dev.txt
 ```
 
-Pełne przetwarzanie lokalnych danych GIS wymaga również GeoPandas, Pyogrio,
-Shapely i PyProj.
+Pliki zależności mają rozdzielone role:
+
+| Plik | Zakres |
+| --- | --- |
+| `requirements.txt` | NumPy, Pandas i Requests |
+| `requirements-gis.txt` | GeoPandas, Pyogrio, Shapely, PyProj i Fiona |
+| `requirements-effis.txt` | Opcjonalny Rasterio |
+| `requirements-qte.txt` | Opcjonalny Qiskit |
+| `requirements-full.txt` | Cały runtime |
+| `requirements-dev.txt` | Runtime, testy i Ruff |
+
+Pełne przetwarzanie lokalnych danych GIS wymaga GeoPandas, Pyogrio, Shapely
+i PyProj.
 
 ```powershell
 python -m pip install -r requirements-gis.txt
@@ -109,22 +124,105 @@ pozostawia pobrane checkpointy do następnego uruchomienia.
 
 ## Uruchomienie
 
-Polecenia należy wykonywać z katalogu `v5`.
+Podstawowe polecenia można wykonywać z katalogu repozytorium. `EFFIS` nie jest
+częścią domyślnego core pipeline.
 
 ```powershell
-python qhdalabs_wildfire_ignition_v1.py --help
-python qhdalabs_wildfire_ignition_v1.py
-python qhdalabs_wildfire_fusion_v1.py
+.\v5\.venv\Scripts\python.exe .\v5\run_all.py --doctor
+.\v5\.venv\Scripts\python.exe .\v5\run_all.py
+.\v5\.venv\Scripts\python.exe .\v5\run_all.py --offline-sentinel
 ```
 
-Jawny tryb syntetyczny służy wyłącznie do testów:
+Dostępne sterowanie przebiegiem:
 
 ```powershell
-python qhdalabs_wildfire_ignition_v1.py --stub
+.\v5\.venv\Scripts\python.exe .\v5\run_all.py --skip sentinel
+.\v5\.venv\Scripts\python.exe .\v5\run_all.py --only fusion
+.\v5\.venv\Scripts\python.exe .\v5\run_all.py --from qte --until fusion
+.\v5\.venv\Scripts\python.exe .\v5\run_all.py --refresh-sentinel
+.\v5\.venv\Scripts\python.exe .\v5\run_all.py --refresh-firms --refresh-gis
+.\v5\.venv\Scripts\python.exe .\v5\run_all.py --strict
+.\v5\.venv\Scripts\python.exe .\v5\run_all.py --allow-degraded
 ```
 
-Wynik `--stub` ma `score_status` równy `stub` oraz
-`valid_for_fusion` równy `false`.
+`--strict` odrzuca każdy wynik `DEGRADED`. `--allow-degraded` pozwala na
+kontynuację badawczą, ale `operational_validity` pozostaje równe `false`.
+`--no-venv-reexec` wyłącza automatyczne przejście do `.venv`.
+
+## Statusy pipeline
+
+Każdy krok zapisuje manifest w `topology/pipeline_steps/<step>.json`, a runner
+zapisuje podsumowanie w `topology/pipeline_run.json`.
+
+| Status | Znaczenie |
+| --- | --- |
+| `SUCCESS` | Wynik pełny |
+| `DEGRADED` | Wynik częściowy, jawnie oznaczony |
+| `BLOCKED` | Wynik nie może zasilać downstream |
+| `SKIPPED` | Krok pominięty |
+| `OPTIONAL_FAILED` | Opcjonalna walidacja nie powiodła się |
+| `FAILED` | Błąd kroku core |
+
+`BLOCKED` i `FAILED` blokują kroki zależne. `DEGRADED` przechodzi dalej tylko,
+gdy manifest ma `valid_for_downstream=true`.
+
+## Cache Sentinel
+
+Cache Sentinel jest trwałym JSON-em schema v2 w `.cache_topology/sentinel`.
+Domyślny TTL wynosi 10 dni. Priorytet konfiguracji to argument CLI, zmienna
+`SENTINEL_CACHE_TTL_DAYS`, a następnie wartość domyślna.
+
+```powershell
+.\v5\.venv\Scripts\python.exe .\v5\run_all.py `
+  --sentinel-cache-ttl-days 10
+.\v5\.venv\Scripts\python.exe .\v5\run_all.py --refresh-sentinel
+.\v5\.venv\Scripts\python.exe .\v5\run_all.py --offline-sentinel
+```
+
+Cache jest klasyfikowany przed uwierzytelnieniem jako `fresh`, `stale`,
+`missing`, `invalid` albo `legacy`. Pełny zestaw `fresh` nie wykonuje
+uwierzytelnienia ani zapytań HTTP. Fingerprint obejmuje pozycję węzła, okres,
+promień, kolekcję, interwał agregacji, rozdzielczość, zachmurzenie, indeksy
+i hash evalscriptu. Przy błędzie sieci może zostać użyty jawnie oznaczony
+`stale-if-error`.
+
+Stary cache pickle można odczytać wyłącznie po świadomym użyciu
+`--legacy-sentinel-cache`. Taki przebieg jest zawsze oznaczony jako
+`DEGRADED`, `legacy`, `provisional` i `research_only`; nie migruje danych po
+cichu ani nie nadaje im ważności operacyjnej.
+
+## Indeksy satelitarne
+
+Pipeline zapisuje dwa odrębne indeksy:
+
+| Nazwa | Wzór | Pasma Sentinel-2 | Rozdzielczość |
+| --- | --- | --- | ---: |
+| `ndwi_surface_water` | `(B03 - B08) / (B03 + B08)` | Green, NIR | 10 m |
+| `vegetation_moisture_index` | `(B8A - B11) / (B8A + B11)` | NIR, SWIR | 20 m |
+
+Green–NIR jest indeksem powierzchniowej wody i nie jest nazywany indeksem
+Gao dla wody w roślinności. Gao 1996 zdefiniował indeks dla około 0,86 µm
+i 1,24 µm. Sentinel-2 nie ma pasma 1,24 µm, dlatego B8A/B11 jest jawną
+aproksymacją NIR/SWIR, a nie dokładną implementacją Gao. Źródła:
+[Gao 1996](https://doi.org/10.1016/S0034-4257(96)00067-3) oraz
+[Sentinel-2 L2A bands](https://documentation.dataspace.copernicus.eu/APIs/SentinelHub/Data/S2L2A.html).
+
+Surowe serie, daty i quality flags są oddzielone od mapowania na stress.
+Mapowanie ma status `uncalibrated`, nie ma odziedziczonych progów `-0.35`
+i `-0.70`, a alerty nie wydają operacyjnej rekomendacji drona.
+
+## Last-known-good i cache GIS
+
+Ignition przechodzi preflight GeoPandas, Pyogrio, Shapely, PyProj i drivera
+GDAL OSM przed pobieraniem. Coverage poniżej 70 procent ma status `BLOCKED`
+i jest zapisywane wyłącznie jako
+`topology/diagnostics/ignition_scores_partial_<timestamp>.json`.
+Nie zastępuje ostatniego poprawnego `topology/ignition_scores.json`.
+
+Pochodne OSM, powerlines i agriculture są przechowywane w
+`topology/ignition_cache/derived`. Fingerprint zawiera ścieżkę, rozmiar,
+mtime, parser, backend, CRS i wersję schematu. Niezmienione dane źródłowe nie
+są ponownie parsowane.
 
 ## Cache i artefakty
 
@@ -214,8 +312,13 @@ zweryfikowany cache w oczekiwanej lokalizacji.
 Raster EFFIS jest opcjonalny i nie należy do repozytorium.
 
 ```powershell
-python effis_validator.py severity_2025.tiff --scores topology/risk_scores.json
+.\v5\.venv\Scripts\python.exe .\v5\run_all.py `
+  --with-effis `
+  --effis-tiff C:\data\severity_2025.tiff
 ```
+
+Bez `--with-effis` manifest ma `EFFIS=SKIPPED`. Rasterio jest importowany
+leniwo i nie jest wymagany dla core pipeline.
 
 ## Diagnostyka
 
@@ -234,11 +337,24 @@ Należy zainstalować osmium-tool albo dystrybucję GDAL z driverem OSM.
 Brak LPIS lub IBL nie zatrzymuje pipeline, ale obniża coverage. Wynik częściowy
 nie jest używany przez fusion jako operacyjny ignition score.
 
+Jeżeli `py` i `.venv` wskazują inne interpretery, należy porównać:
+
+```powershell
+py -c "import sys; print(sys.executable)"
+.\v5\.venv\Scripts\python.exe -c "import sys; print(sys.executable)"
+.\v5\.venv\Scripts\python.exe .\v5\run_all.py --doctor
+```
+
+Runner domyślnie wykryje różnicę i bezpiecznie uruchomi się ponownie. Zmienna
+ochronna zapobiega pętli re-exec.
+
 ## Testy
 
 Podstawowy zestaw testów nie wymaga sieci.
 
 ```powershell
-python -m pytest
-python -m compileall .
+.\v5\.venv\Scripts\python.exe -m pytest
+.\v5\.venv\Scripts\python.exe -m ruff check v5
+.\v5\.venv\Scripts\python.exe -m ruff format --check v5
+.\v5\.venv\Scripts\python.exe -m compileall v5
 ```
