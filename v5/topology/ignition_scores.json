@@ -1,7 +1,7 @@
 {
   "version": "1.1.0",
   "module": "qhdalabs_wildfire_ignition_v1",
-  "generated_at": "2026-07-24T22:06:51.635951+00:00",
+  "generated_at": "2026-07-25T20:03:39.050239+00:00",
   "rdlp": "Wrocław",
   "config": {
     "ignition_weights": {
@@ -62,7 +62,7 @@
         "agriculture": 30.88,
         "historical_kde": 0.24
       },
-      "computed_at": "2026-07-24T22:05:36.654679+00:00"
+      "computed_at": "2026-07-25T20:02:35.804243+00:00"
     },
     {
       "node_id": "boleslawiec",
@@ -96,7 +96,7 @@
         "agriculture": 11.23,
         "historical_kde": 0.03
       },
-      "computed_at": "2026-07-24T22:05:24.028467+00:00"
+      "computed_at": "2026-07-25T20:02:23.653855+00:00"
     },
     {
       "node_id": "zmigrod",
@@ -130,7 +130,7 @@
         "agriculture": 39.69,
         "historical_kde": 0.27
       },
-      "computed_at": "2026-07-24T22:06:49.460997+00:00"
+      "computed_at": "2026-07-25T20:03:36.721568+00:00"
     },
     {
       "node_id": "wroclaw",
@@ -164,7 +164,7 @@
         "agriculture": 2.17,
         "historical_kde": 0.01
       },
-      "computed_at": "2026-07-24T22:06:44.795691+00:00"
+      "computed_at": "2026-07-25T20:03:31.108378+00:00"
     },
     {
       "node_id": "lwowek",
@@ -198,7 +198,7 @@
         "agriculture": 67.29,
         "historical_kde": 0.01
       },
-      "computed_at": "2026-07-24T22:05:50.128464+00:00"
+      "computed_at": "2026-07-25T20:02:45.561770+00:00"
     },
     {
       "node_id": "ladek",
@@ -232,7 +232,7 @@
         "agriculture": 55.33,
         "historical_kde": 0.06
       },
-      "computed_at": "2026-07-24T22:05:38.754682+00:00"
+      "computed_at": "2026-07-25T20:02:37.691404+00:00"
     },
     {
       "node_id": "bystrzyca",
@@ -266,7 +266,7 @@
         "agriculture": 26.97,
         "historical_kde": 0.01
       },
-      "computed_at": "2026-07-24T22:05:26.091087+00:00"
+      "computed_at": "2026-07-25T20:02:26.011603+00:00"
     },
     {
       "node_id": "bardo_slaskie",
@@ -300,7 +300,7 @@
         "agriculture": 56.77,
         "historical_kde": 0.06
       },
-      "computed_at": "2026-07-24T22:05:22.042368+00:00"
+      "computed_at": "2026-07-25T20:02:20.421891+00:00"
     },
     {
       "node_id": "kamienna_gora",
@@ -334,7 +334,7 @@
         "agriculture": 72.79,
         "historical_kde": 0.05
       },
-      "computed_at": "2026-07-24T22:05:34.631487+00:00"
+      "computed_at": "2026-07-25T20:02:33.886808+00:00"
     },
     {
       "node_id": "wolow",
@@ -368,7 +368,7 @@
         "agriculture": 29.77,
         "historical_kde": 0.1
       },
-      "computed_at": "2026-07-24T22:06:42.280711+00:00"
+      "computed_at": "2026-07-25T20:03:28.960258+00:00"
     },
     {
       "node_id": "legnica",
@@ -402,7 +402,7 @@
         "agriculture": 27.37,
         "historical_kde": 10.51
       },
-      "computed_at": "2026-07-24T22:05:41.150191+00:00"
+      "computed_at": "2026-07-25T20:02:39.835743+00:00"
     },
     {
       "node_id": "sycow",
@@ -436,7 +436,7 @@
         "agriculture": 33.83,
         "historical_kde": 0.0
       },
-      "computed_at": "2026-07-24T22:06:21.440815+00:00"
+      "computed_at": "2026-07-25T20:03:17.486669+00:00"
     },
     {
       "node_id": "lubin",
@@ -470,7 +470,7 @@
         "agriculture": 13.33,
         "historical_kde": 0.15
       },
-      "computed_at": "2026-07-24T22:05:47.593577+00:00"
+      "computed_at": "2026-07-25T20:02:43.610188+00:00"
     },
     {
       "node_id": "szklarska",
@@ -504,7 +504,7 @@
         "agriculture": 33.47,
         "historical_kde": 0.0
       },
-      "computed_at": "2026-07-24T22:06:29.750109+00:00"
+      "computed_at": "2026-07-25T20:03:19.391454+00:00"
     },
     {
       "node_id": "milicz",
@@ -538,7 +538,7 @@
         "agriculture": 47.37,
         "historical_kde": 0.0
       },
-      "computed_at": "2026-07-24T22:05:56.315376+00:00"
+      "computed_at": "2026-07-25T20:02:49.589121+00:00"
     },
     {
       "node_id": "piszowice",
@@ -572,7 +572,7 @@
         "agriculture": 28.77,
         "historical_kde": 0.0
       },
-      "computed_at": "2026-07-24T22:06:06.888474+00:00"
+      "computed_at": "2026-07-25T20:03:09.724906+00:00"
     },
     {
       "node_id": "zlotoryja",
@@ -606,7 +606,7 @@
         "agriculture": 36.46,
         "historical_kde": 0.21
       },
-      "computed_at": "2026-07-24T22:06:47.049290+00:00"
+      "computed_at": "2026-07-25T20:03:33.646876+00:00"
     },
     {
       "node_id": "swidnica",
@@ -640,7 +640,7 @@
         "agriculture": 8.44,
         "historical_kde": 0.0
       },
-      "computed_at": "2026-07-24T22:06:32.560763+00:00"
+      "computed_at": "2026-07-25T20:03:21.335019+00:00"
     },
     {
       "node_id": "zgorzelec",
@@ -674,7 +674,7 @@
         "agriculture": 34.13,
         "historical_kde": 0.2
       },
-      "computed_at": "2026-07-24T22:06:51.622382+00:00"
+      "computed_at": "2026-07-25T20:03:39.038762+00:00"
     },
     {
       "node_id": "walbrzych",
@@ -708,7 +708,7 @@
         "agriculture": 18.11,
         "historical_kde": 0.89
       },
-      "computed_at": "2026-07-24T22:06:37.050453+00:00"
+      "computed_at": "2026-07-25T20:03:25.160222+00:00"
     },
     {
       "node_id": "olawa",
@@ -742,7 +742,7 @@
         "agriculture": 15.85,
         "historical_kde": 0.08
       },
-      "computed_at": "2026-07-24T22:06:04.455086+00:00"
+      "computed_at": "2026-07-25T20:03:04.404371+00:00"
     },
     {
       "node_id": "gory_stolowe",
@@ -776,7 +776,7 @@
         "agriculture": 65.5,
         "historical_kde": 0.05
       },
-      "computed_at": "2026-07-24T22:05:28.143187+00:00"
+      "computed_at": "2026-07-25T20:02:28.267280+00:00"
     },
     {
       "node_id": "jugow",
@@ -810,7 +810,7 @@
         "agriculture": 43.88,
         "historical_kde": 0.0
       },
-      "computed_at": "2026-07-24T22:05:32.543544+00:00"
+      "computed_at": "2026-07-25T20:02:31.894270+00:00"
     },
     {
       "node_id": "jawor",
@@ -844,7 +844,7 @@
         "agriculture": 26.86,
         "historical_kde": 0.15
       },
-      "computed_at": "2026-07-24T22:05:30.467730+00:00"
+      "computed_at": "2026-07-25T20:02:30.084787+00:00"
     },
     {
       "node_id": "miekinia",
@@ -878,7 +878,7 @@
         "agriculture": 22.24,
         "historical_kde": 0.01
       },
-      "computed_at": "2026-07-24T22:05:52.249345+00:00"
+      "computed_at": "2026-07-25T20:02:47.636023+00:00"
     },
     {
       "node_id": "wegliniec",
@@ -912,7 +912,7 @@
         "agriculture": 30.0,
         "historical_kde": 0.0
       },
-      "computed_at": "2026-07-24T22:06:39.206212+00:00"
+      "computed_at": "2026-07-25T20:03:27.053074+00:00"
     },
     {
       "node_id": "olesnica",
@@ -946,7 +946,7 @@
         "agriculture": 23.7,
         "historical_kde": 0.0
       },
-      "computed_at": "2026-07-24T22:06:01.910068+00:00"
+      "computed_at": "2026-07-25T20:02:56.865305+00:00"
     },
     {
       "node_id": "lesna",
@@ -980,7 +980,7 @@
         "agriculture": 64.42,
         "historical_kde": 0.06
       },
-      "computed_at": "2026-07-24T22:05:45.002180+00:00"
+      "computed_at": "2026-07-25T20:02:41.726137+00:00"
     },
     {
       "node_id": "mysliborskie",
@@ -1014,7 +1014,7 @@
         "agriculture": 9.51,
         "historical_kde": 0.0
       },
-      "computed_at": "2026-07-24T22:05:59.699281+00:00"
+      "computed_at": "2026-07-25T20:02:51.719413+00:00"
     },
     {
       "node_id": "prudnik",
@@ -1048,7 +1048,7 @@
         "agriculture": 22.13,
         "historical_kde": 0.12
       },
-      "computed_at": "2026-07-24T22:06:09.278102+00:00"
+      "computed_at": "2026-07-25T20:03:11.576951+00:00"
     },
     {
       "node_id": "ruszow",
@@ -1082,7 +1082,7 @@
         "agriculture": 65.63,
         "historical_kde": 0.14
       },
-      "computed_at": "2026-07-24T22:06:11.625181+00:00"
+      "computed_at": "2026-07-25T20:03:13.539322+00:00"
     },
     {
       "node_id": "swietoszow",
@@ -1116,7 +1116,7 @@
         "agriculture": 35.52,
         "historical_kde": 0.0
       },
-      "computed_at": "2026-07-24T22:06:35.046375+00:00"
+      "computed_at": "2026-07-25T20:03:23.243176+00:00"
     },
     {
       "node_id": "rychtal",
@@ -1150,7 +1150,7 @@
         "agriculture": 36.6,
         "historical_kde": 0.07
       },
-      "computed_at": "2026-07-24T22:06:14.178989+00:00"
+      "computed_at": "2026-07-25T20:03:15.563963+00:00"
     }
   ]
 }

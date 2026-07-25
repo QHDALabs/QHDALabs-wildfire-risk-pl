@@ -1,858 +1,2472 @@
 {
-  "version": "1.0.0",
-  "generated_at": "2026-06-03T10:45:07.306617+00:00",
+  "version": "2.0.0",
+  "schema_version": 2,
+  "generated_at": "2026-07-25T20:01:50.680974+00:00",
   "ndwi_days": 30,
   "nodes_ok": 33,
   "nodes_cloudy": 0,
-  "results": {
-    "gory_stolowe": {
-      "node_id": "gory_stolowe",
-      "node_name": "Góry Stołowe",
-      "data_source": "sentinel2_L2A",
-      "fetch_date": "2026-06-03T10:28:48.910762+00:00",
-      "dates": [
-        "2026-05-14",
-        "2026-05-24"
+  "index_definitions": {
+    "ndwi_surface_water": {
+      "name": "ndwi_surface_water",
+      "formula": "(B03 - B08) / (B03 + B08)",
+      "bands": [
+        "B03",
+        "B08"
       ],
-      "ndwi_values": [
-        -0.6255,
-        -0.6859
-      ],
-      "valid_pixel_fraction": [
-        0.203,
-        1.0
-      ],
-      "ndwi_mean_30d": -0.6557,
-      "ndwi_min_30d": -0.6859,
-      "ndwi_latest": -0.6859,
-      "ndwi_trend_14d": -0.0604,
-      "ndwi_stress_latest": 0.9597,
-      "n_observations": 2
+      "resolution_m": 10,
+      "methodological_source": "Green-NIR surface-water index; this is not the Gao (1996) vegetation liquid-water index",
+      "unit": "dimensionless",
+      "algorithm_version": "2.0.0",
+      "calibration_status": "uncalibrated"
     },
+    "vegetation_moisture_index": {
+      "name": "vegetation_moisture_index",
+      "formula": "(B8A - B11) / (B8A + B11)",
+      "bands": [
+        "B8A",
+        "B11"
+      ],
+      "resolution_m": 20,
+      "methodological_source": "NIR-SWIR canopy-moisture formulation motivated by Gao (1996), DOI 10.1016/S0034-4257(96)00067-3; Sentinel-2 B11 at 1.61 µm is an approximation, not Gao's 1.24 µm channel",
+      "unit": "dimensionless",
+      "algorithm_version": "2.0.0",
+      "calibration_status": "uncalibrated"
+    }
+  },
+  "calibration_status": "uncalibrated",
+  "operational": false,
+  "results": {
     "bardo_slaskie": {
       "node_id": "bardo_slaskie",
       "node_name": "Bardo Śląskie",
       "data_source": "sentinel2_L2A",
-      "fetch_date": "2026-06-03T10:28:48.915713+00:00",
+      "fetch_date": "2026-07-25T19:49:21.672243+00:00",
+      "indices": {
+        "ndwi_surface_water": {
+          "name": "ndwi_surface_water",
+          "formula": "(B03 - B08) / (B03 + B08)",
+          "bands": [
+            "B03",
+            "B08"
+          ],
+          "resolution_m": 10,
+          "methodological_source": "Green-NIR surface-water index; this is not the Gao (1996) vegetation liquid-water index",
+          "unit": "dimensionless",
+          "algorithm_version": "2.0.0",
+          "calibration_status": "uncalibrated",
+          "raw_series": [
+            -0.6865,
+            -0.6828,
+            -0.6441
+          ],
+          "dates": [
+            "2026-06-25",
+            "2026-07-05",
+            "2026-07-15"
+          ],
+          "quality_flags": [
+            "cloud_masked",
+            "vegetation_moisture_index_uncalibrated",
+            "sentinel_b11_is_not_gao_1_24um"
+          ]
+        },
+        "vegetation_moisture_index": {
+          "name": "vegetation_moisture_index",
+          "formula": "(B8A - B11) / (B8A + B11)",
+          "bands": [
+            "B8A",
+            "B11"
+          ],
+          "resolution_m": 20,
+          "methodological_source": "NIR-SWIR canopy-moisture formulation motivated by Gao (1996), DOI 10.1016/S0034-4257(96)00067-3; Sentinel-2 B11 at 1.61 µm is an approximation, not Gao's 1.24 µm channel",
+          "unit": "dimensionless",
+          "algorithm_version": "2.0.0",
+          "calibration_status": "uncalibrated",
+          "raw_series": [
+            0.3043,
+            0.2757,
+            0.2814
+          ],
+          "dates": [
+            "2026-06-25",
+            "2026-07-05",
+            "2026-07-15"
+          ],
+          "quality_flags": [
+            "cloud_masked",
+            "vegetation_moisture_index_uncalibrated",
+            "sentinel_b11_is_not_gao_1_24um"
+          ]
+        }
+      },
       "dates": [
-        "2026-05-14",
-        "2026-05-24"
+        "2026-06-25",
+        "2026-07-05",
+        "2026-07-15"
       ],
       "ndwi_values": [
-        -0.6358,
-        -0.6931
+        0.3043,
+        0.2757,
+        0.2814
       ],
       "valid_pixel_fraction": [
-        0.815,
-        1.0
+        0.794,
+        0.944,
+        0.569
       ],
-      "ndwi_mean_30d": -0.6644,
-      "ndwi_min_30d": -0.6931,
-      "ndwi_latest": -0.6931,
-      "ndwi_trend_14d": -0.0573,
-      "ndwi_stress_latest": 0.9803,
-      "n_observations": 2
+      "ndwi_mean_30d": 0.2871,
+      "ndwi_min_30d": 0.2757,
+      "ndwi_latest": 0.2814,
+      "ndwi_trend_14d": -0.01145,
+      "ndwi_stress_latest": 0.3593,
+      "stress_mapping": {
+        "formula": "(1 - vegetation_moisture_index) / 2",
+        "thresholds": {},
+        "calibration_status": "uncalibrated",
+        "operational": false
+      },
+      "calibration_status": "uncalibrated",
+      "quality_flags": [
+        "cloud_masked",
+        "vegetation_moisture_index_uncalibrated",
+        "sentinel_b11_is_not_gao_1_24um"
+      ],
+      "n_observations": 3
     },
     "boleslawiec": {
       "node_id": "boleslawiec",
       "node_name": "Bolesławiec",
       "data_source": "sentinel2_L2A",
-      "fetch_date": "2026-06-03T10:28:48.943118+00:00",
+      "fetch_date": "2026-07-25T19:49:21.696714+00:00",
+      "indices": {
+        "ndwi_surface_water": {
+          "name": "ndwi_surface_water",
+          "formula": "(B03 - B08) / (B03 + B08)",
+          "bands": [
+            "B03",
+            "B08"
+          ],
+          "resolution_m": 10,
+          "methodological_source": "Green-NIR surface-water index; this is not the Gao (1996) vegetation liquid-water index",
+          "unit": "dimensionless",
+          "algorithm_version": "2.0.0",
+          "calibration_status": "uncalibrated",
+          "raw_series": [
+            -0.6087,
+            -0.5832,
+            -0.5584
+          ],
+          "dates": [
+            "2026-06-25",
+            "2026-07-05",
+            "2026-07-15"
+          ],
+          "quality_flags": [
+            "cloud_masked",
+            "vegetation_moisture_index_uncalibrated",
+            "sentinel_b11_is_not_gao_1_24um"
+          ]
+        },
+        "vegetation_moisture_index": {
+          "name": "vegetation_moisture_index",
+          "formula": "(B8A - B11) / (B8A + B11)",
+          "bands": [
+            "B8A",
+            "B11"
+          ],
+          "resolution_m": 20,
+          "methodological_source": "NIR-SWIR canopy-moisture formulation motivated by Gao (1996), DOI 10.1016/S0034-4257(96)00067-3; Sentinel-2 B11 at 1.61 µm is an approximation, not Gao's 1.24 µm channel",
+          "unit": "dimensionless",
+          "algorithm_version": "2.0.0",
+          "calibration_status": "uncalibrated",
+          "raw_series": [
+            0.2693,
+            0.2187,
+            0.1958
+          ],
+          "dates": [
+            "2026-06-25",
+            "2026-07-05",
+            "2026-07-15"
+          ],
+          "quality_flags": [
+            "cloud_masked",
+            "vegetation_moisture_index_uncalibrated",
+            "sentinel_b11_is_not_gao_1_24um"
+          ]
+        }
+      },
       "dates": [
-        "2026-05-04",
-        "2026-05-14",
-        "2026-05-24"
+        "2026-06-25",
+        "2026-07-05",
+        "2026-07-15"
       ],
       "ndwi_values": [
-        -0.5519,
-        -0.5831,
-        -0.6172
+        0.2693,
+        0.2187,
+        0.1958
       ],
       "valid_pixel_fraction": [
-        0.99,
-        0.727,
-        1.0
+        1.0,
+        0.901,
+        0.71
       ],
-      "ndwi_mean_30d": -0.5841,
-      "ndwi_min_30d": -0.6172,
-      "ndwi_latest": -0.6172,
-      "ndwi_trend_14d": -0.03265,
-      "ndwi_stress_latest": 0.7634,
+      "ndwi_mean_30d": 0.2279,
+      "ndwi_min_30d": 0.1958,
+      "ndwi_latest": 0.1958,
+      "ndwi_trend_14d": -0.03675,
+      "ndwi_stress_latest": 0.4021,
+      "stress_mapping": {
+        "formula": "(1 - vegetation_moisture_index) / 2",
+        "thresholds": {},
+        "calibration_status": "uncalibrated",
+        "operational": false
+      },
+      "calibration_status": "uncalibrated",
+      "quality_flags": [
+        "cloud_masked",
+        "vegetation_moisture_index_uncalibrated",
+        "sentinel_b11_is_not_gao_1_24um"
+      ],
       "n_observations": 3
     },
     "bystrzyca": {
       "node_id": "bystrzyca",
       "node_name": "Bystrzyca Kłodzka",
       "data_source": "sentinel2_L2A",
-      "fetch_date": "2026-06-03T10:28:48.980525+00:00",
+      "fetch_date": "2026-07-25T19:49:21.733369+00:00",
+      "indices": {
+        "ndwi_surface_water": {
+          "name": "ndwi_surface_water",
+          "formula": "(B03 - B08) / (B03 + B08)",
+          "bands": [
+            "B03",
+            "B08"
+          ],
+          "resolution_m": 10,
+          "methodological_source": "Green-NIR surface-water index; this is not the Gao (1996) vegetation liquid-water index",
+          "unit": "dimensionless",
+          "algorithm_version": "2.0.0",
+          "calibration_status": "uncalibrated",
+          "raw_series": [
+            -0.6589,
+            -0.6481,
+            -0.5391
+          ],
+          "dates": [
+            "2026-06-25",
+            "2026-07-05",
+            "2026-07-15"
+          ],
+          "quality_flags": [
+            "cloud_masked",
+            "vegetation_moisture_index_uncalibrated",
+            "sentinel_b11_is_not_gao_1_24um"
+          ]
+        },
+        "vegetation_moisture_index": {
+          "name": "vegetation_moisture_index",
+          "formula": "(B8A - B11) / (B8A + B11)",
+          "bands": [
+            "B8A",
+            "B11"
+          ],
+          "resolution_m": 20,
+          "methodological_source": "NIR-SWIR canopy-moisture formulation motivated by Gao (1996), DOI 10.1016/S0034-4257(96)00067-3; Sentinel-2 B11 at 1.61 µm is an approximation, not Gao's 1.24 µm channel",
+          "unit": "dimensionless",
+          "algorithm_version": "2.0.0",
+          "calibration_status": "uncalibrated",
+          "raw_series": [
+            0.284,
+            0.2569,
+            0.2096
+          ],
+          "dates": [
+            "2026-06-25",
+            "2026-07-05",
+            "2026-07-15"
+          ],
+          "quality_flags": [
+            "cloud_masked",
+            "vegetation_moisture_index_uncalibrated",
+            "sentinel_b11_is_not_gao_1_24um"
+          ]
+        }
+      },
       "dates": [
-        "2026-05-04",
-        "2026-05-14",
-        "2026-05-24"
+        "2026-06-25",
+        "2026-07-05",
+        "2026-07-15"
       ],
       "ndwi_values": [
-        -0.5232,
-        -0.577,
-        -0.6233
+        0.284,
+        0.2569,
+        0.2096
       ],
       "valid_pixel_fraction": [
-        0.534,
-        0.743,
-        1.0
+        1.0,
+        0.737,
+        0.229
       ],
-      "ndwi_mean_30d": -0.5745,
-      "ndwi_min_30d": -0.6233,
-      "ndwi_latest": -0.6233,
-      "ndwi_trend_14d": -0.05005,
-      "ndwi_stress_latest": 0.7809,
+      "ndwi_mean_30d": 0.2502,
+      "ndwi_min_30d": 0.2096,
+      "ndwi_latest": 0.2096,
+      "ndwi_trend_14d": -0.0372,
+      "ndwi_stress_latest": 0.3952,
+      "stress_mapping": {
+        "formula": "(1 - vegetation_moisture_index) / 2",
+        "thresholds": {},
+        "calibration_status": "uncalibrated",
+        "operational": false
+      },
+      "calibration_status": "uncalibrated",
+      "quality_flags": [
+        "cloud_masked",
+        "vegetation_moisture_index_uncalibrated",
+        "sentinel_b11_is_not_gao_1_24um"
+      ],
       "n_observations": 3
+    },
+    "gory_stolowe": {
+      "node_id": "gory_stolowe",
+      "node_name": "Góry Stołowe",
+      "data_source": "sentinel2_L2A",
+      "fetch_date": "2026-07-25T19:49:21.950021+00:00",
+      "indices": {
+        "ndwi_surface_water": {
+          "name": "ndwi_surface_water",
+          "formula": "(B03 - B08) / (B03 + B08)",
+          "bands": [
+            "B03",
+            "B08"
+          ],
+          "resolution_m": 10,
+          "methodological_source": "Green-NIR surface-water index; this is not the Gao (1996) vegetation liquid-water index",
+          "unit": "dimensionless",
+          "algorithm_version": "2.0.0",
+          "calibration_status": "uncalibrated",
+          "raw_series": [
+            -0.6728,
+            -0.6853
+          ],
+          "dates": [
+            "2026-06-25",
+            "2026-07-05"
+          ],
+          "quality_flags": [
+            "cloud_masked",
+            "vegetation_moisture_index_uncalibrated",
+            "sentinel_b11_is_not_gao_1_24um"
+          ]
+        },
+        "vegetation_moisture_index": {
+          "name": "vegetation_moisture_index",
+          "formula": "(B8A - B11) / (B8A + B11)",
+          "bands": [
+            "B8A",
+            "B11"
+          ],
+          "resolution_m": 20,
+          "methodological_source": "NIR-SWIR canopy-moisture formulation motivated by Gao (1996), DOI 10.1016/S0034-4257(96)00067-3; Sentinel-2 B11 at 1.61 µm is an approximation, not Gao's 1.24 µm channel",
+          "unit": "dimensionless",
+          "algorithm_version": "2.0.0",
+          "calibration_status": "uncalibrated",
+          "raw_series": [
+            0.3225,
+            0.3049
+          ],
+          "dates": [
+            "2026-06-25",
+            "2026-07-05"
+          ],
+          "quality_flags": [
+            "cloud_masked",
+            "vegetation_moisture_index_uncalibrated",
+            "sentinel_b11_is_not_gao_1_24um"
+          ]
+        }
+      },
+      "dates": [
+        "2026-06-25",
+        "2026-07-05"
+      ],
+      "ndwi_values": [
+        0.3225,
+        0.3049
+      ],
+      "valid_pixel_fraction": [
+        0.62,
+        0.592
+      ],
+      "ndwi_mean_30d": 0.3137,
+      "ndwi_min_30d": 0.3049,
+      "ndwi_latest": 0.3049,
+      "ndwi_trend_14d": -0.0176,
+      "ndwi_stress_latest": 0.3476,
+      "stress_mapping": {
+        "formula": "(1 - vegetation_moisture_index) / 2",
+        "thresholds": {},
+        "calibration_status": "uncalibrated",
+        "operational": false
+      },
+      "calibration_status": "uncalibrated",
+      "quality_flags": [
+        "cloud_masked",
+        "vegetation_moisture_index_uncalibrated",
+        "sentinel_b11_is_not_gao_1_24um"
+      ],
+      "n_observations": 2
     },
     "jawor": {
       "node_id": "jawor",
       "node_name": "Jawor",
       "data_source": "sentinel2_L2A",
-      "fetch_date": "2026-06-03T10:28:49.253288+00:00",
+      "fetch_date": "2026-07-25T19:49:22.085574+00:00",
+      "indices": {
+        "ndwi_surface_water": {
+          "name": "ndwi_surface_water",
+          "formula": "(B03 - B08) / (B03 + B08)",
+          "bands": [
+            "B03",
+            "B08"
+          ],
+          "resolution_m": 10,
+          "methodological_source": "Green-NIR surface-water index; this is not the Gao (1996) vegetation liquid-water index",
+          "unit": "dimensionless",
+          "algorithm_version": "2.0.0",
+          "calibration_status": "uncalibrated",
+          "raw_series": [
+            -0.567,
+            -0.4822,
+            -0.4386
+          ],
+          "dates": [
+            "2026-06-25",
+            "2026-07-05",
+            "2026-07-15"
+          ],
+          "quality_flags": [
+            "cloud_masked",
+            "vegetation_moisture_index_uncalibrated",
+            "sentinel_b11_is_not_gao_1_24um"
+          ]
+        },
+        "vegetation_moisture_index": {
+          "name": "vegetation_moisture_index",
+          "formula": "(B8A - B11) / (B8A + B11)",
+          "bands": [
+            "B8A",
+            "B11"
+          ],
+          "resolution_m": 20,
+          "methodological_source": "NIR-SWIR canopy-moisture formulation motivated by Gao (1996), DOI 10.1016/S0034-4257(96)00067-3; Sentinel-2 B11 at 1.61 µm is an approximation, not Gao's 1.24 µm channel",
+          "unit": "dimensionless",
+          "algorithm_version": "2.0.0",
+          "calibration_status": "uncalibrated",
+          "raw_series": [
+            0.2716,
+            0.0754,
+            0.0542
+          ],
+          "dates": [
+            "2026-06-25",
+            "2026-07-05",
+            "2026-07-15"
+          ],
+          "quality_flags": [
+            "cloud_masked",
+            "vegetation_moisture_index_uncalibrated",
+            "sentinel_b11_is_not_gao_1_24um"
+          ]
+        }
+      },
       "dates": [
-        "2026-05-04",
-        "2026-05-14",
-        "2026-05-24"
+        "2026-06-25",
+        "2026-07-05",
+        "2026-07-15"
       ],
       "ndwi_values": [
-        -0.5889,
-        -0.6282,
-        -0.6536
+        0.2716,
+        0.0754,
+        0.0542
       ],
       "valid_pixel_fraction": [
-        0.957,
-        0.916,
-        1.0
+        1.0,
+        0.986,
+        0.817
       ],
-      "ndwi_mean_30d": -0.6236,
-      "ndwi_min_30d": -0.6536,
-      "ndwi_latest": -0.6536,
-      "ndwi_trend_14d": -0.03235,
-      "ndwi_stress_latest": 0.8674,
+      "ndwi_mean_30d": 0.1337,
+      "ndwi_min_30d": 0.0542,
+      "ndwi_latest": 0.0542,
+      "ndwi_trend_14d": -0.1087,
+      "ndwi_stress_latest": 0.4729,
+      "stress_mapping": {
+        "formula": "(1 - vegetation_moisture_index) / 2",
+        "thresholds": {},
+        "calibration_status": "uncalibrated",
+        "operational": false
+      },
+      "calibration_status": "uncalibrated",
+      "quality_flags": [
+        "cloud_masked",
+        "vegetation_moisture_index_uncalibrated",
+        "sentinel_b11_is_not_gao_1_24um"
+      ],
       "n_observations": 3
     },
     "jugow": {
       "node_id": "jugow",
       "node_name": "Jugów",
       "data_source": "sentinel2_L2A",
-      "fetch_date": "2026-06-03T10:28:49.270709+00:00",
+      "fetch_date": "2026-07-25T19:49:22.134302+00:00",
+      "indices": {
+        "ndwi_surface_water": {
+          "name": "ndwi_surface_water",
+          "formula": "(B03 - B08) / (B03 + B08)",
+          "bands": [
+            "B03",
+            "B08"
+          ],
+          "resolution_m": 10,
+          "methodological_source": "Green-NIR surface-water index; this is not the Gao (1996) vegetation liquid-water index",
+          "unit": "dimensionless",
+          "algorithm_version": "2.0.0",
+          "calibration_status": "uncalibrated",
+          "raw_series": [
+            -0.6465,
+            -0.6876,
+            -0.3662
+          ],
+          "dates": [
+            "2026-06-25",
+            "2026-07-05",
+            "2026-07-15"
+          ],
+          "quality_flags": [
+            "cloud_masked",
+            "vegetation_moisture_index_uncalibrated",
+            "sentinel_b11_is_not_gao_1_24um"
+          ]
+        },
+        "vegetation_moisture_index": {
+          "name": "vegetation_moisture_index",
+          "formula": "(B8A - B11) / (B8A + B11)",
+          "bands": [
+            "B8A",
+            "B11"
+          ],
+          "resolution_m": 20,
+          "methodological_source": "NIR-SWIR canopy-moisture formulation motivated by Gao (1996), DOI 10.1016/S0034-4257(96)00067-3; Sentinel-2 B11 at 1.61 µm is an approximation, not Gao's 1.24 µm channel",
+          "unit": "dimensionless",
+          "algorithm_version": "2.0.0",
+          "calibration_status": "uncalibrated",
+          "raw_series": [
+            0.3035,
+            0.2833,
+            0.3804
+          ],
+          "dates": [
+            "2026-06-25",
+            "2026-07-05",
+            "2026-07-15"
+          ],
+          "quality_flags": [
+            "cloud_masked",
+            "vegetation_moisture_index_uncalibrated",
+            "sentinel_b11_is_not_gao_1_24um"
+          ]
+        }
+      },
       "dates": [
-        "2026-05-24"
+        "2026-06-25",
+        "2026-07-05",
+        "2026-07-15"
       ],
       "ndwi_values": [
-        -0.6757
+        0.3035,
+        0.2833,
+        0.3804
       ],
       "valid_pixel_fraction": [
-        1.0
+        0.504,
+        0.901,
+        0.182
       ],
-      "ndwi_mean_30d": -0.6757,
-      "ndwi_min_30d": -0.6757,
-      "ndwi_latest": -0.6757,
-      "ndwi_trend_14d": 0.0,
-      "ndwi_stress_latest": 0.9306,
-      "n_observations": 1
+      "ndwi_mean_30d": 0.3224,
+      "ndwi_min_30d": 0.2833,
+      "ndwi_latest": 0.3804,
+      "ndwi_trend_14d": 0.03845,
+      "ndwi_stress_latest": 0.3098,
+      "stress_mapping": {
+        "formula": "(1 - vegetation_moisture_index) / 2",
+        "thresholds": {},
+        "calibration_status": "uncalibrated",
+        "operational": false
+      },
+      "calibration_status": "uncalibrated",
+      "quality_flags": [
+        "cloud_masked",
+        "vegetation_moisture_index_uncalibrated",
+        "sentinel_b11_is_not_gao_1_24um"
+      ],
+      "n_observations": 3
     },
     "kamienna_gora": {
       "node_id": "kamienna_gora",
       "node_name": "Kamienna Góra",
       "data_source": "sentinel2_L2A",
-      "fetch_date": "2026-06-03T10:28:49.309051+00:00",
+      "fetch_date": "2026-07-25T19:49:22.216434+00:00",
+      "indices": {
+        "ndwi_surface_water": {
+          "name": "ndwi_surface_water",
+          "formula": "(B03 - B08) / (B03 + B08)",
+          "bands": [
+            "B03",
+            "B08"
+          ],
+          "resolution_m": 10,
+          "methodological_source": "Green-NIR surface-water index; this is not the Gao (1996) vegetation liquid-water index",
+          "unit": "dimensionless",
+          "algorithm_version": "2.0.0",
+          "calibration_status": "uncalibrated",
+          "raw_series": [
+            -0.6549,
+            -0.6479,
+            -0.6292
+          ],
+          "dates": [
+            "2026-06-25",
+            "2026-07-05",
+            "2026-07-15"
+          ],
+          "quality_flags": [
+            "cloud_masked",
+            "vegetation_moisture_index_uncalibrated",
+            "sentinel_b11_is_not_gao_1_24um"
+          ]
+        },
+        "vegetation_moisture_index": {
+          "name": "vegetation_moisture_index",
+          "formula": "(B8A - B11) / (B8A + B11)",
+          "bands": [
+            "B8A",
+            "B11"
+          ],
+          "resolution_m": 20,
+          "methodological_source": "NIR-SWIR canopy-moisture formulation motivated by Gao (1996), DOI 10.1016/S0034-4257(96)00067-3; Sentinel-2 B11 at 1.61 µm is an approximation, not Gao's 1.24 µm channel",
+          "unit": "dimensionless",
+          "algorithm_version": "2.0.0",
+          "calibration_status": "uncalibrated",
+          "raw_series": [
+            0.2605,
+            0.2364,
+            0.2241
+          ],
+          "dates": [
+            "2026-06-25",
+            "2026-07-05",
+            "2026-07-15"
+          ],
+          "quality_flags": [
+            "cloud_masked",
+            "vegetation_moisture_index_uncalibrated",
+            "sentinel_b11_is_not_gao_1_24um"
+          ]
+        }
+      },
       "dates": [
-        "2026-05-04",
-        "2026-05-14",
-        "2026-05-24"
+        "2026-06-25",
+        "2026-07-05",
+        "2026-07-15"
       ],
       "ndwi_values": [
-        -0.4579,
-        -0.5198,
-        -0.6443
+        0.2605,
+        0.2364,
+        0.2241
       ],
       "valid_pixel_fraction": [
-        0.523,
-        0.127,
-        1.0
+        1.0,
+        1.0,
+        0.997
       ],
-      "ndwi_mean_30d": -0.5407,
-      "ndwi_min_30d": -0.6443,
-      "ndwi_latest": -0.6443,
-      "ndwi_trend_14d": -0.0932,
-      "ndwi_stress_latest": 0.8409,
+      "ndwi_mean_30d": 0.2403,
+      "ndwi_min_30d": 0.2241,
+      "ndwi_latest": 0.2241,
+      "ndwi_trend_14d": -0.0182,
+      "ndwi_stress_latest": 0.388,
+      "stress_mapping": {
+        "formula": "(1 - vegetation_moisture_index) / 2",
+        "thresholds": {},
+        "calibration_status": "uncalibrated",
+        "operational": false
+      },
+      "calibration_status": "uncalibrated",
+      "quality_flags": [
+        "cloud_masked",
+        "vegetation_moisture_index_uncalibrated",
+        "sentinel_b11_is_not_gao_1_24um"
+      ],
       "n_observations": 3
     },
     "klodzko": {
       "node_id": "klodzko",
       "node_name": "Kłodzko",
       "data_source": "sentinel2_L2A",
-      "fetch_date": "2026-06-03T10:28:49.311508+00:00",
+      "fetch_date": "2026-07-25T19:49:22.276970+00:00",
+      "indices": {
+        "ndwi_surface_water": {
+          "name": "ndwi_surface_water",
+          "formula": "(B03 - B08) / (B03 + B08)",
+          "bands": [
+            "B03",
+            "B08"
+          ],
+          "resolution_m": 10,
+          "methodological_source": "Green-NIR surface-water index; this is not the Gao (1996) vegetation liquid-water index",
+          "unit": "dimensionless",
+          "algorithm_version": "2.0.0",
+          "calibration_status": "uncalibrated",
+          "raw_series": [
+            -0.6329,
+            -0.6359,
+            -0.533
+          ],
+          "dates": [
+            "2026-06-25",
+            "2026-07-05",
+            "2026-07-15"
+          ],
+          "quality_flags": [
+            "cloud_masked",
+            "vegetation_moisture_index_uncalibrated",
+            "sentinel_b11_is_not_gao_1_24um"
+          ]
+        },
+        "vegetation_moisture_index": {
+          "name": "vegetation_moisture_index",
+          "formula": "(B8A - B11) / (B8A + B11)",
+          "bands": [
+            "B8A",
+            "B11"
+          ],
+          "resolution_m": 20,
+          "methodological_source": "NIR-SWIR canopy-moisture formulation motivated by Gao (1996), DOI 10.1016/S0034-4257(96)00067-3; Sentinel-2 B11 at 1.61 µm is an approximation, not Gao's 1.24 µm channel",
+          "unit": "dimensionless",
+          "algorithm_version": "2.0.0",
+          "calibration_status": "uncalibrated",
+          "raw_series": [
+            0.2817,
+            0.2511,
+            0.2183
+          ],
+          "dates": [
+            "2026-06-25",
+            "2026-07-05",
+            "2026-07-15"
+          ],
+          "quality_flags": [
+            "cloud_masked",
+            "vegetation_moisture_index_uncalibrated",
+            "sentinel_b11_is_not_gao_1_24um"
+          ]
+        }
+      },
       "dates": [
-        "2026-05-14",
-        "2026-05-24"
+        "2026-06-25",
+        "2026-07-05",
+        "2026-07-15"
       ],
       "ndwi_values": [
-        -0.5762,
-        -0.6204
+        0.2817,
+        0.2511,
+        0.2183
       ],
       "valid_pixel_fraction": [
-        0.957,
-        1.0
+        1.0,
+        1.0,
+        0.516
       ],
-      "ndwi_mean_30d": -0.5983,
-      "ndwi_min_30d": -0.6204,
-      "ndwi_latest": -0.6204,
-      "ndwi_trend_14d": -0.0442,
-      "ndwi_stress_latest": 0.7726,
-      "n_observations": 2
+      "ndwi_mean_30d": 0.2504,
+      "ndwi_min_30d": 0.2183,
+      "ndwi_latest": 0.2183,
+      "ndwi_trend_14d": -0.0317,
+      "ndwi_stress_latest": 0.3909,
+      "stress_mapping": {
+        "formula": "(1 - vegetation_moisture_index) / 2",
+        "thresholds": {},
+        "calibration_status": "uncalibrated",
+        "operational": false
+      },
+      "calibration_status": "uncalibrated",
+      "quality_flags": [
+        "cloud_masked",
+        "vegetation_moisture_index_uncalibrated",
+        "sentinel_b11_is_not_gao_1_24um"
+      ],
+      "n_observations": 3
     },
     "ladek": {
       "node_id": "ladek",
       "node_name": "Lądek-Zdrój",
       "data_source": "sentinel2_L2A",
-      "fetch_date": "2026-06-03T10:28:49.555387+00:00",
+      "fetch_date": "2026-07-25T19:49:22.455892+00:00",
+      "indices": {
+        "ndwi_surface_water": {
+          "name": "ndwi_surface_water",
+          "formula": "(B03 - B08) / (B03 + B08)",
+          "bands": [
+            "B03",
+            "B08"
+          ],
+          "resolution_m": 10,
+          "methodological_source": "Green-NIR surface-water index; this is not the Gao (1996) vegetation liquid-water index",
+          "unit": "dimensionless",
+          "algorithm_version": "2.0.0",
+          "calibration_status": "uncalibrated",
+          "raw_series": [
+            -0.7269,
+            -0.7471,
+            -0.6657
+          ],
+          "dates": [
+            "2026-06-25",
+            "2026-07-05",
+            "2026-07-15"
+          ],
+          "quality_flags": [
+            "cloud_masked",
+            "vegetation_moisture_index_uncalibrated",
+            "sentinel_b11_is_not_gao_1_24um"
+          ]
+        },
+        "vegetation_moisture_index": {
+          "name": "vegetation_moisture_index",
+          "formula": "(B8A - B11) / (B8A + B11)",
+          "bands": [
+            "B8A",
+            "B11"
+          ],
+          "resolution_m": 20,
+          "methodological_source": "NIR-SWIR canopy-moisture formulation motivated by Gao (1996), DOI 10.1016/S0034-4257(96)00067-3; Sentinel-2 B11 at 1.61 µm is an approximation, not Gao's 1.24 µm channel",
+          "unit": "dimensionless",
+          "algorithm_version": "2.0.0",
+          "calibration_status": "uncalibrated",
+          "raw_series": [
+            0.3378,
+            0.3457,
+            0.3047
+          ],
+          "dates": [
+            "2026-06-25",
+            "2026-07-05",
+            "2026-07-15"
+          ],
+          "quality_flags": [
+            "cloud_masked",
+            "vegetation_moisture_index_uncalibrated",
+            "sentinel_b11_is_not_gao_1_24um"
+          ]
+        }
+      },
       "dates": [
-        "2026-05-04",
-        "2026-05-14",
-        "2026-05-24"
+        "2026-06-25",
+        "2026-07-05",
+        "2026-07-15"
       ],
       "ndwi_values": [
-        -0.5838,
-        -0.5685,
-        -0.705
+        0.3378,
+        0.3457,
+        0.3047
       ],
       "valid_pixel_fraction": [
-        0.529,
-        0.23,
-        1.0
+        1.0,
+        1.0,
+        0.465
       ],
-      "ndwi_mean_30d": -0.6191,
-      "ndwi_min_30d": -0.705,
-      "ndwi_latest": -0.705,
-      "ndwi_trend_14d": -0.0606,
-      "ndwi_stress_latest": 1.0,
+      "ndwi_mean_30d": 0.3294,
+      "ndwi_min_30d": 0.3047,
+      "ndwi_latest": 0.3047,
+      "ndwi_trend_14d": -0.01655,
+      "ndwi_stress_latest": 0.3477,
+      "stress_mapping": {
+        "formula": "(1 - vegetation_moisture_index) / 2",
+        "thresholds": {},
+        "calibration_status": "uncalibrated",
+        "operational": false
+      },
+      "calibration_status": "uncalibrated",
+      "quality_flags": [
+        "cloud_masked",
+        "vegetation_moisture_index_uncalibrated",
+        "sentinel_b11_is_not_gao_1_24um"
+      ],
       "n_observations": 3
     },
     "legnica": {
       "node_id": "legnica",
       "node_name": "Legnica",
       "data_source": "sentinel2_L2A",
-      "fetch_date": "2026-06-03T10:28:49.569684+00:00",
+      "fetch_date": "2026-07-25T19:49:22.479507+00:00",
+      "indices": {
+        "ndwi_surface_water": {
+          "name": "ndwi_surface_water",
+          "formula": "(B03 - B08) / (B03 + B08)",
+          "bands": [
+            "B03",
+            "B08"
+          ],
+          "resolution_m": 10,
+          "methodological_source": "Green-NIR surface-water index; this is not the Gao (1996) vegetation liquid-water index",
+          "unit": "dimensionless",
+          "algorithm_version": "2.0.0",
+          "calibration_status": "uncalibrated",
+          "raw_series": [
+            -0.5706,
+            -0.5236,
+            -0.5207
+          ],
+          "dates": [
+            "2026-06-25",
+            "2026-07-05",
+            "2026-07-15"
+          ],
+          "quality_flags": [
+            "cloud_masked",
+            "vegetation_moisture_index_uncalibrated",
+            "sentinel_b11_is_not_gao_1_24um"
+          ]
+        },
+        "vegetation_moisture_index": {
+          "name": "vegetation_moisture_index",
+          "formula": "(B8A - B11) / (B8A + B11)",
+          "bands": [
+            "B8A",
+            "B11"
+          ],
+          "resolution_m": 20,
+          "methodological_source": "NIR-SWIR canopy-moisture formulation motivated by Gao (1996), DOI 10.1016/S0034-4257(96)00067-3; Sentinel-2 B11 at 1.61 µm is an approximation, not Gao's 1.24 µm channel",
+          "unit": "dimensionless",
+          "algorithm_version": "2.0.0",
+          "calibration_status": "uncalibrated",
+          "raw_series": [
+            0.1998,
+            0.1663,
+            0.1515
+          ],
+          "dates": [
+            "2026-06-25",
+            "2026-07-05",
+            "2026-07-15"
+          ],
+          "quality_flags": [
+            "cloud_masked",
+            "vegetation_moisture_index_uncalibrated",
+            "sentinel_b11_is_not_gao_1_24um"
+          ]
+        }
+      },
       "dates": [
-        "2026-05-04",
-        "2026-05-14",
-        "2026-05-24"
+        "2026-06-25",
+        "2026-07-05",
+        "2026-07-15"
       ],
       "ndwi_values": [
-        -0.5262,
-        -0.5577,
-        -0.5815
+        0.1998,
+        0.1663,
+        0.1515
       ],
       "valid_pixel_fraction": [
-        0.986,
-        0.852,
-        1.0
+        1.0,
+        0.61,
+        0.944
       ],
-      "ndwi_mean_30d": -0.5551,
-      "ndwi_min_30d": -0.5815,
-      "ndwi_latest": -0.5815,
-      "ndwi_trend_14d": -0.02765,
-      "ndwi_stress_latest": 0.6614,
+      "ndwi_mean_30d": 0.1725,
+      "ndwi_min_30d": 0.1515,
+      "ndwi_latest": 0.1515,
+      "ndwi_trend_14d": -0.02415,
+      "ndwi_stress_latest": 0.4243,
+      "stress_mapping": {
+        "formula": "(1 - vegetation_moisture_index) / 2",
+        "thresholds": {},
+        "calibration_status": "uncalibrated",
+        "operational": false
+      },
+      "calibration_status": "uncalibrated",
+      "quality_flags": [
+        "cloud_masked",
+        "vegetation_moisture_index_uncalibrated",
+        "sentinel_b11_is_not_gao_1_24um"
+      ],
+      "n_observations": 3
+    },
+    "lesna": {
+      "node_id": "lesna",
+      "node_name": "Leśna",
+      "data_source": "sentinel2_L2A",
+      "fetch_date": "2026-07-25T19:49:22.558891+00:00",
+      "indices": {
+        "ndwi_surface_water": {
+          "name": "ndwi_surface_water",
+          "formula": "(B03 - B08) / (B03 + B08)",
+          "bands": [
+            "B03",
+            "B08"
+          ],
+          "resolution_m": 10,
+          "methodological_source": "Green-NIR surface-water index; this is not the Gao (1996) vegetation liquid-water index",
+          "unit": "dimensionless",
+          "algorithm_version": "2.0.0",
+          "calibration_status": "uncalibrated",
+          "raw_series": [
+            -0.6939,
+            -0.6636,
+            -0.6911
+          ],
+          "dates": [
+            "2026-06-25",
+            "2026-07-05",
+            "2026-07-15"
+          ],
+          "quality_flags": [
+            "cloud_masked",
+            "vegetation_moisture_index_uncalibrated",
+            "sentinel_b11_is_not_gao_1_24um"
+          ]
+        },
+        "vegetation_moisture_index": {
+          "name": "vegetation_moisture_index",
+          "formula": "(B8A - B11) / (B8A + B11)",
+          "bands": [
+            "B8A",
+            "B11"
+          ],
+          "resolution_m": 20,
+          "methodological_source": "NIR-SWIR canopy-moisture formulation motivated by Gao (1996), DOI 10.1016/S0034-4257(96)00067-3; Sentinel-2 B11 at 1.61 µm is an approximation, not Gao's 1.24 µm channel",
+          "unit": "dimensionless",
+          "algorithm_version": "2.0.0",
+          "calibration_status": "uncalibrated",
+          "raw_series": [
+            0.3257,
+            0.3188,
+            0.3186
+          ],
+          "dates": [
+            "2026-06-25",
+            "2026-07-05",
+            "2026-07-15"
+          ],
+          "quality_flags": [
+            "cloud_masked",
+            "vegetation_moisture_index_uncalibrated",
+            "sentinel_b11_is_not_gao_1_24um"
+          ]
+        }
+      },
+      "dates": [
+        "2026-06-25",
+        "2026-07-05",
+        "2026-07-15"
+      ],
+      "ndwi_values": [
+        0.3257,
+        0.3188,
+        0.3186
+      ],
+      "valid_pixel_fraction": [
+        1.0,
+        0.776,
+        0.523
+      ],
+      "ndwi_mean_30d": 0.321,
+      "ndwi_min_30d": 0.3186,
+      "ndwi_latest": 0.3186,
+      "ndwi_trend_14d": -0.00355,
+      "ndwi_stress_latest": 0.3407,
+      "stress_mapping": {
+        "formula": "(1 - vegetation_moisture_index) / 2",
+        "thresholds": {},
+        "calibration_status": "uncalibrated",
+        "operational": false
+      },
+      "calibration_status": "uncalibrated",
+      "quality_flags": [
+        "cloud_masked",
+        "vegetation_moisture_index_uncalibrated",
+        "sentinel_b11_is_not_gao_1_24um"
+      ],
       "n_observations": 3
     },
     "lubin": {
       "node_id": "lubin",
       "node_name": "Lubin",
       "data_source": "sentinel2_L2A",
-      "fetch_date": "2026-06-03T10:28:49.597071+00:00",
+      "fetch_date": "2026-07-25T19:49:22.629860+00:00",
+      "indices": {
+        "ndwi_surface_water": {
+          "name": "ndwi_surface_water",
+          "formula": "(B03 - B08) / (B03 + B08)",
+          "bands": [
+            "B03",
+            "B08"
+          ],
+          "resolution_m": 10,
+          "methodological_source": "Green-NIR surface-water index; this is not the Gao (1996) vegetation liquid-water index",
+          "unit": "dimensionless",
+          "algorithm_version": "2.0.0",
+          "calibration_status": "uncalibrated",
+          "raw_series": [
+            -0.5924,
+            -0.5683,
+            -0.5934
+          ],
+          "dates": [
+            "2026-06-25",
+            "2026-07-05",
+            "2026-07-15"
+          ],
+          "quality_flags": [
+            "cloud_masked",
+            "vegetation_moisture_index_uncalibrated",
+            "sentinel_b11_is_not_gao_1_24um"
+          ]
+        },
+        "vegetation_moisture_index": {
+          "name": "vegetation_moisture_index",
+          "formula": "(B8A - B11) / (B8A + B11)",
+          "bands": [
+            "B8A",
+            "B11"
+          ],
+          "resolution_m": 20,
+          "methodological_source": "NIR-SWIR canopy-moisture formulation motivated by Gao (1996), DOI 10.1016/S0034-4257(96)00067-3; Sentinel-2 B11 at 1.61 µm is an approximation, not Gao's 1.24 µm channel",
+          "unit": "dimensionless",
+          "algorithm_version": "2.0.0",
+          "calibration_status": "uncalibrated",
+          "raw_series": [
+            0.1992,
+            0.2232,
+            0.2281
+          ],
+          "dates": [
+            "2026-06-25",
+            "2026-07-05",
+            "2026-07-15"
+          ],
+          "quality_flags": [
+            "cloud_masked",
+            "vegetation_moisture_index_uncalibrated",
+            "sentinel_b11_is_not_gao_1_24um"
+          ]
+        }
+      },
       "dates": [
-        "2026-05-04",
-        "2026-05-14",
-        "2026-05-24"
+        "2026-06-25",
+        "2026-07-05",
+        "2026-07-15"
       ],
       "ndwi_values": [
-        -0.5046,
-        -0.5223,
-        -0.5624
+        0.1992,
+        0.2232,
+        0.2281
       ],
       "valid_pixel_fraction": [
-        0.93,
-        0.739,
-        1.0
+        1.0,
+        0.372,
+        0.937
       ],
-      "ndwi_mean_30d": -0.5298,
-      "ndwi_min_30d": -0.5624,
-      "ndwi_latest": -0.5624,
-      "ndwi_trend_14d": -0.0289,
-      "ndwi_stress_latest": 0.6069,
+      "ndwi_mean_30d": 0.2168,
+      "ndwi_min_30d": 0.1992,
+      "ndwi_latest": 0.2281,
+      "ndwi_trend_14d": 0.01445,
+      "ndwi_stress_latest": 0.386,
+      "stress_mapping": {
+        "formula": "(1 - vegetation_moisture_index) / 2",
+        "thresholds": {},
+        "calibration_status": "uncalibrated",
+        "operational": false
+      },
+      "calibration_status": "uncalibrated",
+      "quality_flags": [
+        "cloud_masked",
+        "vegetation_moisture_index_uncalibrated",
+        "sentinel_b11_is_not_gao_1_24um"
+      ],
       "n_observations": 3
     },
     "lwowek": {
       "node_id": "lwowek",
       "node_name": "Lwówek Śląski",
       "data_source": "sentinel2_L2A",
-      "fetch_date": "2026-06-03T10:28:49.894428+00:00",
+      "fetch_date": "2026-07-25T19:49:22.794284+00:00",
+      "indices": {
+        "ndwi_surface_water": {
+          "name": "ndwi_surface_water",
+          "formula": "(B03 - B08) / (B03 + B08)",
+          "bands": [
+            "B03",
+            "B08"
+          ],
+          "resolution_m": 10,
+          "methodological_source": "Green-NIR surface-water index; this is not the Gao (1996) vegetation liquid-water index",
+          "unit": "dimensionless",
+          "algorithm_version": "2.0.0",
+          "calibration_status": "uncalibrated",
+          "raw_series": [
+            -0.673,
+            -0.6317,
+            -0.6222
+          ],
+          "dates": [
+            "2026-06-25",
+            "2026-07-05",
+            "2026-07-15"
+          ],
+          "quality_flags": [
+            "cloud_masked",
+            "vegetation_moisture_index_uncalibrated",
+            "sentinel_b11_is_not_gao_1_24um"
+          ]
+        },
+        "vegetation_moisture_index": {
+          "name": "vegetation_moisture_index",
+          "formula": "(B8A - B11) / (B8A + B11)",
+          "bands": [
+            "B8A",
+            "B11"
+          ],
+          "resolution_m": 20,
+          "methodological_source": "NIR-SWIR canopy-moisture formulation motivated by Gao (1996), DOI 10.1016/S0034-4257(96)00067-3; Sentinel-2 B11 at 1.61 µm is an approximation, not Gao's 1.24 µm channel",
+          "unit": "dimensionless",
+          "algorithm_version": "2.0.0",
+          "calibration_status": "uncalibrated",
+          "raw_series": [
+            0.3315,
+            0.2833,
+            0.239
+          ],
+          "dates": [
+            "2026-06-25",
+            "2026-07-05",
+            "2026-07-15"
+          ],
+          "quality_flags": [
+            "cloud_masked",
+            "vegetation_moisture_index_uncalibrated",
+            "sentinel_b11_is_not_gao_1_24um"
+          ]
+        }
+      },
       "dates": [
-        "2026-05-04",
-        "2026-05-14",
-        "2026-05-24"
+        "2026-06-25",
+        "2026-07-05",
+        "2026-07-15"
       ],
       "ndwi_values": [
-        -0.56,
-        -0.6141,
-        -0.6547
+        0.3315,
+        0.2833,
+        0.239
       ],
       "valid_pixel_fraction": [
-        0.903,
-        0.974,
-        1.0
+        1.0,
+        0.881,
+        0.985
       ],
-      "ndwi_mean_30d": -0.6096,
-      "ndwi_min_30d": -0.6547,
-      "ndwi_latest": -0.6547,
-      "ndwi_trend_14d": -0.04735,
-      "ndwi_stress_latest": 0.8706,
+      "ndwi_mean_30d": 0.2846,
+      "ndwi_min_30d": 0.239,
+      "ndwi_latest": 0.239,
+      "ndwi_trend_14d": -0.04625,
+      "ndwi_stress_latest": 0.3805,
+      "stress_mapping": {
+        "formula": "(1 - vegetation_moisture_index) / 2",
+        "thresholds": {},
+        "calibration_status": "uncalibrated",
+        "operational": false
+      },
+      "calibration_status": "uncalibrated",
+      "quality_flags": [
+        "cloud_masked",
+        "vegetation_moisture_index_uncalibrated",
+        "sentinel_b11_is_not_gao_1_24um"
+      ],
+      "n_observations": 3
+    },
+    "miekinia": {
+      "node_id": "miekinia",
+      "node_name": "Miękinia",
+      "data_source": "sentinel2_L2A",
+      "fetch_date": "2026-07-25T19:49:22.717580+00:00",
+      "indices": {
+        "ndwi_surface_water": {
+          "name": "ndwi_surface_water",
+          "formula": "(B03 - B08) / (B03 + B08)",
+          "bands": [
+            "B03",
+            "B08"
+          ],
+          "resolution_m": 10,
+          "methodological_source": "Green-NIR surface-water index; this is not the Gao (1996) vegetation liquid-water index",
+          "unit": "dimensionless",
+          "algorithm_version": "2.0.0",
+          "calibration_status": "uncalibrated",
+          "raw_series": [
+            -0.5975,
+            -0.5363,
+            -0.4942
+          ],
+          "dates": [
+            "2026-06-25",
+            "2026-07-05",
+            "2026-07-15"
+          ],
+          "quality_flags": [
+            "cloud_masked",
+            "vegetation_moisture_index_uncalibrated",
+            "sentinel_b11_is_not_gao_1_24um"
+          ]
+        },
+        "vegetation_moisture_index": {
+          "name": "vegetation_moisture_index",
+          "formula": "(B8A - B11) / (B8A + B11)",
+          "bands": [
+            "B8A",
+            "B11"
+          ],
+          "resolution_m": 20,
+          "methodological_source": "NIR-SWIR canopy-moisture formulation motivated by Gao (1996), DOI 10.1016/S0034-4257(96)00067-3; Sentinel-2 B11 at 1.61 µm is an approximation, not Gao's 1.24 µm channel",
+          "unit": "dimensionless",
+          "algorithm_version": "2.0.0",
+          "calibration_status": "uncalibrated",
+          "raw_series": [
+            0.2513,
+            0.1177,
+            0.1307
+          ],
+          "dates": [
+            "2026-06-25",
+            "2026-07-05",
+            "2026-07-15"
+          ],
+          "quality_flags": [
+            "cloud_masked",
+            "vegetation_moisture_index_uncalibrated",
+            "sentinel_b11_is_not_gao_1_24um"
+          ]
+        }
+      },
+      "dates": [
+        "2026-06-25",
+        "2026-07-05",
+        "2026-07-15"
+      ],
+      "ndwi_values": [
+        0.2513,
+        0.1177,
+        0.1307
+      ],
+      "valid_pixel_fraction": [
+        0.976,
+        0.938,
+        0.57
+      ],
+      "ndwi_mean_30d": 0.1666,
+      "ndwi_min_30d": 0.1177,
+      "ndwi_latest": 0.1307,
+      "ndwi_trend_14d": -0.0603,
+      "ndwi_stress_latest": 0.4346,
+      "stress_mapping": {
+        "formula": "(1 - vegetation_moisture_index) / 2",
+        "thresholds": {},
+        "calibration_status": "uncalibrated",
+        "operational": false
+      },
+      "calibration_status": "uncalibrated",
+      "quality_flags": [
+        "cloud_masked",
+        "vegetation_moisture_index_uncalibrated",
+        "sentinel_b11_is_not_gao_1_24um"
+      ],
       "n_observations": 3
     },
     "milicz": {
       "node_id": "milicz",
       "node_name": "Milicz",
       "data_source": "sentinel2_L2A",
-      "fetch_date": "2026-06-03T10:28:49.947099+00:00",
+      "fetch_date": "2026-07-25T19:49:23.009963+00:00",
+      "indices": {
+        "ndwi_surface_water": {
+          "name": "ndwi_surface_water",
+          "formula": "(B03 - B08) / (B03 + B08)",
+          "bands": [
+            "B03",
+            "B08"
+          ],
+          "resolution_m": 10,
+          "methodological_source": "Green-NIR surface-water index; this is not the Gao (1996) vegetation liquid-water index",
+          "unit": "dimensionless",
+          "algorithm_version": "2.0.0",
+          "calibration_status": "uncalibrated",
+          "raw_series": [
+            -0.6063,
+            -0.5725,
+            -0.56
+          ],
+          "dates": [
+            "2026-06-25",
+            "2026-07-05",
+            "2026-07-15"
+          ],
+          "quality_flags": [
+            "cloud_masked",
+            "vegetation_moisture_index_uncalibrated",
+            "sentinel_b11_is_not_gao_1_24um"
+          ]
+        },
+        "vegetation_moisture_index": {
+          "name": "vegetation_moisture_index",
+          "formula": "(B8A - B11) / (B8A + B11)",
+          "bands": [
+            "B8A",
+            "B11"
+          ],
+          "resolution_m": 20,
+          "methodological_source": "NIR-SWIR canopy-moisture formulation motivated by Gao (1996), DOI 10.1016/S0034-4257(96)00067-3; Sentinel-2 B11 at 1.61 µm is an approximation, not Gao's 1.24 µm channel",
+          "unit": "dimensionless",
+          "algorithm_version": "2.0.0",
+          "calibration_status": "uncalibrated",
+          "raw_series": [
+            0.2884,
+            0.2507,
+            0.3342
+          ],
+          "dates": [
+            "2026-06-25",
+            "2026-07-05",
+            "2026-07-15"
+          ],
+          "quality_flags": [
+            "cloud_masked",
+            "vegetation_moisture_index_uncalibrated",
+            "sentinel_b11_is_not_gao_1_24um"
+          ]
+        }
+      },
       "dates": [
-        "2026-05-14",
-        "2026-05-24"
+        "2026-06-25",
+        "2026-07-05",
+        "2026-07-15"
       ],
       "ndwi_values": [
-        -0.5751,
-        -0.6125
+        0.2884,
+        0.2507,
+        0.3342
       ],
       "valid_pixel_fraction": [
-        0.447,
-        1.0
+        0.386,
+        0.598,
+        0.179
       ],
-      "ndwi_mean_30d": -0.5938,
-      "ndwi_min_30d": -0.6125,
-      "ndwi_latest": -0.6125,
-      "ndwi_trend_14d": -0.0374,
-      "ndwi_stress_latest": 0.75,
-      "n_observations": 2
-    },
-    "miekinia": {
-      "node_id": "miekinia",
-      "node_name": "Miękinia",
-      "data_source": "sentinel2_L2A",
-      "fetch_date": "2026-06-03T10:28:49.984079+00:00",
-      "dates": [
-        "2026-05-14",
-        "2026-05-24"
+      "ndwi_mean_30d": 0.2911,
+      "ndwi_min_30d": 0.2507,
+      "ndwi_latest": 0.3342,
+      "ndwi_trend_14d": 0.0229,
+      "ndwi_stress_latest": 0.3329,
+      "stress_mapping": {
+        "formula": "(1 - vegetation_moisture_index) / 2",
+        "thresholds": {},
+        "calibration_status": "uncalibrated",
+        "operational": false
+      },
+      "calibration_status": "uncalibrated",
+      "quality_flags": [
+        "cloud_masked",
+        "vegetation_moisture_index_uncalibrated",
+        "sentinel_b11_is_not_gao_1_24um"
       ],
-      "ndwi_values": [
-        -0.6138,
-        -0.6298
-      ],
-      "valid_pixel_fraction": [
-        0.889,
-        1.0
-      ],
-      "ndwi_mean_30d": -0.6218,
-      "ndwi_min_30d": -0.6298,
-      "ndwi_latest": -0.6298,
-      "ndwi_trend_14d": -0.016,
-      "ndwi_stress_latest": 0.7994,
-      "n_observations": 2
+      "n_observations": 3
     },
     "mysliborskie": {
       "node_id": "mysliborskie",
       "node_name": "Myśliborskie",
       "data_source": "sentinel2_L2A",
-      "fetch_date": "2026-06-03T10:28:50.215905+00:00",
+      "fetch_date": "2026-07-25T19:49:23.038285+00:00",
+      "indices": {
+        "ndwi_surface_water": {
+          "name": "ndwi_surface_water",
+          "formula": "(B03 - B08) / (B03 + B08)",
+          "bands": [
+            "B03",
+            "B08"
+          ],
+          "resolution_m": 10,
+          "methodological_source": "Green-NIR surface-water index; this is not the Gao (1996) vegetation liquid-water index",
+          "unit": "dimensionless",
+          "algorithm_version": "2.0.0",
+          "calibration_status": "uncalibrated",
+          "raw_series": [
+            -0.7085,
+            -0.6876,
+            -0.6791
+          ],
+          "dates": [
+            "2026-06-25",
+            "2026-07-05",
+            "2026-07-15"
+          ],
+          "quality_flags": [
+            "cloud_masked",
+            "vegetation_moisture_index_uncalibrated",
+            "sentinel_b11_is_not_gao_1_24um"
+          ]
+        },
+        "vegetation_moisture_index": {
+          "name": "vegetation_moisture_index",
+          "formula": "(B8A - B11) / (B8A + B11)",
+          "bands": [
+            "B8A",
+            "B11"
+          ],
+          "resolution_m": 20,
+          "methodological_source": "NIR-SWIR canopy-moisture formulation motivated by Gao (1996), DOI 10.1016/S0034-4257(96)00067-3; Sentinel-2 B11 at 1.61 µm is an approximation, not Gao's 1.24 µm channel",
+          "unit": "dimensionless",
+          "algorithm_version": "2.0.0",
+          "calibration_status": "uncalibrated",
+          "raw_series": [
+            0.3088,
+            0.3277,
+            0.333
+          ],
+          "dates": [
+            "2026-06-25",
+            "2026-07-05",
+            "2026-07-15"
+          ],
+          "quality_flags": [
+            "cloud_masked",
+            "vegetation_moisture_index_uncalibrated",
+            "sentinel_b11_is_not_gao_1_24um"
+          ]
+        }
+      },
       "dates": [
-        "2026-05-04",
-        "2026-05-14",
-        "2026-05-24"
+        "2026-06-25",
+        "2026-07-05",
+        "2026-07-15"
       ],
       "ndwi_values": [
-        -0.5279,
-        -0.4451,
-        -0.6608
+        0.3088,
+        0.3277,
+        0.333
       ],
       "valid_pixel_fraction": [
-        0.747,
-        0.325,
-        1.0
+        1.0,
+        0.871,
+        0.666
       ],
-      "ndwi_mean_30d": -0.5446,
-      "ndwi_min_30d": -0.6608,
-      "ndwi_latest": -0.6608,
-      "ndwi_trend_14d": -0.06645,
-      "ndwi_stress_latest": 0.888,
+      "ndwi_mean_30d": 0.3232,
+      "ndwi_min_30d": 0.3088,
+      "ndwi_latest": 0.333,
+      "ndwi_trend_14d": 0.0121,
+      "ndwi_stress_latest": 0.3335,
+      "stress_mapping": {
+        "formula": "(1 - vegetation_moisture_index) / 2",
+        "thresholds": {},
+        "calibration_status": "uncalibrated",
+        "operational": false
+      },
+      "calibration_status": "uncalibrated",
+      "quality_flags": [
+        "cloud_masked",
+        "vegetation_moisture_index_uncalibrated",
+        "sentinel_b11_is_not_gao_1_24um"
+      ],
       "n_observations": 3
     },
     "olesnica": {
       "node_id": "olesnica",
       "node_name": "Oleśnica Śląska",
       "data_source": "sentinel2_L2A",
-      "fetch_date": "2026-06-03T10:28:50.270214+00:00",
+      "fetch_date": "2026-07-25T19:49:23.096479+00:00",
+      "indices": {
+        "ndwi_surface_water": {
+          "name": "ndwi_surface_water",
+          "formula": "(B03 - B08) / (B03 + B08)",
+          "bands": [
+            "B03",
+            "B08"
+          ],
+          "resolution_m": 10,
+          "methodological_source": "Green-NIR surface-water index; this is not the Gao (1996) vegetation liquid-water index",
+          "unit": "dimensionless",
+          "algorithm_version": "2.0.0",
+          "calibration_status": "uncalibrated",
+          "raw_series": [
+            -0.6205,
+            -0.586,
+            -0.5713
+          ],
+          "dates": [
+            "2026-06-25",
+            "2026-07-05",
+            "2026-07-15"
+          ],
+          "quality_flags": [
+            "cloud_masked",
+            "vegetation_moisture_index_uncalibrated",
+            "sentinel_b11_is_not_gao_1_24um"
+          ]
+        },
+        "vegetation_moisture_index": {
+          "name": "vegetation_moisture_index",
+          "formula": "(B8A - B11) / (B8A + B11)",
+          "bands": [
+            "B8A",
+            "B11"
+          ],
+          "resolution_m": 20,
+          "methodological_source": "NIR-SWIR canopy-moisture formulation motivated by Gao (1996), DOI 10.1016/S0034-4257(96)00067-3; Sentinel-2 B11 at 1.61 µm is an approximation, not Gao's 1.24 µm channel",
+          "unit": "dimensionless",
+          "algorithm_version": "2.0.0",
+          "calibration_status": "uncalibrated",
+          "raw_series": [
+            0.2667,
+            0.2037,
+            0.2539
+          ],
+          "dates": [
+            "2026-06-25",
+            "2026-07-05",
+            "2026-07-15"
+          ],
+          "quality_flags": [
+            "cloud_masked",
+            "vegetation_moisture_index_uncalibrated",
+            "sentinel_b11_is_not_gao_1_24um"
+          ]
+        }
+      },
       "dates": [
-        "2026-05-04",
-        "2026-05-14",
-        "2026-05-24"
+        "2026-06-25",
+        "2026-07-05",
+        "2026-07-15"
       ],
       "ndwi_values": [
-        -0.4657,
-        -0.5399,
-        -0.5536
+        0.2667,
+        0.2037,
+        0.2539
       ],
       "valid_pixel_fraction": [
-        0.188,
-        0.97,
-        1.0
+        0.987,
+        0.996,
+        0.214
       ],
-      "ndwi_mean_30d": -0.5197,
-      "ndwi_min_30d": -0.5536,
-      "ndwi_latest": -0.5536,
-      "ndwi_trend_14d": -0.04395,
-      "ndwi_stress_latest": 0.5817,
+      "ndwi_mean_30d": 0.2414,
+      "ndwi_min_30d": 0.2037,
+      "ndwi_latest": 0.2539,
+      "ndwi_trend_14d": -0.0064,
+      "ndwi_stress_latest": 0.373,
+      "stress_mapping": {
+        "formula": "(1 - vegetation_moisture_index) / 2",
+        "thresholds": {},
+        "calibration_status": "uncalibrated",
+        "operational": false
+      },
+      "calibration_status": "uncalibrated",
+      "quality_flags": [
+        "cloud_masked",
+        "vegetation_moisture_index_uncalibrated",
+        "sentinel_b11_is_not_gao_1_24um"
+      ],
       "n_observations": 3
     },
     "olawa": {
       "node_id": "olawa",
       "node_name": "Oława",
       "data_source": "sentinel2_L2A",
-      "fetch_date": "2026-06-03T10:28:50.298105+00:00",
+      "fetch_date": "2026-07-25T19:49:23.057224+00:00",
+      "indices": {
+        "ndwi_surface_water": {
+          "name": "ndwi_surface_water",
+          "formula": "(B03 - B08) / (B03 + B08)",
+          "bands": [
+            "B03",
+            "B08"
+          ],
+          "resolution_m": 10,
+          "methodological_source": "Green-NIR surface-water index; this is not the Gao (1996) vegetation liquid-water index",
+          "unit": "dimensionless",
+          "algorithm_version": "2.0.0",
+          "calibration_status": "uncalibrated",
+          "raw_series": [
+            -0.5822,
+            -0.5494,
+            -0.5039
+          ],
+          "dates": [
+            "2026-06-25",
+            "2026-07-05",
+            "2026-07-15"
+          ],
+          "quality_flags": [
+            "cloud_masked",
+            "vegetation_moisture_index_uncalibrated",
+            "sentinel_b11_is_not_gao_1_24um"
+          ]
+        },
+        "vegetation_moisture_index": {
+          "name": "vegetation_moisture_index",
+          "formula": "(B8A - B11) / (B8A + B11)",
+          "bands": [
+            "B8A",
+            "B11"
+          ],
+          "resolution_m": 20,
+          "methodological_source": "NIR-SWIR canopy-moisture formulation motivated by Gao (1996), DOI 10.1016/S0034-4257(96)00067-3; Sentinel-2 B11 at 1.61 µm is an approximation, not Gao's 1.24 µm channel",
+          "unit": "dimensionless",
+          "algorithm_version": "2.0.0",
+          "calibration_status": "uncalibrated",
+          "raw_series": [
+            0.2219,
+            0.1773,
+            0.1418
+          ],
+          "dates": [
+            "2026-06-25",
+            "2026-07-05",
+            "2026-07-15"
+          ],
+          "quality_flags": [
+            "cloud_masked",
+            "vegetation_moisture_index_uncalibrated",
+            "sentinel_b11_is_not_gao_1_24um"
+          ]
+        }
+      },
       "dates": [
-        "2026-05-24"
+        "2026-06-25",
+        "2026-07-05",
+        "2026-07-15"
       ],
       "ndwi_values": [
-        -0.5486
+        0.2219,
+        0.1773,
+        0.1418
       ],
       "valid_pixel_fraction": [
-        1.0
+        1.0,
+        0.966,
+        0.508
       ],
-      "ndwi_mean_30d": -0.5486,
-      "ndwi_min_30d": -0.5486,
-      "ndwi_latest": -0.5486,
-      "ndwi_trend_14d": 0.0,
-      "ndwi_stress_latest": 0.5674,
-      "n_observations": 1
-    },
-    "lesna": {
-      "node_id": "lesna",
-      "node_name": "Leśna",
-      "data_source": "sentinel2_L2A",
-      "fetch_date": "2026-06-03T10:28:50.296750+00:00",
-      "dates": [
-        "2026-05-04",
-        "2026-05-14",
-        "2026-05-24"
+      "ndwi_mean_30d": 0.1803,
+      "ndwi_min_30d": 0.1418,
+      "ndwi_latest": 0.1418,
+      "ndwi_trend_14d": -0.04005,
+      "ndwi_stress_latest": 0.4291,
+      "stress_mapping": {
+        "formula": "(1 - vegetation_moisture_index) / 2",
+        "thresholds": {},
+        "calibration_status": "uncalibrated",
+        "operational": false
+      },
+      "calibration_status": "uncalibrated",
+      "quality_flags": [
+        "cloud_masked",
+        "vegetation_moisture_index_uncalibrated",
+        "sentinel_b11_is_not_gao_1_24um"
       ],
-      "ndwi_values": [
-        -0.5363,
-        -0.6357,
-        -0.6852
-      ],
-      "valid_pixel_fraction": [
-        0.676,
-        0.923,
-        1.0
-      ],
-      "ndwi_mean_30d": -0.6191,
-      "ndwi_min_30d": -0.6852,
-      "ndwi_latest": -0.6852,
-      "ndwi_trend_14d": -0.07445,
-      "ndwi_stress_latest": 0.9577,
       "n_observations": 3
     },
     "piszowice": {
       "node_id": "piszowice",
       "node_name": "Piszowice",
       "data_source": "sentinel2_L2A",
-      "fetch_date": "2026-06-03T10:28:50.457871+00:00",
+      "fetch_date": "2026-07-25T19:49:23.399644+00:00",
+      "indices": {
+        "ndwi_surface_water": {
+          "name": "ndwi_surface_water",
+          "formula": "(B03 - B08) / (B03 + B08)",
+          "bands": [
+            "B03",
+            "B08"
+          ],
+          "resolution_m": 10,
+          "methodological_source": "Green-NIR surface-water index; this is not the Gao (1996) vegetation liquid-water index",
+          "unit": "dimensionless",
+          "algorithm_version": "2.0.0",
+          "calibration_status": "uncalibrated",
+          "raw_series": [
+            -0.7095,
+            -0.661,
+            -0.6392
+          ],
+          "dates": [
+            "2026-06-25",
+            "2026-07-05",
+            "2026-07-15"
+          ],
+          "quality_flags": [
+            "cloud_masked",
+            "vegetation_moisture_index_uncalibrated",
+            "sentinel_b11_is_not_gao_1_24um"
+          ]
+        },
+        "vegetation_moisture_index": {
+          "name": "vegetation_moisture_index",
+          "formula": "(B8A - B11) / (B8A + B11)",
+          "bands": [
+            "B8A",
+            "B11"
+          ],
+          "resolution_m": 20,
+          "methodological_source": "NIR-SWIR canopy-moisture formulation motivated by Gao (1996), DOI 10.1016/S0034-4257(96)00067-3; Sentinel-2 B11 at 1.61 µm is an approximation, not Gao's 1.24 µm channel",
+          "unit": "dimensionless",
+          "algorithm_version": "2.0.0",
+          "calibration_status": "uncalibrated",
+          "raw_series": [
+            0.3693,
+            0.2976,
+            0.2478
+          ],
+          "dates": [
+            "2026-06-25",
+            "2026-07-05",
+            "2026-07-15"
+          ],
+          "quality_flags": [
+            "cloud_masked",
+            "vegetation_moisture_index_uncalibrated",
+            "sentinel_b11_is_not_gao_1_24um"
+          ]
+        }
+      },
       "dates": [
-        "2026-05-04",
-        "2026-05-14",
-        "2026-05-24"
+        "2026-06-25",
+        "2026-07-05",
+        "2026-07-15"
       ],
       "ndwi_values": [
-        -0.5249,
-        -0.6493,
-        -0.6963
+        0.3693,
+        0.2976,
+        0.2478
       ],
       "valid_pixel_fraction": [
-        0.72,
-        0.841,
-        1.0
+        1.0,
+        0.964,
+        0.844
       ],
-      "ndwi_mean_30d": -0.6235,
-      "ndwi_min_30d": -0.6963,
-      "ndwi_latest": -0.6963,
-      "ndwi_trend_14d": -0.0857,
-      "ndwi_stress_latest": 0.9894,
+      "ndwi_mean_30d": 0.3049,
+      "ndwi_min_30d": 0.2478,
+      "ndwi_latest": 0.2478,
+      "ndwi_trend_14d": -0.06075,
+      "ndwi_stress_latest": 0.3761,
+      "stress_mapping": {
+        "formula": "(1 - vegetation_moisture_index) / 2",
+        "thresholds": {},
+        "calibration_status": "uncalibrated",
+        "operational": false
+      },
+      "calibration_status": "uncalibrated",
+      "quality_flags": [
+        "cloud_masked",
+        "vegetation_moisture_index_uncalibrated",
+        "sentinel_b11_is_not_gao_1_24um"
+      ],
       "n_observations": 3
     },
-    "rychtal": {
-      "node_id": "rychtal",
-      "node_name": "Rychtal",
+    "prudnik": {
+      "node_id": "prudnik",
+      "node_name": "Prudnik",
       "data_source": "sentinel2_L2A",
-      "fetch_date": "2026-06-03T10:28:50.584906+00:00",
+      "fetch_date": "2026-07-25T19:49:23.352228+00:00",
+      "indices": {
+        "ndwi_surface_water": {
+          "name": "ndwi_surface_water",
+          "formula": "(B03 - B08) / (B03 + B08)",
+          "bands": [
+            "B03",
+            "B08"
+          ],
+          "resolution_m": 10,
+          "methodological_source": "Green-NIR surface-water index; this is not the Gao (1996) vegetation liquid-water index",
+          "unit": "dimensionless",
+          "algorithm_version": "2.0.0",
+          "calibration_status": "uncalibrated",
+          "raw_series": [
+            -0.6098,
+            -0.6179,
+            -0.5447
+          ],
+          "dates": [
+            "2026-06-25",
+            "2026-07-05",
+            "2026-07-15"
+          ],
+          "quality_flags": [
+            "cloud_masked",
+            "vegetation_moisture_index_uncalibrated",
+            "sentinel_b11_is_not_gao_1_24um"
+          ]
+        },
+        "vegetation_moisture_index": {
+          "name": "vegetation_moisture_index",
+          "formula": "(B8A - B11) / (B8A + B11)",
+          "bands": [
+            "B8A",
+            "B11"
+          ],
+          "resolution_m": 20,
+          "methodological_source": "NIR-SWIR canopy-moisture formulation motivated by Gao (1996), DOI 10.1016/S0034-4257(96)00067-3; Sentinel-2 B11 at 1.61 µm is an approximation, not Gao's 1.24 µm channel",
+          "unit": "dimensionless",
+          "algorithm_version": "2.0.0",
+          "calibration_status": "uncalibrated",
+          "raw_series": [
+            0.3172,
+            0.2764,
+            0.2034
+          ],
+          "dates": [
+            "2026-06-25",
+            "2026-07-05",
+            "2026-07-15"
+          ],
+          "quality_flags": [
+            "cloud_masked",
+            "vegetation_moisture_index_uncalibrated",
+            "sentinel_b11_is_not_gao_1_24um"
+          ]
+        }
+      },
       "dates": [
-        "2026-05-04",
-        "2026-05-14",
-        "2026-05-24"
+        "2026-06-25",
+        "2026-07-05",
+        "2026-07-15"
       ],
       "ndwi_values": [
-        -0.5249,
-        -0.6114,
-        -0.6349
+        0.3172,
+        0.2764,
+        0.2034
       ],
       "valid_pixel_fraction": [
-        0.4,
-        0.918,
-        1.0
+        1.0,
+        0.976,
+        0.359
       ],
-      "ndwi_mean_30d": -0.5904,
-      "ndwi_min_30d": -0.6349,
-      "ndwi_latest": -0.6349,
-      "ndwi_trend_14d": -0.055,
-      "ndwi_stress_latest": 0.814,
+      "ndwi_mean_30d": 0.2657,
+      "ndwi_min_30d": 0.2034,
+      "ndwi_latest": 0.2034,
+      "ndwi_trend_14d": -0.0569,
+      "ndwi_stress_latest": 0.3983,
+      "stress_mapping": {
+        "formula": "(1 - vegetation_moisture_index) / 2",
+        "thresholds": {},
+        "calibration_status": "uncalibrated",
+        "operational": false
+      },
+      "calibration_status": "uncalibrated",
+      "quality_flags": [
+        "cloud_masked",
+        "vegetation_moisture_index_uncalibrated",
+        "sentinel_b11_is_not_gao_1_24um"
+      ],
       "n_observations": 3
     },
     "ruszow": {
       "node_id": "ruszow",
       "node_name": "Ruszów",
       "data_source": "sentinel2_L2A",
-      "fetch_date": "2026-06-03T10:28:50.680750+00:00",
+      "fetch_date": "2026-07-25T19:49:23.419814+00:00",
+      "indices": {
+        "ndwi_surface_water": {
+          "name": "ndwi_surface_water",
+          "formula": "(B03 - B08) / (B03 + B08)",
+          "bands": [
+            "B03",
+            "B08"
+          ],
+          "resolution_m": 10,
+          "methodological_source": "Green-NIR surface-water index; this is not the Gao (1996) vegetation liquid-water index",
+          "unit": "dimensionless",
+          "algorithm_version": "2.0.0",
+          "calibration_status": "uncalibrated",
+          "raw_series": [
+            -0.6481,
+            -0.6396,
+            -0.6426
+          ],
+          "dates": [
+            "2026-06-25",
+            "2026-07-05",
+            "2026-07-15"
+          ],
+          "quality_flags": [
+            "cloud_masked",
+            "vegetation_moisture_index_uncalibrated",
+            "sentinel_b11_is_not_gao_1_24um"
+          ]
+        },
+        "vegetation_moisture_index": {
+          "name": "vegetation_moisture_index",
+          "formula": "(B8A - B11) / (B8A + B11)",
+          "bands": [
+            "B8A",
+            "B11"
+          ],
+          "resolution_m": 20,
+          "methodological_source": "NIR-SWIR canopy-moisture formulation motivated by Gao (1996), DOI 10.1016/S0034-4257(96)00067-3; Sentinel-2 B11 at 1.61 µm is an approximation, not Gao's 1.24 µm channel",
+          "unit": "dimensionless",
+          "algorithm_version": "2.0.0",
+          "calibration_status": "uncalibrated",
+          "raw_series": [
+            0.2258,
+            0.2505,
+            0.2431
+          ],
+          "dates": [
+            "2026-06-25",
+            "2026-07-05",
+            "2026-07-15"
+          ],
+          "quality_flags": [
+            "cloud_masked",
+            "vegetation_moisture_index_uncalibrated",
+            "sentinel_b11_is_not_gao_1_24um"
+          ]
+        }
+      },
       "dates": [
-        "2026-05-14",
-        "2026-05-24"
+        "2026-06-25",
+        "2026-07-05",
+        "2026-07-15"
       ],
       "ndwi_values": [
-        -0.5785,
-        -0.6174
+        0.2258,
+        0.2505,
+        0.2431
       ],
       "valid_pixel_fraction": [
-        0.476,
-        1.0
+        1.0,
+        0.98,
+        0.889
       ],
-      "ndwi_mean_30d": -0.5979,
-      "ndwi_min_30d": -0.6174,
-      "ndwi_latest": -0.6174,
-      "ndwi_trend_14d": -0.0389,
-      "ndwi_stress_latest": 0.764,
-      "n_observations": 2
-    },
-    "prudnik": {
-      "node_id": "prudnik",
-      "node_name": "Prudnik",
-      "data_source": "sentinel2_L2A",
-      "fetch_date": "2026-06-03T10:28:50.700966+00:00",
-      "dates": [
-        "2026-05-04",
-        "2026-05-14",
-        "2026-05-24"
+      "ndwi_mean_30d": 0.2398,
+      "ndwi_min_30d": 0.2258,
+      "ndwi_latest": 0.2431,
+      "ndwi_trend_14d": 0.00865,
+      "ndwi_stress_latest": 0.3785,
+      "stress_mapping": {
+        "formula": "(1 - vegetation_moisture_index) / 2",
+        "thresholds": {},
+        "calibration_status": "uncalibrated",
+        "operational": false
+      },
+      "calibration_status": "uncalibrated",
+      "quality_flags": [
+        "cloud_masked",
+        "vegetation_moisture_index_uncalibrated",
+        "sentinel_b11_is_not_gao_1_24um"
       ],
-      "ndwi_values": [
-        -0.535,
-        -0.5885,
-        -0.6109
-      ],
-      "valid_pixel_fraction": [
-        0.928,
-        0.811,
-        1.0
-      ],
-      "ndwi_mean_30d": -0.5781,
-      "ndwi_min_30d": -0.6109,
-      "ndwi_latest": -0.6109,
-      "ndwi_trend_14d": -0.03795,
-      "ndwi_stress_latest": 0.7454,
       "n_observations": 3
+    },
+    "rychtal": {
+      "node_id": "rychtal",
+      "node_name": "Rychtal",
+      "data_source": "sentinel2_L2A",
+      "fetch_date": "2026-07-25T17:02:28.148128+00:00",
+      "dates": [
+        "2026-06-25",
+        "2026-07-05",
+        "2026-07-15"
+      ],
+      "ndwi_values": [
+        -0.5993,
+        -0.5006,
+        -0.5363
+      ],
+      "valid_pixel_fraction": [
+        0.865,
+        0.251,
+        0.423
+      ],
+      "ndwi_mean_30d": -0.5454,
+      "ndwi_min_30d": -0.5993,
+      "ndwi_latest": -0.5363,
+      "ndwi_trend_14d": 0.0315,
+      "ndwi_stress_latest": 0.5323,
+      "n_observations": 3,
+      "cache_status": "legacy",
+      "legacy_mode": true,
+      "calibration_status": "legacy_provisional",
+      "quality_flags": [
+        "legacy_green_nir_mislabelled_as_vegetation_moisture",
+        "legacy_thresholds_provisional"
+      ]
     },
     "sycow": {
       "node_id": "sycow",
       "node_name": "Syców",
       "data_source": "sentinel2_L2A",
-      "fetch_date": "2026-06-03T10:28:50.795523+00:00",
+      "fetch_date": "2026-07-25T17:02:06.969570+00:00",
       "dates": [
-        "2026-05-14",
-        "2026-05-24"
+        "2026-06-25",
+        "2026-07-05",
+        "2026-07-15"
       ],
       "ndwi_values": [
-        -0.5693,
-        -0.5978
+        -0.6398,
+        -0.5397,
+        -0.5881
       ],
       "valid_pixel_fraction": [
-        0.604,
-        1.0
-      ],
-      "ndwi_mean_30d": -0.5836,
-      "ndwi_min_30d": -0.5978,
-      "ndwi_latest": -0.5978,
-      "ndwi_trend_14d": -0.0285,
-      "ndwi_stress_latest": 0.708,
-      "n_observations": 2
-    },
-    "walbrzych": {
-      "node_id": "walbrzych",
-      "node_name": "Wałbrzych",
-      "data_source": "sentinel2_L2A",
-      "fetch_date": "2026-06-03T10:41:50.353909+00:00",
-      "dates": [
-        "2026-05-04",
-        "2026-05-14",
-        "2026-05-24"
-      ],
-      "ndwi_values": [
-        -0.4926,
-        -0.5731,
-        -0.6621
-      ],
-      "valid_pixel_fraction": [
+        0.928,
         0.362,
-        0.414,
-        1.0
+        0.714
       ],
-      "ndwi_mean_30d": -0.5759,
-      "ndwi_min_30d": -0.6621,
-      "ndwi_latest": -0.6621,
-      "ndwi_trend_14d": -0.08475,
-      "ndwi_stress_latest": 0.8917,
-      "n_observations": 3
-    },
-    "wegliniec": {
-      "node_id": "wegliniec",
-      "node_name": "Węgliniec",
-      "data_source": "sentinel2_L2A",
-      "fetch_date": "2026-06-03T10:41:50.732840+00:00",
-      "dates": [
-        "2026-05-04",
-        "2026-05-14",
-        "2026-05-24"
-      ],
-      "ndwi_values": [
-        -0.5543,
-        -0.4733,
-        -0.6403
-      ],
-      "valid_pixel_fraction": [
-        0.803,
-        0.356,
-        1.0
-      ],
-      "ndwi_mean_30d": -0.556,
-      "ndwi_min_30d": -0.6403,
-      "ndwi_latest": -0.6403,
-      "ndwi_trend_14d": -0.043,
-      "ndwi_stress_latest": 0.8294,
-      "n_observations": 3
-    },
-    "wolow": {
-      "node_id": "wolow",
-      "node_name": "Wołów",
-      "data_source": "sentinel2_L2A",
-      "fetch_date": "2026-06-03T10:41:51.157873+00:00",
-      "dates": [
-        "2026-05-04",
-        "2026-05-14",
-        "2026-05-24"
-      ],
-      "ndwi_values": [
-        -0.5128,
-        -0.5889,
-        -0.6125
-      ],
-      "valid_pixel_fraction": [
-        0.358,
-        0.916,
-        1.0
-      ],
-      "ndwi_mean_30d": -0.5714,
-      "ndwi_min_30d": -0.6125,
-      "ndwi_latest": -0.6125,
-      "ndwi_trend_14d": -0.04985,
-      "ndwi_stress_latest": 0.75,
-      "n_observations": 3
-    },
-    "wroclaw": {
-      "node_id": "wroclaw",
-      "node_name": "Wrocław",
-      "data_source": "sentinel2_L2A",
-      "fetch_date": "2026-06-03T10:41:52.228947+00:00",
-      "dates": [
-        "2026-05-14",
-        "2026-05-24"
-      ],
-      "ndwi_values": [
-        -0.4792,
-        -0.4485
-      ],
-      "valid_pixel_fraction": [
-        0.143,
-        1.0
-      ],
-      "ndwi_mean_30d": -0.4638,
-      "ndwi_min_30d": -0.4792,
-      "ndwi_latest": -0.4485,
-      "ndwi_trend_14d": 0.0307,
-      "ndwi_stress_latest": 0.2814,
-      "n_observations": 2
-    },
-    "zlotoryja": {
-      "node_id": "zlotoryja",
-      "node_name": "Złotoryja",
-      "data_source": "sentinel2_L2A",
-      "fetch_date": "2026-06-03T10:41:53.322126+00:00",
-      "dates": [
-        "2026-05-04",
-        "2026-05-14",
-        "2026-05-24"
-      ],
-      "ndwi_values": [
-        -0.538,
-        -0.6263,
-        -0.6737
-      ],
-      "valid_pixel_fraction": [
-        0.538,
-        0.916,
-        1.0
-      ],
-      "ndwi_mean_30d": -0.6127,
-      "ndwi_min_30d": -0.6737,
-      "ndwi_latest": -0.6737,
-      "ndwi_trend_14d": -0.06785,
-      "ndwi_stress_latest": 0.9249,
-      "n_observations": 3
-    },
-    "zmigrod": {
-      "node_id": "zmigrod",
-      "node_name": "Żmigród",
-      "data_source": "sentinel2_L2A",
-      "fetch_date": "2026-06-03T10:41:53.826012+00:00",
-      "dates": [
-        "2026-05-04",
-        "2026-05-24"
-      ],
-      "ndwi_values": [
-        -0.5332,
-        -0.5827
-      ],
-      "valid_pixel_fraction": [
-        0.411,
-        1.0
-      ],
-      "ndwi_mean_30d": -0.5579,
-      "ndwi_min_30d": -0.5827,
-      "ndwi_latest": -0.5827,
-      "ndwi_trend_14d": -0.0495,
-      "ndwi_stress_latest": 0.6649,
-      "n_observations": 2
-    },
-    "zgorzelec": {
-      "node_id": "zgorzelec",
-      "node_name": "Zgorzelec",
-      "data_source": "sentinel2_L2A",
-      "fetch_date": "2026-06-03T10:41:55.862987+00:00",
-      "dates": [
-        "2026-05-04",
-        "2026-05-14",
-        "2026-05-24"
-      ],
-      "ndwi_values": [
-        -0.5011,
-        -0.5735,
-        -0.6107
-      ],
-      "valid_pixel_fraction": [
-        0.67,
-        0.46,
-        1.0
-      ],
-      "ndwi_mean_30d": -0.5618,
-      "ndwi_min_30d": -0.6107,
-      "ndwi_latest": -0.6107,
-      "ndwi_trend_14d": -0.0548,
-      "ndwi_stress_latest": 0.7449,
-      "n_observations": 3
-    },
-    "swietoszow": {
-      "node_id": "swietoszow",
-      "node_name": "Świętoszów",
-      "data_source": "sentinel2_L2A",
-      "fetch_date": "2026-06-03T10:43:06.172495+00:00",
-      "dates": [
-        "2026-05-04",
-        "2026-05-14",
-        "2026-05-24"
-      ],
-      "ndwi_values": [
-        -0.536,
-        -0.4768,
-        -0.581
-      ],
-      "valid_pixel_fraction": [
-        0.16,
-        0.372,
-        1.0
-      ],
-      "ndwi_mean_30d": -0.5313,
-      "ndwi_min_30d": -0.581,
-      "ndwi_latest": -0.581,
-      "ndwi_trend_14d": -0.0225,
-      "ndwi_stress_latest": 0.66,
-      "n_observations": 3
-    },
-    "swidnica": {
-      "node_id": "swidnica",
-      "node_name": "Świdnica",
-      "data_source": "sentinel2_L2A",
-      "fetch_date": "2026-06-03T10:43:16.158200+00:00",
-      "dates": [
-        "2026-05-04",
-        "2026-05-14",
-        "2026-05-24"
-      ],
-      "ndwi_values": [
-        -0.5141,
-        -0.5553,
-        -0.5796
-      ],
-      "valid_pixel_fraction": [
-        0.105,
-        0.938,
-        1.0
-      ],
-      "ndwi_mean_30d": -0.5497,
-      "ndwi_min_30d": -0.5796,
-      "ndwi_latest": -0.5796,
-      "ndwi_trend_14d": -0.03275,
-      "ndwi_stress_latest": 0.656,
-      "n_observations": 3
+      "ndwi_mean_30d": -0.5892,
+      "ndwi_min_30d": -0.6398,
+      "ndwi_latest": -0.5881,
+      "ndwi_trend_14d": 0.02585,
+      "ndwi_stress_latest": 0.6803,
+      "n_observations": 3,
+      "cache_status": "legacy",
+      "legacy_mode": true,
+      "calibration_status": "legacy_provisional",
+      "quality_flags": [
+        "legacy_green_nir_mislabelled_as_vegetation_moisture",
+        "legacy_thresholds_provisional"
+      ]
     },
     "szklarska": {
       "node_id": "szklarska",
       "node_name": "Szklarska Poręba",
       "data_source": "sentinel2_L2A",
-      "fetch_date": "2026-06-03T10:45:07.280557+00:00",
+      "fetch_date": "2026-07-25T16:58:40.349687+00:00",
       "dates": [
-        "2026-05-04",
-        "2026-05-24"
+        "2026-06-25",
+        "2026-07-05",
+        "2026-07-15"
       ],
       "ndwi_values": [
-        -0.5106,
-        -0.6728
+        -0.7035,
+        -0.7325,
+        -0.6375
       ],
       "valid_pixel_fraction": [
-        0.482,
+        0.98,
+        0.988,
+        0.106
+      ],
+      "ndwi_mean_30d": -0.6912,
+      "ndwi_min_30d": -0.7325,
+      "ndwi_latest": -0.6375,
+      "ndwi_trend_14d": 0.033,
+      "ndwi_stress_latest": 0.8214,
+      "n_observations": 3,
+      "cache_status": "legacy",
+      "legacy_mode": true,
+      "calibration_status": "legacy_provisional",
+      "quality_flags": [
+        "legacy_green_nir_mislabelled_as_vegetation_moisture",
+        "legacy_thresholds_provisional"
+      ]
+    },
+    "swidnica": {
+      "node_id": "swidnica",
+      "node_name": "Świdnica",
+      "data_source": "sentinel2_L2A",
+      "fetch_date": "2026-07-25T16:56:33.607179+00:00",
+      "dates": [
+        "2026-06-25",
+        "2026-07-05"
+      ],
+      "ndwi_values": [
+        -0.5879,
+        -0.569
+      ],
+      "valid_pixel_fraction": [
+        1.0,
         1.0
       ],
-      "ndwi_mean_30d": -0.5917,
-      "ndwi_min_30d": -0.6728,
-      "ndwi_latest": -0.6728,
-      "ndwi_trend_14d": -0.1622,
-      "ndwi_stress_latest": 0.9223,
-      "n_observations": 2
+      "ndwi_mean_30d": -0.5784,
+      "ndwi_min_30d": -0.5879,
+      "ndwi_latest": -0.569,
+      "ndwi_trend_14d": 0.0189,
+      "ndwi_stress_latest": 0.6257,
+      "n_observations": 2,
+      "cache_status": "legacy",
+      "legacy_mode": true,
+      "calibration_status": "legacy_provisional",
+      "quality_flags": [
+        "legacy_green_nir_mislabelled_as_vegetation_moisture",
+        "legacy_thresholds_provisional"
+      ]
+    },
+    "swietoszow": {
+      "node_id": "swietoszow",
+      "node_name": "Świętoszów",
+      "data_source": "sentinel2_L2A",
+      "fetch_date": "2026-07-25T16:56:33.916260+00:00",
+      "dates": [
+        "2026-06-25",
+        "2026-07-05",
+        "2026-07-15"
+      ],
+      "ndwi_values": [
+        -0.6079,
+        -0.5906,
+        -0.6058
+      ],
+      "valid_pixel_fraction": [
+        1.0,
+        0.785,
+        0.983
+      ],
+      "ndwi_mean_30d": -0.6014,
+      "ndwi_min_30d": -0.6079,
+      "ndwi_latest": -0.6058,
+      "ndwi_trend_14d": 0.00105,
+      "ndwi_stress_latest": 0.7309,
+      "n_observations": 3,
+      "cache_status": "legacy",
+      "legacy_mode": true,
+      "calibration_status": "legacy_provisional",
+      "quality_flags": [
+        "legacy_green_nir_mislabelled_as_vegetation_moisture",
+        "legacy_thresholds_provisional"
+      ]
+    },
+    "walbrzych": {
+      "node_id": "walbrzych",
+      "node_name": "Wałbrzych",
+      "data_source": "sentinel2_L2A",
+      "fetch_date": "2026-07-25T16:56:34.215665+00:00",
+      "dates": [
+        "2026-06-25",
+        "2026-07-05",
+        "2026-07-15"
+      ],
+      "ndwi_values": [
+        -0.6756,
+        -0.6912,
+        -0.4925
+      ],
+      "valid_pixel_fraction": [
+        1.0,
+        0.987,
+        0.12
+      ],
+      "ndwi_mean_30d": -0.6198,
+      "ndwi_min_30d": -0.6912,
+      "ndwi_latest": -0.4925,
+      "ndwi_trend_14d": 0.09155,
+      "ndwi_stress_latest": 0.4071,
+      "n_observations": 3,
+      "cache_status": "legacy",
+      "legacy_mode": true,
+      "calibration_status": "legacy_provisional",
+      "quality_flags": [
+        "legacy_green_nir_mislabelled_as_vegetation_moisture",
+        "legacy_thresholds_provisional"
+      ]
+    },
+    "wegliniec": {
+      "node_id": "wegliniec",
+      "node_name": "Węgliniec",
+      "data_source": "sentinel2_L2A",
+      "fetch_date": "2026-07-25T16:56:34.684412+00:00",
+      "dates": [
+        "2026-06-25",
+        "2026-07-05",
+        "2026-07-15"
+      ],
+      "ndwi_values": [
+        -0.6777,
+        -0.6584,
+        -0.6746
+      ],
+      "valid_pixel_fraction": [
+        1.0,
+        0.828,
+        0.949
+      ],
+      "ndwi_mean_30d": -0.6702,
+      "ndwi_min_30d": -0.6777,
+      "ndwi_latest": -0.6746,
+      "ndwi_trend_14d": 0.00155,
+      "ndwi_stress_latest": 0.9274,
+      "n_observations": 3,
+      "cache_status": "legacy",
+      "legacy_mode": true,
+      "calibration_status": "legacy_provisional",
+      "quality_flags": [
+        "legacy_green_nir_mislabelled_as_vegetation_moisture",
+        "legacy_thresholds_provisional"
+      ]
+    },
+    "wolow": {
+      "node_id": "wolow",
+      "node_name": "Wołów",
+      "data_source": "sentinel2_L2A",
+      "fetch_date": "2026-07-25T16:56:35.171578+00:00",
+      "dates": [
+        "2026-06-25",
+        "2026-07-05",
+        "2026-07-15"
+      ],
+      "ndwi_values": [
+        -0.6265,
+        -0.6179,
+        -0.5659
+      ],
+      "valid_pixel_fraction": [
+        0.9,
+        0.818,
+        0.138
+      ],
+      "ndwi_mean_30d": -0.6034,
+      "ndwi_min_30d": -0.6265,
+      "ndwi_latest": -0.5659,
+      "ndwi_trend_14d": 0.0303,
+      "ndwi_stress_latest": 0.6169,
+      "n_observations": 3,
+      "cache_status": "legacy",
+      "legacy_mode": true,
+      "calibration_status": "legacy_provisional",
+      "quality_flags": [
+        "legacy_green_nir_mislabelled_as_vegetation_moisture",
+        "legacy_thresholds_provisional"
+      ]
+    },
+    "wroclaw": {
+      "node_id": "wroclaw",
+      "node_name": "Wrocław",
+      "data_source": "sentinel2_L2A",
+      "fetch_date": "2026-07-25T16:56:35.486600+00:00",
+      "dates": [
+        "2026-06-25",
+        "2026-07-05",
+        "2026-07-15"
+      ],
+      "ndwi_values": [
+        -0.4498,
+        -0.4394,
+        -0.3918
+      ],
+      "valid_pixel_fraction": [
+        0.928,
+        0.974,
+        0.583
+      ],
+      "ndwi_mean_30d": -0.427,
+      "ndwi_min_30d": -0.4498,
+      "ndwi_latest": -0.3918,
+      "ndwi_trend_14d": 0.029,
+      "ndwi_stress_latest": 0.1194,
+      "n_observations": 3,
+      "cache_status": "legacy",
+      "legacy_mode": true,
+      "calibration_status": "legacy_provisional",
+      "quality_flags": [
+        "legacy_green_nir_mislabelled_as_vegetation_moisture",
+        "legacy_thresholds_provisional"
+      ]
+    },
+    "zlotoryja": {
+      "node_id": "zlotoryja",
+      "node_name": "Złotoryja",
+      "data_source": "sentinel2_L2A",
+      "fetch_date": "2026-07-25T16:56:35.800730+00:00",
+      "dates": [
+        "2026-06-25",
+        "2026-07-05",
+        "2026-07-15"
+      ],
+      "ndwi_values": [
+        -0.6575,
+        -0.5632,
+        -0.5505
+      ],
+      "valid_pixel_fraction": [
+        1.0,
+        0.761,
+        0.969
+      ],
+      "ndwi_mean_30d": -0.5904,
+      "ndwi_min_30d": -0.6575,
+      "ndwi_latest": -0.5505,
+      "ndwi_trend_14d": 0.0535,
+      "ndwi_stress_latest": 0.5729,
+      "n_observations": 3,
+      "cache_status": "legacy",
+      "legacy_mode": true,
+      "calibration_status": "legacy_provisional",
+      "quality_flags": [
+        "legacy_green_nir_mislabelled_as_vegetation_moisture",
+        "legacy_thresholds_provisional"
+      ]
+    },
+    "zmigrod": {
+      "node_id": "zmigrod",
+      "node_name": "Żmigród",
+      "data_source": "sentinel2_L2A",
+      "fetch_date": "2026-07-25T16:56:36.191355+00:00",
+      "dates": [
+        "2026-06-25",
+        "2026-07-05"
+      ],
+      "ndwi_values": [
+        -0.6408,
+        -0.5138
+      ],
+      "valid_pixel_fraction": [
+        1.0,
+        0.244
+      ],
+      "ndwi_mean_30d": -0.5773,
+      "ndwi_min_30d": -0.6408,
+      "ndwi_latest": -0.5138,
+      "ndwi_trend_14d": 0.127,
+      "ndwi_stress_latest": 0.468,
+      "n_observations": 2,
+      "cache_status": "legacy",
+      "legacy_mode": true,
+      "calibration_status": "legacy_provisional",
+      "quality_flags": [
+        "legacy_green_nir_mislabelled_as_vegetation_moisture",
+        "legacy_thresholds_provisional"
+      ]
+    },
+    "zgorzelec": {
+      "node_id": "zgorzelec",
+      "node_name": "Zgorzelec",
+      "data_source": "sentinel2_L2A",
+      "fetch_date": "2026-07-25T16:56:36.709535+00:00",
+      "dates": [
+        "2026-06-25",
+        "2026-07-05",
+        "2026-07-15"
+      ],
+      "ndwi_values": [
+        -0.6062,
+        -0.5633,
+        -0.5487
+      ],
+      "valid_pixel_fraction": [
+        1.0,
+        0.486,
+        0.776
+      ],
+      "ndwi_mean_30d": -0.5727,
+      "ndwi_min_30d": -0.6062,
+      "ndwi_latest": -0.5487,
+      "ndwi_trend_14d": 0.02875,
+      "ndwi_stress_latest": 0.5677,
+      "n_observations": 3,
+      "cache_status": "legacy",
+      "legacy_mode": true,
+      "calibration_status": "legacy_provisional",
+      "quality_flags": [
+        "legacy_green_nir_mislabelled_as_vegetation_moisture",
+        "legacy_thresholds_provisional"
+      ]
     }
   }
 }
