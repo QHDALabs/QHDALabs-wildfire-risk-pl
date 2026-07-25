@@ -77,11 +77,19 @@ import json
 import logging
 import math
 import os
+import platform
 from dataclasses import dataclass
 from datetime import datetime, timezone
 from typing import Any
 
 import numpy as np
+
+from pipeline_contract import (
+    StepStatus,
+    atomic_write_json,
+    validate_node_payload,
+    write_step_manifest,
+)
 
 logging.basicConfig(
     level=logging.INFO,
@@ -95,19 +103,16 @@ OUTPUT_DIR = "topology"
 # =========================
 # ENCODING THRESHOLDS
 # =========================
-# These map continuous values to qubit angles (0 = low risk, π = high risk)
-# Calibrated to RDLP Wrocław May 2026 satellite data.
+# Weather thresholds remain provisional. The vegetation moisture index uses
+# only its physical range and has no empirical drought thresholds.
 
-NDWI_HEALTHY  = -0.35   # above this: low stress
-NDWI_CRITICAL = -0.70   # below this: critical stress
+WIND_LOW = 4.0  # m/s — low fire-spread risk
+WIND_HIGH = 10.0  # m/s — high fire-spread risk
 
-WIND_LOW      = 4.0     # m/s — low fire-spread risk
-WIND_HIGH     = 10.0    # m/s — high fire-spread risk
+TEMP_LOW = 15.0  # °C
+TEMP_HIGH = 30.0  # °C
 
-TEMP_LOW      = 15.0    # °C
-TEMP_HIGH     = 30.0    # °C
-
-DROUGHT_MAX   = 30      # days — saturates at this point
+DROUGHT_MAX = 30  # days — saturates at this point
 
 
 def _encode_to_angle(value: float, low: float, high: float) -> float:
@@ -120,9 +125,9 @@ def _encode_to_angle(value: float, low: float, high: float) -> float:
 
 
 def _encode_ndwi(ndwi: float) -> float:
-    """NDWI to angle: more negative = higher stress = angle closer to π."""
-    # Invert: critical (very negative) -> π, healthy -> 0
-    return _encode_to_angle(-ndwi, -NDWI_HEALTHY, -NDWI_CRITICAL)
+    """Map uncalibrated vegetation moisture [-1, 1] monotonically to [0, π]."""
+    stress = float(np.clip((1.0 - ndwi) / 2.0, 0.0, 1.0))
+    return stress * math.pi
 
 
 # =========================
@@ -138,11 +143,16 @@ class NumpyStatevector:
     State |q4 q3 q2 q1 q0⟩ = index (q4<<4)|(q3<<3)|(q2<<2)|(q1<<1)|q0
     """
 
-    def __init__(self, n_qubits: int = 5):
+    def __init__(
+        self,
+        n_qubits: int = 5,
+        rng: np.random.Generator | None = None,
+    ):
         self.n = n_qubits
-        self.dim = 2 ** n_qubits
+        self.dim = 2**n_qubits
         self.state = np.zeros(self.dim, dtype=np.complex128)
         self.state[0] = 1.0
+        self.rng = rng or np.random.default_rng()
 
     def ry(self, theta: float, qubit: int) -> "NumpyStatevector":
         """Apply Ry(theta) rotation to one qubit."""
@@ -155,8 +165,8 @@ class NumpyStatevector:
                 continue
             j = i | bit
             a0, a1 = self.state[i], self.state[j]
-            new_state[i] =  c * a0 - s * a1
-            new_state[j] =  s * a0 + c * a1
+            new_state[i] = c * a0 - s * a1
+            new_state[j] = s * a0 + c * a1
         self.state = new_state
         return self
 
@@ -179,8 +189,8 @@ class NumpyStatevector:
         """
         bit = 1 << qubit
         # Probability of outcome |1>
-        p1 = float(sum(abs(self.state[i])**2 for i in range(self.dim) if i & bit))
-        outcome = 1 if np.random.random() < p1 else 0
+        p1 = float(sum(abs(self.state[i]) ** 2 for i in range(self.dim) if i & bit))
+        outcome = 1 if self.rng.random() < p1 else 0
 
         # Collapse and renormalise
         new_state = np.zeros(self.dim, dtype=np.complex128)
@@ -213,33 +223,38 @@ class NumpyStatevector:
 # =========================
 @dataclass
 class QTEResult:
-    node_id:      str
-    node_name:    str
-    backend:      str          # "qiskit_statevector" | "numpy_statevector"
+    node_id: str
+    node_name: str
+    backend: str  # "qiskit_statevector" | "numpy_statevector"
     # Input encodings (angles in radians)
-    theta_ndwi_past:   float
-    theta_ndwi_now:    float
-    theta_wind:        float
-    theta_temp:        float
-    theta_drought:     float
+    theta_ndwi_past: float
+    theta_ndwi_now: float
+    theta_wind: float
+    theta_temp: float
+    theta_drought: float
     # Bridge
-    bridge_fired:      bool
+    bridge_fired: bool
+    bridge_rate: float
+    bridge_threshold: float
+    random_seed: int
+    backend_version: str
     # ZZ correlations
-    zz_01:   float   # NDWI_past × NDWI_now
-    zz_12:   float   # NDWI_now  × wind
-    zz_23:   float   # wind      × temperature
-    zz_34:   float   # temperature × drought
+    zz_01: float  # NDWI_past × NDWI_now
+    zz_12: float  # NDWI_now  × wind
+    zz_23: float  # wind      × temperature
+    zz_34: float  # temperature × drought
     # Composite score
     qte_score: float
 
 
 def _run_numpy_qte(
     theta_ndwi_past: float,
-    theta_ndwi_now:  float,
-    theta_wind:      float,
-    theta_temp:      float,
-    theta_drought:   float,
+    theta_ndwi_now: float,
+    theta_wind: float,
+    theta_temp: float,
+    theta_drought: float,
     n_shots: int = 512,
+    random_seed: int = 20260601,
 ) -> dict:
     """
     Run the QTE circuit using the NumPy statevector engine.
@@ -266,16 +281,17 @@ def _run_numpy_qte(
     """
     zz_accum = {k: 0.0 for k in ("01", "12", "23", "34")}
     bridge_count = 0
+    rng = np.random.default_rng(random_seed)
 
     for _ in range(n_shots):
-        sv = NumpyStatevector(n_qubits=5)
+        sv = NumpyStatevector(n_qubits=5, rng=rng)
 
         # Step 1: Encode features
-        sv.ry(theta_ndwi_past, 0)   # q0: past NDWI (ancilla)
-        sv.ry(theta_ndwi_now,  1)   # q1: current NDWI
-        sv.ry(theta_wind,      2)   # q2: wind
-        sv.ry(theta_temp,      3)   # q3: temperature
-        sv.ry(theta_drought,   4)   # q4: drought persistence
+        sv.ry(theta_ndwi_past, 0)  # q0: past NDWI (ancilla)
+        sv.ry(theta_ndwi_now, 1)  # q1: current NDWI
+        sv.ry(theta_wind, 2)  # q2: wind
+        sv.ry(theta_temp, 3)  # q3: temperature
+        sv.ry(theta_drought, 4)  # q4: drought persistence
 
         # Step 2: Temporal entanglement — past × present NDWI
         sv.cz(0, 1)
@@ -288,7 +304,7 @@ def _run_numpy_qte(
         # Decoherence at q0 is a FEATURE, not a bug — it is the signal
         # that determines whether the wind×temp interaction fires
         ancilla_outcome = sv.measure_and_collapse(0)
-        bridge_fired = (ancilla_outcome == 1)
+        bridge_fired = ancilla_outcome == 1
         if bridge_fired:
             bridge_count += 1
 
@@ -308,21 +324,21 @@ def _run_numpy_qte(
 
     bridge_rate = bridge_count / n_shots
     return {
-        "zz_01":        zz_accum["01"] / n_shots,
-        "zz_12":        zz_accum["12"] / n_shots,
-        "zz_23":        zz_accum["23"] / n_shots,
-        "zz_34":        zz_accum["34"] / n_shots,
-        "bridge_rate":  bridge_rate,
+        "zz_01": zz_accum["01"] / n_shots,
+        "zz_12": zz_accum["12"] / n_shots,
+        "zz_23": zz_accum["23"] / n_shots,
+        "zz_34": zz_accum["34"] / n_shots,
+        "bridge_rate": bridge_rate,
         "bridge_fired": bridge_rate > 0.5,
     }
 
 
 def _run_qiskit_qte(
     theta_ndwi_past: float,
-    theta_ndwi_now:  float,
-    theta_wind:      float,
-    theta_temp:      float,
-    theta_drought:   float,
+    theta_ndwi_now: float,
+    theta_wind: float,
+    theta_temp: float,
+    theta_drought: float,
 ) -> dict:
     """
     Run the QTE circuit using Qiskit statevector simulator.
@@ -332,9 +348,8 @@ def _run_qiskit_qte(
 
     Falls back gracefully if Qiskit is unavailable.
     """
-    from qiskit import QuantumCircuit, QuantumRegister, ClassicalRegister
-    from qiskit.quantum_info import Statevector, SparsePauliOp
-    from qiskit.primitives import StatevectorEstimator
+    from qiskit import ClassicalRegister, QuantumCircuit, QuantumRegister
+    from qiskit.quantum_info import Statevector
 
     qr = QuantumRegister(5, "q")
     cr = ClassicalRegister(1, "ancilla_out")
@@ -342,10 +357,10 @@ def _run_qiskit_qte(
 
     # Encode features
     qc.ry(theta_ndwi_past, qr[0])
-    qc.ry(theta_ndwi_now,  qr[1])
-    qc.ry(theta_wind,      qr[2])
-    qc.ry(theta_temp,      qr[3])
-    qc.ry(theta_drought,   qr[4])
+    qc.ry(theta_ndwi_now, qr[1])
+    qc.ry(theta_wind, qr[2])
+    qc.ry(theta_temp, qr[3])
+    qc.ry(theta_drought, qr[4])
 
     # Temporal + spatial entanglement
     qc.cz(qr[0], qr[1])
@@ -361,29 +376,19 @@ def _run_qiskit_qte(
     # Temperature × drought
     qc.cz(qr[3], qr[4])
 
-    # Measure ZZ correlations via Estimator
-    # ZZ operators for each adjacent pair
-    zz_ops = {
-        "zz_01": SparsePauliOp.from_list([("IIIZZ", 1.0)]),
-        "zz_12": SparsePauliOp.from_list([("IIZZI", 1.0)]),
-        "zz_23": SparsePauliOp.from_list([("IZZII", 1.0)]),
-        "zz_34": SparsePauliOp.from_list([("ZZIII", 1.0)]),
-    }
-
     # For dynamic circuits with mid-circuit measurement,
     # we run two branches explicitly
     results = {}
-    estimator = StatevectorEstimator()
 
     # Circuit without measurement (for ZZ estimation via statevector)
     # We use the numpy path for ZZ after qiskit circuit construction
     # and qiskit only to validate the dynamic circuit compiles correctly
     qc_no_measure = QuantumCircuit(5)
     qc_no_measure.ry(theta_ndwi_past, 0)
-    qc_no_measure.ry(theta_ndwi_now,  1)
-    qc_no_measure.ry(theta_wind,      2)
-    qc_no_measure.ry(theta_temp,      3)
-    qc_no_measure.ry(theta_drought,   4)
+    qc_no_measure.ry(theta_ndwi_now, 1)
+    qc_no_measure.ry(theta_wind, 2)
+    qc_no_measure.ry(theta_temp, 3)
+    qc_no_measure.ry(theta_drought, 4)
     qc_no_measure.cz(0, 1)
     qc_no_measure.cz(1, 2)
     # Simulate BOTH branches and weight by ancilla probabilities
@@ -409,7 +414,7 @@ def _run_qiskit_qte(
     # Ancilla probability of being |1>
     # = sum of |amplitude|^2 for all states where qubit 0 is |1>
     prob_ancilla_1 = sum(
-        abs(sv0.data[i])**2
+        abs(sv0.data[i]) ** 2
         for i in range(32)
         if i & 1  # qubit 0 = bit 0
     )
@@ -422,15 +427,20 @@ def _run_qiskit_qte(
         for i, amp in enumerate(sv.data):
             z1 = -1 if (i & b1) else +1
             z2 = -1 if (i & b2) else +1
-            total += z1 * z2 * abs(amp)**2
+            total += z1 * z2 * abs(amp) ** 2
         return float(total)
 
-    for key, (q1, q2) in [("zz_01",(0,1)),("zz_12",(1,2)),("zz_23",(2,3)),("zz_34",(3,4))]:
+    for key, (q1, q2) in [
+        ("zz_01", (0, 1)),
+        ("zz_12", (1, 2)),
+        ("zz_23", (2, 3)),
+        ("zz_34", (3, 4)),
+    ]:
         v0 = zz_sv(sv0_final, q1, q2)
         v1 = zz_sv(sv1_final, q1, q2)
         results[key] = prob_ancilla_0 * v0 + prob_ancilla_1 * v1
 
-    results["bridge_rate"]  = prob_ancilla_1
+    results["bridge_rate"] = prob_ancilla_1
     results["bridge_fired"] = prob_ancilla_1 > 0.5
     return results
 
@@ -453,9 +463,9 @@ def compute_qte_score(zz: dict, bridge_fired: bool) -> float:
     which RF cannot distinguish from the simultaneous case.
     """
     # ZZ magnitudes — high magnitude = strong coupling
-    m12 = abs(zz.get("zz_12", 0.0))   # NDWI × wind
-    m23 = abs(zz.get("zz_23", 0.0))   # wind × temp (conditional on bridge)
-    m34 = abs(zz.get("zz_34", 0.0))   # temp × drought
+    m12 = abs(zz.get("zz_12", 0.0))  # NDWI × wind
+    m23 = abs(zz.get("zz_23", 0.0))  # wind × temp (conditional on bridge)
+    m34 = abs(zz.get("zz_34", 0.0))  # temp × drought
 
     # Drying trend: negative zz_01 means anti-correlation (NDWI today worse than past)
     trend_signal = max(0.0, -zz.get("zz_01", 0.0))
@@ -483,7 +493,7 @@ def encode_node(node: dict) -> tuple[float, float, float, float, float]:
 
     # NDWI values
     ndwi_values = ndwi_s.get("ndwi_values", [])
-    ndwi_now    = ndwi_s.get("ndwi_latest", latest.get("ndwi_stress") or -0.5)
+    ndwi_now = ndwi_s.get("ndwi_latest", latest.get("ndwi_stress") or -0.5)
 
     # Past NDWI: use second-to-last observation if available (7-10 days ago)
     if len(ndwi_values) >= 2:
@@ -494,16 +504,16 @@ def encode_node(node: dict) -> tuple[float, float, float, float, float]:
         ndwi_past = ndwi_now  # no history — assume stable
 
     # Weather features
-    wind_max     = float(latest.get("wind_max")  or 5.0)
-    temp_max     = float(latest.get("temp_max")  or 20.0)
-    drought_days = int(node.get("drought_days",  0))
+    wind_max = float(latest.get("wind_max") or 5.0)
+    temp_max = float(latest.get("temp_max") or 20.0)
+    drought_days = int(node.get("drought_days", 0))
 
     # Encode to angles
     theta_ndwi_past = _encode_ndwi(float(ndwi_past))
-    theta_ndwi_now  = _encode_ndwi(float(ndwi_now))
-    theta_wind      = _encode_to_angle(wind_max,     WIND_LOW,    WIND_HIGH)
-    theta_temp      = _encode_to_angle(temp_max,     TEMP_LOW,    TEMP_HIGH)
-    theta_drought   = _encode_to_angle(drought_days, 0,           DROUGHT_MAX)
+    theta_ndwi_now = _encode_ndwi(float(ndwi_now))
+    theta_wind = _encode_to_angle(wind_max, WIND_LOW, WIND_HIGH)
+    theta_temp = _encode_to_angle(temp_max, TEMP_LOW, TEMP_HIGH)
+    theta_drought = _encode_to_angle(drought_days, 0, DROUGHT_MAX)
 
     return theta_ndwi_past, theta_ndwi_now, theta_wind, theta_temp, theta_drought
 
@@ -511,12 +521,16 @@ def encode_node(node: dict) -> tuple[float, float, float, float, float]:
 # =========================
 # MAIN ENCODER
 # =========================
-def run_qte_for_node(node: dict, n_shots: int = 256) -> QTEResult:
+def run_qte_for_node(
+    node: dict,
+    n_shots: int = 256,
+    random_seed: int = 20260601,
+) -> QTEResult:
     """
     Run the Quantum Temporal Encoder for one nadleśnictwo node.
     Tries Qiskit first, falls back to NumPy statevector.
     """
-    nid  = node["id"]
+    nid = node["id"]
     name = node["name"]
 
     thetas = encode_node(node)
@@ -524,37 +538,48 @@ def run_qte_for_node(node: dict, n_shots: int = 256) -> QTEResult:
 
     # Try Qiskit
     backend = "numpy_statevector"
+    backend_version = np.__version__
     zz: dict[str, Any] = {}
 
     try:
         import qiskit
-        zz      = _run_qiskit_qte(*thetas)
+
+        zz = _run_qiskit_qte(*thetas)
         backend = "qiskit_statevector"
+        backend_version = qiskit.__version__
     except ImportError:
         pass
     except Exception as exc:
         log.debug("Qiskit QTE failed for %s (%s), using NumPy.", name, exc)
 
     if not zz:
-        zz = _run_numpy_qte(*thetas, n_shots=n_shots)
+        zz = _run_numpy_qte(
+            *thetas,
+            n_shots=n_shots,
+            random_seed=random_seed,
+        )
 
     qte_score = compute_qte_score(zz, bool(zz.get("bridge_fired", False)))
 
     return QTEResult(
-        node_id           = nid,
-        node_name         = name,
-        backend           = backend,
-        theta_ndwi_past   = round(t_past,    4),
-        theta_ndwi_now    = round(t_now,     4),
-        theta_wind        = round(t_wind,    4),
-        theta_temp        = round(t_temp,    4),
-        theta_drought     = round(t_drought, 4),
-        bridge_fired      = bool(zz.get("bridge_fired", False)),
-        zz_01             = round(float(zz.get("zz_01", 0)), 4),
-        zz_12             = round(float(zz.get("zz_12", 0)), 4),
-        zz_23             = round(float(zz.get("zz_23", 0)), 4),
-        zz_34             = round(float(zz.get("zz_34", 0)), 4),
-        qte_score         = round(qte_score, 4),
+        node_id=nid,
+        node_name=name,
+        backend=backend,
+        backend_version=backend_version,
+        theta_ndwi_past=round(t_past, 4),
+        theta_ndwi_now=round(t_now, 4),
+        theta_wind=round(t_wind, 4),
+        theta_temp=round(t_temp, 4),
+        theta_drought=round(t_drought, 4),
+        bridge_fired=bool(zz.get("bridge_fired", False)),
+        bridge_rate=round(float(zz.get("bridge_rate", 0.0)), 4),
+        bridge_threshold=0.5,
+        random_seed=random_seed,
+        zz_01=round(float(zz.get("zz_01", 0)), 4),
+        zz_12=round(float(zz.get("zz_12", 0)), 4),
+        zz_23=round(float(zz.get("zz_23", 0)), 4),
+        zz_34=round(float(zz.get("zz_34", 0)), 4),
+        qte_score=round(qte_score, 4),
     )
 
 
@@ -563,8 +588,9 @@ def run_qte_for_node(node: dict, n_shots: int = 256) -> QTEResult:
 # =========================
 def run_qte_pipeline(
     enriched_json: str = os.path.join(OUTPUT_DIR, "nodes_enriched.json"),
-    graph_json:    str = os.path.join(OUTPUT_DIR, "graph.json"),
-    n_shots:       int = 256,
+    graph_json: str = os.path.join(OUTPUT_DIR, "graph.json"),
+    n_shots: int = 256,
+    random_seed: int = 20260601,
 ) -> list[QTEResult]:
 
     log.info("=== QHDALabs Wildfire — Step 3: Quantum Temporal Encoder ===")
@@ -586,8 +612,12 @@ def run_qte_pipeline(
 
     # Run QTE for all nodes
     results: list[QTEResult] = []
-    for node in nodes:
-        result = run_qte_for_node(node, n_shots=n_shots)
+    for index, node in enumerate(nodes):
+        result = run_qte_for_node(
+            node,
+            n_shots=n_shots,
+            random_seed=random_seed + index,
+        )
         results.append(result)
 
     # Log backend
@@ -608,40 +638,82 @@ def _print_summary(results: list[QTEResult]) -> None:
 
     log.info("\n%s", "=" * 78)
     log.info("Quantum Temporal Encoder — RDLP Wrocław")
-    log.info("ZZ correlations: zz_12=NDWI×wind  zz_23=wind×temp(cond.)  bridge=sequential?")
+    log.info(
+        "ZZ correlations: zz_12=NDWI×wind  zz_23=wind×temp(cond.)  bridge=sequential?"
+    )
     log.info("%s", "=" * 78)
-    log.info("%-24s %6s %6s %6s %6s %7s %6s",
-             "Nadleśnictwo", "zz_12", "zz_23", "zz_34", "bridge", "QTE", "tier")
+    log.info(
+        "%-24s %6s %6s %6s %6s %7s %6s",
+        "Nadleśnictwo",
+        "zz_12",
+        "zz_23",
+        "zz_34",
+        "bridge",
+        "QTE",
+        "tier",
+    )
     log.info("%s", "-" * 78)
 
     for r in sorted_r:
-        tier  = ("KRYT" if r.qte_score > 0.70 else
-                 "WYS " if r.qte_score > 0.50 else
-                 "UMIA" if r.qte_score > 0.30 else "LOW ")
+        tier = (
+            "KRYT"
+            if r.qte_score > 0.70
+            else "WYS "
+            if r.qte_score > 0.50
+            else "UMIA"
+            if r.qte_score > 0.30
+            else "LOW "
+        )
         bmark = "🔥" if r.bridge_fired else "  "
-        log.info("%-24s %6.3f %6.3f %6.3f %6s %7.3f [%s]",
-                 r.node_name[:24], r.zz_12, r.zz_23, r.zz_34,
-                 bmark, r.qte_score, tier)
+        log.info(
+            "%-24s %6.3f %6.3f %6.3f %6s %7.3f [%s]",
+            r.node_name[:24],
+            r.zz_12,
+            r.zz_23,
+            r.zz_34,
+            bmark,
+            r.qte_score,
+            tier,
+        )
     log.info("%s", "=" * 78)
     bridge_count = sum(1 for r in results if r.bridge_fired)
-    log.info("Bridge fired (sequential dry→wind pattern): %d/%d nodes 🔥",
-             bridge_count, len(results))
+    log.info(
+        "Bridge fired (sequential dry→wind pattern): %d/%d nodes 🔥",
+        bridge_count,
+        len(results),
+    )
 
 
 def _save_results(
     results: list[QTEResult],
-    nodes:   list[dict],
-    graph:   dict,
+    nodes: list[dict],
+    graph: dict,
 ) -> None:
     """Save QTE results and generate combined map."""
 
     # qte_results.json
     qte_path = os.path.join(OUTPUT_DIR, "qte_results.json")
+    bridge_count = sum(1 for result in results if result.bridge_fired)
+    bridge_fraction = bridge_count / len(results) if results else 0.0
+    calibration_warning = (
+        "Bridge fired for more than 80% of the network; backtest the "
+        "bridge threshold before operational use"
+        if bridge_fraction > 0.80
+        else None
+    )
     qte_data = {
-        "version":      "1.0.0",
+        "version": "2.0.0",
         "generated_at": datetime.now(timezone.utc).isoformat(),
-        "algorithm":    "conditional_cz_bridge (qmnet)",
-        "n_qubits":     5,
+        "algorithm": "conditional_cz_bridge (qmnet)",
+        "n_qubits": 5,
+        "bridge_distribution": {
+            "fired": bridge_count,
+            "total": len(results),
+            "network_rate": round(bridge_fraction, 4),
+            "rates": [result.bridge_rate for result in results],
+        },
+        "calibration_status": "uncalibrated",
+        "calibration_warning": calibration_warning,
         "qubits": {
             "q0": "NDWI past (ancilla — measured mid-circuit)",
             "q1": "NDWI today",
@@ -651,17 +723,21 @@ def _save_results(
         },
         "results": [
             {
-                "node_id":        r.node_id,
-                "node_name":      r.node_name,
-                "backend":        r.backend,
+                "node_id": r.node_id,
+                "node_name": r.node_name,
+                "backend": r.backend,
+                "backend_version": r.backend_version,
                 "theta_encoding": {
                     "ndwi_past": r.theta_ndwi_past,
-                    "ndwi_now":  r.theta_ndwi_now,
-                    "wind":      r.theta_wind,
-                    "temp":      r.theta_temp,
-                    "drought":   r.theta_drought,
+                    "ndwi_now": r.theta_ndwi_now,
+                    "wind": r.theta_wind,
+                    "temp": r.theta_temp,
+                    "drought": r.theta_drought,
                 },
                 "bridge_fired": r.bridge_fired,
+                "bridge_rate": r.bridge_rate,
+                "bridge_threshold": r.bridge_threshold,
+                "random_seed": r.random_seed,
                 "zz": {
                     "zz_01": r.zz_01,
                     "zz_12": r.zz_12,
@@ -673,9 +749,28 @@ def _save_results(
             for r in results
         ],
     }
-    with open(qte_path, "w", encoding="utf-8") as f:
-        json.dump(qte_data, f, indent=2, ensure_ascii=False)
+    validate_node_payload(qte_data, "results")
+    atomic_write_json(qte_path, qte_data)
     log.info("Saved %s", qte_path)
+    warnings = [calibration_warning] if calibration_warning else []
+    write_step_manifest(
+        OUTPUT_DIR,
+        "qte",
+        StepStatus.DEGRADED if calibration_warning else StepStatus.SUCCESS,
+        outputs={"qte_results": qte_path},
+        coverage_percent=100.0,
+        valid_for_downstream=True,
+        warnings=warnings,
+        bridge_rate=round(bridge_fraction, 4),
+        bridge_threshold=0.5,
+        random_seed=results[0].random_seed if results else None,
+        backends=sorted({result.backend for result in results}),
+        backend_versions=sorted({result.backend_version for result in results}),
+        python_version=platform.python_version(),
+        calibration_status="uncalibrated",
+        operational_validity=False,
+        data_version="qte-2.0.0",
+    )
 
     # Generate combined map (Step 2 NDWI + Step 3 QTE)
     _generate_combined_map(results, nodes, graph)
@@ -683,8 +778,8 @@ def _save_results(
 
 def _generate_combined_map(
     qte_results: list[QTEResult],
-    nodes:       list[dict],
-    graph:       dict,
+    nodes: list[dict],
+    graph: dict,
 ) -> None:
     """Generate map showing both NDWI stress and QTE score per node."""
 
@@ -692,29 +787,31 @@ def _generate_combined_map(
 
     node_js = []
     for n in nodes:
-        nid    = n["id"]
+        nid = n["id"]
         latest = n.get("latest", {})
-        qte    = qte_map.get(nid)
+        qte = qte_map.get(nid)
         ndwi_s = n.get("ndwi_sentinel", {})
 
-        node_js.append({
-            "id":           nid,
-            "name":         n["name"],
-            "lat":          n["lat"],
-            "lon":          n["lon"],
-            "eco":          n["eco"],
-            "ndwi_stress":  n.get("ndwi_stress_latest", 0.0),
-            "ndwi_latest":  ndwi_s.get("ndwi_latest", 0.0),
-            "ndwi_trend":   n.get("ndwi_trend_14d", 0.0),
-            "drought_days": n.get("drought_days", 0),
-            "qte_score":    qte.qte_score    if qte else 0.0,
-            "bridge_fired": qte.bridge_fired if qte else False,
-            "zz_12":        qte.zz_12        if qte else 0.0,
-            "zz_23":        qte.zz_23        if qte else 0.0,
-            "temp_max":     latest.get("temp_max"),
-            "wind_max":     latest.get("wind_max"),
-            "neighbors":    [nb["id"] for nb in graph.get(nid, [])],
-        })
+        node_js.append(
+            {
+                "id": nid,
+                "name": n["name"],
+                "lat": n["lat"],
+                "lon": n["lon"],
+                "eco": n["eco"],
+                "ndwi_stress": n.get("ndwi_stress_latest", 0.0),
+                "ndwi_latest": ndwi_s.get("ndwi_latest", 0.0),
+                "ndwi_trend": n.get("ndwi_trend_14d", 0.0),
+                "drought_days": n.get("drought_days", 0),
+                "qte_score": qte.qte_score if qte else 0.0,
+                "bridge_fired": qte.bridge_fired if qte else False,
+                "zz_12": qte.zz_12 if qte else 0.0,
+                "zz_23": qte.zz_23 if qte else 0.0,
+                "temp_max": latest.get("temp_max"),
+                "wind_max": latest.get("wind_max"),
+                "neighbors": [nb["id"] for nb in graph.get(nid, [])],
+            }
+        )
 
     node_data = json.dumps(node_js, ensure_ascii=False)
 

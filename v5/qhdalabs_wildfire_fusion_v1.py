@@ -64,13 +64,21 @@ import logging
 import os
 from dataclasses import dataclass
 from datetime import datetime, timezone
+
+import numpy as np
+
+from pipeline_contract import (
+    StepStatus,
+    atomic_write_json,
+    validate_node_payload,
+    write_step_manifest,
+)
 from qhdalabs_wildfire_ignition_v1 import (
     IgnitionScore,
     compute_fei,
     compute_qies,
     load_ignition_map,
 )
-import numpy as np
 
 logging.basicConfig(
     level=logging.INFO,
@@ -169,8 +177,14 @@ class RiskScore:
     base_score: float  # before modifiers
     eco_multiplier: float
     # Final
+    unclipped_score: float
     final_score: float
     tier: str  # CRITICAL | HIGH | MODERATE | LOW
+    pipeline_status: str
+    operational_validity: bool
+    data_quality_flags: list[str]
+    calibration_flags: list[str]
+    upstream_statuses: dict[str, str]
     # Context
     drought_days: int
     temp_max: float | None
@@ -311,6 +325,11 @@ def compute_risk_score(
     drivers = _explain(
         ndwi_stress, qte_score, fwi, trend_s, eco_mult, bridge_fired, net_stress
     )
+    data_quality_flags = []
+    if not ignition_valid:
+        data_quality_flags.append("ignition_invalid_or_unavailable")
+    calibration_flags = ["satellite_stress_mapping_uncalibrated"]
+    pipeline_status = StepStatus.SUCCESS if ignition_valid else StepStatus.DEGRADED
 
     return RiskScore(
         node_id=nid,
@@ -333,8 +352,18 @@ def compute_risk_score(
         qies=round(qies, 2) if qies is not None else None,
         base_score=round(base, 4),
         eco_multiplier=eco_mult,
+        unclipped_score=round(modified, 4),
         final_score=round(final, 4),
         tier=_tier(final),
+        pipeline_status=str(pipeline_status),
+        operational_validity=False,
+        data_quality_flags=data_quality_flags,
+        calibration_flags=calibration_flags,
+        upstream_statuses={
+            "sentinel": "DEGRADED",
+            "qte": "SUCCESS",
+            "ignition": "SUCCESS" if ignition_valid else "BLOCKED",
+        },
         drought_days=int(node.get("drought_days", 0)),
         temp_max=latest.get("temp_max"),
         wind_max=latest.get("wind_max"),
@@ -413,7 +442,8 @@ def _print_summary(scores: list[RiskScore]) -> None:
         datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M UTC"),
     )
     log.info(
-        "Signals: Sentinel-2 NDWI (45%%) + QTE quantum (30%%) + FWI weather (15%%) + trend (10%%)"
+        "Signals: Sentinel-2 moisture (45%) + QTE quantum (30%) + "
+        "FWI weather (15%) + trend (10%)"
     )
     log.info("%s", "═" * 82)
     log.info(
@@ -449,15 +479,59 @@ def _print_summary(scores: list[RiskScore]) -> None:
     log.info("Tier counts: %s", "  ".join(f"{k}:{v}" for k, v in tier_counts.items()))
     bridge_n = sum(1 for s in scores if s.bridge_fired)
     log.info("Bridge fired (sequential dry→wind): %d/%d nodes", bridge_n, len(scores))
+    clipped_n = sum(1 for score in scores if score.unclipped_score > 1.0)
+    high_n = sum(1 for score in scores if score.tier in {"CRITICAL", "HIGH"})
+    log.info("Scores clipped to 1.0: %d/%d", clipped_n, len(scores))
+    log.info("HIGH/CRITICAL share: %d/%d", high_n, len(scores))
 
 
 def _save_results(scores: list[RiskScore]) -> None:
     # Full results
     risk_path = os.path.join(OUTPUT_DIR, "risk_scores.json")
+    total = len(scores)
+    clipped_n = sum(score.unclipped_score > 1.0 for score in scores)
+    elevated_n = sum(score.tier in {"CRITICAL", "HIGH"} for score in scores)
+    bridge_n = sum(score.bridge_fired for score in scores)
+    calibration_warnings: list[str] = []
+    if total and clipped_n / total > 0.10:
+        calibration_warnings.append("score_clipping_exceeds_10_percent")
+    if total and elevated_n / total > 0.50:
+        calibration_warnings.append("high_or_critical_exceeds_50_percent")
+    if total and bridge_n / total > 0.80:
+        calibration_warnings.append("bridge_activation_exceeds_80_percent")
+    for score in scores:
+        score.calibration_flags.extend(
+            flag for flag in calibration_warnings if flag not in score.calibration_flags
+        )
+    pipeline_status = (
+        StepStatus.DEGRADED
+        if calibration_warnings
+        or any(score.pipeline_status == StepStatus.DEGRADED for score in scores)
+        else StepStatus.SUCCESS
+    )
     payload = {
-        "version": "1.0.0",
+        "version": "2.0.0",
         "generated_at": datetime.now(timezone.utc).isoformat(),
         "rdlp": "Wrocław",
+        "pipeline_status": str(pipeline_status),
+        "operational_validity": False,
+        "calibration_status": "uncalibrated",
+        "calibration_warnings": calibration_warnings,
+        "saturation_diagnostics": {
+            "clipped_to_one_count": clipped_n,
+            "clipped_to_one_share": round(clipped_n / total, 4) if total else 0.0,
+            "high_or_critical_count": elevated_n,
+            "high_or_critical_share": (round(elevated_n / total, 4) if total else 0.0),
+            "bridge_bonus_count": bridge_n,
+            "bridge_bonus_share": round(bridge_n / total, 4) if total else 0.0,
+            "component_distribution": {
+                "base_score": [score.base_score for score in scores],
+                "ecosystem_multiplier": [score.eco_multiplier for score in scores],
+                "network_propagation": [
+                    round(NETWORK_COEFF * score.network_stress, 4) for score in scores
+                ],
+            },
+        },
         "fusion_weights": {
             "ndwi_satellite": W_NDWI,
             "qte_quantum": W_QTE,
@@ -476,8 +550,14 @@ def _save_results(scores: list[RiskScore]) -> None:
                 "lat": s.lat,
                 "lon": s.lon,
                 "eco": s.eco,
+                "unclipped_score": s.unclipped_score,
                 "final_score": s.final_score,
                 "tier": s.tier,
+                "pipeline_status": s.pipeline_status,
+                "operational_validity": s.operational_validity,
+                "data_quality_flags": s.data_quality_flags,
+                "calibration_flags": s.calibration_flags,
+                "upstream_statuses": s.upstream_statuses,
                 "signals": {
                     "ndwi_stress": s.ndwi_stress,
                     "ndwi_trend_14d": s.ndwi_trend_14d,
@@ -495,6 +575,11 @@ def _save_results(scores: list[RiskScore]) -> None:
                 "modifiers": {
                     "eco_multiplier": s.eco_multiplier,
                     "base_score": s.base_score,
+                    "bridge_bonus": BRIDGE_BONUS if s.bridge_fired else 0.0,
+                    "network_propagation": round(
+                        NETWORK_COEFF * s.network_stress,
+                        4,
+                    ),
                 },
                 "context": {
                     "drought_days": s.drought_days,
@@ -507,8 +592,8 @@ def _save_results(scores: list[RiskScore]) -> None:
             for s in scores
         ],
     }
-    with open(risk_path, "w", encoding="utf-8") as f:
-        json.dump(payload, f, indent=2, ensure_ascii=False)
+    validate_node_payload(payload, "scores")
+    atomic_write_json(risk_path, payload)
     log.info("Saved %s", risk_path)
 
     # Alerts only (CRITICAL + HIGH)
@@ -532,14 +617,33 @@ def _save_results(scores: list[RiskScore]) -> None:
                 "ndwi_latest": s.ndwi_latest,
                 "drought_days": s.drought_days,
                 "reason": " | ".join(d["label"] for d in s.top_drivers[:2]),
-                "drone_recommended": s.tier == "CRITICAL",
+                "pipeline_status": s.pipeline_status,
+                "operational_validity": s.operational_validity,
+                "data_quality_flags": s.data_quality_flags,
+                "calibration_flags": s.calibration_flags,
+                "drone_recommended": False,
+                "recommendation_status": "research_only_uncalibrated",
             }
             for s in alerts
         ],
     }
-    with open(alerts_path, "w", encoding="utf-8") as f:
-        json.dump(alerts_payload, f, indent=2, ensure_ascii=False)
+    atomic_write_json(alerts_path, alerts_payload)
     log.info("Saved %s (%d alerts)", alerts_path, len(alerts))
+    write_step_manifest(
+        OUTPUT_DIR,
+        "fusion",
+        pipeline_status,
+        outputs={"risk_scores": risk_path, "alerts": alerts_path},
+        coverage_percent=100.0,
+        valid_for_downstream=True,
+        warnings=calibration_warnings,
+        operational_validity=False,
+        clipped_scores=clipped_n,
+        high_or_critical_share=(round(elevated_n / total, 4) if total else 0.0),
+        bridge_share=round(bridge_n / total, 4) if total else 0.0,
+        calibration_status="uncalibrated",
+        data_version="fusion-2.0.0",
+    )
 
 
 def _generate_final_map(scores: list[RiskScore], graph: dict) -> None:
@@ -708,8 +812,11 @@ if __name__ == "__main__":
         log.info("ACTIVE ALERTS — %d nodes require attention", len(alerts))
         log.info("%s", "=" * 60)
         for a in alerts:
-            drone = " → DRONE RECOMMENDED" if a.tier == "CRITICAL" else ""
-            log.info("[%s] %s%s", a.tier, a.node_name, drone)
+            log.info(
+                "[%s] %s — RESEARCH ONLY, UNCALIBRATED",
+                a.tier,
+                a.node_name,
+            )
             log.info(
                 "  Score: %.3f | NDWI: %.4f | Bridge: %s",
                 a.final_score,
