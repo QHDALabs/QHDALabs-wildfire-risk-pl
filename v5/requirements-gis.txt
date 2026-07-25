@@ -1,0 +1,7 @@
+-r requirements.txt
+geopandas>=1.0
+pyogrio>=0.10
+shapely>=2.0
+pyproj>=3.6
+# Optional fallback when Pyogrio is unavailable
+fiona>=1.9

@@ -1,7 +1,7 @@
 {
-  "version": "1.0.0",
+  "version": "1.1.0",
   "module": "qhdalabs_wildfire_ignition_v1",
-  "generated_at": "2026-06-04T07:37:26.064429+00:00",
+  "generated_at": "2026-07-24T22:06:51.635951+00:00",
   "rdlp": "Wrocław",
   "config": {
     "ignition_weights": {
@@ -26,701 +26,1131 @@
       "r_bonus": 12,
       "i_bonus": 8
     },
-    "qies_lambda": 0.25
+    "qies_lambda": 0.25,
+    "min_coverage_for_fusion": 0.7
   },
   "scores": [
     {
-      "node_id": "piszowice",
-      "node_name": "Piszowice",
-      "lat": 51.026,
-      "lon": 15.867,
-      "ignition_score": 12.14,
+      "node_id": "klodzko",
+      "node_name": "Kłodzko",
+      "lat": 50.437,
+      "lon": 16.659,
+      "ignition_score": 62.2,
+      "ignition_score_raw": 62.2,
+      "ignition_score_available": 62.2,
       "extreme_ignition": false,
-      "dominant_source": "powerlines",
+      "dominant_source": "roads",
       "data_coverage": [
-        "powerlines"
+        "agriculture",
+        "historical_kde",
+        "powerlines",
+        "railways",
+        "roads",
+        "tourism"
       ],
+      "missing_sublayers": [],
+      "coverage_weight": 1.0,
+      "coverage_percent": 100.0,
+      "score_status": "complete",
+      "valid_for_fusion": true,
+      "warnings": [],
       "sublayers": {
-        "roads": 0.0,
-        "railways": 0.0,
-        "powerlines": 80.91,
-        "tourism": 0.0,
-        "agriculture": 0.0,
-        "historical_kde": 0.0
+        "roads": 96.19,
+        "railways": 91.14,
+        "powerlines": 2.8,
+        "tourism": 98.96,
+        "agriculture": 30.88,
+        "historical_kde": 0.24
       },
-      "computed_at": "2026-06-04T07:37:15.107515+00:00"
-    },
-    {
-      "node_id": "bardo_slaskie",
-      "node_name": "Bardo Śląskie",
-      "lat": 50.514,
-      "lon": 16.749,
-      "ignition_score": 9.38,
-      "extreme_ignition": false,
-      "dominant_source": "powerlines",
-      "data_coverage": [
-        "powerlines"
-      ],
-      "sublayers": {
-        "roads": 0.0,
-        "railways": 0.0,
-        "powerlines": 62.56,
-        "tourism": 0.0,
-        "agriculture": 0.0,
-        "historical_kde": 0.0
-      },
-      "computed_at": "2026-06-04T07:36:58.464362+00:00"
-    },
-    {
-      "node_id": "milicz",
-      "node_name": "Milicz",
-      "lat": 51.531,
-      "lon": 17.284,
-      "ignition_score": 8.71,
-      "extreme_ignition": false,
-      "dominant_source": "powerlines",
-      "data_coverage": [
-        "powerlines"
-      ],
-      "sublayers": {
-        "roads": 0.0,
-        "railways": 0.0,
-        "powerlines": 58.06,
-        "tourism": 0.0,
-        "agriculture": 0.0,
-        "historical_kde": 0.0
-      },
-      "computed_at": "2026-06-04T07:37:11.937680+00:00"
-    },
-    {
-      "node_id": "zmigrod",
-      "node_name": "Żmigród",
-      "lat": 51.475,
-      "lon": 16.906,
-      "ignition_score": 7.89,
-      "extreme_ignition": false,
-      "dominant_source": "powerlines",
-      "data_coverage": [
-        "powerlines"
-      ],
-      "sublayers": {
-        "roads": 0.0,
-        "railways": 0.0,
-        "powerlines": 52.61,
-        "tourism": 0.0,
-        "agriculture": 0.0,
-        "historical_kde": 0.0
-      },
-      "computed_at": "2026-06-04T07:37:25.251155+00:00"
-    },
-    {
-      "node_id": "gory_stolowe",
-      "node_name": "Góry Stołowe",
-      "lat": 50.431,
-      "lon": 16.364,
-      "ignition_score": 7.67,
-      "extreme_ignition": false,
-      "dominant_source": "powerlines",
-      "data_coverage": [
-        "powerlines"
-      ],
-      "sublayers": {
-        "roads": 0.0,
-        "railways": 0.0,
-        "powerlines": 51.15,
-        "tourism": 0.0,
-        "agriculture": 0.0,
-        "historical_kde": 0.0
-      },
-      "computed_at": "2026-06-04T07:37:01.911344+00:00"
-    },
-    {
-      "node_id": "prudnik",
-      "node_name": "Prudnik",
-      "lat": 50.323,
-      "lon": 17.58,
-      "ignition_score": 6.86,
-      "extreme_ignition": false,
-      "dominant_source": "powerlines",
-      "data_coverage": [
-        "powerlines"
-      ],
-      "sublayers": {
-        "roads": 0.0,
-        "railways": 0.0,
-        "powerlines": 45.75,
-        "tourism": 0.0,
-        "agriculture": 0.0,
-        "historical_kde": 0.0
-      },
-      "computed_at": "2026-06-04T07:37:15.895034+00:00"
-    },
-    {
-      "node_id": "ladek",
-      "node_name": "Lądek-Zdrój",
-      "lat": 50.342,
-      "lon": 16.884,
-      "ignition_score": 6.38,
-      "extreme_ignition": false,
-      "dominant_source": "powerlines",
-      "data_coverage": [
-        "powerlines"
-      ],
-      "sublayers": {
-        "roads": 0.0,
-        "railways": 0.0,
-        "powerlines": 42.52,
-        "tourism": 0.0,
-        "agriculture": 0.0,
-        "historical_kde": 0.0
-      },
-      "computed_at": "2026-06-04T07:37:07.075276+00:00"
-    },
-    {
-      "node_id": "olesnica",
-      "node_name": "Oleśnica Śląska",
-      "lat": 50.88,
-      "lon": 16.88,
-      "ignition_score": 5.5,
-      "extreme_ignition": false,
-      "dominant_source": "powerlines",
-      "data_coverage": [
-        "powerlines"
-      ],
-      "sublayers": {
-        "roads": 0.0,
-        "railways": 0.0,
-        "powerlines": 36.64,
-        "tourism": 0.0,
-        "agriculture": 0.0,
-        "historical_kde": 0.0
-      },
-      "computed_at": "2026-06-04T07:37:13.519725+00:00"
-    },
-    {
-      "node_id": "swietoszow",
-      "node_name": "Świętoszów",
-      "lat": 51.607,
-      "lon": 15.353,
-      "ignition_score": 3.97,
-      "extreme_ignition": false,
-      "dominant_source": "powerlines",
-      "data_coverage": [
-        "powerlines"
-      ],
-      "sublayers": {
-        "roads": 0.0,
-        "railways": 0.0,
-        "powerlines": 26.45,
-        "tourism": 0.0,
-        "agriculture": 0.0,
-        "historical_kde": 0.0
-      },
-      "computed_at": "2026-06-04T07:37:20.584005+00:00"
-    },
-    {
-      "node_id": "bystrzyca",
-      "node_name": "Bystrzyca Kłodzka",
-      "lat": 50.298,
-      "lon": 16.649,
-      "ignition_score": 3.81,
-      "extreme_ignition": false,
-      "dominant_source": "powerlines",
-      "data_coverage": [
-        "powerlines"
-      ],
-      "sublayers": {
-        "roads": 0.0,
-        "railways": 0.0,
-        "powerlines": 25.37,
-        "tourism": 0.0,
-        "agriculture": 0.0,
-        "historical_kde": 0.0
-      },
-      "computed_at": "2026-06-04T07:37:00.263176+00:00"
-    },
-    {
-      "node_id": "lwowek",
-      "node_name": "Lwówek Śląski",
-      "lat": 51.107,
-      "lon": 15.593,
-      "ignition_score": 3.38,
-      "extreme_ignition": false,
-      "dominant_source": "powerlines",
-      "data_coverage": [
-        "powerlines"
-      ],
-      "sublayers": {
-        "roads": 0.0,
-        "railways": 0.0,
-        "powerlines": 22.55,
-        "tourism": 0.0,
-        "agriculture": 0.0,
-        "historical_kde": 0.0
-      },
-      "computed_at": "2026-06-04T07:37:10.169555+00:00"
-    },
-    {
-      "node_id": "sycow",
-      "node_name": "Syców",
-      "lat": 51.307,
-      "lon": 17.718,
-      "ignition_score": 3.12,
-      "extreme_ignition": false,
-      "dominant_source": "powerlines",
-      "data_coverage": [
-        "powerlines"
-      ],
-      "sublayers": {
-        "roads": 0.0,
-        "railways": 0.0,
-        "powerlines": 20.8,
-        "tourism": 0.0,
-        "agriculture": 0.0,
-        "historical_kde": 0.0
-      },
-      "computed_at": "2026-06-04T07:37:18.324765+00:00"
-    },
-    {
-      "node_id": "jawor",
-      "node_name": "Jawor",
-      "lat": 51.041,
-      "lon": 16.197,
-      "ignition_score": 2.44,
-      "extreme_ignition": false,
-      "dominant_source": "powerlines",
-      "data_coverage": [
-        "powerlines"
-      ],
-      "sublayers": {
-        "roads": 0.0,
-        "railways": 0.0,
-        "powerlines": 16.24,
-        "tourism": 0.0,
-        "agriculture": 0.0,
-        "historical_kde": 0.0
-      },
-      "computed_at": "2026-06-04T07:37:02.975285+00:00"
-    },
-    {
-      "node_id": "jugow",
-      "node_name": "Jugów",
-      "lat": 50.573,
-      "lon": 16.555,
-      "ignition_score": 2.41,
-      "extreme_ignition": false,
-      "dominant_source": "powerlines",
-      "data_coverage": [
-        "powerlines"
-      ],
-      "sublayers": {
-        "roads": 0.0,
-        "railways": 0.0,
-        "powerlines": 16.08,
-        "tourism": 0.0,
-        "agriculture": 0.0,
-        "historical_kde": 0.0
-      },
-      "computed_at": "2026-06-04T07:37:04.019996+00:00"
-    },
-    {
-      "node_id": "wolow",
-      "node_name": "Wołów",
-      "lat": 51.338,
-      "lon": 16.637,
-      "ignition_score": 1.67,
-      "extreme_ignition": false,
-      "dominant_source": "powerlines",
-      "data_coverage": [
-        "powerlines"
-      ],
-      "sublayers": {
-        "roads": 0.0,
-        "railways": 0.0,
-        "powerlines": 11.14,
-        "tourism": 0.0,
-        "agriculture": 0.0,
-        "historical_kde": 0.0
-      },
-      "computed_at": "2026-06-04T07:37:22.868032+00:00"
-    },
-    {
-      "node_id": "miekinia",
-      "node_name": "Miękinia",
-      "lat": 51.163,
-      "lon": 16.713,
-      "ignition_score": 1.55,
-      "extreme_ignition": false,
-      "dominant_source": "powerlines",
-      "data_coverage": [
-        "powerlines"
-      ],
-      "sublayers": {
-        "roads": 0.0,
-        "railways": 0.0,
-        "powerlines": 10.36,
-        "tourism": 0.0,
-        "agriculture": 0.0,
-        "historical_kde": 0.0
-      },
-      "computed_at": "2026-06-04T07:37:11.024817+00:00"
-    },
-    {
-      "node_id": "kamienna_gora",
-      "node_name": "Kamienna Góra",
-      "lat": 50.778,
-      "lon": 16.039,
-      "ignition_score": 1.46,
-      "extreme_ignition": false,
-      "dominant_source": "powerlines",
-      "data_coverage": [
-        "powerlines"
-      ],
-      "sublayers": {
-        "roads": 0.0,
-        "railways": 0.0,
-        "powerlines": 9.75,
-        "tourism": 0.0,
-        "agriculture": 0.0,
-        "historical_kde": 0.0
-      },
-      "computed_at": "2026-06-04T07:37:05.174531+00:00"
-    },
-    {
-      "node_id": "lesna",
-      "node_name": "Leśna",
-      "lat": 51.001,
-      "lon": 15.268,
-      "ignition_score": 1.3,
-      "extreme_ignition": false,
-      "dominant_source": "powerlines",
-      "data_coverage": [
-        "powerlines"
-      ],
-      "sublayers": {
-        "roads": 0.0,
-        "railways": 0.0,
-        "powerlines": 8.67,
-        "tourism": 0.0,
-        "agriculture": 0.0,
-        "historical_kde": 0.0
-      },
-      "computed_at": "2026-06-04T07:37:08.598281+00:00"
-    },
-    {
-      "node_id": "szklarska",
-      "node_name": "Szklarska Poręba",
-      "lat": 50.828,
-      "lon": 15.523,
-      "ignition_score": 1.14,
-      "extreme_ignition": false,
-      "dominant_source": "powerlines",
-      "data_coverage": [
-        "powerlines"
-      ],
-      "sublayers": {
-        "roads": 0.0,
-        "railways": 0.0,
-        "powerlines": 7.62,
-        "tourism": 0.0,
-        "agriculture": 0.0,
-        "historical_kde": 0.0
-      },
-      "computed_at": "2026-06-04T07:37:19.073167+00:00"
-    },
-    {
-      "node_id": "zlotoryja",
-      "node_name": "Złotoryja",
-      "lat": 51.125,
-      "lon": 15.919,
-      "ignition_score": 0.86,
-      "extreme_ignition": false,
-      "dominant_source": "powerlines",
-      "data_coverage": [
-        "powerlines"
-      ],
-      "sublayers": {
-        "roads": 0.0,
-        "railways": 0.0,
-        "powerlines": 5.72,
-        "tourism": 0.0,
-        "agriculture": 0.0,
-        "historical_kde": 0.0
-      },
-      "computed_at": "2026-06-04T07:37:24.445586+00:00"
+      "computed_at": "2026-07-24T22:05:36.654679+00:00"
     },
     {
       "node_id": "boleslawiec",
       "node_name": "Bolesławiec",
       "lat": 51.264,
       "lon": 15.559,
-      "ignition_score": 0.81,
+      "ignition_score": 56.85,
+      "ignition_score_raw": 56.85,
+      "ignition_score_available": 56.85,
       "extreme_ignition": false,
-      "dominant_source": "powerlines",
+      "dominant_source": "roads",
       "data_coverage": [
-        "powerlines"
+        "agriculture",
+        "historical_kde",
+        "powerlines",
+        "railways",
+        "roads",
+        "tourism"
       ],
+      "missing_sublayers": [],
+      "coverage_weight": 1.0,
+      "coverage_percent": 100.0,
+      "score_status": "complete",
+      "valid_for_fusion": true,
+      "warnings": [],
       "sublayers": {
-        "roads": 0.0,
-        "railways": 0.0,
+        "roads": 95.96,
+        "railways": 78.3,
         "powerlines": 5.4,
-        "tourism": 0.0,
-        "agriculture": 0.0,
-        "historical_kde": 0.0
+        "tourism": 98.02,
+        "agriculture": 11.23,
+        "historical_kde": 0.03
       },
-      "computed_at": "2026-06-04T07:36:59.351864+00:00"
+      "computed_at": "2026-07-24T22:05:24.028467+00:00"
     },
     {
-      "node_id": "legnica",
-      "node_name": "Legnica",
-      "lat": 51.211,
-      "lon": 16.156,
-      "ignition_score": 0.62,
+      "node_id": "zmigrod",
+      "node_name": "Żmigród",
+      "lat": 51.475,
+      "lon": 16.906,
+      "ignition_score": 55.82,
+      "ignition_score_raw": 55.82,
+      "ignition_score_available": 55.82,
       "extreme_ignition": false,
-      "dominant_source": "powerlines",
+      "dominant_source": "roads",
       "data_coverage": [
-        "powerlines"
+        "agriculture",
+        "historical_kde",
+        "powerlines",
+        "railways",
+        "roads",
+        "tourism"
       ],
+      "missing_sublayers": [],
+      "coverage_weight": 1.0,
+      "coverage_percent": 100.0,
+      "score_status": "complete",
+      "valid_for_fusion": true,
+      "warnings": [],
       "sublayers": {
-        "roads": 0.0,
-        "railways": 0.0,
-        "powerlines": 4.11,
-        "tourism": 0.0,
-        "agriculture": 0.0,
-        "historical_kde": 0.0
+        "roads": 86.17,
+        "railways": 34.69,
+        "powerlines": 52.61,
+        "tourism": 89.77,
+        "agriculture": 39.69,
+        "historical_kde": 0.27
       },
-      "computed_at": "2026-06-04T07:37:07.820231+00:00"
-    },
-    {
-      "node_id": "wegliniec",
-      "node_name": "Węgliniec",
-      "lat": 51.274,
-      "lon": 15.207,
-      "ignition_score": 0.46,
-      "extreme_ignition": false,
-      "dominant_source": "powerlines",
-      "data_coverage": [
-        "powerlines"
-      ],
-      "sublayers": {
-        "roads": 0.0,
-        "railways": 0.0,
-        "powerlines": 3.07,
-        "tourism": 0.0,
-        "agriculture": 0.0,
-        "historical_kde": 0.0
-      },
-      "computed_at": "2026-06-04T07:37:22.095896+00:00"
-    },
-    {
-      "node_id": "klodzko",
-      "node_name": "Kłodzko",
-      "lat": 50.437,
-      "lon": 16.659,
-      "ignition_score": 0.42,
-      "extreme_ignition": false,
-      "dominant_source": "powerlines",
-      "data_coverage": [
-        "powerlines"
-      ],
-      "sublayers": {
-        "roads": 0.0,
-        "railways": 0.0,
-        "powerlines": 2.8,
-        "tourism": 0.0,
-        "agriculture": 0.0,
-        "historical_kde": 0.0
-      },
-      "computed_at": "2026-06-04T07:37:06.237184+00:00"
-    },
-    {
-      "node_id": "swidnica",
-      "node_name": "Świdnica",
-      "lat": 50.842,
-      "lon": 16.488,
-      "ignition_score": 0.32,
-      "extreme_ignition": false,
-      "dominant_source": "powerlines",
-      "data_coverage": [
-        "powerlines"
-      ],
-      "sublayers": {
-        "roads": 0.0,
-        "railways": 0.0,
-        "powerlines": 2.11,
-        "tourism": 0.0,
-        "agriculture": 0.0,
-        "historical_kde": 0.0
-      },
-      "computed_at": "2026-06-04T07:37:19.874768+00:00"
-    },
-    {
-      "node_id": "olawa",
-      "node_name": "Oława",
-      "lat": 50.939,
-      "lon": 17.3,
-      "ignition_score": 0.29,
-      "extreme_ignition": false,
-      "dominant_source": "powerlines",
-      "data_coverage": [
-        "powerlines"
-      ],
-      "sublayers": {
-        "roads": 0.0,
-        "railways": 0.0,
-        "powerlines": 1.96,
-        "tourism": 0.0,
-        "agriculture": 0.0,
-        "historical_kde": 0.0
-      },
-      "computed_at": "2026-06-04T07:37:14.282775+00:00"
-    },
-    {
-      "node_id": "ruszow",
-      "node_name": "Ruszów",
-      "lat": 51.449,
-      "lon": 14.955,
-      "ignition_score": 0.27,
-      "extreme_ignition": false,
-      "dominant_source": "powerlines",
-      "data_coverage": [
-        "powerlines"
-      ],
-      "sublayers": {
-        "roads": 0.0,
-        "railways": 0.0,
-        "powerlines": 1.78,
-        "tourism": 0.0,
-        "agriculture": 0.0,
-        "historical_kde": 0.0
-      },
-      "computed_at": "2026-06-04T07:37:16.668572+00:00"
-    },
-    {
-      "node_id": "lubin",
-      "node_name": "Lubin",
-      "lat": 51.401,
-      "lon": 16.201,
-      "ignition_score": 0.21,
-      "extreme_ignition": false,
-      "dominant_source": "powerlines",
-      "data_coverage": [
-        "powerlines"
-      ],
-      "sublayers": {
-        "roads": 0.0,
-        "railways": 0.0,
-        "powerlines": 1.43,
-        "tourism": 0.0,
-        "agriculture": 0.0,
-        "historical_kde": 0.0
-      },
-      "computed_at": "2026-06-04T07:37:09.379506+00:00"
-    },
-    {
-      "node_id": "rychtal",
-      "node_name": "Rychtal",
-      "lat": 51.096,
-      "lon": 17.773,
-      "ignition_score": 0.19,
-      "extreme_ignition": false,
-      "dominant_source": "powerlines",
-      "data_coverage": [
-        "powerlines"
-      ],
-      "sublayers": {
-        "roads": 0.0,
-        "railways": 0.0,
-        "powerlines": 1.29,
-        "tourism": 0.0,
-        "agriculture": 0.0,
-        "historical_kde": 0.0
-      },
-      "computed_at": "2026-06-04T07:37:17.541720+00:00"
-    },
-    {
-      "node_id": "walbrzych",
-      "node_name": "Wałbrzych",
-      "lat": 50.771,
-      "lon": 16.284,
-      "ignition_score": 0.19,
-      "extreme_ignition": false,
-      "dominant_source": "powerlines",
-      "data_coverage": [
-        "powerlines"
-      ],
-      "sublayers": {
-        "roads": 0.0,
-        "railways": 0.0,
-        "powerlines": 1.26,
-        "tourism": 0.0,
-        "agriculture": 0.0,
-        "historical_kde": 0.0
-      },
-      "computed_at": "2026-06-04T07:37:21.353483+00:00"
-    },
-    {
-      "node_id": "zgorzelec",
-      "node_name": "Zgorzelec",
-      "lat": 51.155,
-      "lon": 14.999,
-      "ignition_score": 0.01,
-      "extreme_ignition": false,
-      "dominant_source": "powerlines",
-      "data_coverage": [
-        "powerlines"
-      ],
-      "sublayers": {
-        "roads": 0.0,
-        "railways": 0.0,
-        "powerlines": 0.1,
-        "tourism": 0.0,
-        "agriculture": 0.0,
-        "historical_kde": 0.0
-      },
-      "computed_at": "2026-06-04T07:37:26.054203+00:00"
-    },
-    {
-      "node_id": "mysliborskie",
-      "node_name": "Myśliborskie",
-      "lat": 51.383,
-      "lon": 15.128,
-      "ignition_score": 0.0,
-      "extreme_ignition": false,
-      "dominant_source": "powerlines",
-      "data_coverage": [
-        "powerlines"
-      ],
-      "sublayers": {
-        "roads": 0.0,
-        "railways": 0.0,
-        "powerlines": 0.0,
-        "tourism": 0.0,
-        "agriculture": 0.0,
-        "historical_kde": 0.0
-      },
-      "computed_at": "2026-06-04T07:37:12.752710+00:00"
+      "computed_at": "2026-07-24T22:06:49.460997+00:00"
     },
     {
       "node_id": "wroclaw",
       "node_name": "Wrocław",
       "lat": 51.097,
       "lon": 17.033,
-      "ignition_score": 0.0,
+      "ignition_score": 55.72,
+      "ignition_score_raw": 55.72,
+      "ignition_score_available": 55.72,
+      "extreme_ignition": false,
+      "dominant_source": "roads",
+      "data_coverage": [
+        "agriculture",
+        "historical_kde",
+        "powerlines",
+        "railways",
+        "roads",
+        "tourism"
+      ],
+      "missing_sublayers": [],
+      "coverage_weight": 1.0,
+      "coverage_percent": 100.0,
+      "score_status": "complete",
+      "valid_for_fusion": true,
+      "warnings": [],
+      "sublayers": {
+        "roads": 98.21,
+        "railways": 79.62,
+        "powerlines": 0.02,
+        "tourism": 99.45,
+        "agriculture": 2.17,
+        "historical_kde": 0.01
+      },
+      "computed_at": "2026-07-24T22:06:44.795691+00:00"
+    },
+    {
+      "node_id": "lwowek",
+      "node_name": "Lwówek Śląski",
+      "lat": 51.107,
+      "lon": 15.593,
+      "ignition_score": 52.25,
+      "ignition_score_raw": 52.25,
+      "ignition_score_available": 52.25,
+      "extreme_ignition": false,
+      "dominant_source": "roads",
+      "data_coverage": [
+        "agriculture",
+        "historical_kde",
+        "powerlines",
+        "railways",
+        "roads",
+        "tourism"
+      ],
+      "missing_sublayers": [],
+      "coverage_weight": 1.0,
+      "coverage_percent": 100.0,
+      "score_status": "complete",
+      "valid_for_fusion": true,
+      "warnings": [],
+      "sublayers": {
+        "roads": 95.39,
+        "railways": 0.19,
+        "powerlines": 22.55,
+        "tourism": 99.22,
+        "agriculture": 67.29,
+        "historical_kde": 0.01
+      },
+      "computed_at": "2026-07-24T22:05:50.128464+00:00"
+    },
+    {
+      "node_id": "ladek",
+      "node_name": "Lądek-Zdrój",
+      "lat": 50.342,
+      "lon": 16.884,
+      "ignition_score": 50.76,
+      "ignition_score_raw": 50.76,
+      "ignition_score_available": 50.76,
+      "extreme_ignition": false,
+      "dominant_source": "roads",
+      "data_coverage": [
+        "agriculture",
+        "historical_kde",
+        "powerlines",
+        "railways",
+        "roads",
+        "tourism"
+      ],
+      "missing_sublayers": [],
+      "coverage_weight": 1.0,
+      "coverage_percent": 100.0,
+      "score_status": "complete",
+      "valid_for_fusion": true,
+      "warnings": [],
+      "sublayers": {
+        "roads": 88.64,
+        "railways": 0.0,
+        "powerlines": 42.52,
+        "tourism": 92.8,
+        "agriculture": 55.33,
+        "historical_kde": 0.06
+      },
+      "computed_at": "2026-07-24T22:05:38.754682+00:00"
+    },
+    {
+      "node_id": "bystrzyca",
+      "node_name": "Bystrzyca Kłodzka",
+      "lat": 50.298,
+      "lon": 16.649,
+      "ignition_score": 49.95,
+      "ignition_score_raw": 49.95,
+      "ignition_score_available": 49.95,
+      "extreme_ignition": false,
+      "dominant_source": "roads",
+      "data_coverage": [
+        "agriculture",
+        "historical_kde",
+        "powerlines",
+        "railways",
+        "roads",
+        "tourism"
+      ],
+      "missing_sublayers": [],
+      "coverage_weight": 1.0,
+      "coverage_percent": 100.0,
+      "score_status": "complete",
+      "valid_for_fusion": true,
+      "warnings": [],
+      "sublayers": {
+        "roads": 95.81,
+        "railways": 20.27,
+        "powerlines": 25.37,
+        "tourism": 93.97,
+        "agriculture": 26.97,
+        "historical_kde": 0.01
+      },
+      "computed_at": "2026-07-24T22:05:26.091087+00:00"
+    },
+    {
+      "node_id": "bardo_slaskie",
+      "node_name": "Bardo Śląskie",
+      "lat": 50.514,
+      "lon": 16.749,
+      "ignition_score": 49.39,
+      "ignition_score_raw": 49.39,
+      "ignition_score_available": 49.39,
+      "extreme_ignition": false,
+      "dominant_source": "roads",
+      "data_coverage": [
+        "agriculture",
+        "historical_kde",
+        "powerlines",
+        "railways",
+        "roads",
+        "tourism"
+      ],
+      "missing_sublayers": [],
+      "coverage_weight": 1.0,
+      "coverage_percent": 100.0,
+      "score_status": "complete",
+      "valid_for_fusion": true,
+      "warnings": [],
+      "sublayers": {
+        "roads": 72.37,
+        "railways": 6.99,
+        "powerlines": 62.56,
+        "tourism": 79.97,
+        "agriculture": 56.77,
+        "historical_kde": 0.06
+      },
+      "computed_at": "2026-07-24T22:05:22.042368+00:00"
+    },
+    {
+      "node_id": "kamienna_gora",
+      "node_name": "Kamienna Góra",
+      "lat": 50.778,
+      "lon": 16.039,
+      "ignition_score": 49.27,
+      "ignition_score_raw": 49.27,
+      "ignition_score_available": 49.27,
+      "extreme_ignition": false,
+      "dominant_source": "roads",
+      "data_coverage": [
+        "agriculture",
+        "historical_kde",
+        "powerlines",
+        "railways",
+        "roads",
+        "tourism"
+      ],
+      "missing_sublayers": [],
+      "coverage_weight": 1.0,
+      "coverage_percent": 100.0,
+      "score_status": "complete",
+      "valid_for_fusion": true,
+      "warnings": [],
+      "sublayers": {
+        "roads": 88.27,
+        "railways": 0.82,
+        "powerlines": 9.75,
+        "tourism": 97.69,
+        "agriculture": 72.79,
+        "historical_kde": 0.05
+      },
+      "computed_at": "2026-07-24T22:05:34.631487+00:00"
+    },
+    {
+      "node_id": "wolow",
+      "node_name": "Wołów",
+      "lat": 51.338,
+      "lon": 16.637,
+      "ignition_score": 48.72,
+      "ignition_score_raw": 48.72,
+      "ignition_score_available": 48.72,
+      "extreme_ignition": false,
+      "dominant_source": "roads",
+      "data_coverage": [
+        "agriculture",
+        "historical_kde",
+        "powerlines",
+        "railways",
+        "roads",
+        "tourism"
+      ],
+      "missing_sublayers": [],
+      "coverage_weight": 1.0,
+      "coverage_percent": 100.0,
+      "score_status": "complete",
+      "valid_for_fusion": true,
+      "warnings": [],
+      "sublayers": {
+        "roads": 96.52,
+        "railways": 21.68,
+        "powerlines": 11.14,
+        "tourism": 94.05,
+        "agriculture": 29.77,
+        "historical_kde": 0.1
+      },
+      "computed_at": "2026-07-24T22:06:42.280711+00:00"
+    },
+    {
+      "node_id": "legnica",
+      "node_name": "Legnica",
+      "lat": 51.211,
+      "lon": 16.156,
+      "ignition_score": 48.49,
+      "ignition_score_raw": 48.49,
+      "ignition_score_available": 48.49,
+      "extreme_ignition": false,
+      "dominant_source": "roads",
+      "data_coverage": [
+        "agriculture",
+        "historical_kde",
+        "powerlines",
+        "railways",
+        "roads",
+        "tourism"
+      ],
+      "missing_sublayers": [],
+      "coverage_weight": 1.0,
+      "coverage_percent": 100.0,
+      "score_status": "complete",
+      "valid_for_fusion": true,
+      "warnings": [],
+      "sublayers": {
+        "roads": 84.5,
+        "railways": 36.13,
+        "powerlines": 4.11,
+        "tourism": 95.78,
+        "agriculture": 27.37,
+        "historical_kde": 10.51
+      },
+      "computed_at": "2026-07-24T22:05:41.150191+00:00"
+    },
+    {
+      "node_id": "sycow",
+      "node_name": "Syców",
+      "lat": 51.307,
+      "lon": 17.718,
+      "ignition_score": 46.91,
+      "ignition_score_raw": 46.91,
+      "ignition_score_available": 46.91,
+      "extreme_ignition": false,
+      "dominant_source": "roads",
+      "data_coverage": [
+        "agriculture",
+        "historical_kde",
+        "powerlines",
+        "railways",
+        "roads",
+        "tourism"
+      ],
+      "missing_sublayers": [],
+      "coverage_weight": 1.0,
+      "coverage_percent": 100.0,
+      "score_status": "complete",
+      "valid_for_fusion": true,
+      "warnings": [],
+      "sublayers": {
+        "roads": 95.87,
+        "railways": 0.0,
+        "powerlines": 20.8,
+        "tourism": 98.35,
+        "agriculture": 33.83,
+        "historical_kde": 0.0
+      },
+      "computed_at": "2026-07-24T22:06:21.440815+00:00"
+    },
+    {
+      "node_id": "lubin",
+      "node_name": "Lubin",
+      "lat": 51.401,
+      "lon": 16.201,
+      "ignition_score": 46.88,
+      "ignition_score_raw": 46.88,
+      "ignition_score_available": 46.88,
+      "extreme_ignition": false,
+      "dominant_source": "roads",
+      "data_coverage": [
+        "agriculture",
+        "historical_kde",
+        "powerlines",
+        "railways",
+        "roads",
+        "tourism"
+      ],
+      "missing_sublayers": [],
+      "coverage_weight": 1.0,
+      "coverage_percent": 100.0,
+      "score_status": "complete",
+      "valid_for_fusion": true,
+      "warnings": [],
+      "sublayers": {
+        "roads": 97.03,
+        "railways": 28.07,
+        "powerlines": 1.43,
+        "tourism": 98.52,
+        "agriculture": 13.33,
+        "historical_kde": 0.15
+      },
+      "computed_at": "2026-07-24T22:05:47.593577+00:00"
+    },
+    {
+      "node_id": "szklarska",
+      "node_name": "Szklarska Poręba",
+      "lat": 50.828,
+      "lon": 15.523,
+      "ignition_score": 46.29,
+      "ignition_score_raw": 46.29,
+      "ignition_score_available": 46.29,
+      "extreme_ignition": false,
+      "dominant_source": "roads",
+      "data_coverage": [
+        "agriculture",
+        "historical_kde",
+        "powerlines",
+        "railways",
+        "roads",
+        "tourism"
+      ],
+      "missing_sublayers": [],
+      "coverage_weight": 1.0,
+      "coverage_percent": 100.0,
+      "score_status": "complete",
+      "valid_for_fusion": true,
+      "warnings": [],
+      "sublayers": {
+        "roads": 91.9,
+        "railways": 15.8,
+        "powerlines": 7.62,
+        "tourism": 93.29,
+        "agriculture": 33.47,
+        "historical_kde": 0.0
+      },
+      "computed_at": "2026-07-24T22:06:29.750109+00:00"
+    },
+    {
+      "node_id": "milicz",
+      "node_name": "Milicz",
+      "lat": 51.531,
+      "lon": 17.284,
+      "ignition_score": 45.76,
+      "ignition_score_raw": 45.76,
+      "ignition_score_available": 45.76,
+      "extreme_ignition": false,
+      "dominant_source": "roads",
+      "data_coverage": [
+        "agriculture",
+        "historical_kde",
+        "powerlines",
+        "railways",
+        "roads",
+        "tourism"
+      ],
+      "missing_sublayers": [],
+      "coverage_weight": 1.0,
+      "coverage_percent": 100.0,
+      "score_status": "complete",
+      "valid_for_fusion": true,
+      "warnings": [],
+      "sublayers": {
+        "roads": 71.81,
+        "railways": 13.44,
+        "powerlines": 58.06,
+        "tourism": 62.05,
+        "agriculture": 47.37,
+        "historical_kde": 0.0
+      },
+      "computed_at": "2026-07-24T22:05:56.315376+00:00"
+    },
+    {
+      "node_id": "piszowice",
+      "node_name": "Piszowice",
+      "lat": 51.026,
+      "lon": 15.867,
+      "ignition_score": 44.18,
+      "ignition_score_raw": 44.18,
+      "ignition_score_available": 44.18,
+      "extreme_ignition": false,
+      "dominant_source": "roads",
+      "data_coverage": [
+        "agriculture",
+        "historical_kde",
+        "powerlines",
+        "railways",
+        "roads",
+        "tourism"
+      ],
+      "missing_sublayers": [],
+      "coverage_weight": 1.0,
+      "coverage_percent": 100.0,
+      "score_status": "complete",
+      "valid_for_fusion": true,
+      "warnings": [],
+      "sublayers": {
+        "roads": 79.83,
+        "railways": 0.0,
+        "powerlines": 80.91,
+        "tourism": 51.82,
+        "agriculture": 28.77,
+        "historical_kde": 0.0
+      },
+      "computed_at": "2026-07-24T22:06:06.888474+00:00"
+    },
+    {
+      "node_id": "zlotoryja",
+      "node_name": "Złotoryja",
+      "lat": 51.125,
+      "lon": 15.919,
+      "ignition_score": 44.16,
+      "ignition_score_raw": 44.16,
+      "ignition_score_available": 44.16,
+      "extreme_ignition": false,
+      "dominant_source": "roads",
+      "data_coverage": [
+        "agriculture",
+        "historical_kde",
+        "powerlines",
+        "railways",
+        "roads",
+        "tourism"
+      ],
+      "missing_sublayers": [],
+      "coverage_weight": 1.0,
+      "coverage_percent": 100.0,
+      "score_status": "complete",
+      "valid_for_fusion": true,
+      "warnings": [],
+      "sublayers": {
+        "roads": 94.45,
+        "railways": 0.0,
+        "powerlines": 5.72,
+        "tourism": 94.64,
+        "agriculture": 36.46,
+        "historical_kde": 0.21
+      },
+      "computed_at": "2026-07-24T22:06:47.049290+00:00"
+    },
+    {
+      "node_id": "swidnica",
+      "node_name": "Świdnica",
+      "lat": 50.842,
+      "lon": 16.488,
+      "ignition_score": 44.03,
+      "ignition_score_raw": 44.03,
+      "ignition_score_available": 44.03,
+      "extreme_ignition": false,
+      "dominant_source": "roads",
+      "data_coverage": [
+        "agriculture",
+        "historical_kde",
+        "powerlines",
+        "railways",
+        "roads",
+        "tourism"
+      ],
+      "missing_sublayers": [],
+      "coverage_weight": 1.0,
+      "coverage_percent": 100.0,
+      "score_status": "complete",
+      "valid_for_fusion": true,
+      "warnings": [],
+      "sublayers": {
+        "roads": 94.46,
+        "railways": 21.27,
+        "powerlines": 2.11,
+        "tourism": 97.19,
+        "agriculture": 8.44,
+        "historical_kde": 0.0
+      },
+      "computed_at": "2026-07-24T22:06:32.560763+00:00"
+    },
+    {
+      "node_id": "zgorzelec",
+      "node_name": "Zgorzelec",
+      "lat": 51.155,
+      "lon": 14.999,
+      "ignition_score": 43.4,
+      "ignition_score_raw": 43.4,
+      "ignition_score_available": 43.4,
+      "extreme_ignition": false,
+      "dominant_source": "roads",
+      "data_coverage": [
+        "agriculture",
+        "historical_kde",
+        "powerlines",
+        "railways",
+        "roads",
+        "tourism"
+      ],
+      "missing_sublayers": [],
+      "coverage_weight": 1.0,
+      "coverage_percent": 100.0,
+      "score_status": "complete",
+      "valid_for_fusion": true,
+      "warnings": [],
+      "sublayers": {
+        "roads": 93.23,
+        "railways": 4.76,
+        "powerlines": 0.1,
+        "tourism": 93.27,
+        "agriculture": 34.13,
+        "historical_kde": 0.2
+      },
+      "computed_at": "2026-07-24T22:06:51.622382+00:00"
+    },
+    {
+      "node_id": "walbrzych",
+      "node_name": "Wałbrzych",
+      "lat": 50.771,
+      "lon": 16.284,
+      "ignition_score": 42.22,
+      "ignition_score_raw": 42.22,
+      "ignition_score_available": 42.22,
+      "extreme_ignition": false,
+      "dominant_source": "roads",
+      "data_coverage": [
+        "agriculture",
+        "historical_kde",
+        "powerlines",
+        "railways",
+        "roads",
+        "tourism"
+      ],
+      "missing_sublayers": [],
+      "coverage_weight": 1.0,
+      "coverage_percent": 100.0,
+      "score_status": "complete",
+      "valid_for_fusion": true,
+      "warnings": [],
+      "sublayers": {
+        "roads": 95.01,
+        "railways": 5.41,
+        "powerlines": 1.26,
+        "tourism": 95.97,
+        "agriculture": 18.11,
+        "historical_kde": 0.89
+      },
+      "computed_at": "2026-07-24T22:06:37.050453+00:00"
+    },
+    {
+      "node_id": "olawa",
+      "node_name": "Oława",
+      "lat": 50.939,
+      "lon": 17.3,
+      "ignition_score": 41.88,
+      "ignition_score_raw": 41.88,
+      "ignition_score_available": 41.88,
+      "extreme_ignition": false,
+      "dominant_source": "roads",
+      "data_coverage": [
+        "agriculture",
+        "historical_kde",
+        "powerlines",
+        "railways",
+        "roads",
+        "tourism"
+      ],
+      "missing_sublayers": [],
+      "coverage_weight": 1.0,
+      "coverage_percent": 100.0,
+      "score_status": "complete",
+      "valid_for_fusion": true,
+      "warnings": [],
+      "sublayers": {
+        "roads": 92.25,
+        "railways": 6.6,
+        "powerlines": 1.96,
+        "tourism": 98.78,
+        "agriculture": 15.85,
+        "historical_kde": 0.08
+      },
+      "computed_at": "2026-07-24T22:06:04.455086+00:00"
+    },
+    {
+      "node_id": "gory_stolowe",
+      "node_name": "Góry Stołowe",
+      "lat": 50.431,
+      "lon": 16.364,
+      "ignition_score": 41.21,
+      "ignition_score_raw": 41.21,
+      "ignition_score_available": 41.21,
+      "extreme_ignition": false,
+      "dominant_source": "roads",
+      "data_coverage": [
+        "agriculture",
+        "historical_kde",
+        "powerlines",
+        "railways",
+        "roads",
+        "tourism"
+      ],
+      "missing_sublayers": [],
+      "coverage_weight": 1.0,
+      "coverage_percent": 100.0,
+      "score_status": "complete",
+      "valid_for_fusion": true,
+      "warnings": [],
+      "sublayers": {
+        "roads": 68.65,
+        "railways": 0.0,
+        "powerlines": 51.15,
+        "tourism": 43.66,
+        "agriculture": 65.5,
+        "historical_kde": 0.05
+      },
+      "computed_at": "2026-07-24T22:05:28.143187+00:00"
+    },
+    {
+      "node_id": "jugow",
+      "node_name": "Jugów",
+      "lat": 50.573,
+      "lon": 16.555,
+      "ignition_score": 35.75,
+      "ignition_score_raw": 35.75,
+      "ignition_score_available": 35.75,
+      "extreme_ignition": false,
+      "dominant_source": "roads",
+      "data_coverage": [
+        "agriculture",
+        "historical_kde",
+        "powerlines",
+        "railways",
+        "roads",
+        "tourism"
+      ],
+      "missing_sublayers": [],
+      "coverage_weight": 1.0,
+      "coverage_percent": 100.0,
+      "score_status": "complete",
+      "valid_for_fusion": true,
+      "warnings": [],
+      "sublayers": {
+        "roads": 78.54,
+        "railways": 1.03,
+        "powerlines": 16.08,
+        "tourism": 46.13,
+        "agriculture": 43.88,
+        "historical_kde": 0.0
+      },
+      "computed_at": "2026-07-24T22:05:32.543544+00:00"
+    },
+    {
+      "node_id": "jawor",
+      "node_name": "Jawor",
+      "lat": 51.041,
+      "lon": 16.197,
+      "ignition_score": 33.5,
+      "ignition_score_raw": 33.5,
+      "ignition_score_available": 33.5,
+      "extreme_ignition": false,
+      "dominant_source": "roads",
+      "data_coverage": [
+        "agriculture",
+        "historical_kde",
+        "powerlines",
+        "railways",
+        "roads",
+        "tourism"
+      ],
+      "missing_sublayers": [],
+      "coverage_weight": 1.0,
+      "coverage_percent": 100.0,
+      "score_status": "complete",
+      "valid_for_fusion": true,
+      "warnings": [],
+      "sublayers": {
+        "roads": 60.34,
+        "railways": 0.63,
+        "powerlines": 16.24,
+        "tourism": 78.72,
+        "agriculture": 26.86,
+        "historical_kde": 0.15
+      },
+      "computed_at": "2026-07-24T22:05:30.467730+00:00"
+    },
+    {
+      "node_id": "miekinia",
+      "node_name": "Miękinia",
+      "lat": 51.163,
+      "lon": 16.713,
+      "ignition_score": 33.31,
+      "ignition_score_raw": 33.31,
+      "ignition_score_available": 33.31,
+      "extreme_ignition": false,
+      "dominant_source": "roads",
+      "data_coverage": [
+        "agriculture",
+        "historical_kde",
+        "powerlines",
+        "railways",
+        "roads",
+        "tourism"
+      ],
+      "missing_sublayers": [],
+      "coverage_weight": 1.0,
+      "coverage_percent": 100.0,
+      "score_status": "complete",
+      "valid_for_fusion": true,
+      "warnings": [],
+      "sublayers": {
+        "roads": 91.87,
+        "railways": 0.0,
+        "powerlines": 10.36,
+        "tourism": 36.31,
+        "agriculture": 22.24,
+        "historical_kde": 0.01
+      },
+      "computed_at": "2026-07-24T22:05:52.249345+00:00"
+    },
+    {
+      "node_id": "wegliniec",
+      "node_name": "Węgliniec",
+      "lat": 51.274,
+      "lon": 15.207,
+      "ignition_score": 24.97,
+      "ignition_score_raw": 24.97,
+      "ignition_score_available": 24.97,
+      "extreme_ignition": false,
+      "dominant_source": "roads",
+      "data_coverage": [
+        "agriculture",
+        "historical_kde",
+        "powerlines",
+        "railways",
+        "roads",
+        "tourism"
+      ],
+      "missing_sublayers": [],
+      "coverage_weight": 1.0,
+      "coverage_percent": 100.0,
+      "score_status": "complete",
+      "valid_for_fusion": true,
+      "warnings": [],
+      "sublayers": {
+        "roads": 42.26,
+        "railways": 0.56,
+        "powerlines": 3.07,
+        "tourism": 62.24,
+        "agriculture": 30.0,
+        "historical_kde": 0.0
+      },
+      "computed_at": "2026-07-24T22:06:39.206212+00:00"
+    },
+    {
+      "node_id": "olesnica",
+      "node_name": "Oleśnica Śląska",
+      "lat": 50.88,
+      "lon": 16.88,
+      "ignition_score": 24.04,
+      "ignition_score_raw": 24.04,
+      "ignition_score_available": 24.04,
+      "extreme_ignition": false,
+      "dominant_source": "roads",
+      "data_coverage": [
+        "agriculture",
+        "historical_kde",
+        "powerlines",
+        "railways",
+        "roads",
+        "tourism"
+      ],
+      "missing_sublayers": [],
+      "coverage_weight": 1.0,
+      "coverage_percent": 100.0,
+      "score_status": "complete",
+      "valid_for_fusion": true,
+      "warnings": [],
+      "sublayers": {
+        "roads": 51.66,
+        "railways": 0.0,
+        "powerlines": 36.64,
+        "tourism": 13.84,
+        "agriculture": 23.7,
+        "historical_kde": 0.0
+      },
+      "computed_at": "2026-07-24T22:06:01.910068+00:00"
+    },
+    {
+      "node_id": "lesna",
+      "node_name": "Leśna",
+      "lat": 51.001,
+      "lon": 15.268,
+      "ignition_score": 22.42,
+      "ignition_score_raw": 22.42,
+      "ignition_score_available": 22.42,
+      "extreme_ignition": false,
+      "dominant_source": "agriculture",
+      "data_coverage": [
+        "agriculture",
+        "historical_kde",
+        "powerlines",
+        "railways",
+        "roads",
+        "tourism"
+      ],
+      "missing_sublayers": [],
+      "coverage_weight": 1.0,
+      "coverage_percent": 100.0,
+      "score_status": "complete",
+      "valid_for_fusion": true,
+      "warnings": [],
+      "sublayers": {
+        "roads": 31.69,
+        "railways": 0.0,
+        "powerlines": 8.67,
+        "tourism": 23.55,
+        "agriculture": 64.42,
+        "historical_kde": 0.06
+      },
+      "computed_at": "2026-07-24T22:05:45.002180+00:00"
+    },
+    {
+      "node_id": "mysliborskie",
+      "node_name": "Myśliborskie",
+      "lat": 51.383,
+      "lon": 15.128,
+      "ignition_score": 10.51,
+      "ignition_score_raw": 10.51,
+      "ignition_score_available": 10.51,
+      "extreme_ignition": false,
+      "dominant_source": "roads",
+      "data_coverage": [
+        "agriculture",
+        "historical_kde",
+        "powerlines",
+        "railways",
+        "roads",
+        "tourism"
+      ],
+      "missing_sublayers": [],
+      "coverage_weight": 1.0,
+      "coverage_percent": 100.0,
+      "score_status": "complete",
+      "valid_for_fusion": true,
+      "warnings": [],
+      "sublayers": {
+        "roads": 31.45,
+        "railways": 0.0,
+        "powerlines": 0.0,
+        "tourism": 8.11,
+        "agriculture": 9.51,
+        "historical_kde": 0.0
+      },
+      "computed_at": "2026-07-24T22:05:59.699281+00:00"
+    },
+    {
+      "node_id": "prudnik",
+      "node_name": "Prudnik",
+      "lat": 50.323,
+      "lon": 17.58,
+      "ignition_score": 10.19,
+      "ignition_score_raw": 10.19,
+      "ignition_score_available": 10.19,
       "extreme_ignition": false,
       "dominant_source": "powerlines",
       "data_coverage": [
-        "powerlines"
+        "agriculture",
+        "historical_kde",
+        "powerlines",
+        "railways",
+        "roads",
+        "tourism"
       ],
+      "missing_sublayers": [],
+      "coverage_weight": 1.0,
+      "coverage_percent": 100.0,
+      "score_status": "complete",
+      "valid_for_fusion": true,
+      "warnings": [],
       "sublayers": {
         "roads": 0.0,
         "railways": 0.0,
-        "powerlines": 0.02,
+        "powerlines": 45.75,
         "tourism": 0.0,
-        "agriculture": 0.0,
+        "agriculture": 22.13,
+        "historical_kde": 0.12
+      },
+      "computed_at": "2026-07-24T22:06:09.278102+00:00"
+    },
+    {
+      "node_id": "ruszow",
+      "node_name": "Ruszów",
+      "lat": 51.449,
+      "lon": 14.955,
+      "ignition_score": 10.12,
+      "ignition_score_raw": 10.12,
+      "ignition_score_available": 10.12,
+      "extreme_ignition": false,
+      "dominant_source": "agriculture",
+      "data_coverage": [
+        "agriculture",
+        "historical_kde",
+        "powerlines",
+        "railways",
+        "roads",
+        "tourism"
+      ],
+      "missing_sublayers": [],
+      "coverage_weight": 1.0,
+      "coverage_percent": 100.0,
+      "score_status": "complete",
+      "valid_for_fusion": true,
+      "warnings": [],
+      "sublayers": {
+        "roads": 0.0,
+        "railways": 0.0,
+        "powerlines": 1.78,
+        "tourism": 0.0,
+        "agriculture": 65.63,
+        "historical_kde": 0.14
+      },
+      "computed_at": "2026-07-24T22:06:11.625181+00:00"
+    },
+    {
+      "node_id": "swietoszow",
+      "node_name": "Świętoszów",
+      "lat": 51.607,
+      "lon": 15.353,
+      "ignition_score": 9.3,
+      "ignition_score_raw": 9.3,
+      "ignition_score_available": 9.3,
+      "extreme_ignition": false,
+      "dominant_source": "agriculture",
+      "data_coverage": [
+        "agriculture",
+        "historical_kde",
+        "powerlines",
+        "railways",
+        "roads",
+        "tourism"
+      ],
+      "missing_sublayers": [],
+      "coverage_weight": 1.0,
+      "coverage_percent": 100.0,
+      "score_status": "complete",
+      "valid_for_fusion": true,
+      "warnings": [],
+      "sublayers": {
+        "roads": 0.0,
+        "railways": 0.0,
+        "powerlines": 26.45,
+        "tourism": 0.0,
+        "agriculture": 35.52,
         "historical_kde": 0.0
       },
-      "computed_at": "2026-06-04T07:37:23.669219+00:00"
+      "computed_at": "2026-07-24T22:06:35.046375+00:00"
+    },
+    {
+      "node_id": "rychtal",
+      "node_name": "Rychtal",
+      "lat": 51.096,
+      "lon": 17.773,
+      "ignition_score": 5.69,
+      "ignition_score_raw": 5.69,
+      "ignition_score_available": 5.69,
+      "extreme_ignition": false,
+      "dominant_source": "agriculture",
+      "data_coverage": [
+        "agriculture",
+        "historical_kde",
+        "powerlines",
+        "railways",
+        "roads",
+        "tourism"
+      ],
+      "missing_sublayers": [],
+      "coverage_weight": 1.0,
+      "coverage_percent": 100.0,
+      "score_status": "complete",
+      "valid_for_fusion": true,
+      "warnings": [],
+      "sublayers": {
+        "roads": 0.0,
+        "railways": 0.0,
+        "powerlines": 1.29,
+        "tourism": 0.0,
+        "agriculture": 36.6,
+        "historical_kde": 0.07
+      },
+      "computed_at": "2026-07-24T22:06:14.178989+00:00"
     }
   ]
 }
