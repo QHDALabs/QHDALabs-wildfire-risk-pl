@@ -61,14 +61,17 @@
 from __future__ import annotations
 
 import argparse
+import importlib
 import json
 import logging
 import math
 import os
 import shutil
 import subprocess
-import urllib.request
+import sys
+import time
 import urllib.error
+import urllib.request
 import zipfile
 from dataclasses import dataclass
 from datetime import datetime, timezone
@@ -77,6 +80,7 @@ from typing import Optional
 
 import numpy as np
 import pandas as pd
+
 from ignition_data import (
     CLC_AGRICULTURE_CODES,
     DataAcquisitionError,
@@ -86,6 +90,13 @@ from ignition_data import (
     download_clc_geojson,
     download_firms_year,
     parse_firms_csv_response,
+)
+from pipeline_contract import (
+    StepStatus,
+    source_fingerprint,
+    stable_fingerprint,
+    validate_node_payload,
+    write_step_manifest,
 )
 
 logging.basicConfig(
@@ -112,6 +123,10 @@ IBL_GEOJSON = CACHE_DIR / "ibl_pozary_dolnoslaskie.geojson"
 
 IGNITION_OUT = OUTPUT_DIR / "ignition_scores.json"
 NODES_JSON = OUTPUT_DIR / "nodes_enriched.json"
+DIAGNOSTICS_DIR = OUTPUT_DIR / "diagnostics"
+DERIVED_CACHE_DIR = CACHE_DIR / "derived"
+DERIVED_CACHE_SCHEMA_VERSION = 1
+GIS_PARSER_VERSION = "2.0.0"
 
 # =============================================================================
 # IGNITION CONFIG
@@ -952,6 +967,121 @@ def _parse_agriculture(
     return points
 
 
+class GISPreflightError(RuntimeError):
+    """Raised before acquisition when the required GIS runtime is unavailable."""
+
+
+def gis_preflight() -> dict[str, object]:
+    modules: dict[str, dict[str, object]] = {}
+    errors: list[str] = []
+    for name in ("geopandas", "pyogrio", "shapely", "pyproj"):
+        try:
+            module = importlib.import_module(name)
+            modules[name] = {
+                "available": True,
+                "version": getattr(module, "__version__", "unknown"),
+            }
+        except Exception as exc:
+            modules[name] = {"available": False, "error": str(exc)}
+            errors.append(f"{name}: {exc}")
+    try:
+        pyogrio = importlib.import_module("pyogrio")
+        osm_mode = pyogrio.list_drivers().get("OSM")
+        osm_available = bool(osm_mode and "r" in osm_mode)
+        if not osm_available:
+            errors.append("GDAL/Pyogrio readable OSM driver is unavailable")
+    except Exception as exc:
+        osm_mode = None
+        osm_available = False
+        errors.append(f"GDAL/Pyogrio OSM driver discovery failed: {exc}")
+    try:
+        fiona = importlib.import_module("fiona")
+        modules["fiona"] = {
+            "available": True,
+            "version": getattr(fiona, "__version__", "unknown"),
+            "optional": True,
+        }
+    except Exception as exc:
+        modules["fiona"] = {
+            "available": False,
+            "optional": True,
+            "error": str(exc),
+        }
+    return {
+        "ok": not errors,
+        "interpreter": sys.executable,
+        "modules": modules,
+        "osm_driver": {
+            "available": osm_available,
+            "backend": "pyogrio",
+            "mode": osm_mode,
+        },
+        "errors": errors,
+        "install_command": (
+            f'"{sys.executable}" -m pip install -r requirements-gis.txt'
+        ),
+    }
+
+
+def _derived_cache_fingerprint(
+    kind: str,
+    sources: list[Path],
+    backend: str,
+) -> dict[str, object]:
+    source_metadata = [
+        source_fingerprint(
+            source,
+            parser_version=GIS_PARSER_VERSION,
+            backend=backend,
+        )
+        for source in sources
+        if source.exists()
+    ]
+    payload: dict[str, object] = {
+        "schema_version": DERIVED_CACHE_SCHEMA_VERSION,
+        "kind": kind,
+        "parser_version": GIS_PARSER_VERSION,
+        "backend": backend,
+        "crs": "EPSG:4326",
+        "sources": source_metadata,
+    }
+    payload["fingerprint"] = stable_fingerprint(payload)
+    return payload
+
+
+def _load_or_build_derived_cache(
+    kind: str,
+    sources: list[Path],
+    parser,
+    *,
+    refresh: bool,
+    backend: str = "pyogrio",
+):
+    DERIVED_CACHE_DIR.mkdir(parents=True, exist_ok=True)
+    metadata = _derived_cache_fingerprint(kind, sources, backend)
+    cache_path = DERIVED_CACHE_DIR / f"{kind}.json"
+    if cache_path.exists() and not refresh:
+        try:
+            with cache_path.open(encoding="utf-8") as stream:
+                cached = json.load(stream)
+            if cached.get("fingerprint") == metadata["fingerprint"]:
+                log.info("GIS derived cache hit: %s", kind)
+                return cached["result"], True, metadata["fingerprint"]
+        except (OSError, KeyError, json.JSONDecodeError):
+            pass
+    result = parser()
+    atomic_write_json(
+        cache_path,
+        {
+            **metadata,
+            "created_at": datetime.now(timezone.utc).isoformat(),
+            "result": result,
+        },
+    )
+    log.info("GIS derived cache write: %s", kind)
+    return result, False, metadata["fingerprint"]
+
+
 # =============================================================================
 # STUB DATA  (only with the explicit --stub flag)
 # =============================================================================
@@ -1192,8 +1322,10 @@ def compute_ignition_score(
 def run_ignition_pipeline(
     nodes_json: Path = NODES_JSON,
     refresh_firms: bool = False,
+    refresh_gis: bool = False,
     use_stub: bool = False,
 ) -> list[IgnitionScore]:
+    started = time.monotonic()
     log.info("=" * 82)
     log.info("QHDALabs Wildfire — Step 4b: Ignition Pressure Layer")
     log.info("=" * 82)
@@ -1215,6 +1347,9 @@ def run_ignition_pipeline(
     features: dict[str, list[tuple[float, float]]] = {}
     data_coverage: list[str] = []
     pipeline_warnings: list[str] = []
+    derived_hits = 0
+    cache_fingerprints: dict[str, str] = {}
+    parser_backend = "synthetic" if use_stub else "pyogrio"
 
     if use_stub:
         log.info("Stub mode — generating synthetic GIS features")
@@ -1224,6 +1359,32 @@ def run_ignition_pipeline(
             "Synthetic --stub mode; result is never valid for fusion"
         )
     else:
+        preflight = gis_preflight()
+        if not preflight["ok"]:
+            errors = list(preflight["errors"])
+            errors.append(
+                f"Interpreter: {preflight['interpreter']}; install with: "
+                f"{preflight['install_command']}"
+            )
+            write_step_manifest(
+                OUTPUT_DIR,
+                "ignition",
+                StepStatus.BLOCKED,
+                duration_seconds=time.monotonic() - started,
+                inputs={"nodes": str(nodes_json)},
+                outputs={
+                    "current_result": None,
+                    "last_known_good": (
+                        str(IGNITION_OUT) if IGNITION_OUT.exists() else None
+                    ),
+                },
+                coverage_percent=0.0,
+                valid_for_downstream=False,
+                errors=errors,
+                parser_backend=None,
+                cache_fingerprints={},
+            )
+            raise GISPreflightError("; ".join(errors))
         paths = ensure_data_available(refresh_firms=refresh_firms)
 
         # FIRMS / EFFIS ignition points
@@ -1248,23 +1409,47 @@ def run_ignition_pipeline(
             pipeline_warnings.append("Historical ignition data is unavailable")
 
         # OSM (roads, railways, tourism)
-        osm_feats = _parse_osm_features(paths.get("osm"))
+        osm_path = paths.get("osm")
+        osm_sources = [osm_path] if osm_path else []
+        osm_feats, cache_hit, fingerprint = _load_or_build_derived_cache(
+            "osm_features",
+            osm_sources,
+            lambda: _parse_osm_features(osm_path),
+            refresh=refresh_gis,
+        )
+        derived_hits += int(cache_hit)
+        cache_fingerprints["osm_features"] = fingerprint
         features.update(osm_feats)
         for key in ["roads", "railways", "tourism"]:
             if osm_feats.get(key):
                 data_coverage.append(key)
 
         # Power lines — keys are "wn" and "sn" (GeoPackage stems)
-        pl_points = _parse_power_lines(
-            paths.get("wn"),
-            paths.get("sn"),
+        power_sources = [path for path in (paths.get("wn"), paths.get("sn")) if path]
+        pl_points, cache_hit, fingerprint = _load_or_build_derived_cache(
+            "powerline_centroids",
+            power_sources,
+            lambda: _parse_power_lines(paths.get("wn"), paths.get("sn")),
+            refresh=refresh_gis,
         )
+        derived_hits += int(cache_hit)
+        cache_fingerprints["powerline_centroids"] = fingerprint
         features["powerlines"] = pl_points
         if pl_points:
             data_coverage.append("powerlines")
 
         # Agriculture
-        ag_points = _parse_agriculture(paths.get("lpis"), paths.get("clc"))
+        agriculture_sources = [
+            path for path in (paths.get("lpis"), paths.get("clc")) if path
+        ]
+        ag_points, cache_hit, fingerprint = _load_or_build_derived_cache(
+            "agriculture_centroids",
+            agriculture_sources,
+            lambda: _parse_agriculture(paths.get("lpis"), paths.get("clc")),
+            refresh=refresh_gis,
+        )
+        derived_hits += int(cache_hit)
+        cache_fingerprints["agriculture_centroids"] = fingerprint
         features["agriculture"] = ag_points
         if ag_points:
             data_coverage.append("agriculture")
@@ -1295,7 +1480,37 @@ def run_ignition_pipeline(
     _print_summary(scores)
 
     # ── Save ──────────────────────────────────────────────────────────────
-    _save_ignition_scores(scores)
+    output_result = _save_ignition_scores(scores)
+    coverage = min((score.coverage_percent for score in scores), default=0.0)
+    valid = bool(scores) and all(score.valid_for_fusion for score in scores)
+    if coverage >= 100.0 and valid:
+        status = StepStatus.SUCCESS
+    elif coverage >= MIN_COVERAGE_FOR_FUSION * 100.0 and valid:
+        status = StepStatus.DEGRADED
+    else:
+        status = StepStatus.BLOCKED
+    write_step_manifest(
+        OUTPUT_DIR,
+        "ignition",
+        status,
+        duration_seconds=time.monotonic() - started,
+        inputs={"nodes": str(nodes_json)},
+        outputs={
+            "current_result": output_result,
+            "last_known_good": str(IGNITION_OUT) if IGNITION_OUT.exists() else None,
+        },
+        coverage_percent=coverage,
+        valid_for_downstream=valid,
+        warnings=sorted(set(pipeline_warnings)),
+        missing_layers=(
+            scores[0].missing_sublayers if scores else list(SUBLAYER_NAMES)
+        ),
+        parser_backend=parser_backend,
+        cache_fingerprints=cache_fingerprints,
+        cache_hits=derived_hits,
+        firms_cache_hit=bool(FIRMS_CSV.exists() and not refresh_firms),
+        data_version="ignition-2.0.0",
+    )
 
     return scores
 
@@ -1359,7 +1574,7 @@ def _print_summary(scores: list[IgnitionScore]) -> None:
         )
 
 
-def _save_ignition_scores(scores: list[IgnitionScore]) -> None:
+def _save_ignition_scores(scores: list[IgnitionScore]) -> str:
     OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
 
     payload = {
@@ -1412,8 +1627,28 @@ def _save_ignition_scores(scores: list[IgnitionScore]) -> None:
         ],
     }
 
-    atomic_write_json(IGNITION_OUT, payload)
-    log.info("Saved %s (%d nodes)", IGNITION_OUT, len(scores))
+    coverage = min((score.coverage_percent for score in scores), default=0.0)
+    valid = bool(scores) and all(score.valid_for_fusion for score in scores)
+    if coverage >= MIN_COVERAGE_FOR_FUSION * 100.0 and valid:
+        validate_node_payload(payload, "scores")
+        atomic_write_json(IGNITION_OUT, payload)
+        log.info("Published %s (%d nodes)", IGNITION_OUT, len(scores))
+        return str(IGNITION_OUT)
+
+    DIAGNOSTICS_DIR.mkdir(parents=True, exist_ok=True)
+    timestamp = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%SZ")
+    diagnostic_path = DIAGNOSTICS_DIR / f"ignition_scores_partial_{timestamp}.json"
+    payload["publication_status"] = "diagnostic_only"
+    payload["last_known_good"] = str(IGNITION_OUT) if IGNITION_OUT.exists() else None
+    atomic_write_json(diagnostic_path, payload)
+    log.warning(
+        "Ignition coverage %.1f%% is below the fusion threshold; preserved "
+        "last-known-good %s and wrote %s",
+        coverage,
+        IGNITION_OUT,
+        diagnostic_path,
+    )
+    return str(diagnostic_path)
 
 
 # =============================================================================
@@ -1547,6 +1782,11 @@ Output:
         help="Resume or refresh the source-specific NASA FIRMS 2025 cache",
     )
     parser.add_argument(
+        "--refresh-gis",
+        action="store_true",
+        help="Rebuild OSM, power-line, and agriculture derived caches",
+    )
+    parser.add_argument(
         "--nodes",
         type=Path,
         default=NODES_JSON,
@@ -1557,6 +1797,7 @@ Output:
     scores = run_ignition_pipeline(
         nodes_json=args.nodes,
         refresh_firms=args.refresh_firms,
+        refresh_gis=args.refresh_gis,
         use_stub=args.stub,
     )
 
