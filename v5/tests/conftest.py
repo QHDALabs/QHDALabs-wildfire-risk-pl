@@ -1,11 +1,16 @@
 from __future__ import annotations
 
 import shutil
+import sys
 import uuid
 from collections.abc import Iterator
 from pathlib import Path
 
 import pytest
+
+V5_DIR = Path(__file__).parents[1]
+if str(V5_DIR) not in sys.path:
+    sys.path.insert(0, str(V5_DIR))
 
 
 @pytest.fixture

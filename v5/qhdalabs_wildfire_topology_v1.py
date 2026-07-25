@@ -52,7 +52,6 @@ import pickle
 import tempfile
 import time
 from concurrent.futures import ThreadPoolExecutor, as_completed
-from dataclasses import dataclass, field, asdict
 from datetime import datetime, timedelta, timezone
 from typing import Any
 
@@ -60,6 +59,14 @@ import numpy as np
 import requests
 from requests.adapters import HTTPAdapter
 from urllib3.util.retry import Retry
+
+from pipeline_contract import (
+    StepStatus,
+    atomic_write_json,
+    sanitize_nonfinite,
+    validate_node_payload,
+    write_step_manifest,
+)
 
 # =========================
 # LOGGING
@@ -74,14 +81,14 @@ log = logging.getLogger(__name__)
 # =========================
 # CONFIG
 # =========================
-RDLP_NAME        = "Wrocław"
-WEATHER_DAYS     = 14          # days of history to fetch
-NEIGHBOR_KM      = 60.0        # max centroid distance to be considered neighbor
-MAX_WORKERS      = 8
-CACHE_DIR        = ".cache_topology"
-CACHE_TTL        = 21600       # 6 hours
-OUTPUT_DIR       = "topology"
-HTTP_TIMEOUT     = 15
+RDLP_NAME = "Wrocław"
+WEATHER_DAYS = 14  # days of history to fetch
+NEIGHBOR_KM = 60.0  # max centroid distance to be considered neighbor
+MAX_WORKERS = 8
+CACHE_DIR = ".cache_topology"
+CACHE_TTL = 21600  # 6 hours
+OUTPUT_DIR = "topology"
+HTTP_TIMEOUT = 15
 
 os.makedirs(CACHE_DIR, exist_ok=True)
 os.makedirs(OUTPUT_DIR, exist_ok=True)
@@ -95,10 +102,10 @@ os.makedirs(OUTPUT_DIR, exist_ok=True)
 # mixed: moderate
 # spruce_mountain: lower (wetter microclimate) BUT catastrophic when ignited
 ECO_RISK_MULTIPLIER: dict[str, float] = {
-    "pine":             1.30,
-    "pine_wetland":     1.10,
-    "mixed":            1.00,
-    "spruce_mountain":  0.80,
+    "pine": 1.30,
+    "pine_wetland": 1.10,
+    "mixed": 1.00,
+    "spruce_mountain": 0.80,
 }
 
 # =========================
@@ -110,47 +117,187 @@ ECO_RISK_MULTIPLIER: dict[str, float] = {
 #
 # eco types: pine | pine_wetland | mixed | spruce_mountain
 RDLP_WROCLAW_NODES: list[dict] = [
-    {"id": "bardo_slaskie",  "name": "Bardo Śląskie",    "lat": 50.514, "lon": 16.749, "eco": "mixed"},
-    {"id": "boleslawiec",    "name": "Bolesławiec",       "lat": 51.264, "lon": 15.559, "eco": "pine"},
-    {"id": "bystrzyca",      "name": "Bystrzyca Kłodzka", "lat": 50.298, "lon": 16.649, "eco": "spruce_mountain"},
-    {"id": "gory_stolowe",   "name": "Góry Stołowe",      "lat": 50.431, "lon": 16.364, "eco": "spruce_mountain"},
-    {"id": "jawor",          "name": "Jawor",             "lat": 51.041, "lon": 16.197, "eco": "mixed"},
-    {"id": "jugow",          "name": "Jugów",             "lat": 50.573, "lon": 16.555, "eco": "spruce_mountain"},
-    {"id": "kamienna_gora",  "name": "Kamienna Góra",     "lat": 50.778, "lon": 16.039, "eco": "spruce_mountain"},
-    {"id": "klodzko",        "name": "Kłodzko",           "lat": 50.437, "lon": 16.659, "eco": "spruce_mountain"},
-    {"id": "ladek",          "name": "Lądek-Zdrój",       "lat": 50.342, "lon": 16.884, "eco": "spruce_mountain"},
-    {"id": "legnica",        "name": "Legnica",           "lat": 51.211, "lon": 16.156, "eco": "mixed"},
-    {"id": "lesna",          "name": "Leśna",             "lat": 51.001, "lon": 15.268, "eco": "pine"},
-    {"id": "lubin",          "name": "Lubin",             "lat": 51.401, "lon": 16.201, "eco": "mixed"},
-    {"id": "lwowek",         "name": "Lwówek Śląski",     "lat": 51.107, "lon": 15.593, "eco": "mixed"},
-    {"id": "miekinia",       "name": "Miękinia",          "lat": 51.163, "lon": 16.713, "eco": "mixed"},
-    {"id": "milicz",         "name": "Milicz",            "lat": 51.531, "lon": 17.284, "eco": "pine_wetland"},
-    {"id": "mysliborskie",   "name": "Myśliborskie",      "lat": 51.383, "lon": 15.128, "eco": "pine"},
-    {"id": "olesnica",       "name": "Oleśnica Śląska",   "lat": 50.880, "lon": 16.880, "eco": "mixed"},
-    {"id": "olawa",          "name": "Oława",             "lat": 50.939, "lon": 17.300, "eco": "mixed"},
-    {"id": "piszowice",      "name": "Piszowice",         "lat": 51.026, "lon": 15.867, "eco": "pine"},
-    {"id": "prudnik",        "name": "Prudnik",           "lat": 50.323, "lon": 17.580, "eco": "mixed"},
-    {"id": "ruszow",         "name": "Ruszów",            "lat": 51.449, "lon": 14.955, "eco": "pine"},
-    {"id": "rychtal",        "name": "Rychtal",           "lat": 51.096, "lon": 17.773, "eco": "pine_wetland"},
-    {"id": "sycow",          "name": "Syców",             "lat": 51.307, "lon": 17.718, "eco": "mixed"},
-    {"id": "szklarska",      "name": "Szklarska Poręba",  "lat": 50.828, "lon": 15.523, "eco": "spruce_mountain"},
-    {"id": "swidnica",       "name": "Świdnica",          "lat": 50.842, "lon": 16.488, "eco": "mixed"},
-    {"id": "swietoszow",     "name": "Świętoszów",        "lat": 51.607, "lon": 15.353, "eco": "pine"},
-    {"id": "walbrzych",      "name": "Wałbrzych",         "lat": 50.771, "lon": 16.284, "eco": "spruce_mountain"},
-    {"id": "wegliniec",      "name": "Węgliniec",         "lat": 51.274, "lon": 15.207, "eco": "pine"},
-    {"id": "wolow",          "name": "Wołów",             "lat": 51.338, "lon": 16.637, "eco": "mixed"},
-    {"id": "wroclaw",        "name": "Wrocław",           "lat": 51.097, "lon": 17.033, "eco": "mixed"},
-    {"id": "zlotoryja",      "name": "Złotoryja",         "lat": 51.125, "lon": 15.919, "eco": "mixed"},
-    {"id": "zmigrod",        "name": "Żmigród",           "lat": 51.475, "lon": 16.906, "eco": "pine_wetland"},
-    {"id": "zgorzelec",      "name": "Zgorzelec",         "lat": 51.155, "lon": 14.999, "eco": "pine"},
+    {
+        "id": "bardo_slaskie",
+        "name": "Bardo Śląskie",
+        "lat": 50.514,
+        "lon": 16.749,
+        "eco": "mixed",
+    },
+    {
+        "id": "boleslawiec",
+        "name": "Bolesławiec",
+        "lat": 51.264,
+        "lon": 15.559,
+        "eco": "pine",
+    },
+    {
+        "id": "bystrzyca",
+        "name": "Bystrzyca Kłodzka",
+        "lat": 50.298,
+        "lon": 16.649,
+        "eco": "spruce_mountain",
+    },
+    {
+        "id": "gory_stolowe",
+        "name": "Góry Stołowe",
+        "lat": 50.431,
+        "lon": 16.364,
+        "eco": "spruce_mountain",
+    },
+    {"id": "jawor", "name": "Jawor", "lat": 51.041, "lon": 16.197, "eco": "mixed"},
+    {
+        "id": "jugow",
+        "name": "Jugów",
+        "lat": 50.573,
+        "lon": 16.555,
+        "eco": "spruce_mountain",
+    },
+    {
+        "id": "kamienna_gora",
+        "name": "Kamienna Góra",
+        "lat": 50.778,
+        "lon": 16.039,
+        "eco": "spruce_mountain",
+    },
+    {
+        "id": "klodzko",
+        "name": "Kłodzko",
+        "lat": 50.437,
+        "lon": 16.659,
+        "eco": "spruce_mountain",
+    },
+    {
+        "id": "ladek",
+        "name": "Lądek-Zdrój",
+        "lat": 50.342,
+        "lon": 16.884,
+        "eco": "spruce_mountain",
+    },
+    {"id": "legnica", "name": "Legnica", "lat": 51.211, "lon": 16.156, "eco": "mixed"},
+    {"id": "lesna", "name": "Leśna", "lat": 51.001, "lon": 15.268, "eco": "pine"},
+    {"id": "lubin", "name": "Lubin", "lat": 51.401, "lon": 16.201, "eco": "mixed"},
+    {
+        "id": "lwowek",
+        "name": "Lwówek Śląski",
+        "lat": 51.107,
+        "lon": 15.593,
+        "eco": "mixed",
+    },
+    {
+        "id": "miekinia",
+        "name": "Miękinia",
+        "lat": 51.163,
+        "lon": 16.713,
+        "eco": "mixed",
+    },
+    {
+        "id": "milicz",
+        "name": "Milicz",
+        "lat": 51.531,
+        "lon": 17.284,
+        "eco": "pine_wetland",
+    },
+    {
+        "id": "mysliborskie",
+        "name": "Myśliborskie",
+        "lat": 51.383,
+        "lon": 15.128,
+        "eco": "pine",
+    },
+    {
+        "id": "olesnica",
+        "name": "Oleśnica Śląska",
+        "lat": 50.880,
+        "lon": 16.880,
+        "eco": "mixed",
+    },
+    {"id": "olawa", "name": "Oława", "lat": 50.939, "lon": 17.300, "eco": "mixed"},
+    {
+        "id": "piszowice",
+        "name": "Piszowice",
+        "lat": 51.026,
+        "lon": 15.867,
+        "eco": "pine",
+    },
+    {"id": "prudnik", "name": "Prudnik", "lat": 50.323, "lon": 17.580, "eco": "mixed"},
+    {"id": "ruszow", "name": "Ruszów", "lat": 51.449, "lon": 14.955, "eco": "pine"},
+    {
+        "id": "rychtal",
+        "name": "Rychtal",
+        "lat": 51.096,
+        "lon": 17.773,
+        "eco": "pine_wetland",
+    },
+    {"id": "sycow", "name": "Syców", "lat": 51.307, "lon": 17.718, "eco": "mixed"},
+    {
+        "id": "szklarska",
+        "name": "Szklarska Poręba",
+        "lat": 50.828,
+        "lon": 15.523,
+        "eco": "spruce_mountain",
+    },
+    {
+        "id": "swidnica",
+        "name": "Świdnica",
+        "lat": 50.842,
+        "lon": 16.488,
+        "eco": "mixed",
+    },
+    {
+        "id": "swietoszow",
+        "name": "Świętoszów",
+        "lat": 51.607,
+        "lon": 15.353,
+        "eco": "pine",
+    },
+    {
+        "id": "walbrzych",
+        "name": "Wałbrzych",
+        "lat": 50.771,
+        "lon": 16.284,
+        "eco": "spruce_mountain",
+    },
+    {
+        "id": "wegliniec",
+        "name": "Węgliniec",
+        "lat": 51.274,
+        "lon": 15.207,
+        "eco": "pine",
+    },
+    {"id": "wolow", "name": "Wołów", "lat": 51.338, "lon": 16.637, "eco": "mixed"},
+    {"id": "wroclaw", "name": "Wrocław", "lat": 51.097, "lon": 17.033, "eco": "mixed"},
+    {
+        "id": "zlotoryja",
+        "name": "Złotoryja",
+        "lat": 51.125,
+        "lon": 15.919,
+        "eco": "mixed",
+    },
+    {
+        "id": "zmigrod",
+        "name": "Żmigród",
+        "lat": 51.475,
+        "lon": 16.906,
+        "eco": "pine_wetland",
+    },
+    {
+        "id": "zgorzelec",
+        "name": "Zgorzelec",
+        "lat": 51.155,
+        "lon": 14.999,
+        "eco": "pine",
+    },
 ]
+
 
 # =========================
 # HTTP SESSION
 # =========================
 def _build_session() -> requests.Session:
     retry = Retry(
-        total=3, backoff_factor=0.5,
+        total=3,
+        backoff_factor=0.5,
         status_forcelist=(429, 500, 502, 503, 504),
         allowed_methods=("GET",),
     )
@@ -160,7 +307,9 @@ def _build_session() -> requests.Session:
     session.headers.update({"User-Agent": "QHDALabs-WildfirePL-Topology/1.0"})
     return session
 
+
 HTTP = _build_session()
+
 
 # =========================
 # CACHE
@@ -193,6 +342,7 @@ def _cache_set(key: str, data: Any) -> None:
         except OSError:
             pass
 
+
 # =========================
 # GEOMETRY
 # =========================
@@ -201,8 +351,12 @@ def haversine_km(lat1: float, lon1: float, lat2: float, lon2: float) -> float:
     r = 6371.0
     dlat = math.radians(lat2 - lat1)
     dlon = math.radians(lon2 - lon1)
-    a = (math.sin(dlat / 2) ** 2
-         + math.cos(math.radians(lat1)) * math.cos(math.radians(lat2)) * math.sin(dlon / 2) ** 2)
+    a = (
+        math.sin(dlat / 2) ** 2
+        + math.cos(math.radians(lat1))
+        * math.cos(math.radians(lat2))
+        * math.sin(dlon / 2) ** 2
+    )
     return r * 2 * math.asin(math.sqrt(a))
 
 
@@ -230,12 +384,14 @@ def build_adjacency_graph(
                 continue
             d = haversine_km(a["lat"], a["lon"], b["lat"], b["lon"])
             if d <= threshold_km:
-                neighbors.append({
-                    "id": b["id"],
-                    "name": b["name"],
-                    "dist_km": round(d, 1),
-                    "eco": b["eco"],
-                })
+                neighbors.append(
+                    {
+                        "id": b["id"],
+                        "name": b["name"],
+                        "dist_km": round(d, 1),
+                        "eco": b["eco"],
+                    }
+                )
         neighbors.sort(key=lambda x: x["dist_km"])
         graph[a["id"]] = neighbors
 
@@ -243,13 +399,17 @@ def build_adjacency_graph(
     counts = [len(v) for v in graph.values()]
     log.info(
         "Adjacency graph: %d nodes, avg %.1f neighbors (min %d, max %d)",
-        len(nodes), sum(counts) / len(counts), min(counts), max(counts),
+        len(nodes),
+        sum(counts) / len(counts),
+        min(counts),
+        max(counts),
     )
     isolated = [nid for nid, nbrs in graph.items() if len(nbrs) == 0]
     if isolated:
         log.warning("Isolated nodes (no neighbors): %s", isolated)
 
     return graph
+
 
 # =========================
 # WEATHER HISTORY
@@ -268,16 +428,16 @@ def fetch_weather_history(node: dict, days: int = WEATHER_DAYS) -> dict | None:
     if cached is not None:
         return cached
 
-    end_date   = datetime.now(timezone.utc).date()
+    end_date = datetime.now(timezone.utc).date()
     start_date = end_date - timedelta(days=days - 1)
 
     # Open-Meteo archive API — free, no key required, covers 1940-present
     url = "https://archive-api.open-meteo.com/v1/archive"
     params = {
-        "latitude":  lat,
+        "latitude": lat,
         "longitude": lon,
         "start_date": str(start_date),
-        "end_date":   str(end_date),
+        "end_date": str(end_date),
         "hourly": (
             "temperature_2m,relative_humidity_2m,"
             "wind_speed_10m,precipitation,"
@@ -294,7 +454,7 @@ def fetch_weather_history(node: dict, days: int = WEATHER_DAYS) -> dict | None:
         return None
 
     hourly = raw.get("hourly", {})
-    times  = hourly.get("time", [])
+    times = hourly.get("time", [])
     if not times:
         log.warning("Empty weather response for %s", node["name"])
         return None
@@ -305,19 +465,38 @@ def fetch_weather_history(node: dict, days: int = WEATHER_DAYS) -> dict | None:
 
     # Group by date
     from collections import defaultdict
-    daily: dict[str, dict] = defaultdict(lambda: {
-        "temps": [], "rhs": [], "winds": [], "rains": [],
-        "soils": [], "vpds": []
-    })
+
+    daily: dict[str, dict] = defaultdict(
+        lambda: {
+            "temps": [],
+            "rhs": [],
+            "winds": [],
+            "rains": [],
+            "soils": [],
+            "vpds": [],
+        }
+    )
 
     for i, t in enumerate(times):
         date = t[:10]  # "YYYY-MM-DD"
-        daily[date]["temps"].append(safe(hourly.get("temperature_2m", [None]*len(times))[i]))
-        daily[date]["rhs"].append(safe(hourly.get("relative_humidity_2m", [None]*len(times))[i]))
-        daily[date]["winds"].append(safe(hourly.get("wind_speed_10m", [None]*len(times))[i]))
-        daily[date]["rains"].append(safe(hourly.get("precipitation", [None]*len(times))[i]))
-        daily[date]["soils"].append(safe(hourly.get("soil_moisture_0_to_1cm", [None]*len(times))[i]))
-        daily[date]["vpds"].append(safe(hourly.get("vapour_pressure_deficit", [None]*len(times))[i]))
+        daily[date]["temps"].append(
+            safe(hourly.get("temperature_2m", [None] * len(times))[i])
+        )
+        daily[date]["rhs"].append(
+            safe(hourly.get("relative_humidity_2m", [None] * len(times))[i])
+        )
+        daily[date]["winds"].append(
+            safe(hourly.get("wind_speed_10m", [None] * len(times))[i])
+        )
+        daily[date]["rains"].append(
+            safe(hourly.get("precipitation", [None] * len(times))[i])
+        )
+        daily[date]["soils"].append(
+            safe(hourly.get("soil_moisture_0_to_1cm", [None] * len(times))[i])
+        )
+        daily[date]["vpds"].append(
+            safe(hourly.get("vapour_pressure_deficit", [None] * len(times))[i])
+        )
 
     def nanmean(lst: list) -> float:
         vals = [v for v in lst if not math.isnan(v)]
@@ -333,21 +512,24 @@ def fetch_weather_history(node: dict, days: int = WEATHER_DAYS) -> dict | None:
 
     sorted_dates = sorted(daily.keys())
     result = {
-        "node_id":    node["id"],
-        "node_name":  node["name"],
+        "node_id": node["id"],
+        "node_name": node["name"],
         "start_date": str(start_date),
-        "end_date":   str(end_date),
-        "dates":      sorted_dates,
-        "temp_max":   [round(nanmax(daily[d]["temps"]), 1) for d in sorted_dates],
-        "temp_mean":  [round(nanmean(daily[d]["temps"]), 1) for d in sorted_dates],
-        "rh_min":     [round(nanmin(daily[d]["rhs"]), 1) for d in sorted_dates],
-        "rh_mean":    [round(nanmean(daily[d]["rhs"]), 1) for d in sorted_dates],
-        "wind_mean":  [round(nanmean(daily[d]["winds"]), 2) for d in sorted_dates],
-        "wind_max":   [round(nanmax(daily[d]["winds"]), 2) for d in sorted_dates],
-        "rain_total": [round(sum(v for v in daily[d]["rains"] if not math.isnan(v)), 2) for d in sorted_dates],
-        "soil_min":   [round(nanmin(daily[d]["soils"]), 4) for d in sorted_dates],
-        "soil_mean":  [round(nanmean(daily[d]["soils"]), 4) for d in sorted_dates],
-        "vpd_mean":   [round(nanmean(daily[d]["vpds"]), 3) for d in sorted_dates],
+        "end_date": str(end_date),
+        "dates": sorted_dates,
+        "temp_max": [round(nanmax(daily[d]["temps"]), 1) for d in sorted_dates],
+        "temp_mean": [round(nanmean(daily[d]["temps"]), 1) for d in sorted_dates],
+        "rh_min": [round(nanmin(daily[d]["rhs"]), 1) for d in sorted_dates],
+        "rh_mean": [round(nanmean(daily[d]["rhs"]), 1) for d in sorted_dates],
+        "wind_mean": [round(nanmean(daily[d]["winds"]), 2) for d in sorted_dates],
+        "wind_max": [round(nanmax(daily[d]["winds"]), 2) for d in sorted_dates],
+        "rain_total": [
+            round(sum(v for v in daily[d]["rains"] if not math.isnan(v)), 2)
+            for d in sorted_dates
+        ],
+        "soil_min": [round(nanmin(daily[d]["soils"]), 4) for d in sorted_dates],
+        "soil_mean": [round(nanmean(daily[d]["soils"]), 4) for d in sorted_dates],
+        "vpd_mean": [round(nanmean(daily[d]["vpds"]), 3) for d in sorted_dates],
     }
     _cache_set(key, result)
     return result
@@ -382,23 +564,32 @@ def compute_ndwi_proxy(weather: dict) -> list[float]:
     """
     result = []
     for i in range(len(weather.get("dates", []))):
-        soil = weather["soil_mean"][i] if i < len(weather.get("soil_mean", [])) else 0.25
-        vpd  = weather["vpd_mean"][i]  if i < len(weather.get("vpd_mean", []))  else 0.5
-        rh   = weather["rh_mean"][i]   if i < len(weather.get("rh_mean", []))   else 60.0
-        rain = weather["rain_total"][i] if i < len(weather.get("rain_total", [])) else 0.0
+        soil = (
+            weather["soil_mean"][i] if i < len(weather.get("soil_mean", [])) else 0.25
+        )
+        vpd = weather["vpd_mean"][i] if i < len(weather.get("vpd_mean", [])) else 0.5
+        rh = weather["rh_mean"][i] if i < len(weather.get("rh_mean", [])) else 60.0
+        rain = (
+            weather["rain_total"][i] if i < len(weather.get("rain_total", [])) else 0.0
+        )
 
-        if math.isnan(soil): soil = 0.25
-        if math.isnan(vpd):  vpd  = 0.5
-        if math.isnan(rh):   rh   = 60.0
-        if math.isnan(rain): rain = 0.0
+        if math.isnan(soil):
+            soil = 0.25
+        if math.isnan(vpd):
+            vpd = 0.5
+        if math.isnan(rh):
+            rh = 60.0
+        if math.isnan(rain):
+            rain = 0.0
 
-        vpd_n   = min(1.0, vpd / 3.5)
-        soil_n  = max(0.0, min(1.0, 1.0 - soil / 0.35))
-        rh_n    = max(0.0, (72.0 - rh) / 72.0)
-        rain_r  = max(0.0, 1.0 - rain / 5.0)
-        stress  = 0.35 * vpd_n + 0.35 * soil_n + 0.20 * rh_n + 0.10 * rain_r
+        vpd_n = min(1.0, vpd / 3.5)
+        soil_n = max(0.0, min(1.0, 1.0 - soil / 0.35))
+        rh_n = max(0.0, (72.0 - rh) / 72.0)
+        rain_r = max(0.0, 1.0 - rain / 5.0)
+        stress = 0.35 * vpd_n + 0.35 * soil_n + 0.20 * rh_n + 0.10 * rain_r
         result.append(round(float(np.clip(stress, 0.0, 1.0)), 4))
     return result
+
 
 # =========================
 # NODE ENRICHMENT
@@ -413,18 +604,20 @@ def enrich_node(node: dict, weather: dict | None) -> dict:
 
     if weather is not None:
         enriched["weather_history"] = weather
-        enriched["drought_days"]    = compute_drought_days(weather)
-        enriched["ndwi_proxy"]      = compute_ndwi_proxy(weather)
+        enriched["drought_days"] = compute_drought_days(weather)
+        enriched["ndwi_proxy"] = compute_ndwi_proxy(weather)
         # Latest-day summary (most recent data)
         enriched["latest"] = {
-            "date":       weather["dates"][-1]  if weather["dates"]  else None,
-            "temp_max":   weather["temp_max"][-1]  if weather["temp_max"]  else None,
-            "rh_min":     weather["rh_min"][-1]    if weather["rh_min"]    else None,
-            "wind_max":   weather["wind_max"][-1]  if weather["wind_max"]  else None,
+            "date": weather["dates"][-1] if weather["dates"] else None,
+            "temp_max": weather["temp_max"][-1] if weather["temp_max"] else None,
+            "rh_min": weather["rh_min"][-1] if weather["rh_min"] else None,
+            "wind_max": weather["wind_max"][-1] if weather["wind_max"] else None,
             "rain_total": weather["rain_total"][-1] if weather["rain_total"] else None,
-            "soil_min":   weather["soil_min"][-1]  if weather["soil_min"]  else None,
-            "vpd_mean":   weather["vpd_mean"][-1]  if weather["vpd_mean"]  else None,
-            "ndwi_stress": enriched["ndwi_proxy"][-1] if enriched["ndwi_proxy"] else None,
+            "soil_min": weather["soil_min"][-1] if weather["soil_min"] else None,
+            "vpd_mean": weather["vpd_mean"][-1] if weather["vpd_mean"] else None,
+            "ndwi_stress": enriched["ndwi_proxy"][-1]
+            if enriched["ndwi_proxy"]
+            else None,
         }
         # 7-day NDWI trend: positive = stress increasing (drying out)
         ndwi = enriched["ndwi_proxy"]
@@ -434,12 +627,13 @@ def enrich_node(node: dict, weather: dict | None) -> dict:
             enriched["ndwi_trend_7d"] = None
     else:
         enriched["weather_history"] = None
-        enriched["drought_days"]    = 0
-        enriched["ndwi_proxy"]      = []
-        enriched["latest"]          = {}
-        enriched["ndwi_trend_7d"]   = None
+        enriched["drought_days"] = 0
+        enriched["ndwi_proxy"] = []
+        enriched["latest"] = {}
+        enriched["ndwi_trend_7d"] = None
 
     return enriched
+
 
 # =========================
 # MYCELIUM SIGNAL PROPAGATION
@@ -469,8 +663,8 @@ def compute_network_stress(
     # One propagation pass (biological: signal travels one hop per time step)
     propagated: dict[str, float] = {}
     for n in nodes_enriched:
-        nid  = n["id"]
-        own  = base[nid]
+        nid = n["id"]
+        own = base[nid]
         nbrs = graph.get(nid, [])
         if not nbrs:
             propagated[nid] = own
@@ -489,6 +683,7 @@ def compute_network_stress(
         propagated[nid] = float(np.clip(own + 0.15 * avg_neighbor, 0.0, 1.0))
 
     return propagated
+
 
 # =========================
 # MAIN PIPELINE
@@ -511,14 +706,20 @@ def run_topology_pipeline(
         nodes = RDLP_WROCLAW_NODES
 
     log.info("=== QHDALabs Wildfire — Step 1: Topology & Weather ===")
-    log.info("Region: RDLP %s | Nodes: %d | Weather window: %d days",
-             RDLP_NAME, len(nodes), weather_days)
+    log.info(
+        "Region: RDLP %s | Nodes: %d | Weather window: %d days",
+        RDLP_NAME,
+        len(nodes),
+        weather_days,
+    )
 
     # ── Step 1a: Adjacency graph ──────────────────────────────────────────
     graph = build_adjacency_graph(nodes)
 
     # ── Step 1b: Weather history (parallel) ──────────────────────────────
-    log.info("Fetching %d-day weather history for %d nodes ...", weather_days, len(nodes))
+    log.info(
+        "Fetching %d-day weather history for %d nodes ...", weather_days, len(nodes)
+    )
     weather_map: dict[str, dict | None] = {}
 
     with ThreadPoolExecutor(max_workers=MAX_WORKERS) as executor:
@@ -534,7 +735,7 @@ def run_topology_pipeline(
                 log.warning("Weather failed for %s: %s", nid, exc)
                 weather_map[nid] = None
 
-    ok  = sum(1 for v in weather_map.values() if v is not None)
+    ok = sum(1 for v in weather_map.values() if v is not None)
     log.info("Weather fetch complete: %d/%d nodes OK", ok, len(nodes))
 
     # ── Step 1c: Enrich nodes ─────────────────────────────────────────────
@@ -556,35 +757,48 @@ def run_topology_pipeline(
 
 def _save_outputs(enriched: list[dict], graph: dict) -> None:
     """Save nodes.json, graph.json, and HTML map."""
-    today = datetime.now(timezone.utc).strftime("%Y%m%d")
-
+    sanitized_enriched = sanitize_nonfinite(enriched)
     # nodes.json — full enriched data
     nodes_path = os.path.join(OUTPUT_DIR, "nodes.json")
-    with open(nodes_path, "w", encoding="utf-8") as f:
-        json.dump({
-            "version": "1.0.0",
-            "rdlp": RDLP_NAME,
-            "generated_at": datetime.now(timezone.utc).isoformat(),
-            "weather_days": WEATHER_DAYS,
-            "nodes": enriched,
-        }, f, indent=2, ensure_ascii=False)
+    nodes_payload = {
+        "version": "1.0.0",
+        "rdlp": RDLP_NAME,
+        "generated_at": datetime.now(timezone.utc).isoformat(),
+        "weather_days": WEATHER_DAYS,
+        "nodes": sanitized_enriched,
+    }
+    validate_node_payload(nodes_payload, "nodes")
+    atomic_write_json(nodes_path, nodes_payload)
     log.info("Saved %s", nodes_path)
 
     # graph.json — adjacency list
     graph_path = os.path.join(OUTPUT_DIR, "graph.json")
-    with open(graph_path, "w", encoding="utf-8") as f:
-        json.dump({
+    atomic_write_json(
+        graph_path,
+        {
             "version": "1.0.0",
             "rdlp": RDLP_NAME,
             "neighbor_threshold_km": NEIGHBOR_KM,
             "adjacency": graph,
-        }, f, indent=2, ensure_ascii=False)
+        },
+    )
     log.info("Saved %s", graph_path)
 
     # HTML map
     map_path = os.path.join(OUTPUT_DIR, "network_map.html")
-    _generate_map(enriched, graph, map_path)
+    _generate_map(sanitized_enriched, graph, map_path)
     log.info("Saved %s", map_path)
+    write_step_manifest(
+        OUTPUT_DIR,
+        "topology",
+        StepStatus.SUCCESS,
+        outputs={"nodes": nodes_path, "graph": graph_path, "map": map_path},
+        coverage_percent=100.0,
+        valid_for_downstream=True,
+        data_version="topology-1.0.0",
+        api_requests=0,
+        cache_hits=0,
+    )
 
 
 def _generate_map(
@@ -598,23 +812,25 @@ def _generate_map(
     node_js = []
     for n in enriched:
         latest = n.get("latest", {})
-        node_js.append({
-            "id":            n["id"],
-            "name":          n["name"],
-            "lat":           n["lat"],
-            "lon":           n["lon"],
-            "eco":           n["eco"],
-            "eco_risk":      n["eco_risk_multiplier"],
-            "drought_days":  n.get("drought_days", 0),
-            "ndwi_stress":   latest.get("ndwi_stress") or 0.0,
-            "network_stress": n.get("network_stress", 0.0),
-            "ndwi_trend":    n.get("ndwi_trend_7d") or 0.0,
-            "temp_max":      latest.get("temp_max"),
-            "rh_min":        latest.get("rh_min"),
-            "wind_max":      latest.get("wind_max"),
-            "rain":          latest.get("rain_total"),
-            "neighbors":     [nb["id"] for nb in graph.get(n["id"], [])],
-        })
+        node_js.append(
+            {
+                "id": n["id"],
+                "name": n["name"],
+                "lat": n["lat"],
+                "lon": n["lon"],
+                "eco": n["eco"],
+                "eco_risk": n["eco_risk_multiplier"],
+                "drought_days": n.get("drought_days", 0),
+                "ndwi_stress": latest.get("ndwi_stress") or 0.0,
+                "network_stress": n.get("network_stress", 0.0),
+                "ndwi_trend": n.get("ndwi_trend_7d") or 0.0,
+                "temp_max": latest.get("temp_max"),
+                "rh_min": latest.get("rh_min"),
+                "wind_max": latest.get("wind_max"),
+                "rain": latest.get("rain_total"),
+                "neighbors": [nb["id"] for nb in graph.get(n["id"], [])],
+            }
+        )
 
     node_data = json.dumps(node_js, ensure_ascii=False)
 
@@ -742,19 +958,40 @@ def _print_summary(enriched: list[dict], graph: dict) -> None:
     log.info("\n%s", "=" * 65)
     log.info("RDLP %s — Network Summary", RDLP_NAME)
     log.info("%s", "=" * 65)
-    log.info("%-24s %-14s %6s %8s %8s", "Nadleśnictwo", "Ekosystem", "Susza", "NDWI", "Network")
+    log.info(
+        "%-24s %-14s %6s %8s %8s",
+        "Nadleśnictwo",
+        "Ekosystem",
+        "Susza",
+        "NDWI",
+        "Network",
+    )
     log.info("%s", "-" * 65)
 
-    sorted_nodes = sorted(enriched, key=lambda n: n.get("network_stress", 0), reverse=True)
+    sorted_nodes = sorted(
+        enriched, key=lambda n: n.get("network_stress", 0), reverse=True
+    )
     for n in sorted_nodes:
         latest = n.get("latest", {})
-        ndwi   = (latest.get("ndwi_stress") or 0.0) * 100
-        net    = n.get("network_stress", 0.0) * 100
-        tier   = ("KRYT" if net > 70 else "WYS " if net > 50 else "UMIA" if net > 30 else "LOW ")
+        ndwi = (latest.get("ndwi_stress") or 0.0) * 100
+        net = n.get("network_stress", 0.0) * 100
+        tier = (
+            "KRYT"
+            if net > 70
+            else "WYS "
+            if net > 50
+            else "UMIA"
+            if net > 30
+            else "LOW "
+        )
         log.info(
             "%-24s %-14s %5dd %7.1f%% %7.1f%% [%s]",
-            n["name"][:24], n["eco"][:14],
-            n.get("drought_days", 0), ndwi, net, tier,
+            n["name"][:24],
+            n["eco"][:14],
+            n.get("drought_days", 0),
+            ndwi,
+            net,
+            tier,
         )
     log.info("%s", "=" * 65)
     log.info("Outputs: %s/", OUTPUT_DIR)
@@ -765,4 +1002,6 @@ def _print_summary(enriched: list[dict], graph: dict) -> None:
 # =========================
 if __name__ == "__main__":
     enriched_nodes, adjacency_graph = run_topology_pipeline()
-    log.info("Step 1 complete. Next: run qhdalabs_wildfire_sentinel_v1.py (Step 2 — Sentinel-2 NDWI)")
+    log.info(
+        "Step 1 complete. Next: run qhdalabs_wildfire_sentinel_v1.py (Step 2 — Sentinel-2 NDWI)"
+    )

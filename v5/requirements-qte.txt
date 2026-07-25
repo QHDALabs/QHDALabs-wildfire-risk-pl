@@ -1,0 +1,3 @@
+-r requirements.txt
+# Optional quantum backend; NumPy remains the deterministic default fallback.
+qiskit>=2.0

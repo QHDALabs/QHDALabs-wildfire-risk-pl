@@ -246,3 +246,7 @@ __marimo__/
 **/ignition_cache/
 v5/logs/
 v5/output/
+v5/topology/doctor.json
+v5/topology/pipeline_run.json
+v5/topology/pipeline_steps/
+v5/topology/diagnostics/

@@ -4,4 +4,4 @@ pyogrio>=0.10
 shapely>=2.0
 pyproj>=3.6
 # Optional fallback when Pyogrio is unavailable
-fiona>=1.9
+fiona>=1.9; python_version < "3.14"

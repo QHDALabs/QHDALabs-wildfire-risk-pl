@@ -21,7 +21,7 @@ from contextlib import contextmanager
 from pathlib import Path
 from typing import Any
 
-from config import DB_PATH, TTL_WEATHER_S, TTL_NDWI_S, TTL_QTE_S, TTL_RISK_S
+from config import DB_PATH, TTL_NDWI_S, TTL_QTE_S, TTL_RISK_S, TTL_WEATHER_S
 
 log = logging.getLogger(__name__)
 
@@ -112,6 +112,7 @@ CREATE INDEX IF NOT EXISTS idx_alerts_created ON alerts(created_at);
 CREATE INDEX IF NOT EXISTS idx_alerts_tier    ON alerts(tier);
 """
 
+
 # =========================
 # CONNECTION
 # =========================
@@ -149,22 +150,28 @@ def _is_fresh(fetched_at: float | None, ttl_s: int) -> bool:
 # =========================
 # NADLEŚNICTWA
 # =========================
-def upsert_nadlesnictwo(node: dict, rdlp: str = "Wrocław",
-                        woj: str = "dolnośląskie",
-                        db_path: Path = DB_PATH) -> None:
+def upsert_nadlesnictwo(
+    node: dict,
+    rdlp: str = "Wrocław",
+    woj: str = "dolnośląskie",
+    db_path: Path = DB_PATH,
+) -> None:
     with get_conn(db_path) as conn:
-        conn.execute("""
+        conn.execute(
+            """
             INSERT INTO nadlesnictwa (id, name, lat, lon, eco, rdlp, wojewodztwo)
             VALUES (:id, :name, :lat, :lon, :eco, :rdlp, :woj)
             ON CONFLICT(id) DO UPDATE SET
                 name=excluded.name, lat=excluded.lat, lon=excluded.lon,
                 eco=excluded.eco, rdlp=excluded.rdlp, wojewodztwo=excluded.wojewodztwo
-        """, {**node, "rdlp": rdlp, "woj": woj})
+        """,
+            {**node, "rdlp": rdlp, "woj": woj},
+        )
 
 
-def get_nadlesnictwa(rdlp: str | None = None,
-                     woj:  str | None = None,
-                     db_path: Path = DB_PATH) -> list[dict]:
+def get_nadlesnictwa(
+    rdlp: str | None = None, woj: str | None = None, db_path: Path = DB_PATH
+) -> list[dict]:
     with get_conn(db_path) as conn:
         if rdlp:
             rows = conn.execute(
@@ -194,12 +201,15 @@ def get_weather(node_id: str, db_path: Path = DB_PATH) -> dict | None:
 
 def save_weather(node_id: str, data: dict, db_path: Path = DB_PATH) -> None:
     with get_conn(db_path) as conn:
-        conn.execute("""
+        conn.execute(
+            """
             INSERT INTO weather_history (node_id, fetched_at, data)
             VALUES (?, ?, ?)
             ON CONFLICT(node_id) DO UPDATE SET
                 fetched_at=excluded.fetched_at, data=excluded.data
-        """, (node_id, time.time(), json.dumps(data)))
+        """,
+            (node_id, time.time(), json.dumps(data)),
+        )
 
 
 # =========================
@@ -217,7 +227,8 @@ def get_ndwi(node_id: str, db_path: Path = DB_PATH) -> dict | None:
 
 def save_ndwi(node_id: str, result: dict, db_path: Path = DB_PATH) -> None:
     with get_conn(db_path) as conn:
-        conn.execute("""
+        conn.execute(
+            """
             INSERT INTO ndwi_sentinel
                 (node_id, fetched_at, ndwi_latest, ndwi_mean_30d, ndwi_min_30d,
                  ndwi_trend_14d, ndwi_stress, n_observations, data)
@@ -231,16 +242,19 @@ def save_ndwi(node_id: str, result: dict, db_path: Path = DB_PATH) -> None:
                 ndwi_stress=excluded.ndwi_stress,
                 n_observations=excluded.n_observations,
                 data=excluded.data
-        """, (
-            node_id, time.time(),
-            result.get("ndwi_latest"),
-            result.get("ndwi_mean_30d"),
-            result.get("ndwi_min_30d"),
-            result.get("ndwi_trend_14d"),
-            result.get("ndwi_stress_latest"),
-            result.get("n_observations"),
-            json.dumps(result),
-        ))
+        """,
+            (
+                node_id,
+                time.time(),
+                result.get("ndwi_latest"),
+                result.get("ndwi_mean_30d"),
+                result.get("ndwi_min_30d"),
+                result.get("ndwi_trend_14d"),
+                result.get("ndwi_stress_latest"),
+                result.get("n_observations"),
+                json.dumps(result),
+            ),
+        )
 
 
 def ndwi_needs_refresh(node_id: str, db_path: Path = DB_PATH) -> bool:
@@ -266,7 +280,8 @@ def get_qte(node_id: str, db_path: Path = DB_PATH) -> dict | None:
 
 def save_qte(node_id: str, result: dict, db_path: Path = DB_PATH) -> None:
     with get_conn(db_path) as conn:
-        conn.execute("""
+        conn.execute(
+            """
             INSERT INTO qte_results
                 (node_id, computed_at, backend, bridge_fired,
                  zz_01, zz_12, zz_23, zz_34, qte_score, data)
@@ -278,15 +293,20 @@ def save_qte(node_id: str, result: dict, db_path: Path = DB_PATH) -> None:
                 zz_01=excluded.zz_01, zz_12=excluded.zz_12,
                 zz_23=excluded.zz_23, zz_34=excluded.zz_34,
                 qte_score=excluded.qte_score, data=excluded.data
-        """, (
-            node_id, time.time(),
-            result.get("backend"),
-            int(result.get("bridge_fired", False)),
-            result.get("zz_01"), result.get("zz_12"),
-            result.get("zz_23"), result.get("zz_34"),
-            result.get("qte_score"),
-            json.dumps(result),
-        ))
+        """,
+            (
+                node_id,
+                time.time(),
+                result.get("backend"),
+                int(result.get("bridge_fired", False)),
+                result.get("zz_01"),
+                result.get("zz_12"),
+                result.get("zz_23"),
+                result.get("zz_34"),
+                result.get("qte_score"),
+                json.dumps(result),
+            ),
+        )
 
 
 # =========================
@@ -304,7 +324,8 @@ def get_risk(node_id: str, db_path: Path = DB_PATH) -> dict | None:
 
 def save_risk(node_id: str, score: dict, db_path: Path = DB_PATH) -> None:
     with get_conn(db_path) as conn:
-        conn.execute("""
+        conn.execute(
+            """
             INSERT INTO risk_scores
                 (node_id, computed_at, final_score, tier, ndwi_stress,
                  qte_score, fwi_score, bridge_fired, eco_multiplier,
@@ -321,31 +342,36 @@ def save_risk(node_id: str, score: dict, db_path: Path = DB_PATH) -> None:
                 eco_multiplier=excluded.eco_multiplier,
                 drought_days=excluded.drought_days,
                 data=excluded.data
-        """, (
-            node_id, time.time(),
-            score.get("final_score"),
-            score.get("tier"),
-            score.get("signals", {}).get("ndwi_stress"),
-            score.get("signals", {}).get("qte_score"),
-            score.get("signals", {}).get("fwi_score"),
-            int(score.get("signals", {}).get("bridge_fired", False)),
-            score.get("modifiers", {}).get("eco_multiplier"),
-            score.get("context", {}).get("drought_days"),
-            json.dumps(score),
-        ))
+        """,
+            (
+                node_id,
+                time.time(),
+                score.get("final_score"),
+                score.get("tier"),
+                score.get("signals", {}).get("ndwi_stress"),
+                score.get("signals", {}).get("qte_score"),
+                score.get("signals", {}).get("fwi_score"),
+                int(score.get("signals", {}).get("bridge_fired", False)),
+                score.get("modifiers", {}).get("eco_multiplier"),
+                score.get("context", {}).get("drought_days"),
+                json.dumps(score),
+            ),
+        )
 
 
-def get_all_risk_scores(rdlp: str | None = None,
-                        db_path: Path = DB_PATH) -> list[dict]:
+def get_all_risk_scores(rdlp: str | None = None, db_path: Path = DB_PATH) -> list[dict]:
     """Return all current risk scores, optionally filtered by RDLP."""
     with get_conn(db_path) as conn:
         if rdlp:
-            rows = conn.execute("""
+            rows = conn.execute(
+                """
                 SELECT r.* FROM risk_scores r
                 JOIN nadlesnictwa n ON r.node_id = n.id
                 WHERE n.rdlp = ?
                 ORDER BY r.final_score DESC
-            """, (rdlp,)).fetchall()
+            """,
+                (rdlp,),
+            ).fetchall()
         else:
             rows = conn.execute(
                 "SELECT * FROM risk_scores ORDER BY final_score DESC"
@@ -356,44 +382,54 @@ def get_all_risk_scores(rdlp: str | None = None,
 # =========================
 # ALERTS (append-only log)
 # =========================
-def save_alert(alert: dict, run_id: str = "",
-               db_path: Path = DB_PATH) -> None:
+def save_alert(alert: dict, run_id: str = "", db_path: Path = DB_PATH) -> None:
     with get_conn(db_path) as conn:
-        conn.execute("""
+        conn.execute(
+            """
             INSERT INTO alerts
                 (node_id, node_name, tier, score, bridge_fired,
                  ndwi_latest, drought_days, reason, drone_recommended, run_id)
             VALUES (?,?,?,?,?,?,?,?,?,?)
-        """, (
-            alert["node_id"], alert["node_name"],
-            alert["tier"], alert["score"],
-            int(alert.get("bridge_fired", False)),
-            alert.get("ndwi_latest"),
-            alert.get("drought_days"),
-            alert.get("reason", ""),
-            int(alert.get("drone_recommended", False)),
-            run_id,
-        ))
+        """,
+            (
+                alert["node_id"],
+                alert["node_name"],
+                alert["tier"],
+                alert["score"],
+                int(alert.get("bridge_fired", False)),
+                alert.get("ndwi_latest"),
+                alert.get("drought_days"),
+                alert.get("reason", ""),
+                int(alert.get("drone_recommended", False)),
+                run_id,
+            ),
+        )
 
 
-def get_alerts_history(node_id: str | None = None,
-                       days: int = 30,
-                       db_path: Path = DB_PATH) -> list[dict]:
+def get_alerts_history(
+    node_id: str | None = None, days: int = 30, db_path: Path = DB_PATH
+) -> list[dict]:
     """Return alert history for last N days."""
     cutoff = time.time() - days * 86400
     with get_conn(db_path) as conn:
         if node_id:
-            rows = conn.execute("""
+            rows = conn.execute(
+                """
                 SELECT * FROM alerts
                 WHERE node_id=? AND created_at > ?
                 ORDER BY created_at DESC
-            """, (node_id, cutoff)).fetchall()
+            """,
+                (node_id, cutoff),
+            ).fetchall()
         else:
-            rows = conn.execute("""
+            rows = conn.execute(
+                """
                 SELECT * FROM alerts
                 WHERE created_at > ?
                 ORDER BY created_at DESC
-            """, (cutoff,)).fetchall()
+            """,
+                (cutoff,),
+            ).fetchall()
     return [dict(r) for r in rows]
 
 
@@ -408,14 +444,13 @@ def migrate_from_json(
     One-time migration of existing JSON outputs to SQLite.
     Safe to run multiple times — uses upsert.
     """
-    import time as _time
 
     log.info("Migrating JSON data to SQLite: %s", db_path)
     init_db(db_path)
 
     # ── 1. Nadleśnictwa + weather from nodes_enriched.json ───────────────
     enriched_path = topology_dir / "nodes_enriched.json"
-    nodes_path    = topology_dir / "nodes.json"
+    nodes_path = topology_dir / "nodes.json"
 
     source = enriched_path if enriched_path.exists() else nodes_path
     if source.exists():
@@ -426,13 +461,16 @@ def migrate_from_json(
 
         for node in nodes:
             # Static data
-            upsert_nadlesnictwo({
-                "id":  node["id"],
-                "name": node["name"],
-                "lat":  node["lat"],
-                "lon":  node["lon"],
-                "eco":  node["eco"],
-            }, db_path=db_path)
+            upsert_nadlesnictwo(
+                {
+                    "id": node["id"],
+                    "name": node["name"],
+                    "lat": node["lat"],
+                    "lon": node["lon"],
+                    "eco": node["eco"],
+                },
+                db_path=db_path,
+            )
 
             # Weather history
             wh = node.get("weather_history")
@@ -490,8 +528,14 @@ def migrate_from_json(
     with get_conn(db_path) as conn:
         counts = {
             tbl: conn.execute(f"SELECT COUNT(*) FROM {tbl}").fetchone()[0]
-            for tbl in ["nadlesnictwa", "weather_history", "ndwi_sentinel",
-                        "qte_results", "risk_scores", "alerts"]
+            for tbl in [
+                "nadlesnictwa",
+                "weather_history",
+                "ndwi_sentinel",
+                "qte_results",
+                "risk_scores",
+                "alerts",
+            ]
         }
     log.info("Migration complete. DB contents: %s", counts)
 
@@ -503,11 +547,15 @@ def db_summary(db_path: Path = DB_PATH) -> dict:
     """Return row counts and freshness info for all tables."""
     with get_conn(db_path) as conn:
         summary: dict[str, Any] = {}
-        for tbl in ["nadlesnictwa", "weather_history", "ndwi_sentinel",
-                    "qte_results", "risk_scores", "alerts"]:
-            summary[tbl] = conn.execute(
-                f"SELECT COUNT(*) FROM {tbl}"
-            ).fetchone()[0]
+        for tbl in [
+            "nadlesnictwa",
+            "weather_history",
+            "ndwi_sentinel",
+            "qte_results",
+            "risk_scores",
+            "alerts",
+        ]:
+            summary[tbl] = conn.execute(f"SELECT COUNT(*) FROM {tbl}").fetchone()[0]
 
         # Freshness of NDWI (most expensive — track carefully)
         oldest_ndwi = conn.execute(
@@ -529,9 +577,12 @@ def db_summary(db_path: Path = DB_PATH) -> dict:
 if __name__ == "__main__":
     # Run migration when called directly
     import sys
-    logging.basicConfig(level=logging.INFO,
-                        format="%(asctime)s %(levelname)s %(message)s",
-                        datefmt="%H:%M:%S")
+
+    logging.basicConfig(
+        level=logging.INFO,
+        format="%(asctime)s %(levelname)s %(message)s",
+        datefmt="%H:%M:%S",
+    )
     topology_dir = Path(sys.argv[1]) if len(sys.argv) > 1 else Path("topology")
     migrate_from_json(topology_dir)
     print("\nDB summary:", db_summary())
