@@ -1,6 +1,6 @@
 {
   "version": "2.0.0",
-  "generated_at": "2026-08-15T20:35:45.848063+00:00",
+  "generated_at": "2026-08-15T21:49:31.794397+00:00",
   "rdlp": "Wrocław",
   "pipeline_status": "SUCCESS",
   "operational_validity": false,
@@ -10,9 +10,9 @@
     "clipped_to_one_count": 0,
     "clipped_to_one_share": 0.0,
     "high_or_critical_count": 3,
-    "high_or_critical_share": 0.0909,
+    "high_or_critical_share": 0.0882,
     "bridge_bonus_count": 1,
-    "bridge_bonus_share": 0.0303,
+    "bridge_bonus_share": 0.0294,
     "component_distribution": {
       "base_score": [
         0.6919,
@@ -32,6 +32,7 @@
         0.4194,
         0.3535,
         0.4523,
+        0.4582,
         0.4358,
         0.4594,
         0.3406,
@@ -69,6 +70,7 @@
         1.0,
         1.0,
         1.0,
+        1.0,
         1.3,
         1.0,
         1.0,
@@ -88,8 +90,8 @@
         0.0254,
         0.025,
         0.0241,
-        0.0232,
-        0.0154,
+        0.0234,
+        0.0166,
         0.0239,
         0.0186,
         0.0284,
@@ -98,10 +100,11 @@
         0.0281,
         0.0273,
         0.0303,
-        0.0229,
+        0.0231,
         0.026,
-        0.0198,
+        0.0204,
         0.0268,
+        0.0159,
         0.0315,
         0.0064,
         0.0194,
@@ -109,11 +112,11 @@
         0.0206,
         0.0283,
         0.0196,
-        0.0211,
+        0.0216,
         0.0156,
         0.0242,
         0.0235,
-        0.0211,
+        0.0218,
         0.0256,
         0.0265,
         0.0199,
@@ -346,8 +349,8 @@
       "lat": 51.264,
       "lon": 15.559,
       "eco": "pine",
-      "unclipped_score": 0.5961,
-      "final_score": 0.5961,
+      "unclipped_score": 0.5964,
+      "final_score": 0.5964,
       "tier": "MODERATE",
       "pipeline_status": "SUCCESS",
       "operational_validity": false,
@@ -367,18 +370,18 @@
         "qte_score": 0.3143,
         "bridge_fired": false,
         "fwi_score": 0.6712,
-        "network_stress": 0.4633,
+        "network_stress": 0.468,
         "ignition_score": 56.85,
         "ignition_coverage_percent": 100.0,
         "ignition_valid_for_fusion": true,
-        "fei": 58.21,
+        "fei": 58.23,
         "qies": 33.16
       },
       "modifiers": {
         "eco_multiplier": 1.3,
         "base_score": 0.4407,
         "bridge_bonus": 0.0,
-        "network_propagation": 0.0232
+        "network_propagation": 0.0234
       },
       "context": {
         "drought_days": 11,
@@ -405,7 +408,7 @@
         {
           "factor": "network_propagation",
           "contribution": 0.023,
-          "label": "Neighbour stress 0.46"
+          "label": "Neighbour stress 0.47"
         }
       ]
     },
@@ -415,8 +418,8 @@
       "lat": 51.155,
       "lon": 14.999,
       "eco": "pine",
-      "unclipped_score": 0.5887,
-      "final_score": 0.5887,
+      "unclipped_score": 0.59,
+      "final_score": 0.59,
       "tier": "MODERATE",
       "pipeline_status": "SUCCESS",
       "operational_validity": false,
@@ -436,18 +439,18 @@
         "qte_score": 0.2263,
         "bridge_fired": false,
         "fwi_score": 0.6547,
-        "network_stress": 0.3071,
+        "network_stress": 0.3319,
         "ignition_score": 43.4,
         "ignition_coverage_percent": 100.0,
         "ignition_valid_for_fusion": true,
-        "fei": 50.55,
-        "qies": 22.57
+        "fei": 50.6,
+        "qies": 22.59
       },
       "modifiers": {
         "eco_multiplier": 1.3,
         "base_score": 0.4411,
         "bridge_bonus": 0.0,
-        "network_propagation": 0.0154
+        "network_propagation": 0.0166
       },
       "context": {
         "drought_days": 14,
@@ -473,8 +476,8 @@
         },
         {
           "factor": "network_propagation",
-          "contribution": 0.015,
-          "label": "Neighbour stress 0.31"
+          "contribution": 0.017,
+          "label": "Neighbour stress 0.33"
         }
       ]
     },
@@ -1036,8 +1039,8 @@
       "lat": 51.107,
       "lon": 15.593,
       "eco": "mixed",
-      "unclipped_score": 0.4878,
-      "final_score": 0.4878,
+      "unclipped_score": 0.4881,
+      "final_score": 0.4881,
       "tier": "MODERATE",
       "pipeline_status": "SUCCESS",
       "operational_validity": false,
@@ -1057,18 +1060,18 @@
         "qte_score": 0.3286,
         "bridge_fired": false,
         "fwi_score": 0.6293,
-        "network_stress": 0.4577,
+        "network_stress": 0.4625,
         "ignition_score": 52.25,
         "ignition_coverage_percent": 100.0,
         "ignition_valid_for_fusion": true,
-        "fei": 50.49,
-        "qies": 24.8
+        "fei": 50.5,
+        "qies": 24.81
       },
       "modifiers": {
         "eco_multiplier": 1.0,
         "base_score": 0.4649,
         "bridge_bonus": 0.0,
-        "network_propagation": 0.0229
+        "network_propagation": 0.0231
       },
       "context": {
         "drought_days": 10,
@@ -1174,8 +1177,8 @@
       "lat": 51.001,
       "lon": 15.268,
       "eco": "pine",
-      "unclipped_score": 0.4794,
-      "final_score": 0.4794,
+      "unclipped_score": 0.48,
+      "final_score": 0.48,
       "tier": "MODERATE",
       "pipeline_status": "SUCCESS",
       "operational_validity": false,
@@ -1195,18 +1198,18 @@
         "qte_score": 0.3521,
         "bridge_fired": false,
         "fwi_score": 0.6151,
-        "network_stress": 0.3966,
+        "network_stress": 0.4087,
         "ignition_score": 22.42,
         "ignition_coverage_percent": 100.0,
         "ignition_valid_for_fusion": true,
-        "fei": 32.78,
+        "fei": 32.8,
         "qies": 8.82
       },
       "modifiers": {
         "eco_multiplier": 1.3,
         "base_score": 0.3535,
         "bridge_bonus": 0.0,
-        "network_propagation": 0.0198
+        "network_propagation": 0.0204
       },
       "context": {
         "drought_days": 11,
@@ -1233,7 +1236,7 @@
         {
           "factor": "network_propagation",
           "contribution": 0.02,
-          "label": "Neighbour stress 0.40"
+          "label": "Neighbour stress 0.41"
         }
       ]
     },
@@ -1303,6 +1306,75 @@
           "factor": "network_propagation",
           "contribution": 0.027,
           "label": "Neighbour stress 0.54"
+        }
+      ]
+    },
+    {
+      "node_id": "bogatynia",
+      "node_name": "Bogatynia",
+      "lat": 50.90747,
+      "lon": 14.95634,
+      "eco": "mixed",
+      "unclipped_score": 0.4741,
+      "final_score": 0.4741,
+      "tier": "MODERATE",
+      "pipeline_status": "SUCCESS",
+      "operational_validity": false,
+      "data_quality_flags": [],
+      "calibration_flags": [
+        "satellite_stress_mapping_uncalibrated"
+      ],
+      "upstream_statuses": {
+        "sentinel": "DEGRADED",
+        "qte": "SUCCESS",
+        "ignition": "SUCCESS"
+      },
+      "signals": {
+        "ndwi_stress": 0.5298,
+        "ndwi_trend_14d": 0.0,
+        "ndwi_latest": null,
+        "qte_score": 0.398,
+        "bridge_fired": false,
+        "fwi_score": 0.6694,
+        "network_stress": 0.3178,
+        "ignition_score": 46.33,
+        "ignition_coverage_percent": 100.0,
+        "ignition_valid_for_fusion": true,
+        "fei": 46.87,
+        "qies": 21.78
+      },
+      "modifiers": {
+        "eco_multiplier": 1.0,
+        "base_score": 0.4582,
+        "bridge_bonus": 0.0,
+        "network_propagation": 0.0159
+      },
+      "context": {
+        "drought_days": 14,
+        "temp_max": 32.3,
+        "wind_max": 16.4,
+        "rh_min": 20.0
+      },
+      "explanation": [
+        {
+          "factor": "ndwi_satellite",
+          "contribution": 0.238,
+          "label": "NDWI stress 0.53 × eco 1.00"
+        },
+        {
+          "factor": "quantum_temporal",
+          "contribution": 0.119,
+          "label": "QTE score 0.398 × eco 1.00"
+        },
+        {
+          "factor": "weather_fwi",
+          "contribution": 0.1,
+          "label": "FWI 0.669 × eco 1.00"
+        },
+        {
+          "factor": "network_propagation",
+          "contribution": 0.016,
+          "label": "Neighbour stress 0.32"
         }
       ]
     },
@@ -1795,8 +1867,8 @@
       "lat": 51.274,
       "lon": 15.207,
       "eco": "pine",
-      "unclipped_score": 0.3816,
-      "final_score": 0.3816,
+      "unclipped_score": 0.3821,
+      "final_score": 0.3821,
       "tier": "LOW",
       "pipeline_status": "SUCCESS",
       "operational_validity": false,
@@ -1816,18 +1888,18 @@
         "qte_score": 0.3875,
         "bridge_fired": false,
         "fwi_score": 0.6732,
-        "network_stress": 0.4225,
+        "network_stress": 0.4323,
         "ignition_score": 24.97,
         "ignition_coverage_percent": 100.0,
         "ignition_valid_for_fusion": true,
-        "fei": 30.87,
-        "qies": 8.57
+        "fei": 30.89,
+        "qies": 8.58
       },
       "modifiers": {
         "eco_multiplier": 1.3,
         "base_score": 0.2773,
         "bridge_bonus": 0.0,
-        "network_propagation": 0.0211
+        "network_propagation": 0.0216
       },
       "context": {
         "drought_days": 11,
@@ -1853,8 +1925,8 @@
         },
         {
           "factor": "network_propagation",
-          "contribution": 0.021,
-          "label": "Neighbour stress 0.42"
+          "contribution": 0.022,
+          "label": "Neighbour stress 0.43"
         }
       ]
     },
@@ -2071,8 +2143,8 @@
       "lat": 51.383,
       "lon": 15.128,
       "eco": "pine",
-      "unclipped_score": 0.3364,
-      "final_score": 0.3364,
+      "unclipped_score": 0.3371,
+      "final_score": 0.3371,
       "tier": "LOW",
       "pipeline_status": "SUCCESS",
       "operational_validity": false,
@@ -2092,18 +2164,18 @@
         "qte_score": 0.318,
         "bridge_fired": false,
         "fwi_score": 0.6932,
-        "network_stress": 0.4225,
+        "network_stress": 0.4359,
         "ignition_score": 10.51,
         "ignition_coverage_percent": 100.0,
         "ignition_valid_for_fusion": true,
-        "fei": 18.8,
+        "fei": 18.82,
         "qies": 2.95
       },
       "modifiers": {
         "eco_multiplier": 1.3,
         "base_score": 0.2425,
         "bridge_bonus": 0.0,
-        "network_propagation": 0.0211
+        "network_propagation": 0.0218
       },
       "context": {
         "drought_days": 14,
@@ -2129,8 +2201,8 @@
         },
         {
           "factor": "network_propagation",
-          "contribution": 0.021,
-          "label": "Neighbour stress 0.42"
+          "contribution": 0.022,
+          "label": "Neighbour stress 0.44"
         }
       ]
     },
@@ -2140,8 +2212,8 @@
       "lat": 50.828,
       "lon": 15.523,
       "eco": "spruce_mountain",
-      "unclipped_score": 0.3163,
-      "final_score": 0.3163,
+      "unclipped_score": 0.3164,
+      "final_score": 0.3164,
       "tier": "LOW",
       "pipeline_status": "SUCCESS",
       "operational_validity": false,
@@ -2161,7 +2233,7 @@
         "qte_score": 0.4413,
         "bridge_fired": false,
         "fwi_score": 0.551,
-        "network_stress": 0.5111,
+        "network_stress": 0.5128,
         "ignition_score": 46.29,
         "ignition_coverage_percent": 100.0,
         "ignition_valid_for_fusion": true,

@@ -716,10 +716,17 @@ def _generate_final_map(scores: list[RiskScore], graph: dict) -> None:
 <div id="map"></div>
 <script>
 const NODES = {node_data};
-const map = L.map('map', {{zoomControl: false}}).setView([51.0,16.5],8);
+const map = L.map('map', {{zoomControl: false}});
 L.control.zoom({{position: 'bottomright'}}).addTo(map);
 L.tileLayer('https://{{s}}.basemaps.cartocdn.com/dark_all/{{z}}/{{x}}/{{y}}{{r}}.png',
   {{attribution:'© OpenStreetMap © CARTO',maxZoom:19}}).addTo(map);
+
+const bounds = L.latLngBounds(NODES.map(n => [n.lat, n.lon]));
+if (bounds.isValid()) {{
+  map.fitBounds(bounds.pad(0.22));
+}} else {{
+  map.setView([51.0,16.5],8);
+}}
 
 function color(s){{
   if(s>{ALERT_CRITICAL}) return '#ff1111';

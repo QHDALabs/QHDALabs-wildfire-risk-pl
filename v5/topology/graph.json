@@ -137,6 +137,12 @@
         "name": "Jawor",
         "dist_km": 50.9,
         "eco": "mixed"
+      },
+      {
+        "id": "bogatynia",
+        "name": "Bogatynia",
+        "dist_km": 57.8,
+        "eco": "mixed"
       }
     ],
     "bystrzyca": [
@@ -637,6 +643,12 @@
     ],
     "lesna": [
       {
+        "id": "bogatynia",
+        "name": "Bogatynia",
+        "dist_km": 24.2,
+        "eco": "mixed"
+      },
+      {
         "id": "zgorzelec",
         "name": "Zgorzelec",
         "dist_km": 25.4,
@@ -821,6 +833,12 @@
         "eco": "spruce_mountain"
       },
       {
+        "id": "bogatynia",
+        "name": "Bogatynia",
+        "dist_km": 49.8,
+        "eco": "mixed"
+      },
+      {
         "id": "lubin",
         "name": "Lubin",
         "dist_km": 53.5,
@@ -992,6 +1010,12 @@
         "id": "lwowek",
         "name": "Lwówek Śląski",
         "dist_km": 44.6,
+        "eco": "mixed"
+      },
+      {
+        "id": "bogatynia",
+        "name": "Bogatynia",
+        "dist_km": 54.2,
         "eco": "mixed"
       }
     ],
@@ -1311,6 +1335,12 @@
         "eco": "spruce_mountain"
       },
       {
+        "id": "bogatynia",
+        "name": "Bogatynia",
+        "dist_km": 40.7,
+        "eco": "mixed"
+      },
+      {
         "id": "zlotoryja",
         "name": "Złotoryja",
         "dist_km": 43.1,
@@ -1607,6 +1637,12 @@
         "eco": "pine"
       },
       {
+        "id": "bogatynia",
+        "name": "Bogatynia",
+        "dist_km": 44.4,
+        "eco": "mixed"
+      },
+      {
         "id": "zlotoryja",
         "name": "Złotoryja",
         "dist_km": 52.3,
@@ -1899,6 +1935,12 @@
         "eco": "pine"
       },
       {
+        "id": "bogatynia",
+        "name": "Bogatynia",
+        "dist_km": 27.7,
+        "eco": "mixed"
+      },
+      {
         "id": "ruszow",
         "name": "Ruszów",
         "dist_km": 32.8,
@@ -1926,6 +1968,50 @@
         "id": "swietoszow",
         "name": "Świętoszów",
         "dist_km": 55.9,
+        "eco": "pine"
+      }
+    ],
+    "bogatynia": [
+      {
+        "id": "lesna",
+        "name": "Leśna",
+        "dist_km": 24.2,
+        "eco": "pine"
+      },
+      {
+        "id": "zgorzelec",
+        "name": "Zgorzelec",
+        "dist_km": 27.7,
+        "eco": "pine"
+      },
+      {
+        "id": "szklarska",
+        "name": "Szklarska Poręba",
+        "dist_km": 40.7,
+        "eco": "spruce_mountain"
+      },
+      {
+        "id": "wegliniec",
+        "name": "Węgliniec",
+        "dist_km": 44.4,
+        "eco": "pine"
+      },
+      {
+        "id": "lwowek",
+        "name": "Lwówek Śląski",
+        "dist_km": 49.8,
+        "eco": "mixed"
+      },
+      {
+        "id": "mysliborskie",
+        "name": "Myśliborskie",
+        "dist_km": 54.2,
+        "eco": "pine"
+      },
+      {
+        "id": "boleslawiec",
+        "name": "Bolesławiec",
+        "dist_km": 57.8,
         "eco": "pine"
       }
     ]

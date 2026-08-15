@@ -7,9 +7,11 @@ from types import SimpleNamespace
 import pytest
 
 import effis_validator
+import qhdalabs_wildfire_fusion_v1 as fusion
 import qhdalabs_wildfire_ignition_v1 as ignition
 import qhdalabs_wildfire_qte_v1 as qte
 import qhdalabs_wildfire_sentinel_v1 as sentinel
+import qhdalabs_wildfire_topology_v1 as topology
 import run_all
 from pipeline_contract import StepStatus, atomic_write_json
 
@@ -216,6 +218,96 @@ def test_numpy_qte_is_deterministic_for_seed() -> None:
     first = qte._run_numpy_qte(*angles, n_shots=128, random_seed=42)
     second = qte._run_numpy_qte(*angles, n_shots=128, random_seed=42)
     assert first == second
+
+
+def test_final_map_uses_dynamic_bounds_for_all_nodes(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
+    monkeypatch.setattr(fusion, "OUTPUT_DIR", str(tmp_path))
+    scores = [
+        fusion.RiskScore(
+            node_id="bogatynia",
+            node_name="Bogatynia",
+            lat=51.25,
+            lon=16.167,
+            eco="mixed",
+            ndwi_stress=0.58,
+            ndwi_trend_14d=0.1,
+            qte_score=0.23,
+            bridge_fired=False,
+            fwi_score=0.68,
+            network_stress=0.57,
+            ignition_score=None,
+            ignition_coverage_percent=100.0,
+            ignition_valid_for_fusion=True,
+            fei=None,
+            qies=None,
+            base_score=0.68,
+            eco_multiplier=1.0,
+            unclipped_score=0.68,
+            final_score=0.47,
+            tier="MODERATE",
+            pipeline_status="SUCCESS",
+            operational_validity=True,
+            data_quality_flags=[],
+            calibration_flags=[],
+            upstream_statuses={},
+            drought_days=14,
+            temp_max=34.9,
+            wind_max=11.1,
+            rh_min=15.0,
+            ndwi_latest=0.1095,
+            top_drivers=[],
+        ),
+        fusion.RiskScore(
+            node_id="jawor",
+            node_name="Jawor",
+            lat=51.041,
+            lon=16.197,
+            eco="mixed",
+            ndwi_stress=1.0,
+            ndwi_trend_14d=0.0,
+            qte_score=0.42,
+            bridge_fired=True,
+            fwi_score=0.65,
+            network_stress=0.60,
+            ignition_score=None,
+            ignition_coverage_percent=100.0,
+            ignition_valid_for_fusion=True,
+            fei=None,
+            qies=None,
+            base_score=0.80,
+            eco_multiplier=1.0,
+            unclipped_score=0.80,
+            final_score=0.80,
+            tier="CRITICAL",
+            pipeline_status="SUCCESS",
+            operational_validity=True,
+            data_quality_flags=[],
+            calibration_flags=[],
+            upstream_statuses={},
+            drought_days=9,
+            temp_max=34.0,
+            wind_max=9.7,
+            rh_min=17.0,
+            ndwi_latest=-0.0624,
+            top_drivers=[],
+        ),
+    ]
+    graph = {
+        "bogatynia": [{"id": "jawor", "dist_km": 10.0}],
+        "jawor": [{"id": "bogatynia", "dist_km": 10.0}],
+    }
+
+    fusion._generate_final_map(scores, graph)
+
+    html = (tmp_path / "final_map.html").read_text(encoding="utf-8")
+    assert "fitBounds" in html
+    assert "L.latLngBounds" in html
+
+
+def test_bogatynia_coordinates_match_real_location() -> None:
+    point = next(node for node in topology.RDLP_WROCLAW_NODES if node["id"] == "bogatynia")
+    assert point["lat"] == pytest.approx(50.90747, abs=1e-5)
+    assert point["lon"] == pytest.approx(14.95634, abs=1e-5)
 
 
 def test_qiskit_and_numpy_qte_are_compatible() -> None:

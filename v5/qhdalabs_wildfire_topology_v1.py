@@ -291,8 +291,8 @@ RDLP_WROCLAW_NODES: list[dict] = [
     {
         "id": "bogatynia",
         "name": "Bogatynia",
-        "lat": 51.250,
-        "lon": 16.167,
+        "lat": 50.90747,
+        "lon": 14.95634,
         "eco": "mixed",
     },
 ]

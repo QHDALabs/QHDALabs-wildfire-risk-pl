@@ -1,12 +1,12 @@
 {
   "version": "2.0.0",
-  "generated_at": "2026-08-15T20:34:16.656768+00:00",
+  "generated_at": "2026-08-15T21:47:25.653230+00:00",
   "algorithm": "conditional_cz_bridge (qmnet)",
   "n_qubits": 5,
   "bridge_distribution": {
     "fired": 1,
-    "total": 33,
-    "network_rate": 0.0303,
+    "total": 34,
+    "network_rate": 0.0294,
     "rates": [
       0.3441,
       0.3927,
@@ -40,7 +40,8 @@
       0.3877,
       0.4552,
       0.3465,
-      0.3942
+      0.3942,
+      0.1303
     ]
   },
   "calibration_status": "uncalibrated",
@@ -844,6 +845,30 @@
         "zz_34": -0.1045
       },
       "qte_score": 0.2263
+    },
+    {
+      "node_id": "bogatynia",
+      "node_name": "Bogatynia",
+      "backend": "qiskit_statevector",
+      "backend_version": "2.5.1",
+      "theta_encoding": {
+        "ndwi_past": 0.7386,
+        "ndwi_now": 0.7386,
+        "wind": 3.1416,
+        "temp": 3.1416,
+        "drought": 1.4661
+      },
+      "bridge_fired": false,
+      "bridge_rate": 0.1303,
+      "bridge_threshold": 0.5,
+      "random_seed": 20260634,
+      "zz": {
+        "zz_01": 0.5467,
+        "zz_12": -0.7394,
+        "zz_23": 1.0,
+        "zz_34": -0.1045
+      },
+      "qte_score": 0.398
     }
   ]
 }

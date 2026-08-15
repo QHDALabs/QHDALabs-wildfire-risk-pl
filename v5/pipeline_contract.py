@@ -12,7 +12,7 @@ from enum import StrEnum
 from pathlib import Path
 from typing import Any
 
-EXPECTED_NODE_COUNT = 33
+EXPECTED_NODE_COUNT = 34
 SCHEMA_VERSION = 2
 
 

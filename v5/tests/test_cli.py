@@ -4,7 +4,14 @@ import subprocess
 import sys
 from pathlib import Path
 
+from pipeline_contract import EXPECTED_NODE_COUNT
+from qhdalabs_wildfire_topology_v1 import RDLP_WROCLAW_NODES
+
 SCRIPT = Path(__file__).parents[1] / "qhdalabs_wildfire_ignition_v1.py"
+
+
+def test_topology_node_contract_matches_dataset_size() -> None:
+    assert EXPECTED_NODE_COUNT == len(RDLP_WROCLAW_NODES) == 34
 
 
 def test_refresh_firms_is_accepted_by_parser() -> None:
