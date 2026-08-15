@@ -288,6 +288,13 @@ RDLP_WROCLAW_NODES: list[dict] = [
         "lon": 14.999,
         "eco": "pine",
     },
+    {
+        "id": "bogatynia",
+        "name": "Bogatynia",
+        "lat": 51.250,
+        "lon": 16.167,
+        "eco": "mixed",
+    },
 ]
 
 
