@@ -8,7 +8,7 @@ porównać wynik z rastrem EFFIS.
 
 | Skrypt | Rola |
 | --- | --- |
-| `qhdalabs_wildfire_topology_v1.py` | Budowa grafu i wzbogacenie 33 węzłów |
+| `qhdalabs_wildfire_topology_v1.py` | Budowa grafu i wzbogacenie 34 węzłów |
 | `qhdalabs_wildfire_sentinel_v1.py` | Stres roślinności Sentinel-2 NDWI |
 | `qhdalabs_wildfire_qte_v1.py` | Sygnał Quantum Temporal Encoder |
 | `qhdalabs_wildfire_ignition_v1.py` | Presja zapłonu i kontrola coverage |
@@ -244,20 +244,25 @@ produkcyjną przed pełną walidacją.
 
 ## Status źródeł
 
-Stan zweryfikowany 24 lipca 2026:
+Stan zweryfikowany 16 sierpnia 2026 (runtime: `run_all.py` / `.venv`):
 
 | Źródło | Status | Uwagi |
 | --- | --- | --- |
-| NASA FIRMS | Dostępne z `MAP_KEY` | Area API, okna od 1 do 5 dni |
-| OSM Geofabrik | Dostępne | Parser wymaga osmium lub drivera GDAL OSM |
-| BDOT10k WN i SN | Dostępne | Lokalne GeoPackage |
-| EEA CLC 2018 | Dostępne | Oficjalna warstwa ArcGIS, paginacja po 1000 |
-| ARiMR LPIS | Opcjonalne ręczne | Publiczny URL nie zwraca poprawnego HTTP |
-| IBL KSIPL | Opcjonalne ręczne | Dawny GeoServer WFS zwraca HTTP 404 |
-| EFFIS | Opcjonalne ręczne | Brak automatycznego źródła hotspotów |
+| NASA FIRMS VIIRS | Dostępne z `MAP_KEY` | `historical_kde` oraz cache `firms_viirs_dolnoslaskie_2025.csv`; okna 1–5 dni, checkpointy i walidacja checksum |
+| OSM Geofabrik | Dostępne | `roads`, `railways`, `tourism` z extractu dolnośląskiego; parser wymaga `osmium`, Pyogrio lub Fiona |
+| BDOT10k WN i SN | Dostępne | `powerlines` z lokalnych plików `wn.gpkg` i `sn.gpkg`; firmy GIS-Support, brak uwierzytelniania |
+| EEA CLC 2018 | Dostępne | `agriculture` fallback z oficjalnej warstwy ArcGIS, paginacja po 1000 obiektów |
+| ARiMR LPIS | Opcjonalne / ręczne | Publiczny endpoint nie jest kompatybilny z obecnym WFS; pipeline automatycznie przechodzi do CLC |
+| IBL KSIPL | Opcjonalne / ręczne | Dawny GeoServer WFS zwraca 404; wymagany lokalny GeoJSON, brak automatycznego pobierania |
+| EFFIS | Opcjonalne / ręczne | Brak auto-pobierania hotspotów; obsługiwany jako raster manualny z `--with-effis` |
+| Open-Meteo Archive | Dostępne publicznie | `weather_history` dla 14 dni z throttlingiem, aby uniknąć HTTP 429 i limitów API |
 
 Nie należy zakładać automatycznej dostępności LPIS ani IBL. Pipeline nie
-wyłącza weryfikacji TLS i nie utrzymuje martwego URL jako fallbacku.
+wyłącza weryfikacji TLS i nie utrzymuje martwego URL jako fallbacku. Dla
+`powerlines` oraz `roads`/`railways`/`tourism` źródła są aktywne i weryfikowane
+lokalnie w cache GIS, a dla `agriculture` preferowany jest LPIS, a fallback
+CLC. Open-Meteo ma dodatkowy limiter zapytań, bo 34 węzły pobierające pogodę
+równolegle mogły zakończyć się 429.
 
 ## Model coverage
 
