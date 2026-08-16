@@ -1,6 +1,6 @@
 # QHDALabs Wildfire Risk PL v5
 
-Pipeline v5 buduje graf nadleśnictw Dolnego Śląska, oblicza presję zapłonu,
+Pipeline v5 buduje graf 34 węzłów Dolnego Śląska, oblicza presję zapłonu,
 stres roślinności Sentinel-2, sygnał QTE i wynik fusion, a następnie może
 porównać wynik z rastrem EFFIS.
 
@@ -8,8 +8,8 @@ porównać wynik z rastrem EFFIS.
 
 | Skrypt | Rola |
 | --- | --- |
-| `qhdalabs_wildfire_topology_v1.py` | Budowa grafu i wzbogacenie 34 węzłów |
-| `qhdalabs_wildfire_sentinel_v1.py` | Stres roślinności Sentinel-2 NDWI |
+| `qhdalabs_wildfire_topology_v1.py` | Budowa grafu i wzbogacenie 34 węzłów (nodes) |
+| `qhdalabs_wildfire_sentinel_v1.py` | Stres roślinności Sentinel-2 NDWI dla węzłów |
 | `qhdalabs_wildfire_qte_v1.py` | Sygnał Quantum Temporal Encoder |
 | `qhdalabs_wildfire_ignition_v1.py` | Presja zapłonu i kontrola coverage |
 | `qhdalabs_wildfire_fusion_v1.py` | Wynik fusion oraz FEI i QIES |
@@ -84,7 +84,7 @@ Pipeline nigdy nie dołącza fragmentów SP do NRT ani nie uruchamia NRT po
 częściowym pobraniu SP. Każdy produkt ma osobny katalog checkpointów.
 
 `--refresh-firms` pobiera lub wznawia pełny rok 2025 w oknach po najwyżej pięć
-dni. Każde okno jest walidowane i atomowo zapisywane jako:
+dni. Każde okno jest walidowane i atomowo zapisywane jako dane dla węzłów:
 
 ```text
 topology/ignition_cache/firms_parts/<SOURCE>/2025-01-01.csv
@@ -219,7 +219,7 @@ i jest zapisywane wyłącznie jako
 `topology/diagnostics/ignition_scores_partial_<timestamp>.json`.
 Nie zastępuje ostatniego poprawnego `topology/ignition_scores.json`.
 
-Pochodne OSM, powerlines i agriculture są przechowywane w
+Pochodne OSM, powerlines i agriculture dla węzłów są przechowywane w
 `topology/ignition_cache/derived`. Fingerprint zawiera ścieżkę, rozmiar,
 mtime, parser, backend, CRS i wersję schematu. Niezmienione dane źródłowe nie
 są ponownie parsowane.
@@ -277,10 +277,10 @@ Wagi pełnego modelu wynoszą:
 | Rolnictwo | 0.15 |
 | Historyczne hotspoty | 0.10 |
 
-Brak danych ma wartość JSON `null`. Rzeczywisty wynik warstwy równy zero ma
-wartość `0.0`.
+Brak danych ma wartość JSON `null`. Rzeczywisty wynik warstwy dla danego
+węzła równy zero ma wartość `0.0`.
 
-Każdy rekord zawiera:
+Każdy rekord węzła zawiera:
 
 - `data_coverage`
 - `missing_sublayers`
