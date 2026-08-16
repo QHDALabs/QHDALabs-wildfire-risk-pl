@@ -50,6 +50,7 @@ import math
 import os
 import pickle
 import tempfile
+import threading
 import time
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from datetime import datetime, timedelta, timezone
@@ -89,9 +90,31 @@ CACHE_DIR = ".cache_topology"
 CACHE_TTL = 21600  # 6 hours
 OUTPUT_DIR = "topology"
 HTTP_TIMEOUT = 15
+WEATHER_REQUEST_GAP_SECONDS = 0.6
 
 os.makedirs(CACHE_DIR, exist_ok=True)
 os.makedirs(OUTPUT_DIR, exist_ok=True)
+
+
+class RequestRateLimiter:
+    """Simple cross-thread limiter for external API calls."""
+
+    def __init__(self, min_interval_seconds: float) -> None:
+        self.min_interval_seconds = min_interval_seconds
+        self._last_request_at: float | None = None
+        self._lock = threading.Lock()
+
+    def wait(self) -> None:
+        if self.min_interval_seconds <= 0:
+            return
+        with self._lock:
+            now = time.monotonic()
+            if self._last_request_at is not None:
+                remaining = self.min_interval_seconds - (now - self._last_request_at)
+                if remaining > 0:
+                    time.sleep(remaining)
+                    now = time.monotonic()
+            self._last_request_at = now
 
 # =========================
 # ECOSYSTEM FIRE RISK FACTORS
@@ -316,6 +339,7 @@ def _build_session() -> requests.Session:
 
 
 HTTP = _build_session()
+WEATHER_RATE_LIMITER = RequestRateLimiter(WEATHER_REQUEST_GAP_SECONDS)
 
 
 # =========================
@@ -453,6 +477,7 @@ def fetch_weather_history(node: dict, days: int = WEATHER_DAYS) -> dict | None:
         "timezone": "Europe/Warsaw",
     }
     try:
+        WEATHER_RATE_LIMITER.wait()
         resp = HTTP.get(url, params=params, timeout=HTTP_TIMEOUT)
         resp.raise_for_status()
         raw = resp.json()

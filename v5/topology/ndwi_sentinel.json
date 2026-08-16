@@ -1,10 +1,10 @@
 {
   "version": "2.0.0",
   "schema_version": 2,
-  "generated_at": "2026-08-15T21:47:21.454683+00:00",
+  "generated_at": "2026-08-16T12:45:37.728936+00:00",
   "ndwi_days": 30,
-  "nodes_ok": 33,
-  "nodes_cloudy": 1,
+  "nodes_ok": 34,
+  "nodes_cloudy": 0,
   "index_definitions": {
     "ndwi_surface_water": {
       "name": "ndwi_surface_water",
@@ -3202,6 +3202,103 @@
       "ndwi_latest": 0.107,
       "ndwi_trend_14d": -0.03185,
       "ndwi_stress_latest": 0.4465,
+      "stress_mapping": {
+        "formula": "(1 - vegetation_moisture_index) / 2",
+        "thresholds": {},
+        "calibration_status": "uncalibrated",
+        "operational": false
+      },
+      "calibration_status": "uncalibrated",
+      "quality_flags": [
+        "cloud_masked",
+        "vegetation_moisture_index_uncalibrated",
+        "sentinel_b11_is_not_gao_1_24um"
+      ],
+      "n_observations": 3
+    },
+    "bogatynia": {
+      "node_id": "bogatynia",
+      "node_name": "Bogatynia",
+      "data_source": "sentinel2_L2A",
+      "fetch_date": "2026-08-16T12:29:35.559299+00:00",
+      "indices": {
+        "ndwi_surface_water": {
+          "name": "ndwi_surface_water",
+          "formula": "(B03 - B08) / (B03 + B08)",
+          "bands": [
+            "B03",
+            "B08"
+          ],
+          "resolution_m": 10,
+          "methodological_source": "Green-NIR surface-water index; this is not the Gao (1996) vegetation liquid-water index",
+          "unit": "dimensionless",
+          "algorithm_version": "2.0.0",
+          "calibration_status": "uncalibrated",
+          "raw_series": [
+            -0.6368,
+            -0.6068,
+            -0.608
+          ],
+          "dates": [
+            "2026-07-17",
+            "2026-07-27",
+            "2026-08-06"
+          ],
+          "quality_flags": [
+            "cloud_masked",
+            "vegetation_moisture_index_uncalibrated",
+            "sentinel_b11_is_not_gao_1_24um"
+          ]
+        },
+        "vegetation_moisture_index": {
+          "name": "vegetation_moisture_index",
+          "formula": "(B8A - B11) / (B8A + B11)",
+          "bands": [
+            "B8A",
+            "B11"
+          ],
+          "resolution_m": 20,
+          "methodological_source": "NIR-SWIR canopy-moisture formulation motivated by Gao (1996), DOI 10.1016/S0034-4257(96)00067-3; Sentinel-2 B11 at 1.61 µm is an approximation, not Gao's 1.24 µm channel",
+          "unit": "dimensionless",
+          "algorithm_version": "2.0.0",
+          "calibration_status": "uncalibrated",
+          "raw_series": [
+            0.2385,
+            0.2005,
+            0.1737
+          ],
+          "dates": [
+            "2026-07-17",
+            "2026-07-27",
+            "2026-08-06"
+          ],
+          "quality_flags": [
+            "cloud_masked",
+            "vegetation_moisture_index_uncalibrated",
+            "sentinel_b11_is_not_gao_1_24um"
+          ]
+        }
+      },
+      "dates": [
+        "2026-07-17",
+        "2026-07-27",
+        "2026-08-06"
+      ],
+      "ndwi_values": [
+        0.2385,
+        0.2005,
+        0.1737
+      ],
+      "valid_pixel_fraction": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "ndwi_mean_30d": 0.2042,
+      "ndwi_min_30d": 0.1737,
+      "ndwi_latest": 0.1737,
+      "ndwi_trend_14d": -0.0324,
+      "ndwi_stress_latest": 0.4132,
       "stress_mapping": {
         "formula": "(1 - vegetation_moisture_index) / 2",
         "thresholds": {},

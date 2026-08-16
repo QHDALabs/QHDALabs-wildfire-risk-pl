@@ -1,6 +1,6 @@
 {
   "version": "2.0.0",
-  "generated_at": "2026-08-15T21:47:25.653230+00:00",
+  "generated_at": "2026-08-16T12:45:40.123178+00:00",
   "algorithm": "conditional_cz_bridge (qmnet)",
   "n_qubits": 5,
   "bridge_distribution": {
@@ -41,7 +41,7 @@
       0.4552,
       0.3465,
       0.3942,
-      0.1303
+      0.3451
     ]
   },
   "calibration_status": "uncalibrated",
@@ -63,8 +63,8 @@
         "ndwi_past": 1.2538,
         "ndwi_now": 1.2623,
         "wind": 3.1416,
-        "temp": 3.1416,
-        "drought": 0.8378
+        "temp": 2.5342,
+        "drought": 0.9425
       },
       "bridge_fired": false,
       "bridge_rate": 0.3441,
@@ -73,10 +73,10 @@
       "zz": {
         "zz_01": 0.0946,
         "zz_12": -0.3036,
-        "zz_23": 1.0,
-        "zz_34": -0.6691
+        "zz_23": 0.8211,
+        "zz_34": -0.4827
       },
-      "qte_score": 0.4084
+      "qte_score": 0.3349
     },
     {
       "node_id": "boleslawiec",
@@ -86,9 +86,9 @@
       "theta_encoding": {
         "ndwi_past": 1.3545,
         "ndwi_now": 1.3606,
-        "wind": 3.1416,
-        "temp": 3.1416,
-        "drought": 1.1519
+        "wind": 3.0369,
+        "temp": 1.9897,
+        "drought": 1.2566
       },
       "bridge_fired": false,
       "bridge_rate": 0.3927,
@@ -96,11 +96,11 @@
       "random_seed": 20260602,
       "zz": {
         "zz_01": 0.0448,
-        "zz_12": -0.2086,
-        "zz_23": 1.0,
-        "zz_34": -0.4067
+        "zz_12": -0.2075,
+        "zz_23": 0.4045,
+        "zz_34": -0.1257
       },
-      "qte_score": 0.3143
+      "qte_score": 0.1543
     },
     {
       "node_id": "bystrzyca",
@@ -111,8 +111,8 @@
         "ndwi_past": 1.3165,
         "ndwi_now": 1.3269,
         "wind": 3.1416,
-        "temp": 3.1416,
-        "drought": 0.8378
+        "temp": 2.597,
+        "drought": 0.9425
       },
       "bridge_fired": false,
       "bridge_rate": 0.3742,
@@ -121,10 +121,10 @@
       "zz": {
         "zz_01": 0.0608,
         "zz_12": -0.2415,
-        "zz_23": 1.0,
-        "zz_34": -0.6691
+        "zz_23": 0.8554,
+        "zz_34": -0.5028
       },
-      "qte_score": 0.3897
+      "qte_score": 0.3265
     },
     {
       "node_id": "gory_stolowe",
@@ -135,8 +135,8 @@
         "ndwi_past": 1.1575,
         "ndwi_now": 1.1572,
         "wind": 3.1416,
-        "temp": 3.1416,
-        "drought": 0.8378
+        "temp": 2.3248,
+        "drought": 0.9425
       },
       "bridge_fired": false,
       "bridge_rate": 0.2992,
@@ -145,10 +145,10 @@
       "zz": {
         "zz_01": 0.1614,
         "zz_12": -0.4019,
-        "zz_23": 1.0,
-        "zz_34": -0.6691
+        "zz_23": 0.6845,
+        "zz_34": -0.4024
       },
-      "qte_score": 0.4379
+      "qte_score": 0.3238
     },
     {
       "node_id": "jawor",
@@ -158,9 +158,9 @@
       "theta_encoding": {
         "ndwi_past": 1.5755,
         "ndwi_now": 1.6688,
-        "wind": 2.9845,
-        "temp": 3.1416,
-        "drought": 0.9425
+        "wind": 3.1416,
+        "temp": 2.1153,
+        "drought": 1.0472
       },
       "bridge_fired": true,
       "bridge_rate": 0.5024,
@@ -168,11 +168,11 @@
       "random_seed": 20260605,
       "zz": {
         "zz_01": 0.0005,
-        "zz_12": 0.0967,
-        "zz_23": 0.9877,
-        "zz_34": -0.5878
+        "zz_12": 0.0979,
+        "zz_23": 0.518,
+        "zz_34": -0.259
       },
-      "qte_score": 0.4241
+      "qte_score": 0.2718
     },
     {
       "node_id": "jugow",
@@ -183,8 +183,8 @@
         "ndwi_past": 1.2466,
         "ndwi_now": 1.2621,
         "wind": 3.1416,
-        "temp": 3.1416,
-        "drought": 0.8378
+        "temp": 2.2829,
+        "drought": 0.9425
       },
       "bridge_fired": false,
       "bridge_rate": 0.3407,
@@ -193,10 +193,10 @@
       "zz": {
         "zz_01": 0.0968,
         "zz_12": -0.3038,
-        "zz_23": 1.0,
-        "zz_34": -0.6691
+        "zz_23": 0.6534,
+        "zz_34": -0.3841
       },
-      "qte_score": 0.4084
+      "qte_score": 0.2852
     },
     {
       "node_id": "kamienna_gora",
@@ -207,8 +207,8 @@
         "ndwi_past": 1.2961,
         "ndwi_now": 1.3006,
         "wind": 3.1416,
-        "temp": 3.1416,
-        "drought": 0.9425
+        "temp": 1.9478,
+        "drought": 1.0472
       },
       "bridge_fired": false,
       "bridge_rate": 0.3644,
@@ -217,10 +217,10 @@
       "zz": {
         "zz_01": 0.0724,
         "zz_12": -0.2669,
-        "zz_23": 1.0,
-        "zz_34": -0.5878
+        "zz_23": 0.3681,
+        "zz_34": -0.1841
       },
-      "qte_score": 0.377
+      "qte_score": 0.1813
     },
     {
       "node_id": "klodzko",
@@ -231,8 +231,8 @@
         "ndwi_past": 1.3581,
         "ndwi_now": 1.3729,
         "wind": 3.1416,
-        "temp": 3.1416,
-        "drought": 0.8378
+        "temp": 2.7018,
+        "drought": 0.9425
       },
       "bridge_fired": false,
       "bridge_rate": 0.3945,
@@ -241,10 +241,10 @@
       "zz": {
         "zz_01": 0.0415,
         "zz_12": -0.1966,
-        "zz_23": 1.0,
-        "zz_34": -0.6691
+        "zz_23": 0.9048,
+        "zz_34": -0.5318
       },
-      "qte_score": 0.3763
+      "qte_score": 0.3277
     },
     {
       "node_id": "ladek",
@@ -255,8 +255,8 @@
         "ndwi_past": 1.1172,
         "ndwi_now": 1.1036,
         "wind": 3.1416,
-        "temp": 3.1416,
-        "drought": 0.8378
+        "temp": 2.3248,
+        "drought": 0.9425
       },
       "bridge_fired": false,
       "bridge_rate": 0.2809,
@@ -265,10 +265,10 @@
       "zz": {
         "zz_01": 0.1974,
         "zz_12": -0.4503,
-        "zz_23": 1.0,
-        "zz_34": -0.6691
+        "zz_23": 0.6845,
+        "zz_34": -0.4024
       },
-      "qte_score": 0.4524
+      "qte_score": 0.3384
     },
     {
       "node_id": "legnica",
@@ -279,7 +279,7 @@
         "ndwi_past": 1.456,
         "ndwi_now": 1.4835,
         "wind": 3.1416,
-        "temp": 3.1416,
+        "temp": 2.3667,
         "drought": 1.4661
       },
       "bridge_fired": false,
@@ -289,10 +289,10 @@
       "zz": {
         "zz_01": 0.01,
         "zz_12": -0.0872,
-        "zz_23": 1.0,
-        "zz_34": -0.1045
+        "zz_23": 0.7145,
+        "zz_34": -0.0747
       },
-      "qte_score": 0.2023
+      "qte_score": 0.152
     },
     {
       "node_id": "lesna",
@@ -303,8 +303,8 @@
         "ndwi_past": 1.1963,
         "ndwi_now": 1.2296,
         "wind": 3.1416,
-        "temp": 3.1416,
-        "drought": 1.1519
+        "temp": 1.7174,
+        "drought": 1.2566
       },
       "bridge_fired": false,
       "bridge_rate": 0.3171,
@@ -313,10 +313,10 @@
       "zz": {
         "zz_01": 0.1224,
         "zz_12": -0.3346,
-        "zz_23": 1.0,
-        "zz_34": -0.4067
+        "zz_23": 0.1461,
+        "zz_34": -0.0451
       },
-      "qte_score": 0.3521
+      "qte_score": 0.1336
     },
     {
       "node_id": "lubin",
@@ -327,8 +327,8 @@
         "ndwi_past": 1.2956,
         "ndwi_now": 1.3336,
         "wind": 3.1416,
-        "temp": 3.1416,
-        "drought": 0.9425
+        "temp": 2.1363,
+        "drought": 1.0472
       },
       "bridge_fired": false,
       "bridge_rate": 0.3641,
@@ -337,10 +337,10 @@
       "zz": {
         "zz_01": 0.0639,
         "zz_12": -0.235,
-        "zz_23": 1.0,
-        "zz_34": -0.5878
+        "zz_23": 0.5358,
+        "zz_34": -0.2679
       },
-      "qte_score": 0.3674
+      "qte_score": 0.2178
     },
     {
       "node_id": "lwowek",
@@ -351,8 +351,8 @@
         "ndwi_past": 1.3509,
         "ndwi_now": 1.3913,
         "wind": 3.1416,
-        "temp": 3.1416,
-        "drought": 1.0472
+        "temp": 2.0106,
+        "drought": 0.0
       },
       "bridge_fired": false,
       "bridge_rate": 0.3909,
@@ -361,10 +361,10 @@
       "zz": {
         "zz_01": 0.039,
         "zz_12": -0.1786,
-        "zz_23": 1.0,
-        "zz_34": -0.5
+        "zz_23": 0.4258,
+        "zz_34": -0.4258
       },
-      "qte_score": 0.3286
+      "qte_score": 0.2239
     },
     {
       "node_id": "miekinia",
@@ -375,8 +375,8 @@
         "ndwi_past": 1.4286,
         "ndwi_now": 1.4717,
         "wind": 3.1416,
-        "temp": 3.1416,
-        "drought": 0.9425
+        "temp": 2.3667,
+        "drought": 1.0472
       },
       "bridge_fired": false,
       "bridge_rate": 0.4292,
@@ -385,10 +385,10 @@
       "zz": {
         "zz_01": 0.014,
         "zz_12": -0.099,
-        "zz_23": 1.0,
-        "zz_34": -0.5878
+        "zz_23": 0.7145,
+        "zz_34": -0.3572
       },
-      "qte_score": 0.3266
+      "qte_score": 0.2262
     },
     {
       "node_id": "milicz",
@@ -399,8 +399,8 @@
         "ndwi_past": 1.1947,
         "ndwi_now": 1.1819,
         "wind": 3.1416,
-        "temp": 3.1416,
-        "drought": 0.9425
+        "temp": 2.241,
+        "drought": 1.0472
       },
       "bridge_fired": false,
       "bridge_rate": 0.3164,
@@ -409,10 +409,10 @@
       "zz": {
         "zz_01": 0.1393,
         "zz_12": -0.3792,
-        "zz_23": 1.0,
-        "zz_34": -0.5878
+        "zz_23": 0.6211,
+        "zz_34": -0.3106
       },
-      "qte_score": 0.4107
+      "qte_score": 0.2846
     },
     {
       "node_id": "mysliborskie",
@@ -423,7 +423,7 @@
         "ndwi_past": 1.0083,
         "ndwi_now": 1.078,
         "wind": 3.1416,
-        "temp": 3.1416,
+        "temp": 2.0106,
         "drought": 1.4661
       },
       "bridge_fired": false,
@@ -433,10 +433,10 @@
       "zz": {
         "zz_01": 0.2523,
         "zz_12": -0.4731,
-        "zz_23": 1.0,
-        "zz_34": -0.1045
+        "zz_23": 0.4258,
+        "zz_34": -0.0445
       },
-      "qte_score": 0.318
+      "qte_score": 0.2169
     },
     {
       "node_id": "olesnica",
@@ -447,8 +447,8 @@
         "ndwi_past": 1.3367,
         "ndwi_now": 1.4594,
         "wind": 3.1416,
-        "temp": 3.1416,
-        "drought": 0.9425
+        "temp": 2.4295,
+        "drought": 1.0472
       },
       "bridge_fired": false,
       "bridge_rate": 0.384,
@@ -457,10 +457,10 @@
       "zz": {
         "zz_01": 0.0258,
         "zz_12": -0.1111,
-        "zz_23": 1.0,
-        "zz_34": -0.5878
+        "zz_23": 0.757,
+        "zz_34": -0.3785
       },
-      "qte_score": 0.3303
+      "qte_score": 0.2415
     },
     {
       "node_id": "olawa",
@@ -471,8 +471,8 @@
         "ndwi_past": 1.3788,
         "ndwi_now": 1.4533,
         "wind": 3.1416,
-        "temp": 3.1416,
-        "drought": 0.9425
+        "temp": 2.4086,
+        "drought": 1.0472
       },
       "bridge_fired": false,
       "bridge_rate": 0.4046,
@@ -481,10 +481,10 @@
       "zz": {
         "zz_01": 0.0224,
         "zz_12": -0.1172,
-        "zz_23": 1.0,
-        "zz_34": -0.5878
+        "zz_23": 0.7431,
+        "zz_34": -0.3716
       },
-      "qte_score": 0.3321
+      "qte_score": 0.2395
     },
     {
       "node_id": "piszowice",
@@ -495,8 +495,8 @@
         "ndwi_past": 1.3556,
         "ndwi_now": 1.3828,
         "wind": 3.1416,
-        "temp": 3.1416,
-        "drought": 1.0472
+        "temp": 1.864,
+        "drought": 0.0
       },
       "bridge_fired": false,
       "bridge_rate": 0.3932,
@@ -505,10 +505,10 @@
       "zz": {
         "zz_01": 0.0399,
         "zz_12": -0.1869,
-        "zz_23": 1.0,
-        "zz_34": -0.5
+        "zz_23": 0.289,
+        "zz_34": -0.289
       },
-      "qte_score": 0.3311
+      "qte_score": 0.1717
     },
     {
       "node_id": "prudnik",
@@ -519,8 +519,8 @@
         "ndwi_past": 1.3459,
         "ndwi_now": 1.358,
         "wind": 3.1416,
-        "temp": 3.1416,
-        "drought": 0.5236
+        "temp": 2.5133,
+        "drought": 0.6283
       },
       "bridge_fired": false,
       "bridge_rate": 0.3885,
@@ -529,10 +529,10 @@
       "zz": {
         "zz_01": 0.0471,
         "zz_12": -0.2112,
-        "zz_23": 1.0,
-        "zz_34": -0.866
+        "zz_23": 0.809,
+        "zz_34": -0.6545
       },
-      "qte_score": 0.4299
+      "qte_score": 0.3484
     },
     {
       "node_id": "ruszow",
@@ -543,7 +543,7 @@
         "ndwi_past": 1.1882,
         "ndwi_now": 1.2339,
         "wind": 3.1416,
-        "temp": 3.1416,
+        "temp": 2.0525,
         "drought": 1.4661
       },
       "bridge_fired": false,
@@ -553,10 +553,10 @@
       "zz": {
         "zz_01": 0.1234,
         "zz_12": -0.3306,
-        "zz_23": 1.0,
-        "zz_34": -0.1045
+        "zz_23": 0.4633,
+        "zz_34": -0.0484
       },
-      "qte_score": 0.2753
+      "qte_score": 0.1808
     },
     {
       "node_id": "rychtal",
@@ -567,8 +567,8 @@
         "ndwi_past": 1.4443,
         "ndwi_now": 1.5158,
         "wind": 3.1416,
-        "temp": 3.1416,
-        "drought": 0.8378
+        "temp": 2.7227,
+        "drought": 0.9425
       },
       "bridge_fired": false,
       "bridge_rate": 0.4369,
@@ -577,10 +577,10 @@
       "zz": {
         "zz_01": 0.0069,
         "zz_12": -0.055,
-        "zz_23": 1.0,
-        "zz_34": -0.6691
+        "zz_23": 0.9135,
+        "zz_34": -0.537
       },
-      "qte_score": 0.3338
+      "qte_score": 0.2878
     },
     {
       "node_id": "sycow",
@@ -591,8 +591,8 @@
         "ndwi_past": 1.2775,
         "ndwi_now": 1.3631,
         "wind": 3.1416,
-        "temp": 3.1416,
-        "drought": 0.9425
+        "temp": 2.4923,
+        "drought": 1.0472
       },
       "bridge_fired": false,
       "bridge_rate": 0.3555,
@@ -601,10 +601,10 @@
       "zz": {
         "zz_01": 0.0596,
         "zz_12": -0.2062,
-        "zz_23": 1.0,
-        "zz_34": -0.5878
+        "zz_23": 0.7965,
+        "zz_34": -0.3983
       },
-      "qte_score": 0.3588
+      "qte_score": 0.2809
     },
     {
       "node_id": "szklarska",
@@ -615,8 +615,8 @@
         "ndwi_past": 1.0457,
         "ndwi_now": 1.0201,
         "wind": 3.1416,
-        "temp": 2.8484,
-        "drought": 0.9425
+        "temp": 1.2566,
+        "drought": 1.0472
       },
       "bridge_fired": false,
       "bridge_rate": 0.2493,
@@ -625,10 +625,10 @@
       "zz": {
         "zz_01": 0.2623,
         "zz_12": -0.5233,
-        "zz_23": 0.9573,
-        "zz_34": -0.5627
+        "zz_23": -0.309,
+        "zz_34": 0.1545
       },
-      "qte_score": 0.4413
+      "qte_score": 0.242
     },
     {
       "node_id": "swidnica",
@@ -639,8 +639,8 @@
         "ndwi_past": 1.4346,
         "ndwi_now": 1.4258,
         "wind": 3.1416,
-        "temp": 3.1416,
-        "drought": 0.9425
+        "temp": 2.4086,
+        "drought": 1.0472
       },
       "bridge_fired": false,
       "bridge_rate": 0.4321,
@@ -649,10 +649,10 @@
       "zz": {
         "zz_01": 0.0196,
         "zz_12": -0.1445,
-        "zz_23": 1.0,
-        "zz_34": -0.5878
+        "zz_23": 0.7431,
+        "zz_34": -0.3716
       },
-      "qte_score": 0.3403
+      "qte_score": 0.2477
     },
     {
       "node_id": "swietoszow",
@@ -663,8 +663,8 @@
         "ndwi_past": 1.2632,
         "ndwi_now": 1.3399,
         "wind": 3.1416,
-        "temp": 3.1416,
-        "drought": 1.4661
+        "temp": 1.9478,
+        "drought": 0.0
       },
       "bridge_fired": false,
       "bridge_rate": 0.3486,
@@ -673,10 +673,10 @@
       "zz": {
         "zz_01": 0.0693,
         "zz_12": -0.2289,
-        "zz_23": 1.0,
-        "zz_34": -0.1045
+        "zz_23": 0.3681,
+        "zz_34": -0.3681
       },
-      "qte_score": 0.2448
+      "qte_score": 0.2159
     },
     {
       "node_id": "walbrzych",
@@ -687,8 +687,8 @@
         "ndwi_past": 1.1737,
         "ndwi_now": 1.1759,
         "wind": 3.1416,
-        "temp": 3.1416,
-        "drought": 0.9425
+        "temp": 1.9897,
+        "drought": 1.0472
       },
       "bridge_fired": false,
       "bridge_rate": 0.3066,
@@ -697,10 +697,10 @@
       "zz": {
         "zz_01": 0.1488,
         "zz_12": -0.3847,
-        "zz_23": 1.0,
-        "zz_34": -0.5878
+        "zz_23": 0.4067,
+        "zz_34": -0.2034
       },
-      "qte_score": 0.4124
+      "qte_score": 0.2273
     },
     {
       "node_id": "wegliniec",
@@ -711,8 +711,8 @@
         "ndwi_past": 1.104,
         "ndwi_now": 1.1011,
         "wind": 3.1416,
-        "temp": 3.1416,
-        "drought": 1.1519
+        "temp": 2.0106,
+        "drought": 1.2566
       },
       "bridge_fired": false,
       "bridge_rate": 0.275,
@@ -721,10 +721,10 @@
       "zz": {
         "zz_01": 0.2037,
         "zz_12": -0.4526,
-        "zz_23": 1.0,
-        "zz_34": -0.4067
+        "zz_23": 0.4258,
+        "zz_34": -0.1316
       },
-      "qte_score": 0.3875
+      "qte_score": 0.2325
     },
     {
       "node_id": "wolow",
@@ -735,8 +735,8 @@
         "ndwi_past": 1.2431,
         "ndwi_now": 1.286,
         "wind": 3.1416,
-        "temp": 3.1416,
-        "drought": 0.9425
+        "temp": 2.241,
+        "drought": 1.0472
       },
       "bridge_fired": false,
       "bridge_rate": 0.3391,
@@ -745,10 +745,10 @@
       "zz": {
         "zz_01": 0.0904,
         "zz_12": -0.281,
-        "zz_23": 1.0,
-        "zz_34": -0.5878
+        "zz_23": 0.6211,
+        "zz_34": -0.3106
       },
-      "qte_score": 0.3812
+      "qte_score": 0.2551
     },
     {
       "node_id": "wroclaw",
@@ -759,8 +759,8 @@
         "ndwi_past": 1.3443,
         "ndwi_now": 1.3798,
         "wind": 3.1416,
-        "temp": 3.1416,
-        "drought": 0.8378
+        "temp": 2.4086,
+        "drought": 0.9425
       },
       "bridge_fired": false,
       "bridge_rate": 0.3877,
@@ -769,10 +769,10 @@
       "zz": {
         "zz_01": 0.0426,
         "zz_12": -0.1898,
-        "zz_23": 1.0,
-        "zz_34": -0.6691
+        "zz_23": 0.7431,
+        "zz_34": -0.4368
       },
-      "qte_score": 0.3742
+      "qte_score": 0.2776
     },
     {
       "node_id": "zlotoryja",
@@ -783,8 +783,8 @@
         "ndwi_past": 1.4811,
         "ndwi_now": 1.5029,
         "wind": 3.1416,
-        "temp": 3.1416,
-        "drought": 1.1519
+        "temp": 2.0944,
+        "drought": 0.0
       },
       "bridge_fired": false,
       "bridge_rate": 0.4552,
@@ -793,10 +793,10 @@
       "zz": {
         "zz_01": 0.0061,
         "zz_12": -0.0678,
-        "zz_23": 1.0,
-        "zz_34": -0.4067
+        "zz_23": 0.5,
+        "zz_34": -0.5
       },
-      "qte_score": 0.272
+      "qte_score": 0.2203
     },
     {
       "node_id": "zmigrod",
@@ -807,8 +807,8 @@
         "ndwi_past": 1.2587,
         "ndwi_now": 1.3086,
         "wind": 3.1416,
-        "temp": 3.1416,
-        "drought": 0.9425
+        "temp": 2.1991,
+        "drought": 1.0472
       },
       "bridge_fired": false,
       "bridge_rate": 0.3465,
@@ -817,10 +817,10 @@
       "zz": {
         "zz_01": 0.0796,
         "zz_12": -0.2592,
-        "zz_23": 1.0,
-        "zz_34": -0.5878
+        "zz_23": 0.5878,
+        "zz_34": -0.2939
       },
-      "qte_score": 0.3747
+      "qte_score": 0.2394
     },
     {
       "node_id": "zgorzelec",
@@ -831,7 +831,7 @@
         "ndwi_past": 1.3576,
         "ndwi_now": 1.4027,
         "wind": 3.1416,
-        "temp": 3.1416,
+        "temp": 2.0735,
         "drought": 1.4661
       },
       "bridge_fired": false,
@@ -841,10 +841,10 @@
       "zz": {
         "zz_01": 0.0354,
         "zz_12": -0.1673,
-        "zz_23": 1.0,
-        "zz_34": -0.1045
+        "zz_23": 0.4818,
+        "zz_34": -0.0504
       },
-      "qte_score": 0.2263
+      "qte_score": 0.135
     },
     {
       "node_id": "bogatynia",
@@ -852,23 +852,23 @@
       "backend": "qiskit_statevector",
       "backend_version": "2.5.1",
       "theta_encoding": {
-        "ndwi_past": 0.7386,
-        "ndwi_now": 0.7386,
+        "ndwi_past": 1.2559,
+        "ndwi_now": 1.2979,
         "wind": 3.1416,
-        "temp": 3.1416,
+        "temp": 1.9897,
         "drought": 1.4661
       },
       "bridge_fired": false,
-      "bridge_rate": 0.1303,
+      "bridge_rate": 0.3451,
       "bridge_threshold": 0.5,
       "random_seed": 20260634,
       "zz": {
-        "zz_01": 0.5467,
-        "zz_12": -0.7394,
-        "zz_23": 1.0,
-        "zz_34": -0.1045
+        "zz_01": 0.0835,
+        "zz_12": -0.2695,
+        "zz_23": 0.4067,
+        "zz_34": -0.0425
       },
-      "qte_score": 0.398
+      "qte_score": 0.1525
     }
   ]
 }

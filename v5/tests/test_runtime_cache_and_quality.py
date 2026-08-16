@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+import time
 from pathlib import Path
 from types import SimpleNamespace
 
@@ -13,7 +14,7 @@ import qhdalabs_wildfire_qte_v1 as qte
 import qhdalabs_wildfire_sentinel_v1 as sentinel
 import qhdalabs_wildfire_topology_v1 as topology
 import run_all
-from pipeline_contract import StepStatus, atomic_write_json
+from pipeline_contract import EXPECTED_NODE_COUNT, StepStatus, atomic_write_json
 
 
 def sentinel_node(index: int) -> dict:
@@ -65,11 +66,62 @@ def ignition_features() -> dict[str, list[tuple[float, float]]]:
     }
 
 
+def test_weather_history_applies_minimum_spacing_between_requests(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    timestamps: list[float] = []
+
+    def fake_get(url: str, params: dict | None = None, timeout: float | None = None):
+        timestamps.append(time.monotonic())
+
+        class FakeResponse:
+            status_code = 200
+            headers = {}
+
+            def raise_for_status(self) -> None:
+                return None
+
+            def json(self) -> dict:
+                return {
+                    "hourly": {
+                        "time": ["2026-08-16T00:00:00"],
+                        "temperature_2m": [20.0],
+                        "relative_humidity_2m": [60.0],
+                        "wind_speed_10m": [5.0],
+                        "precipitation": [0.0],
+                        "soil_moisture_0_to_1cm": [0.25],
+                        "vapour_pressure_deficit": [1.0],
+                    }
+                }
+
+        return FakeResponse()
+
+    monkeypatch.setattr(topology, "HTTP", SimpleNamespace(get=fake_get))
+    monkeypatch.setattr(
+        topology,
+        "WEATHER_RATE_LIMITER",
+        topology.RequestRateLimiter(min_interval_seconds=0.02),
+    )
+
+    nodes = [
+        {"id": f"n{i}", "name": f"Node {i}", "lat": 51.0 + i * 0.1, "lon": 16.0 + i * 0.1, "eco": "mixed"}
+        for i in range(3)
+    ]
+    monkeypatch.setattr(topology, "_cache_get", lambda key: None)
+    monkeypatch.setattr(topology, "_cache_set", lambda key, data: None)
+
+    for node in nodes:
+        topology.fetch_weather_history(node, days=1)
+
+    assert len(timestamps) == 3
+    assert all((b - a) >= 0.02 for a, b in zip(timestamps, timestamps[1:]))
+
+
 def test_all_fresh_sentinel_entries_skip_auth_and_http(
     tmp_path: Path,
     monkeypatch: pytest.MonkeyPatch,
 ) -> None:
-    nodes = [sentinel_node(index) for index in range(33)]
+    nodes = [sentinel_node(index) for index in range(EXPECTED_NODE_COUNT)]
     topology = tmp_path / "nodes.json"
     graph = tmp_path / "graph.json"
     atomic_write_json(topology, {"nodes": nodes})
@@ -94,12 +146,12 @@ def test_all_fresh_sentinel_entries_skip_auth_and_http(
         str(graph),
     )
 
-    assert len(results) == 33
+    assert len(results) == EXPECTED_NODE_COUNT
     assert sentinel._network_state["api_requests"] == 0
     manifest = json.loads(
         (tmp_path / "topology/pipeline_steps/sentinel.json").read_text(encoding="utf-8")
     )
-    assert manifest["cache_hits"] == 33
+    assert manifest["cache_hits"] == EXPECTED_NODE_COUNT
     assert manifest["api_requests"] == 0
 
 
@@ -145,7 +197,7 @@ def test_low_coverage_does_not_replace_last_known_good(
             [16.0],
             ["historical_kde"],
         )
-        for index in range(33)
+        for index in range(EXPECTED_NODE_COUNT)
     ]
 
     published = ignition._save_ignition_scores(scores)
@@ -169,13 +221,13 @@ def test_ninety_percent_coverage_is_published_atomically(
             [],
             coverage,
         )
-        for index in range(33)
+        for index in range(EXPECTED_NODE_COUNT)
     ]
 
     ignition._save_ignition_scores(scores)
 
     payload = json.loads(output.read_text(encoding="utf-8"))
-    assert len(payload["scores"]) == 33
+    assert len(payload["scores"]) == EXPECTED_NODE_COUNT
     assert all(score["coverage_percent"] == 90.0 for score in payload["scores"])
     assert all(score["valid_for_fusion"] for score in payload["scores"])
 
