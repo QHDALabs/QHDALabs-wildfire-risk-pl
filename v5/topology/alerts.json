@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-08-16T12:46:54.769932+00:00",
+  "generated_at": "2026-08-19T09:40:32.106446+00:00",
   "alert_count": 1,
   "alerts": [
     {
@@ -10,12 +10,12 @@
       "node_name": "Jawor",
       "lat": 51.041,
       "lon": 16.197,
-      "score": 0.7226,
+      "score": 0.6894,
       "eco": "mixed",
       "bridge_fired": true,
       "ndwi_latest": -0.0624,
-      "drought_days": 10,
-      "reason": "NDWI stress 1.00 × eco 1.00 | QTE score 0.272 × eco 1.00",
+      "drought_days": 0,
+      "reason": "NDWI stress 1.00 × eco 1.00 | Sequential dry→wind pattern confirmed 🔥",
       "pipeline_status": "SUCCESS",
       "operational_validity": false,
       "data_quality_flags": [],
