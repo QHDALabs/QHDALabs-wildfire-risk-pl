@@ -1,7 +1,7 @@
 {
   "version": "2.1.0",
   "schema_version": 2,
-  "generated_at": "2026-08-23T19:29:57.608376+00:00",
+  "generated_at": "2026-08-23T19:47:12.382115+00:00",
   "ndwi_days": 30,
   "nodes_ok": 34,
   "nodes_cloudy": 0,
@@ -149,7 +149,7 @@
         "stale_acquisition"
       ],
       "n_observations": 3,
-      "acquisition_age_days": 18.81,
+      "acquisition_age_days": 18.82,
       "acquisition_latest": "2026-08-05",
       "max_acquisition_age_days": 14,
       "acquisition_stale": true
@@ -251,7 +251,7 @@
         "stale_acquisition"
       ],
       "n_observations": 3,
-      "acquisition_age_days": 18.81,
+      "acquisition_age_days": 18.82,
       "acquisition_latest": "2026-08-05",
       "max_acquisition_age_days": 14,
       "acquisition_stale": true
@@ -353,7 +353,7 @@
         "stale_acquisition"
       ],
       "n_observations": 3,
-      "acquisition_age_days": 18.81,
+      "acquisition_age_days": 18.82,
       "acquisition_latest": "2026-08-05",
       "max_acquisition_age_days": 14,
       "acquisition_stale": true
@@ -455,7 +455,7 @@
         "stale_acquisition"
       ],
       "n_observations": 3,
-      "acquisition_age_days": 18.81,
+      "acquisition_age_days": 18.82,
       "acquisition_latest": "2026-08-05",
       "max_acquisition_age_days": 14,
       "acquisition_stale": true
@@ -550,7 +550,7 @@
         "stale_acquisition"
       ],
       "n_observations": 2,
-      "acquisition_age_days": 18.81,
+      "acquisition_age_days": 18.82,
       "acquisition_latest": "2026-08-05",
       "max_acquisition_age_days": 14,
       "acquisition_stale": true
@@ -652,7 +652,7 @@
         "stale_acquisition"
       ],
       "n_observations": 3,
-      "acquisition_age_days": 18.81,
+      "acquisition_age_days": 18.82,
       "acquisition_latest": "2026-08-05",
       "max_acquisition_age_days": 14,
       "acquisition_stale": true
@@ -754,7 +754,7 @@
         "stale_acquisition"
       ],
       "n_observations": 3,
-      "acquisition_age_days": 18.81,
+      "acquisition_age_days": 18.82,
       "acquisition_latest": "2026-08-05",
       "max_acquisition_age_days": 14,
       "acquisition_stale": true
@@ -856,7 +856,7 @@
         "stale_acquisition"
       ],
       "n_observations": 3,
-      "acquisition_age_days": 18.81,
+      "acquisition_age_days": 18.82,
       "acquisition_latest": "2026-08-05",
       "max_acquisition_age_days": 14,
       "acquisition_stale": true
@@ -958,7 +958,7 @@
         "stale_acquisition"
       ],
       "n_observations": 3,
-      "acquisition_age_days": 18.81,
+      "acquisition_age_days": 18.82,
       "acquisition_latest": "2026-08-05",
       "max_acquisition_age_days": 14,
       "acquisition_stale": true
@@ -1060,7 +1060,7 @@
         "stale_acquisition"
       ],
       "n_observations": 3,
-      "acquisition_age_days": 18.81,
+      "acquisition_age_days": 18.82,
       "acquisition_latest": "2026-08-05",
       "max_acquisition_age_days": 14,
       "acquisition_stale": true
@@ -1162,7 +1162,7 @@
         "stale_acquisition"
       ],
       "n_observations": 3,
-      "acquisition_age_days": 18.81,
+      "acquisition_age_days": 18.82,
       "acquisition_latest": "2026-08-05",
       "max_acquisition_age_days": 14,
       "acquisition_stale": true
@@ -1264,7 +1264,7 @@
         "stale_acquisition"
       ],
       "n_observations": 3,
-      "acquisition_age_days": 18.81,
+      "acquisition_age_days": 18.82,
       "acquisition_latest": "2026-08-05",
       "max_acquisition_age_days": 14,
       "acquisition_stale": true
@@ -1366,7 +1366,7 @@
         "stale_acquisition"
       ],
       "n_observations": 3,
-      "acquisition_age_days": 18.81,
+      "acquisition_age_days": 18.82,
       "acquisition_latest": "2026-08-05",
       "max_acquisition_age_days": 14,
       "acquisition_stale": true
@@ -1468,7 +1468,7 @@
         "stale_acquisition"
       ],
       "n_observations": 3,
-      "acquisition_age_days": 18.81,
+      "acquisition_age_days": 18.82,
       "acquisition_latest": "2026-08-05",
       "max_acquisition_age_days": 14,
       "acquisition_stale": true
@@ -1570,7 +1570,7 @@
         "stale_acquisition"
       ],
       "n_observations": 3,
-      "acquisition_age_days": 18.81,
+      "acquisition_age_days": 18.82,
       "acquisition_latest": "2026-08-05",
       "max_acquisition_age_days": 14,
       "acquisition_stale": true
@@ -1672,7 +1672,7 @@
         "stale_acquisition"
       ],
       "n_observations": 3,
-      "acquisition_age_days": 18.81,
+      "acquisition_age_days": 18.82,
       "acquisition_latest": "2026-08-05",
       "max_acquisition_age_days": 14,
       "acquisition_stale": true
@@ -1774,7 +1774,7 @@
         "stale_acquisition"
       ],
       "n_observations": 3,
-      "acquisition_age_days": 18.81,
+      "acquisition_age_days": 18.82,
       "acquisition_latest": "2026-08-05",
       "max_acquisition_age_days": 14,
       "acquisition_stale": true
@@ -1876,7 +1876,7 @@
         "stale_acquisition"
       ],
       "n_observations": 3,
-      "acquisition_age_days": 18.81,
+      "acquisition_age_days": 18.82,
       "acquisition_latest": "2026-08-05",
       "max_acquisition_age_days": 14,
       "acquisition_stale": true
@@ -1978,7 +1978,7 @@
         "stale_acquisition"
       ],
       "n_observations": 3,
-      "acquisition_age_days": 18.81,
+      "acquisition_age_days": 18.82,
       "acquisition_latest": "2026-08-05",
       "max_acquisition_age_days": 14,
       "acquisition_stale": true
@@ -2080,7 +2080,7 @@
         "stale_acquisition"
       ],
       "n_observations": 3,
-      "acquisition_age_days": 18.81,
+      "acquisition_age_days": 18.82,
       "acquisition_latest": "2026-08-05",
       "max_acquisition_age_days": 14,
       "acquisition_stale": true
@@ -2182,7 +2182,7 @@
         "stale_acquisition"
       ],
       "n_observations": 3,
-      "acquisition_age_days": 18.81,
+      "acquisition_age_days": 18.82,
       "acquisition_latest": "2026-08-05",
       "max_acquisition_age_days": 14,
       "acquisition_stale": true
@@ -2277,7 +2277,7 @@
         "stale_acquisition"
       ],
       "n_observations": 2,
-      "acquisition_age_days": 18.81,
+      "acquisition_age_days": 18.82,
       "acquisition_latest": "2026-08-05",
       "max_acquisition_age_days": 14,
       "acquisition_stale": true
@@ -2372,7 +2372,7 @@
         "stale_acquisition"
       ],
       "n_observations": 2,
-      "acquisition_age_days": 18.81,
+      "acquisition_age_days": 18.82,
       "acquisition_latest": "2026-08-05",
       "max_acquisition_age_days": 14,
       "acquisition_stale": true
@@ -2474,7 +2474,7 @@
         "stale_acquisition"
       ],
       "n_observations": 3,
-      "acquisition_age_days": 18.81,
+      "acquisition_age_days": 18.82,
       "acquisition_latest": "2026-08-05",
       "max_acquisition_age_days": 14,
       "acquisition_stale": true
@@ -2576,7 +2576,7 @@
         "stale_acquisition"
       ],
       "n_observations": 3,
-      "acquisition_age_days": 18.81,
+      "acquisition_age_days": 18.82,
       "acquisition_latest": "2026-08-05",
       "max_acquisition_age_days": 14,
       "acquisition_stale": true
@@ -2678,7 +2678,7 @@
         "stale_acquisition"
       ],
       "n_observations": 3,
-      "acquisition_age_days": 18.81,
+      "acquisition_age_days": 18.82,
       "acquisition_latest": "2026-08-05",
       "max_acquisition_age_days": 14,
       "acquisition_stale": true
@@ -2780,7 +2780,7 @@
         "stale_acquisition"
       ],
       "n_observations": 3,
-      "acquisition_age_days": 18.81,
+      "acquisition_age_days": 18.82,
       "acquisition_latest": "2026-08-05",
       "max_acquisition_age_days": 14,
       "acquisition_stale": true
@@ -2882,7 +2882,7 @@
         "stale_acquisition"
       ],
       "n_observations": 3,
-      "acquisition_age_days": 18.81,
+      "acquisition_age_days": 18.82,
       "acquisition_latest": "2026-08-05",
       "max_acquisition_age_days": 14,
       "acquisition_stale": true
@@ -2984,7 +2984,7 @@
         "stale_acquisition"
       ],
       "n_observations": 3,
-      "acquisition_age_days": 18.81,
+      "acquisition_age_days": 18.82,
       "acquisition_latest": "2026-08-05",
       "max_acquisition_age_days": 14,
       "acquisition_stale": true
@@ -3086,7 +3086,7 @@
         "stale_acquisition"
       ],
       "n_observations": 3,
-      "acquisition_age_days": 18.81,
+      "acquisition_age_days": 18.82,
       "acquisition_latest": "2026-08-05",
       "max_acquisition_age_days": 14,
       "acquisition_stale": true
@@ -3188,7 +3188,7 @@
         "stale_acquisition"
       ],
       "n_observations": 3,
-      "acquisition_age_days": 18.81,
+      "acquisition_age_days": 18.82,
       "acquisition_latest": "2026-08-05",
       "max_acquisition_age_days": 14,
       "acquisition_stale": true
@@ -3290,7 +3290,7 @@
         "stale_acquisition"
       ],
       "n_observations": 3,
-      "acquisition_age_days": 18.81,
+      "acquisition_age_days": 18.82,
       "acquisition_latest": "2026-08-05",
       "max_acquisition_age_days": 14,
       "acquisition_stale": true
@@ -3392,7 +3392,7 @@
         "stale_acquisition"
       ],
       "n_observations": 3,
-      "acquisition_age_days": 18.81,
+      "acquisition_age_days": 18.82,
       "acquisition_latest": "2026-08-05",
       "max_acquisition_age_days": 14,
       "acquisition_stale": true
@@ -3494,7 +3494,7 @@
         "stale_acquisition"
       ],
       "n_observations": 3,
-      "acquisition_age_days": 17.81,
+      "acquisition_age_days": 17.82,
       "acquisition_latest": "2026-08-06",
       "max_acquisition_age_days": 14,
       "acquisition_stale": true

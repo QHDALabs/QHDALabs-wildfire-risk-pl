@@ -1,6 +1,6 @@
 {
   "version": "2.0.0",
-  "generated_at": "2026-08-23T19:30:01.574299+00:00",
+  "generated_at": "2026-08-23T19:47:16.554522+00:00",
   "algorithm": "conditional_cz_bridge (qmnet)",
   "n_qubits": 5,
   "bridge_distribution": {

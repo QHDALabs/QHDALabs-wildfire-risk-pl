@@ -1,6 +1,6 @@
 {
   "version": "2.0.0",
-  "generated_at": "2026-08-23T19:29:57.620216+00:00",
+  "generated_at": "2026-08-23T19:47:12.399563+00:00",
   "data_sources": [
     "open_meteo_archive",
     "sentinel2_L2A"
@@ -324,7 +324,7 @@
           "stale_acquisition"
         ],
         "n_observations": 3,
-        "acquisition_age_days": 18.81,
+        "acquisition_age_days": 18.82,
         "acquisition_latest": "2026-08-05",
         "max_acquisition_age_days": 14,
         "acquisition_stale": true
@@ -334,7 +334,7 @@
       "ndwi_stress_normalised": 0.3734,
       "ndwi_trend_14d": -0.0171,
       "acquisition_latest": "2026-08-05",
-      "acquisition_age_days": 18.81,
+      "acquisition_age_days": 18.82,
       "acquisition_stale": true
     },
     {
@@ -654,7 +654,7 @@
           "stale_acquisition"
         ],
         "n_observations": 3,
-        "acquisition_age_days": 18.81,
+        "acquisition_age_days": 18.82,
         "acquisition_latest": "2026-08-05",
         "max_acquisition_age_days": 14,
         "acquisition_stale": true
@@ -664,7 +664,7 @@
       "ndwi_stress_normalised": 0.5249,
       "ndwi_trend_14d": -0.0319,
       "acquisition_latest": "2026-08-05",
-      "acquisition_age_days": 18.81,
+      "acquisition_age_days": 18.82,
       "acquisition_stale": true
     },
     {
@@ -984,7 +984,7 @@
           "stale_acquisition"
         ],
         "n_observations": 3,
-        "acquisition_age_days": 18.81,
+        "acquisition_age_days": 18.82,
         "acquisition_latest": "2026-08-05",
         "max_acquisition_age_days": 14,
         "acquisition_stale": true
@@ -994,7 +994,7 @@
       "ndwi_stress_normalised": 0.4731,
       "ndwi_trend_14d": -0.0211,
       "acquisition_latest": "2026-08-05",
-      "acquisition_age_days": 18.81,
+      "acquisition_age_days": 18.82,
       "acquisition_stale": true
     },
     {
@@ -1314,7 +1314,7 @@
           "stale_acquisition"
         ],
         "n_observations": 3,
-        "acquisition_age_days": 18.81,
+        "acquisition_age_days": 18.82,
         "acquisition_latest": "2026-08-05",
         "max_acquisition_age_days": 14,
         "acquisition_stale": true
@@ -1324,7 +1324,7 @@
       "ndwi_stress_normalised": 0.2116,
       "ndwi_trend_14d": -0.02075,
       "acquisition_latest": "2026-08-05",
-      "acquisition_age_days": 18.81,
+      "acquisition_age_days": 18.82,
       "acquisition_stale": true
     },
     {
@@ -1637,7 +1637,7 @@
           "stale_acquisition"
         ],
         "n_observations": 2,
-        "acquisition_age_days": 18.81,
+        "acquisition_age_days": 18.82,
         "acquisition_latest": "2026-08-05",
         "max_acquisition_age_days": 14,
         "acquisition_stale": true
@@ -1647,7 +1647,7 @@
       "ndwi_stress_normalised": 1.0,
       "ndwi_trend_14d": -0.0594,
       "acquisition_latest": "2026-08-05",
-      "acquisition_age_days": 18.81,
+      "acquisition_age_days": 18.82,
       "acquisition_stale": true
     },
     {
@@ -1967,7 +1967,7 @@
           "stale_acquisition"
         ],
         "n_observations": 3,
-        "acquisition_age_days": 18.81,
+        "acquisition_age_days": 18.82,
         "acquisition_latest": "2026-08-05",
         "max_acquisition_age_days": 14,
         "acquisition_stale": true
@@ -1977,7 +1977,7 @@
       "ndwi_stress_normalised": 0.3729,
       "ndwi_trend_14d": -0.03085,
       "acquisition_latest": "2026-08-05",
-      "acquisition_age_days": 18.81,
+      "acquisition_age_days": 18.82,
       "acquisition_stale": true
     },
     {
@@ -2297,7 +2297,7 @@
           "stale_acquisition"
         ],
         "n_observations": 3,
-        "acquisition_age_days": 18.81,
+        "acquisition_age_days": 18.82,
         "acquisition_latest": "2026-08-05",
         "max_acquisition_age_days": 14,
         "acquisition_stale": true
@@ -2307,7 +2307,7 @@
       "ndwi_stress_normalised": 0.4324,
       "ndwi_trend_14d": -0.0196,
       "acquisition_latest": "2026-08-05",
-      "acquisition_age_days": 18.81,
+      "acquisition_age_days": 18.82,
       "acquisition_stale": true
     },
     {
@@ -2627,7 +2627,7 @@
           "stale_acquisition"
         ],
         "n_observations": 3,
-        "acquisition_age_days": 18.81,
+        "acquisition_age_days": 18.82,
         "acquisition_latest": "2026-08-05",
         "max_acquisition_age_days": 14,
         "acquisition_stale": true
@@ -2637,7 +2637,7 @@
       "ndwi_stress_normalised": 0.5438,
       "ndwi_trend_14d": -0.02925,
       "acquisition_latest": "2026-08-05",
-      "acquisition_age_days": 18.81,
+      "acquisition_age_days": 18.82,
       "acquisition_stale": true
     },
     {
@@ -2957,7 +2957,7 @@
           "stale_acquisition"
         ],
         "n_observations": 3,
-        "acquisition_age_days": 18.81,
+        "acquisition_age_days": 18.82,
         "acquisition_latest": "2026-08-05",
         "max_acquisition_age_days": 14,
         "acquisition_stale": true
@@ -2967,7 +2967,7 @@
       "ndwi_stress_normalised": 0.1288,
       "ndwi_trend_14d": -0.0021,
       "acquisition_latest": "2026-08-05",
-      "acquisition_age_days": 18.81,
+      "acquisition_age_days": 18.82,
       "acquisition_stale": true
     },
     {
@@ -3287,7 +3287,7 @@
           "stale_acquisition"
         ],
         "n_observations": 3,
-        "acquisition_age_days": 18.81,
+        "acquisition_age_days": 18.82,
         "acquisition_latest": "2026-08-05",
         "max_acquisition_age_days": 14,
         "acquisition_stale": true
@@ -3297,7 +3297,7 @@
       "ndwi_stress_normalised": 0.7143,
       "ndwi_trend_14d": -0.02685,
       "acquisition_latest": "2026-08-05",
-      "acquisition_age_days": 18.81,
+      "acquisition_age_days": 18.82,
       "acquisition_stale": true
     },
     {
@@ -3617,7 +3617,7 @@
           "stale_acquisition"
         ],
         "n_observations": 3,
-        "acquisition_age_days": 18.81,
+        "acquisition_age_days": 18.82,
         "acquisition_latest": "2026-08-05",
         "max_acquisition_age_days": 14,
         "acquisition_stale": true
@@ -3627,7 +3627,7 @@
       "ndwi_stress_normalised": 0.323,
       "ndwi_trend_14d": -0.0341,
       "acquisition_latest": "2026-08-05",
-      "acquisition_age_days": 18.81,
+      "acquisition_age_days": 18.82,
       "acquisition_stale": true
     },
     {
@@ -3947,7 +3947,7 @@
           "stale_acquisition"
         ],
         "n_observations": 3,
-        "acquisition_age_days": 18.81,
+        "acquisition_age_days": 18.82,
         "acquisition_latest": "2026-08-05",
         "max_acquisition_age_days": 14,
         "acquisition_stale": true
@@ -3957,7 +3957,7 @@
       "ndwi_stress_normalised": 0.4833,
       "ndwi_trend_14d": -0.0346,
       "acquisition_latest": "2026-08-05",
-      "acquisition_age_days": 18.81,
+      "acquisition_age_days": 18.82,
       "acquisition_stale": true
     },
     {
@@ -4277,7 +4277,7 @@
           "stale_acquisition"
         ],
         "n_observations": 3,
-        "acquisition_age_days": 18.81,
+        "acquisition_age_days": 18.82,
         "acquisition_latest": "2026-08-05",
         "max_acquisition_age_days": 14,
         "acquisition_stale": true
@@ -4287,7 +4287,7 @@
       "ndwi_stress_normalised": 0.5724,
       "ndwi_trend_14d": -0.04795,
       "acquisition_latest": "2026-08-05",
-      "acquisition_age_days": 18.81,
+      "acquisition_age_days": 18.82,
       "acquisition_stale": true
     },
     {
@@ -4607,7 +4607,7 @@
           "stale_acquisition"
         ],
         "n_observations": 3,
-        "acquisition_age_days": 18.81,
+        "acquisition_age_days": 18.82,
         "acquisition_latest": "2026-08-05",
         "max_acquisition_age_days": 14,
         "acquisition_stale": true
@@ -4617,7 +4617,7 @@
       "ndwi_stress_normalised": 0.6959,
       "ndwi_trend_14d": -0.02365,
       "acquisition_latest": "2026-08-05",
-      "acquisition_age_days": 18.81,
+      "acquisition_age_days": 18.82,
       "acquisition_stale": true
     },
     {
@@ -4937,7 +4937,7 @@
           "stale_acquisition"
         ],
         "n_observations": 3,
-        "acquisition_age_days": 18.81,
+        "acquisition_age_days": 18.82,
         "acquisition_latest": "2026-08-05",
         "max_acquisition_age_days": 14,
         "acquisition_stale": true
@@ -4947,7 +4947,7 @@
       "ndwi_stress_normalised": 0.2494,
       "ndwi_trend_14d": -0.04775,
       "acquisition_latest": "2026-08-05",
-      "acquisition_age_days": 18.81,
+      "acquisition_age_days": 18.82,
       "acquisition_stale": true
     },
     {
@@ -5267,7 +5267,7 @@
           "stale_acquisition"
         ],
         "n_observations": 3,
-        "acquisition_age_days": 18.81,
+        "acquisition_age_days": 18.82,
         "acquisition_latest": "2026-08-05",
         "max_acquisition_age_days": 14,
         "acquisition_stale": true
@@ -5277,7 +5277,7 @@
       "ndwi_stress_normalised": 0.0896,
       "ndwi_trend_14d": -0.0094,
       "acquisition_latest": "2026-08-05",
-      "acquisition_age_days": 18.81,
+      "acquisition_age_days": 18.82,
       "acquisition_stale": true
     },
     {
@@ -5597,7 +5597,7 @@
           "stale_acquisition"
         ],
         "n_observations": 3,
-        "acquisition_age_days": 18.81,
+        "acquisition_age_days": 18.82,
         "acquisition_latest": "2026-08-05",
         "max_acquisition_age_days": 14,
         "acquisition_stale": true
@@ -5607,7 +5607,7 @@
       "ndwi_stress_normalised": 0.6775,
       "ndwi_trend_14d": -0.06,
       "acquisition_latest": "2026-08-05",
-      "acquisition_age_days": 18.81,
+      "acquisition_age_days": 18.82,
       "acquisition_stale": true
     },
     {
@@ -5927,7 +5927,7 @@
           "stale_acquisition"
         ],
         "n_observations": 3,
-        "acquisition_age_days": 18.81,
+        "acquisition_age_days": 18.82,
         "acquisition_latest": "2026-08-05",
         "max_acquisition_age_days": 14,
         "acquisition_stale": true
@@ -5937,7 +5937,7 @@
       "ndwi_stress_normalised": 0.6678,
       "ndwi_trend_14d": -0.0405,
       "acquisition_latest": "2026-08-05",
-      "acquisition_age_days": 18.81,
+      "acquisition_age_days": 18.82,
       "acquisition_stale": true
     },
     {
@@ -6257,7 +6257,7 @@
           "stale_acquisition"
         ],
         "n_observations": 3,
-        "acquisition_age_days": 18.81,
+        "acquisition_age_days": 18.82,
         "acquisition_latest": "2026-08-05",
         "max_acquisition_age_days": 14,
         "acquisition_stale": true
@@ -6267,7 +6267,7 @@
       "ndwi_stress_normalised": 0.5588,
       "ndwi_trend_14d": -0.03985,
       "acquisition_latest": "2026-08-05",
-      "acquisition_age_days": 18.81,
+      "acquisition_age_days": 18.82,
       "acquisition_stale": true
     },
     {
@@ -6587,7 +6587,7 @@
           "stale_acquisition"
         ],
         "n_observations": 3,
-        "acquisition_age_days": 18.81,
+        "acquisition_age_days": 18.82,
         "acquisition_latest": "2026-08-05",
         "max_acquisition_age_days": 14,
         "acquisition_stale": true
@@ -6597,7 +6597,7 @@
       "ndwi_stress_normalised": 0.5211,
       "ndwi_trend_14d": -0.0129,
       "acquisition_latest": "2026-08-05",
-      "acquisition_age_days": 18.81,
+      "acquisition_age_days": 18.82,
       "acquisition_stale": true
     },
     {
@@ -6917,7 +6917,7 @@
           "stale_acquisition"
         ],
         "n_observations": 3,
-        "acquisition_age_days": 18.81,
+        "acquisition_age_days": 18.82,
         "acquisition_latest": "2026-08-05",
         "max_acquisition_age_days": 14,
         "acquisition_stale": true
@@ -6927,7 +6927,7 @@
       "ndwi_stress_normalised": 0.3293,
       "ndwi_trend_14d": -0.01765,
       "acquisition_latest": "2026-08-05",
-      "acquisition_age_days": 18.81,
+      "acquisition_age_days": 18.82,
       "acquisition_stale": true
     },
     {
@@ -7240,7 +7240,7 @@
           "stale_acquisition"
         ],
         "n_observations": 2,
-        "acquisition_age_days": 18.81,
+        "acquisition_age_days": 18.82,
         "acquisition_latest": "2026-08-05",
         "max_acquisition_age_days": 14,
         "acquisition_stale": true
@@ -7250,7 +7250,7 @@
       "ndwi_stress_normalised": 0.7642,
       "ndwi_trend_14d": -0.0455,
       "acquisition_latest": "2026-08-05",
-      "acquisition_age_days": 18.81,
+      "acquisition_age_days": 18.82,
       "acquisition_stale": true
     },
     {
@@ -7563,7 +7563,7 @@
           "stale_acquisition"
         ],
         "n_observations": 2,
-        "acquisition_age_days": 18.81,
+        "acquisition_age_days": 18.82,
         "acquisition_latest": "2026-08-05",
         "max_acquisition_age_days": 14,
         "acquisition_stale": true
@@ -7573,7 +7573,7 @@
       "ndwi_stress_normalised": 0.5288,
       "ndwi_trend_14d": -0.0545,
       "acquisition_latest": "2026-08-05",
-      "acquisition_age_days": 18.81,
+      "acquisition_age_days": 18.82,
       "acquisition_stale": true
     },
     {
@@ -7893,7 +7893,7 @@
           "stale_acquisition"
         ],
         "n_observations": 3,
-        "acquisition_age_days": 18.81,
+        "acquisition_age_days": 18.82,
         "acquisition_latest": "2026-08-05",
         "max_acquisition_age_days": 14,
         "acquisition_stale": true
@@ -7903,7 +7903,7 @@
       "ndwi_stress_normalised": 0.0,
       "ndwi_trend_14d": -0.00765,
       "acquisition_latest": "2026-08-05",
-      "acquisition_age_days": 18.81,
+      "acquisition_age_days": 18.82,
       "acquisition_stale": true
     },
     {
@@ -8223,7 +8223,7 @@
           "stale_acquisition"
         ],
         "n_observations": 3,
-        "acquisition_age_days": 18.81,
+        "acquisition_age_days": 18.82,
         "acquisition_latest": "2026-08-05",
         "max_acquisition_age_days": 14,
         "acquisition_stale": true
@@ -8233,7 +8233,7 @@
       "ndwi_stress_normalised": 0.6252,
       "ndwi_trend_14d": -0.0272,
       "acquisition_latest": "2026-08-05",
-      "acquisition_age_days": 18.81,
+      "acquisition_age_days": 18.82,
       "acquisition_stale": true
     },
     {
@@ -8553,7 +8553,7 @@
           "stale_acquisition"
         ],
         "n_observations": 3,
-        "acquisition_age_days": 18.81,
+        "acquisition_age_days": 18.82,
         "acquisition_latest": "2026-08-05",
         "max_acquisition_age_days": 14,
         "acquisition_stale": true
@@ -8563,7 +8563,7 @@
       "ndwi_stress_normalised": 0.493,
       "ndwi_trend_14d": -0.0209,
       "acquisition_latest": "2026-08-05",
-      "acquisition_age_days": 18.81,
+      "acquisition_age_days": 18.82,
       "acquisition_stale": true
     },
     {
@@ -8883,7 +8883,7 @@
           "stale_acquisition"
         ],
         "n_observations": 3,
-        "acquisition_age_days": 18.81,
+        "acquisition_age_days": 18.82,
         "acquisition_latest": "2026-08-05",
         "max_acquisition_age_days": 14,
         "acquisition_stale": true
@@ -8893,7 +8893,7 @@
       "ndwi_stress_normalised": 0.2402,
       "ndwi_trend_14d": -0.02095,
       "acquisition_latest": "2026-08-05",
-      "acquisition_age_days": 18.81,
+      "acquisition_age_days": 18.82,
       "acquisition_stale": true
     },
     {
@@ -9213,7 +9213,7 @@
           "stale_acquisition"
         ],
         "n_observations": 3,
-        "acquisition_age_days": 18.81,
+        "acquisition_age_days": 18.82,
         "acquisition_latest": "2026-08-05",
         "max_acquisition_age_days": 14,
         "acquisition_stale": true
@@ -9223,7 +9223,7 @@
       "ndwi_stress_normalised": 0.1249,
       "ndwi_trend_14d": -0.01275,
       "acquisition_latest": "2026-08-05",
-      "acquisition_age_days": 18.81,
+      "acquisition_age_days": 18.82,
       "acquisition_stale": true
     },
     {
@@ -9543,7 +9543,7 @@
           "stale_acquisition"
         ],
         "n_observations": 3,
-        "acquisition_age_days": 18.81,
+        "acquisition_age_days": 18.82,
         "acquisition_latest": "2026-08-05",
         "max_acquisition_age_days": 14,
         "acquisition_stale": true
@@ -9553,7 +9553,7 @@
       "ndwi_stress_normalised": 0.4097,
       "ndwi_trend_14d": -0.0394,
       "acquisition_latest": "2026-08-05",
-      "acquisition_age_days": 18.81,
+      "acquisition_age_days": 18.82,
       "acquisition_stale": true
     },
     {
@@ -9873,7 +9873,7 @@
           "stale_acquisition"
         ],
         "n_observations": 3,
-        "acquisition_age_days": 18.81,
+        "acquisition_age_days": 18.82,
         "acquisition_latest": "2026-08-05",
         "max_acquisition_age_days": 14,
         "acquisition_stale": true
@@ -9883,7 +9883,7 @@
       "ndwi_stress_normalised": 0.5545,
       "ndwi_trend_14d": -0.02505,
       "acquisition_latest": "2026-08-05",
-      "acquisition_age_days": 18.81,
+      "acquisition_age_days": 18.82,
       "acquisition_stale": true
     },
     {
@@ -10203,7 +10203,7 @@
           "stale_acquisition"
         ],
         "n_observations": 3,
-        "acquisition_age_days": 18.81,
+        "acquisition_age_days": 18.82,
         "acquisition_latest": "2026-08-05",
         "max_acquisition_age_days": 14,
         "acquisition_stale": true
@@ -10213,7 +10213,7 @@
       "ndwi_stress_normalised": 0.7443,
       "ndwi_trend_14d": -0.05385,
       "acquisition_latest": "2026-08-05",
-      "acquisition_age_days": 18.81,
+      "acquisition_age_days": 18.82,
       "acquisition_stale": true
     },
     {
@@ -10533,7 +10533,7 @@
           "stale_acquisition"
         ],
         "n_observations": 3,
-        "acquisition_age_days": 18.81,
+        "acquisition_age_days": 18.82,
         "acquisition_latest": "2026-08-05",
         "max_acquisition_age_days": 14,
         "acquisition_stale": true
@@ -10543,7 +10543,7 @@
       "ndwi_stress_normalised": 0.4446,
       "ndwi_trend_14d": -0.04015,
       "acquisition_latest": "2026-08-05",
-      "acquisition_age_days": 18.81,
+      "acquisition_age_days": 18.82,
       "acquisition_stale": true
     },
     {
@@ -10863,7 +10863,7 @@
           "stale_acquisition"
         ],
         "n_observations": 3,
-        "acquisition_age_days": 18.81,
+        "acquisition_age_days": 18.82,
         "acquisition_latest": "2026-08-05",
         "max_acquisition_age_days": 14,
         "acquisition_stale": true
@@ -10873,7 +10873,7 @@
       "ndwi_stress_normalised": 0.5898,
       "ndwi_trend_14d": -0.03185,
       "acquisition_latest": "2026-08-05",
-      "acquisition_age_days": 18.81,
+      "acquisition_age_days": 18.82,
       "acquisition_stale": true
     },
     {
@@ -11193,7 +11193,7 @@
           "stale_acquisition"
         ],
         "n_observations": 3,
-        "acquisition_age_days": 17.81,
+        "acquisition_age_days": 17.82,
         "acquisition_latest": "2026-08-06",
         "max_acquisition_age_days": 14,
         "acquisition_stale": true
@@ -11203,7 +11203,7 @@
       "ndwi_stress_normalised": 0.4286,
       "ndwi_trend_14d": -0.0324,
       "acquisition_latest": "2026-08-06",
-      "acquisition_age_days": 17.81,
+      "acquisition_age_days": 17.82,
       "acquisition_stale": true
     }
   ]
