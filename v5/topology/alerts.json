@@ -1,29 +1,6 @@
 {
-  "version": "1.0.0",
-  "generated_at": "2026-08-19T09:40:32.106446+00:00",
-  "alert_count": 1,
-  "alerts": [
-    {
-      "priority": 2,
-      "tier": "HIGH",
-      "node_id": "jawor",
-      "node_name": "Jawor",
-      "lat": 51.041,
-      "lon": 16.197,
-      "score": 0.6894,
-      "eco": "mixed",
-      "bridge_fired": true,
-      "ndwi_latest": -0.0624,
-      "drought_days": 0,
-      "reason": "NDWI stress 1.00 × eco 1.00 | Sequential dry→wind pattern confirmed 🔥",
-      "pipeline_status": "SUCCESS",
-      "operational_validity": false,
-      "data_quality_flags": [],
-      "calibration_flags": [
-        "satellite_stress_mapping_uncalibrated"
-      ],
-      "drone_recommended": false,
-      "recommendation_status": "research_only_uncalibrated"
-    }
-  ]
+  "version": "1.1.0",
+  "generated_at": "2026-08-23T19:32:27.531853+00:00",
+  "alert_count": 0,
+  "alerts": []
 }

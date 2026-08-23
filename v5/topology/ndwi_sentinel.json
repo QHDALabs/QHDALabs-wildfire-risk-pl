@@ -1,7 +1,7 @@
 {
-  "version": "2.0.0",
+  "version": "2.1.0",
   "schema_version": 2,
-  "generated_at": "2026-08-19T09:38:29.287660+00:00",
+  "generated_at": "2026-08-23T19:29:57.608376+00:00",
   "ndwi_days": 30,
   "nodes_ok": 34,
   "nodes_cloudy": 0,
@@ -32,6 +32,22 @@
       "algorithm_version": "2.0.0",
       "calibration_status": "uncalibrated"
     }
+  },
+  "normalisation": {
+    "method": "min_max",
+    "n_nodes": 34,
+    "lo": 0.3247,
+    "hi": 0.5312,
+    "span": 0.2065,
+    "amplification": 4.843,
+    "degenerate_span": false,
+    "note": "ndwi_stress_normalised is a within-run rank over these bounds, not an absolute stress measurement; exactly one node scores 1.0"
+  },
+  "acquisition": {
+    "max_acquisition_age_days": 14,
+    "stale_nodes": 34,
+    "fresh_acquisition_nodes": 0,
+    "fresh_acquisition_percent": 0.0
   },
   "calibration_status": "uncalibrated",
   "operational": false,
@@ -129,9 +145,14 @@
       "quality_flags": [
         "cloud_masked",
         "vegetation_moisture_index_uncalibrated",
-        "sentinel_b11_is_not_gao_1_24um"
+        "sentinel_b11_is_not_gao_1_24um",
+        "stale_acquisition"
       ],
-      "n_observations": 3
+      "n_observations": 3,
+      "acquisition_age_days": 18.81,
+      "acquisition_latest": "2026-08-05",
+      "max_acquisition_age_days": 14,
+      "acquisition_stale": true
     },
     "boleslawiec": {
       "node_id": "boleslawiec",
@@ -226,9 +247,14 @@
       "quality_flags": [
         "cloud_masked",
         "vegetation_moisture_index_uncalibrated",
-        "sentinel_b11_is_not_gao_1_24um"
+        "sentinel_b11_is_not_gao_1_24um",
+        "stale_acquisition"
       ],
-      "n_observations": 3
+      "n_observations": 3,
+      "acquisition_age_days": 18.81,
+      "acquisition_latest": "2026-08-05",
+      "max_acquisition_age_days": 14,
+      "acquisition_stale": true
     },
     "bystrzyca": {
       "node_id": "bystrzyca",
@@ -323,9 +349,14 @@
       "quality_flags": [
         "cloud_masked",
         "vegetation_moisture_index_uncalibrated",
-        "sentinel_b11_is_not_gao_1_24um"
+        "sentinel_b11_is_not_gao_1_24um",
+        "stale_acquisition"
       ],
-      "n_observations": 3
+      "n_observations": 3,
+      "acquisition_age_days": 18.81,
+      "acquisition_latest": "2026-08-05",
+      "max_acquisition_age_days": 14,
+      "acquisition_stale": true
     },
     "gory_stolowe": {
       "node_id": "gory_stolowe",
@@ -420,9 +451,14 @@
       "quality_flags": [
         "cloud_masked",
         "vegetation_moisture_index_uncalibrated",
-        "sentinel_b11_is_not_gao_1_24um"
+        "sentinel_b11_is_not_gao_1_24um",
+        "stale_acquisition"
       ],
-      "n_observations": 3
+      "n_observations": 3,
+      "acquisition_age_days": 18.81,
+      "acquisition_latest": "2026-08-05",
+      "max_acquisition_age_days": 14,
+      "acquisition_stale": true
     },
     "jawor": {
       "node_id": "jawor",
@@ -510,9 +546,14 @@
       "quality_flags": [
         "cloud_masked",
         "vegetation_moisture_index_uncalibrated",
-        "sentinel_b11_is_not_gao_1_24um"
+        "sentinel_b11_is_not_gao_1_24um",
+        "stale_acquisition"
       ],
-      "n_observations": 2
+      "n_observations": 2,
+      "acquisition_age_days": 18.81,
+      "acquisition_latest": "2026-08-05",
+      "max_acquisition_age_days": 14,
+      "acquisition_stale": true
     },
     "jugow": {
       "node_id": "jugow",
@@ -607,9 +648,14 @@
       "quality_flags": [
         "cloud_masked",
         "vegetation_moisture_index_uncalibrated",
-        "sentinel_b11_is_not_gao_1_24um"
+        "sentinel_b11_is_not_gao_1_24um",
+        "stale_acquisition"
       ],
-      "n_observations": 3
+      "n_observations": 3,
+      "acquisition_age_days": 18.81,
+      "acquisition_latest": "2026-08-05",
+      "max_acquisition_age_days": 14,
+      "acquisition_stale": true
     },
     "kamienna_gora": {
       "node_id": "kamienna_gora",
@@ -704,9 +750,14 @@
       "quality_flags": [
         "cloud_masked",
         "vegetation_moisture_index_uncalibrated",
-        "sentinel_b11_is_not_gao_1_24um"
+        "sentinel_b11_is_not_gao_1_24um",
+        "stale_acquisition"
       ],
-      "n_observations": 3
+      "n_observations": 3,
+      "acquisition_age_days": 18.81,
+      "acquisition_latest": "2026-08-05",
+      "max_acquisition_age_days": 14,
+      "acquisition_stale": true
     },
     "klodzko": {
       "node_id": "klodzko",
@@ -801,9 +852,14 @@
       "quality_flags": [
         "cloud_masked",
         "vegetation_moisture_index_uncalibrated",
-        "sentinel_b11_is_not_gao_1_24um"
+        "sentinel_b11_is_not_gao_1_24um",
+        "stale_acquisition"
       ],
-      "n_observations": 3
+      "n_observations": 3,
+      "acquisition_age_days": 18.81,
+      "acquisition_latest": "2026-08-05",
+      "max_acquisition_age_days": 14,
+      "acquisition_stale": true
     },
     "ladek": {
       "node_id": "ladek",
@@ -898,9 +954,14 @@
       "quality_flags": [
         "cloud_masked",
         "vegetation_moisture_index_uncalibrated",
-        "sentinel_b11_is_not_gao_1_24um"
+        "sentinel_b11_is_not_gao_1_24um",
+        "stale_acquisition"
       ],
-      "n_observations": 3
+      "n_observations": 3,
+      "acquisition_age_days": 18.81,
+      "acquisition_latest": "2026-08-05",
+      "max_acquisition_age_days": 14,
+      "acquisition_stale": true
     },
     "legnica": {
       "node_id": "legnica",
@@ -995,9 +1056,14 @@
       "quality_flags": [
         "cloud_masked",
         "vegetation_moisture_index_uncalibrated",
-        "sentinel_b11_is_not_gao_1_24um"
+        "sentinel_b11_is_not_gao_1_24um",
+        "stale_acquisition"
       ],
-      "n_observations": 3
+      "n_observations": 3,
+      "acquisition_age_days": 18.81,
+      "acquisition_latest": "2026-08-05",
+      "max_acquisition_age_days": 14,
+      "acquisition_stale": true
     },
     "lesna": {
       "node_id": "lesna",
@@ -1092,9 +1158,14 @@
       "quality_flags": [
         "cloud_masked",
         "vegetation_moisture_index_uncalibrated",
-        "sentinel_b11_is_not_gao_1_24um"
+        "sentinel_b11_is_not_gao_1_24um",
+        "stale_acquisition"
       ],
-      "n_observations": 3
+      "n_observations": 3,
+      "acquisition_age_days": 18.81,
+      "acquisition_latest": "2026-08-05",
+      "max_acquisition_age_days": 14,
+      "acquisition_stale": true
     },
     "lubin": {
       "node_id": "lubin",
@@ -1189,9 +1260,14 @@
       "quality_flags": [
         "cloud_masked",
         "vegetation_moisture_index_uncalibrated",
-        "sentinel_b11_is_not_gao_1_24um"
+        "sentinel_b11_is_not_gao_1_24um",
+        "stale_acquisition"
       ],
-      "n_observations": 3
+      "n_observations": 3,
+      "acquisition_age_days": 18.81,
+      "acquisition_latest": "2026-08-05",
+      "max_acquisition_age_days": 14,
+      "acquisition_stale": true
     },
     "lwowek": {
       "node_id": "lwowek",
@@ -1286,9 +1362,14 @@
       "quality_flags": [
         "cloud_masked",
         "vegetation_moisture_index_uncalibrated",
-        "sentinel_b11_is_not_gao_1_24um"
+        "sentinel_b11_is_not_gao_1_24um",
+        "stale_acquisition"
       ],
-      "n_observations": 3
+      "n_observations": 3,
+      "acquisition_age_days": 18.81,
+      "acquisition_latest": "2026-08-05",
+      "max_acquisition_age_days": 14,
+      "acquisition_stale": true
     },
     "miekinia": {
       "node_id": "miekinia",
@@ -1383,9 +1464,14 @@
       "quality_flags": [
         "cloud_masked",
         "vegetation_moisture_index_uncalibrated",
-        "sentinel_b11_is_not_gao_1_24um"
+        "sentinel_b11_is_not_gao_1_24um",
+        "stale_acquisition"
       ],
-      "n_observations": 3
+      "n_observations": 3,
+      "acquisition_age_days": 18.81,
+      "acquisition_latest": "2026-08-05",
+      "max_acquisition_age_days": 14,
+      "acquisition_stale": true
     },
     "milicz": {
       "node_id": "milicz",
@@ -1480,9 +1566,14 @@
       "quality_flags": [
         "cloud_masked",
         "vegetation_moisture_index_uncalibrated",
-        "sentinel_b11_is_not_gao_1_24um"
+        "sentinel_b11_is_not_gao_1_24um",
+        "stale_acquisition"
       ],
-      "n_observations": 3
+      "n_observations": 3,
+      "acquisition_age_days": 18.81,
+      "acquisition_latest": "2026-08-05",
+      "max_acquisition_age_days": 14,
+      "acquisition_stale": true
     },
     "mysliborskie": {
       "node_id": "mysliborskie",
@@ -1577,9 +1668,14 @@
       "quality_flags": [
         "cloud_masked",
         "vegetation_moisture_index_uncalibrated",
-        "sentinel_b11_is_not_gao_1_24um"
+        "sentinel_b11_is_not_gao_1_24um",
+        "stale_acquisition"
       ],
-      "n_observations": 3
+      "n_observations": 3,
+      "acquisition_age_days": 18.81,
+      "acquisition_latest": "2026-08-05",
+      "max_acquisition_age_days": 14,
+      "acquisition_stale": true
     },
     "olesnica": {
       "node_id": "olesnica",
@@ -1674,9 +1770,14 @@
       "quality_flags": [
         "cloud_masked",
         "vegetation_moisture_index_uncalibrated",
-        "sentinel_b11_is_not_gao_1_24um"
+        "sentinel_b11_is_not_gao_1_24um",
+        "stale_acquisition"
       ],
-      "n_observations": 3
+      "n_observations": 3,
+      "acquisition_age_days": 18.81,
+      "acquisition_latest": "2026-08-05",
+      "max_acquisition_age_days": 14,
+      "acquisition_stale": true
     },
     "olawa": {
       "node_id": "olawa",
@@ -1771,9 +1872,14 @@
       "quality_flags": [
         "cloud_masked",
         "vegetation_moisture_index_uncalibrated",
-        "sentinel_b11_is_not_gao_1_24um"
+        "sentinel_b11_is_not_gao_1_24um",
+        "stale_acquisition"
       ],
-      "n_observations": 3
+      "n_observations": 3,
+      "acquisition_age_days": 18.81,
+      "acquisition_latest": "2026-08-05",
+      "max_acquisition_age_days": 14,
+      "acquisition_stale": true
     },
     "piszowice": {
       "node_id": "piszowice",
@@ -1868,9 +1974,14 @@
       "quality_flags": [
         "cloud_masked",
         "vegetation_moisture_index_uncalibrated",
-        "sentinel_b11_is_not_gao_1_24um"
+        "sentinel_b11_is_not_gao_1_24um",
+        "stale_acquisition"
       ],
-      "n_observations": 3
+      "n_observations": 3,
+      "acquisition_age_days": 18.81,
+      "acquisition_latest": "2026-08-05",
+      "max_acquisition_age_days": 14,
+      "acquisition_stale": true
     },
     "prudnik": {
       "node_id": "prudnik",
@@ -1965,9 +2076,14 @@
       "quality_flags": [
         "cloud_masked",
         "vegetation_moisture_index_uncalibrated",
-        "sentinel_b11_is_not_gao_1_24um"
+        "sentinel_b11_is_not_gao_1_24um",
+        "stale_acquisition"
       ],
-      "n_observations": 3
+      "n_observations": 3,
+      "acquisition_age_days": 18.81,
+      "acquisition_latest": "2026-08-05",
+      "max_acquisition_age_days": 14,
+      "acquisition_stale": true
     },
     "ruszow": {
       "node_id": "ruszow",
@@ -2062,9 +2178,14 @@
       "quality_flags": [
         "cloud_masked",
         "vegetation_moisture_index_uncalibrated",
-        "sentinel_b11_is_not_gao_1_24um"
+        "sentinel_b11_is_not_gao_1_24um",
+        "stale_acquisition"
       ],
-      "n_observations": 3
+      "n_observations": 3,
+      "acquisition_age_days": 18.81,
+      "acquisition_latest": "2026-08-05",
+      "max_acquisition_age_days": 14,
+      "acquisition_stale": true
     },
     "rychtal": {
       "node_id": "rychtal",
@@ -2152,9 +2273,14 @@
       "quality_flags": [
         "cloud_masked",
         "vegetation_moisture_index_uncalibrated",
-        "sentinel_b11_is_not_gao_1_24um"
+        "sentinel_b11_is_not_gao_1_24um",
+        "stale_acquisition"
       ],
-      "n_observations": 2
+      "n_observations": 2,
+      "acquisition_age_days": 18.81,
+      "acquisition_latest": "2026-08-05",
+      "max_acquisition_age_days": 14,
+      "acquisition_stale": true
     },
     "sycow": {
       "node_id": "sycow",
@@ -2242,9 +2368,14 @@
       "quality_flags": [
         "cloud_masked",
         "vegetation_moisture_index_uncalibrated",
-        "sentinel_b11_is_not_gao_1_24um"
+        "sentinel_b11_is_not_gao_1_24um",
+        "stale_acquisition"
       ],
-      "n_observations": 2
+      "n_observations": 2,
+      "acquisition_age_days": 18.81,
+      "acquisition_latest": "2026-08-05",
+      "max_acquisition_age_days": 14,
+      "acquisition_stale": true
     },
     "szklarska": {
       "node_id": "szklarska",
@@ -2339,9 +2470,14 @@
       "quality_flags": [
         "cloud_masked",
         "vegetation_moisture_index_uncalibrated",
-        "sentinel_b11_is_not_gao_1_24um"
+        "sentinel_b11_is_not_gao_1_24um",
+        "stale_acquisition"
       ],
-      "n_observations": 3
+      "n_observations": 3,
+      "acquisition_age_days": 18.81,
+      "acquisition_latest": "2026-08-05",
+      "max_acquisition_age_days": 14,
+      "acquisition_stale": true
     },
     "swidnica": {
       "node_id": "swidnica",
@@ -2436,9 +2572,14 @@
       "quality_flags": [
         "cloud_masked",
         "vegetation_moisture_index_uncalibrated",
-        "sentinel_b11_is_not_gao_1_24um"
+        "sentinel_b11_is_not_gao_1_24um",
+        "stale_acquisition"
       ],
-      "n_observations": 3
+      "n_observations": 3,
+      "acquisition_age_days": 18.81,
+      "acquisition_latest": "2026-08-05",
+      "max_acquisition_age_days": 14,
+      "acquisition_stale": true
     },
     "swietoszow": {
       "node_id": "swietoszow",
@@ -2533,9 +2674,14 @@
       "quality_flags": [
         "cloud_masked",
         "vegetation_moisture_index_uncalibrated",
-        "sentinel_b11_is_not_gao_1_24um"
+        "sentinel_b11_is_not_gao_1_24um",
+        "stale_acquisition"
       ],
-      "n_observations": 3
+      "n_observations": 3,
+      "acquisition_age_days": 18.81,
+      "acquisition_latest": "2026-08-05",
+      "max_acquisition_age_days": 14,
+      "acquisition_stale": true
     },
     "walbrzych": {
       "node_id": "walbrzych",
@@ -2630,9 +2776,14 @@
       "quality_flags": [
         "cloud_masked",
         "vegetation_moisture_index_uncalibrated",
-        "sentinel_b11_is_not_gao_1_24um"
+        "sentinel_b11_is_not_gao_1_24um",
+        "stale_acquisition"
       ],
-      "n_observations": 3
+      "n_observations": 3,
+      "acquisition_age_days": 18.81,
+      "acquisition_latest": "2026-08-05",
+      "max_acquisition_age_days": 14,
+      "acquisition_stale": true
     },
     "wegliniec": {
       "node_id": "wegliniec",
@@ -2727,9 +2878,14 @@
       "quality_flags": [
         "cloud_masked",
         "vegetation_moisture_index_uncalibrated",
-        "sentinel_b11_is_not_gao_1_24um"
+        "sentinel_b11_is_not_gao_1_24um",
+        "stale_acquisition"
       ],
-      "n_observations": 3
+      "n_observations": 3,
+      "acquisition_age_days": 18.81,
+      "acquisition_latest": "2026-08-05",
+      "max_acquisition_age_days": 14,
+      "acquisition_stale": true
     },
     "wolow": {
       "node_id": "wolow",
@@ -2824,9 +2980,14 @@
       "quality_flags": [
         "cloud_masked",
         "vegetation_moisture_index_uncalibrated",
-        "sentinel_b11_is_not_gao_1_24um"
+        "sentinel_b11_is_not_gao_1_24um",
+        "stale_acquisition"
       ],
-      "n_observations": 3
+      "n_observations": 3,
+      "acquisition_age_days": 18.81,
+      "acquisition_latest": "2026-08-05",
+      "max_acquisition_age_days": 14,
+      "acquisition_stale": true
     },
     "wroclaw": {
       "node_id": "wroclaw",
@@ -2921,9 +3082,14 @@
       "quality_flags": [
         "cloud_masked",
         "vegetation_moisture_index_uncalibrated",
-        "sentinel_b11_is_not_gao_1_24um"
+        "sentinel_b11_is_not_gao_1_24um",
+        "stale_acquisition"
       ],
-      "n_observations": 3
+      "n_observations": 3,
+      "acquisition_age_days": 18.81,
+      "acquisition_latest": "2026-08-05",
+      "max_acquisition_age_days": 14,
+      "acquisition_stale": true
     },
     "zlotoryja": {
       "node_id": "zlotoryja",
@@ -3018,9 +3184,14 @@
       "quality_flags": [
         "cloud_masked",
         "vegetation_moisture_index_uncalibrated",
-        "sentinel_b11_is_not_gao_1_24um"
+        "sentinel_b11_is_not_gao_1_24um",
+        "stale_acquisition"
       ],
-      "n_observations": 3
+      "n_observations": 3,
+      "acquisition_age_days": 18.81,
+      "acquisition_latest": "2026-08-05",
+      "max_acquisition_age_days": 14,
+      "acquisition_stale": true
     },
     "zmigrod": {
       "node_id": "zmigrod",
@@ -3115,9 +3286,14 @@
       "quality_flags": [
         "cloud_masked",
         "vegetation_moisture_index_uncalibrated",
-        "sentinel_b11_is_not_gao_1_24um"
+        "sentinel_b11_is_not_gao_1_24um",
+        "stale_acquisition"
       ],
-      "n_observations": 3
+      "n_observations": 3,
+      "acquisition_age_days": 18.81,
+      "acquisition_latest": "2026-08-05",
+      "max_acquisition_age_days": 14,
+      "acquisition_stale": true
     },
     "zgorzelec": {
       "node_id": "zgorzelec",
@@ -3212,9 +3388,14 @@
       "quality_flags": [
         "cloud_masked",
         "vegetation_moisture_index_uncalibrated",
-        "sentinel_b11_is_not_gao_1_24um"
+        "sentinel_b11_is_not_gao_1_24um",
+        "stale_acquisition"
       ],
-      "n_observations": 3
+      "n_observations": 3,
+      "acquisition_age_days": 18.81,
+      "acquisition_latest": "2026-08-05",
+      "max_acquisition_age_days": 14,
+      "acquisition_stale": true
     },
     "bogatynia": {
       "node_id": "bogatynia",
@@ -3309,9 +3490,14 @@
       "quality_flags": [
         "cloud_masked",
         "vegetation_moisture_index_uncalibrated",
-        "sentinel_b11_is_not_gao_1_24um"
+        "sentinel_b11_is_not_gao_1_24um",
+        "stale_acquisition"
       ],
-      "n_observations": 3
+      "n_observations": 3,
+      "acquisition_age_days": 17.81,
+      "acquisition_latest": "2026-08-06",
+      "max_acquisition_age_days": 14,
+      "acquisition_stale": true
     }
   }
 }
