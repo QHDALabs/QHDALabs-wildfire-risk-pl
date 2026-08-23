@@ -2,7 +2,7 @@
 # Project       : QHDALabs - Wildfire Risk PL
 # Module        : Step 2 — Sentinel-2 Water and Moisture Indices
 # File          : qhdalabs_wildfire_sentinel_v1.py
-# Version       : 1.0.0
+# Version       : 1.1.0 (v5.1 controlled correction)
 #
 # Description
 # -----------------------------------------------------------------------------
@@ -111,6 +111,10 @@ MAX_WORKERS = 4
 CACHE_DIR = Path(".cache_topology") / "sentinel"
 LEGACY_CACHE_DIR = Path(".cache_topology")
 DEFAULT_CACHE_TTL_DAYS = 10
+# A P10D bin is stamped with its START date, so even a same-day fetch yields a
+# newest-bin date ~10 days old. Anything beyond this means no recent overpass
+# survived cloud masking, regardless of how fresh the cache entry is.
+MAX_ACQUISITION_AGE_DAYS = 14
 SCHEMA_VERSION = 2
 OUTPUT_DIR = "topology"
 HTTP_TIMEOUT = 30
@@ -671,6 +675,57 @@ def fetch_ndwi_timeseries(
 
 
 # =========================
+# ACQUISITION AGE
+# =========================
+def acquisition_age_days(
+    result: dict[str, Any],
+    now: datetime | None = None,
+) -> float | None:
+    """Days between the newest acquisition bin and now.
+
+    Cache TTL measures when we last *asked* Copernicus. This measures when the
+    satellite last *saw* the node, which is the quantity that matters.
+    """
+    dates = result.get("dates") or []
+    if not dates:
+        return None
+    now = now or datetime.now(timezone.utc)
+    try:
+        newest = max(
+            datetime.strptime(d, "%Y-%m-%d").replace(tzinfo=timezone.utc)
+            for d in dates
+        )
+    except (TypeError, ValueError):
+        return None
+    return round((now - newest).total_seconds() / 86400.0, 2)
+
+
+def annotate_acquisition_age(
+    ndwi_results: dict[str, dict | None],
+    *,
+    max_age_days: float = MAX_ACQUISITION_AGE_DAYS,
+    now: datetime | None = None,
+) -> int:
+    """Stamp each result with its acquisition age; return the stale count."""
+    stale = 0
+    for result in ndwi_results.values():
+        if not result:
+            continue
+        age = acquisition_age_days(result, now)
+        result["acquisition_age_days"] = age
+        result["acquisition_latest"] = (result.get("dates") or [None])[-1]
+        result["max_acquisition_age_days"] = max_age_days
+        is_stale = age is not None and age > max_age_days
+        result["acquisition_stale"] = is_stale
+        if is_stale:
+            stale += 1
+            flags = result.setdefault("quality_flags", [])
+            if "stale_acquisition" not in flags:
+                flags.append("stale_acquisition")
+    return stale
+
+
+# =========================
 # STRESS NORMALISATION
 # =========================
 def normalise_stress_across_network(
@@ -703,6 +758,29 @@ def normalise_stress_across_network(
     return {nid: round((v - lo) / span, 4) for nid, v in stresses.items()}
 
 
+def normalisation_bounds(ndwi_results: dict[str, dict]) -> dict[str, Any]:
+    """Publish the min-max mapping so a rank can be inverted to a raw value."""
+    stresses = [
+        r["ndwi_stress_latest"] for r in ndwi_results.values() if r is not None
+    ]
+    if not stresses:
+        return {"method": "min_max", "n_nodes": 0}
+    lo, hi = min(stresses), max(stresses)
+    return {
+        "method": "min_max",
+        "n_nodes": len(stresses),
+        "lo": round(lo, 6),
+        "hi": round(hi, 6),
+        "span": round(hi - lo, 6),
+        "amplification": round(1.0 / (hi - lo), 3) if hi - lo >= 0.01 else None,
+        "degenerate_span": (hi - lo) < 0.01,
+        "note": (
+            "ndwi_stress_normalised is a within-run rank over these bounds, "
+            "not an absolute stress measurement; exactly one node scores 1.0"
+        ),
+    }
+
+
 # =========================
 # MERGE WITH STEP 1 DATA
 # =========================
@@ -732,6 +810,9 @@ def merge_with_topology(
                 nid, result["ndwi_stress_latest"]
             )
             node["ndwi_trend_14d"] = result["ndwi_trend_14d"]
+            node["acquisition_latest"] = result.get("acquisition_latest")
+            node["acquisition_age_days"] = result.get("acquisition_age_days")
+            node["acquisition_stale"] = bool(result.get("acquisition_stale"))
 
             # Update the "latest" dict with satellite-based stress
             if "latest" in node:
@@ -1059,10 +1140,21 @@ def run_sentinel_pipeline(
         log.error("No Sentinel-2 data retrieved. Check credentials and date range.")
         raise RuntimeError("Zero nodes with valid NDWI data.")
 
+    # ── Acquisition age (independent of cache TTL) ────────────────────────
+    stale_nodes = annotate_acquisition_age(ndwi_results)
+    fresh_acq = ok - stale_nodes
+    if stale_nodes:
+        log.warning(
+            "Acquisition older than %s d for %d/%d nodes",
+            MAX_ACQUISITION_AGE_DAYS,
+            stale_nodes,
+            len(nodes),
+        )
+
     # ── Normalise ──────────────────────────────────────────────────────────
-    normalised = normalise_stress_across_network(
-        {k: v for k, v in ndwi_results.items() if v}
-    )
+    valid_results = {k: v for k, v in ndwi_results.items() if v}
+    normalised = normalise_stress_across_network(valid_results)
+    bounds = normalisation_bounds(valid_results)
 
     # ── Merge with topology ────────────────────────────────────────────────
     enriched_nodes = merge_with_topology(nodes_json_path, ndwi_results, normalised)
@@ -1073,13 +1165,22 @@ def run_sentinel_pipeline(
     atomic_write_json(
         ndwi_path,
         {
-            "version": "2.0.0",
+            "version": "2.1.0",
             "schema_version": SCHEMA_VERSION,
             "generated_at": datetime.now(timezone.utc).isoformat(),
             "ndwi_days": ndwi_days,
             "nodes_ok": ok,
             "nodes_cloudy": cloudy,
             "index_definitions": index_definitions(),
+            "normalisation": bounds,
+            "acquisition": {
+                "max_acquisition_age_days": MAX_ACQUISITION_AGE_DAYS,
+                "stale_nodes": stale_nodes,
+                "fresh_acquisition_nodes": fresh_acq,
+                "fresh_acquisition_percent": (
+                    round(fresh_acq / len(nodes) * 100.0, 2) if nodes else 0.0
+                ),
+            },
             "calibration_status": "uncalibrated",
             "operational": False,
             "results": {k: v for k, v in ndwi_results.items() if v},
@@ -1113,10 +1214,15 @@ def run_sentinel_pipeline(
     log.info("Copernicus API requests: %d", api_requests)
     status = (
         StepStatus.SUCCESS
-        if ok == len(nodes) and not legacy_results
+        if ok == len(nodes) and not legacy_results and not stale_nodes
         else StepStatus.DEGRADED
     )
     warnings = ["Satellite-to-stress mapping is uncalibrated"]
+    if stale_nodes:
+        warnings.append(
+            f"Newest acquisition older than {MAX_ACQUISITION_AGE_DAYS} d "
+            f"for {stale_nodes}/{len(nodes)} nodes"
+        )
     if legacy_results:
         warnings.append(
             f"Explicit legacy Sentinel cache used for {len(legacy_results)} nodes"
@@ -1134,12 +1240,16 @@ def run_sentinel_pipeline(
             "map": map_path,
         },
         coverage_percent=round(ok / len(nodes) * 100.0, 2),
+        fresh_acquisition_percent=round(fresh_acq / len(nodes) * 100.0, 2),
+        stale_acquisition_nodes=stale_nodes,
+        max_acquisition_age_days=MAX_ACQUISITION_AGE_DAYS,
+        normalisation=bounds,
         valid_for_downstream=ok > 0,
         warnings=warnings,
         cache_hits=cache_hits,
         cache_classification={name: len(items) for name, items in classified.items()},
         api_requests=api_requests,
-        data_version="sentinel-indices-2.0.0",
+        data_version="sentinel-indices-2.1.0",
         calibration_status="uncalibrated",
         operational_validity=False,
         legacy_cache_nodes=len(legacy_results),

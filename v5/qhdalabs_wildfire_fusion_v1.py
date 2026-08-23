@@ -2,26 +2,33 @@
 # Project       : QHDALabs - Wildfire Risk PL
 # Module        : Step 4 — Fusion Risk Scorer & Alert Engine
 # File          : qhdalabs_wildfire_fusion_v1.py
-# Version       : 1.0.0
+# Version       : 1.1.0 (v5.1 controlled correction)
 #
 # Description
 # -----------------------------------------------------------------------------
-# Integrates all three signal layers into one unified wildfire risk score
-# per nadleśnictwo and generates operational alerts.
+# Integrates the readiness signal layers into one susceptibility score per
+# nadleśnictwo and generates research-grade alerts.
+#
+# The score answers "would this stand burn well if ignited", NOT "is a fire
+# likely here". Ignition pressure is a separate layer (Step 4b) and does not
+# feed this score; it is combined with it only in the diagnostic FEI/QIES.
 #
 # Signal layers
 # -----------------------------------------------------------------------------
-#  Layer 1 — Satellite (Sentinel-2 NDWI)           weight: 45%
-#    Real physiological state of the forest canopy.
+#  Layer 1 — Satellite (NIR-SWIR canopy moisture)   weight: 45%
+#    v5.1: uses ndwi_stress_latest, the ABSOLUTE (1 - m)/2 mapping.
+#    ndwi_stress_normalised is a within-run min-max rank in which exactly
+#    one node always scores 1.0; it is published as a diagnostic only.
 #    Source: topology/nodes_enriched.json (Step 2)
 #
 #  Layer 2 — Quantum Temporal Encoder (QTE)         weight: 30%
-#    Sequential pattern: was dry THEN wind rose.
-#    Captures what RF cannot see: order matters.
+#    ZZ correlations over five Ry-encoded features, gated by the bridge.
 #    Source: topology/qte_results.json (Step 3)
 #
 #  Layer 3 — Weather proxy (Open-Meteo FWI)         weight: 15%
-#    Current meteorological fire danger.
+#    Current meteorological fire danger. v5.1: rainfall is an exponentially
+#    decayed 14-day sum, and a channel with no data is dropped and the
+#    remaining weights renormalised rather than defaulted to a constant.
 #    Source: topology/nodes_enriched.json (Step 2, weather history)
 #
 #  Layer 4 — NDWI drying trend                     weight: 10%
@@ -33,9 +40,11 @@
 #  Ecosystem multiplier   pine: ×1.30, mixed: ×1.00, spruce: ×0.80
 #    Pine forests ignite more easily; spruce wetter but catastrophic when burned
 #
-#  Bridge bonus           +0.08 if QTE bridge fired (sequential pattern)
-#    This is the key quantum contribution — marks nodes where the
-#    pre-fire sequence (dry→wind) is confirmed, not just current conditions
+#  Bridge bonus           +0.08 if the QTE bridge fired
+#    The gate is P(ancilla=1) = sin^2(theta_past/2) > 0.5, which is exactly
+#    vegetation_moisture_index[-2] < 0. It does NOT depend on wind and does
+#    NOT establish a dry-then-wind ordering. See FORENSIC_AUDIT_2026-08-23
+#    finding F-03.
 #
 #  Network propagation    +0.05 × neighbour_stress
 #    Modelling the mycelium: stressed neighbours lower your alert threshold
@@ -104,6 +113,16 @@ ALERT_CRITICAL = 0.75
 ALERT_HIGH = 0.60
 ALERT_MODERATE = 0.45
 
+# v5.1: fusion consumes the ABSOLUTE stress mapping. The min-max rank is still
+# published as ndwi_stress_normalised, but it is a within-run ordering in which
+# exactly one node always scores 1.0, which is not a risk measurement.
+NDWI_STRESS_SOURCE = "ndwi_stress_latest"
+
+# v5.1: antecedent precipitation. Rain older than the latest day used to be
+# invisible, so a node could be scored dry on the day after 42 mm fell.
+RAIN_MEMORY_HALFLIFE_D = 3.0
+RAIN_MEMORY_SATURATION_MM = 20.0
+
 ECO_MULTIPLIERS = {
     "pine": 1.30,
     "pine_wetland": 1.10,
@@ -115,40 +134,66 @@ ECO_MULTIPLIERS = {
 # =========================
 # FWI PROXY (from weather)
 # =========================
-def _fwi_from_weather(node: dict) -> float:
-    """Compute FWI proxy from latest weather data."""
+def _antecedent_rain_mm(node: dict) -> float:
+    """Exponentially decayed rainfall over the stored history.
+
+    The previous version read only ``latest.rain_total``, so a week of heavy
+    rain left no trace in the score at all.
+    """
+    series = (node.get("weather_history") or {}).get("rain_total") or []
+    values = [float(v) for v in series if v is not None]
+    if not values:
+        latest_rain = (node.get("latest") or {}).get("rain_total")
+        return float(latest_rain or 0.0)
+    total = 0.0
+    for age, rain in enumerate(reversed(values)):
+        total += rain * 0.5 ** (age / RAIN_MEMORY_HALFLIFE_D)
+    return total
+
+
+def _fwi_from_weather(node: dict) -> tuple[float, list[str]]:
+    """Compute the FWI proxy and any quality flags it raised.
+
+    Returns ``(score, flags)``. A channel with no data is dropped and the
+    remaining weights are renormalised, rather than being silently replaced by
+    a plausible-looking constant.
+    """
     latest = node.get("latest", {})
+    flags: list[str] = []
+
     vpd = float(
         latest.get("vpd_mean")
         or node.get("weather_history", {}).get("vpd_mean", [0.5])[-1]
         if node.get("weather_history")
         else 0.5
     )
-    soil = float(latest.get("soil_min") or 0.20)
     temp = float(latest.get("temp_max") or 20.0)
     rh = float(latest.get("rh_min") or 55.0)
     wind = float(latest.get("wind_max") or 5.0)
-    rain = float(latest.get("rain_total") or 0.0)
     drought = int(node.get("drought_days", 0))
+    antecedent_rain = _antecedent_rain_mm(node)
 
-    vpd_n = min(1.0, vpd / 3.5)
-    soil_n = max(0.0, min(1.0, 1.0 - soil / 0.30))
-    temp_n = max(0.0, min(1.0, (temp - 10.0) / 25.0))
-    wind_n = min(1.0, wind / 15.0)
-    rh_n = max(0.0, (72.0 - rh) / 72.0)
-    drought_n = min(1.0, drought / 45.0)
-    rain_pen = max(0.0, 1.0 - rain / 4.0)
+    terms: dict[str, tuple[float, float]] = {
+        "vpd": (0.22, min(1.0, vpd / 3.5)),
+        "temp": (0.14, max(0.0, min(1.0, (temp - 10.0) / 25.0))),
+        "wind": (0.14, min(1.0, wind / 15.0)),
+        "rh": (0.17, max(0.0, (72.0 - rh) / 72.0)),
+        "drought": (0.08, min(1.0, drought / 45.0)),
+        "rain": (
+            0.05,
+            max(0.0, 1.0 - antecedent_rain / RAIN_MEMORY_SATURATION_MM),
+        ),
+    }
 
-    raw = (
-        0.22 * vpd_n
-        + 0.20 * soil_n
-        + 0.14 * temp_n
-        + 0.14 * wind_n
-        + 0.17 * rh_n
-        + 0.08 * drought_n
-        + 0.05 * rain_pen
-    )
-    return float(np.clip(raw, 0.0, 1.0))
+    soil = latest.get("soil_min")
+    if soil is None:
+        flags.append("soil_moisture_unavailable")
+    else:
+        terms["soil"] = (0.20, max(0.0, min(1.0, 1.0 - float(soil) / 0.30)))
+
+    total_weight = sum(weight for weight, _ in terms.values())
+    raw = sum(weight * value for weight, value in terms.values()) / total_weight
+    return float(np.clip(raw, 0.0, 1.0)), flags
 
 
 # =========================
@@ -162,7 +207,7 @@ class RiskScore:
     lon: float
     eco: str
     # Input signals
-    ndwi_stress: float  # satellite [0,1]
+    ndwi_stress: float  # satellite [0,1] — ABSOLUTE mapping (v5.1)
     ndwi_trend_14d: float  # slope (neg = drying)
     qte_score: float  # quantum [0,1]
     bridge_fired: bool  # sequential pattern
@@ -193,6 +238,10 @@ class RiskScore:
     ndwi_latest: float | None
     # Explanation
     top_drivers: list[dict]
+    # v5.1 provenance — defaulted so existing call sites stay valid
+    ndwi_stress_rank: float | None = None  # within-run min-max rank, diagnostic
+    acquisition_latest: str | None = None  # newest satellite bin actually used
+    acquisition_age_days: float | None = None
 
 
 def _trend_signal(trend: float) -> float:
@@ -239,7 +288,7 @@ def _explain(ndwi, qte, fwi, trend_s, eco_mult, bridge, net_stress) -> list[dict
             {
                 "factor": "quantum_bridge",
                 "contribution": BRIDGE_BONUS,
-                "label": "Sequential dry→wind pattern confirmed 🔥",
+                "label": "Previous composite had negative canopy moisture",
             }
         )
     if net_stress > 0.3:
@@ -267,17 +316,19 @@ def compute_risk_score(
     eco = node.get("eco", "mixed")
 
     # ── Signals ──────────────────────────────────────────────────────────
-    ndwi_stress = float(
-        node.get("ndwi_stress_normalised") or node.get("ndwi_stress_latest", 0.0)
-    )
-    ndwi_trend = float(node.get("ndwi_trend_14d") or 0.0)
+    absolute = node.get("ndwi_stress_latest")
+    ranked = node.get("ndwi_stress_normalised")
+    ndwi_stress = float(absolute if absolute is not None else (ranked or 0.0))
+    ndwi_rank = float(ranked) if ranked is not None else None
+    trend_raw = node.get("ndwi_trend_14d")
+    ndwi_trend = float(trend_raw) if trend_raw is not None else 0.0
     trend_s = _trend_signal(ndwi_trend)
 
     qte_data = qte_map.get(nid, {})
     qte_score = float(qte_data.get("qte_score", 0.0))
     bridge_fired = bool(qte_data.get("bridge_fired", False))
 
-    fwi = _fwi_from_weather(node)
+    fwi, fwi_flags = _fwi_from_weather(node)
 
     # Network propagation: average normalised NDWI of neighbours
     neighbours = graph.get(nid, [])
@@ -286,7 +337,10 @@ def compute_risk_score(
         for nb in neighbours:
             nb_node = all_nodes.get(nb["id"])
             if nb_node:
-                nb_stresses.append(float(nb_node.get("ndwi_stress_normalised") or 0.0))
+                nb_absolute = nb_node.get("ndwi_stress_latest")
+                if nb_absolute is None:
+                    nb_absolute = nb_node.get("ndwi_stress_normalised") or 0.0
+                nb_stresses.append(float(nb_absolute))
         net_stress = float(np.mean(nb_stresses)) if nb_stresses else 0.0
     else:
         net_stress = 0.0
@@ -325,9 +379,16 @@ def compute_risk_score(
     drivers = _explain(
         ndwi_stress, qte_score, fwi, trend_s, eco_mult, bridge_fired, net_stress
     )
-    data_quality_flags = []
+    data_quality_flags = list(fwi_flags)
     if not ignition_valid:
         data_quality_flags.append("ignition_invalid_or_unavailable")
+    if node.get("acquisition_stale"):
+        data_quality_flags.append("stale_acquisition")
+    observations = len((ndwi_s.get("dates") or []))
+    if 0 < observations < 3:
+        data_quality_flags.append("low_observation_count")
+    if qte_data.get("bridge_near_threshold"):
+        data_quality_flags.append("bridge_near_threshold")
     calibration_flags = ["satellite_stress_mapping_uncalibrated"]
     pipeline_status = StepStatus.SUCCESS if ignition_valid else StepStatus.DEGRADED
 
@@ -338,6 +399,9 @@ def compute_risk_score(
         lon=node["lon"],
         eco=eco,
         ndwi_stress=round(ndwi_stress, 4),
+        ndwi_stress_rank=(round(ndwi_rank, 4) if ndwi_rank is not None else None),
+        acquisition_latest=node.get("acquisition_latest"),
+        acquisition_age_days=node.get("acquisition_age_days"),
         ndwi_trend_14d=round(ndwi_trend, 5),
         qte_score=round(qte_score, 4),
         bridge_fired=bridge_fired,
@@ -510,7 +574,7 @@ def _save_results(scores: list[RiskScore]) -> None:
         else StepStatus.SUCCESS
     )
     payload = {
-        "version": "2.0.0",
+        "version": "2.1.0",
         "generated_at": datetime.now(timezone.utc).isoformat(),
         "rdlp": "Wrocław",
         "pipeline_status": str(pipeline_status),
@@ -531,6 +595,12 @@ def _save_results(scores: list[RiskScore]) -> None:
                     round(NETWORK_COEFF * score.network_stress, 4) for score in scores
                 ],
             },
+        },
+        "score_semantics": {
+            "score_is": "environmental fire readiness (susceptibility)",
+            "score_is_not": "ignition probability or expected wildfire risk",
+            "ndwi_stress_source": NDWI_STRESS_SOURCE,
+            "ndwi_stress_rank_is_diagnostic": True,
         },
         "fusion_weights": {
             "ndwi_satellite": W_NDWI,
@@ -560,6 +630,9 @@ def _save_results(scores: list[RiskScore]) -> None:
                 "upstream_statuses": s.upstream_statuses,
                 "signals": {
                     "ndwi_stress": s.ndwi_stress,
+                    "ndwi_stress_rank": s.ndwi_stress_rank,
+                    "acquisition_latest": s.acquisition_latest,
+                    "acquisition_age_days": s.acquisition_age_days,
                     "ndwi_trend_14d": s.ndwi_trend_14d,
                     "ndwi_latest": s.ndwi_latest,
                     "qte_score": s.qte_score,
@@ -600,7 +673,7 @@ def _save_results(scores: list[RiskScore]) -> None:
     alerts = [s for s in scores if s.tier in ("CRITICAL", "HIGH")]
     alerts_path = os.path.join(OUTPUT_DIR, "alerts.json")
     alerts_payload = {
-        "version": "1.0.0",
+        "version": "1.1.0",
         "generated_at": datetime.now(timezone.utc).isoformat(),
         "alert_count": len(alerts),
         "alerts": [
@@ -615,6 +688,8 @@ def _save_results(scores: list[RiskScore]) -> None:
                 "eco": s.eco,
                 "bridge_fired": s.bridge_fired,
                 "ndwi_latest": s.ndwi_latest,
+                "acquisition_latest": s.acquisition_latest,
+                "acquisition_age_days": s.acquisition_age_days,
                 "drought_days": s.drought_days,
                 "reason": " | ".join(d["label"] for d in s.top_drivers[:2]),
                 "pipeline_status": s.pipeline_status,
@@ -642,7 +717,7 @@ def _save_results(scores: list[RiskScore]) -> None:
         high_or_critical_share=(round(elevated_n / total, 4) if total else 0.0),
         bridge_share=round(bridge_n / total, 4) if total else 0.0,
         calibration_status="uncalibrated",
-        data_version="fusion-2.0.0",
+        data_version="fusion-2.1.0",
     )
 
 

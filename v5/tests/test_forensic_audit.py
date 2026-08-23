@@ -1,9 +1,11 @@
 """Forensic-audit regression tests for the v5 pipeline.
 
 These tests pin the behaviour that the 2026-08-23 Jawor audit established.
-They document what the implementation actually does; several of them assert
-properties that are arguably defects, and are marked as such so that a future
-fix fails loudly instead of silently changing alert semantics.
+
+Tests marked FIXED IN v5.1 assert the corrected behaviour and guard against a
+regression back to the audited defect. Tests marked KNOWN assert a defect that
+v5.1 deliberately left in place, so a later fix fails loudly rather than
+silently changing alert semantics.
 """
 
 from __future__ import annotations
@@ -126,15 +128,21 @@ def test_default_ttl_exceeds_the_sentinel_revisit_interval() -> None:
     assert sentinel.DEFAULT_CACHE_TTL_DAYS > 5
 
 
-def test_published_alert_carries_no_acquisition_timestamp() -> None:
-    """DEFECT: an operator cannot tell how old the satellite reading is."""
+def test_published_scores_carry_acquisition_provenance() -> None:
+    """FIXED IN v5.1 (F-02): every score states how old its imagery is."""
+    for score in _load("risk_scores.json")["scores"]:
+        assert "acquisition_latest" in score["signals"]
+        assert "acquisition_age_days" in score["signals"]
+
+
+def test_published_alerts_carry_acquisition_provenance() -> None:
+    """FIXED IN v5.1 (F-02): an operator can read the imagery date off the alert."""
     alerts = _load("alerts.json")["alerts"]
     if not alerts:
         pytest.skip("no alerts in the current run")
-    blob = json.dumps(alerts[0])
-    assert "ndwi_latest" in blob
-    for field in ("fetch_date", "acquisition", "dates", "n_observations"):
-        assert field not in blob
+    for alert in alerts:
+        assert alert["acquisition_latest"]
+        assert alert["acquisition_age_days"] is not None
 
 
 # ---------------------------------------------------------------------------
@@ -157,11 +165,22 @@ def test_jawor_score_replays_exactly_from_published_signals() -> None:
     assert total == pytest.approx(score["final_score"], abs=5e-4)
 
 
-def test_jawor_clears_critical_by_less_than_the_bridge_bonus() -> None:
+def test_jawor_is_no_longer_critical_on_absolute_stress() -> None:
+    """FIXED IN v5.1 (F-01): the within-run rank no longer drives the score."""
     score = _jawor()
-    margin = score["final_score"] - fusion.ALERT_CRITICAL
-    assert 0.0 < margin < fusion.BRIDGE_BONUS
-    assert score["final_score"] - fusion.BRIDGE_BONUS < fusion.ALERT_CRITICAL
+    assert score["tier"] != "CRITICAL"
+    assert score["final_score"] < fusion.ALERT_CRITICAL
+    # the rank is still published, but only as a diagnostic
+    assert score["signals"]["ndwi_stress_rank"] == 1.0
+    assert score["signals"]["ndwi_stress"] == pytest.approx(0.5312, abs=1e-4)
+
+
+def test_jawor_score_carries_its_own_staleness() -> None:
+    """FIXED IN v5.1 (F-02): provenance now travels with the score."""
+    score = _jawor()
+    assert score["signals"]["acquisition_latest"] == "2026-08-05"
+    assert score["signals"]["acquisition_age_days"] > 14
+    assert "stale_acquisition" in score["data_quality_flags"]
 
 
 # ---------------------------------------------------------------------------
@@ -198,8 +217,8 @@ def test_bridge_decision_is_independent_of_wind() -> None:
     assert max(rates) - min(rates) < 1e-12
 
 
-def test_numpy_backend_bridge_is_seed_dependent_near_the_threshold() -> None:
-    """DEFECT: at ndwi_past = -0.003 the fallback backend flips the alert tier."""
+def test_numpy_backend_bridge_matches_qiskit_at_every_seed() -> None:
+    """FIXED IN v5.1 (F-04): the tier no longer depends on the backend."""
     angles = (
         qte._encode_ndwi(-0.003),
         qte._encode_ndwi(-0.0624),
@@ -207,11 +226,14 @@ def test_numpy_backend_bridge_is_seed_dependent_near_the_threshold() -> None:
         0.837758,
         0.104720,
     )
-    fired = {
-        qte._run_numpy_qte(*angles, n_shots=256, random_seed=seed)["bridge_fired"]
-        for seed in range(8)
-    }
-    assert fired == {True, False}, "expected backend disagreement near p = 0.5"
+    analytic = qte._run_qiskit_qte(*angles)
+    for seed in range(8):
+        sampled = qte._run_numpy_qte(*angles, n_shots=256, random_seed=seed)
+        assert sampled["bridge_rate"] == pytest.approx(
+            analytic["bridge_rate"], abs=1e-12
+        )
+        assert bool(sampled["bridge_fired"]) is bool(analytic["bridge_fired"])
+    assert bool(analytic["bridge_near_threshold"]) is True
 
 
 def test_numpy_backend_is_reproducible_for_a_fixed_seed() -> None:
@@ -315,14 +337,24 @@ def test_published_scores_confirm_ignition_is_not_a_fusion_input() -> None:
 # ---------------------------------------------------------------------------
 # 8. Stale and degraded upstream data
 # ---------------------------------------------------------------------------
-def test_sentinel_step_reports_full_coverage_with_zero_api_requests() -> None:
-    """DEFECT: coverage_percent counts cache entries, not fresh acquisitions."""
+def test_stale_acquisitions_degrade_the_sentinel_step() -> None:
+    """FIXED IN v5.1 (F-02): cache completeness no longer reads as data currency."""
     manifest = _load("pipeline_steps/sentinel.json")
-    if manifest.get("api_requests") != 0:
-        pytest.skip("this run actually reached the API")
+    if not manifest.get("stale_acquisition_nodes"):
+        pytest.skip("this run has fresh acquisitions")
+    # cache coverage may still be 100 % — that is now a separate question
     assert manifest["coverage_percent"] == 100.0
-    assert manifest["status"] == "SUCCESS"
-    assert manifest["cache_classification"]["fresh"] == 34
+    assert manifest["fresh_acquisition_percent"] == 0.0
+    assert manifest["status"] == "DEGRADED"
+    assert manifest["max_acquisition_age_days"] == sentinel.MAX_ACQUISITION_AGE_DAYS
+
+
+def test_sentinel_publishes_its_normalisation_bounds() -> None:
+    """FIXED IN v5.1 (F-01): a published rank can be inverted to a raw value."""
+    bounds = _load("ndwi_sentinel.json")["normalisation"]
+    assert bounds["method"] == "min_max"
+    assert bounds["lo"] < bounds["hi"]
+    assert bounds["amplification"] > 1.0
 
 
 def test_trend_slope_is_per_observation_index_not_per_day() -> None:
@@ -369,27 +401,36 @@ def test_ecosystem_multiplier_scales_weather_and_trend_too() -> None:
     assert pine.base_score == mixed.base_score
 
 
-def test_missing_soil_moisture_silently_defaults_to_a_dry_constant() -> None:
-    """DEFECT: Open-Meteo returns no soil moisture, and nothing flags it."""
+def test_missing_soil_moisture_is_flagged_not_silently_defaulted() -> None:
+    """FIXED IN v5.1 (F-05): the term is dropped and renormalised, and flagged."""
     latest = {
         "soil_min": None, "temp_max": 19.0, "rh_min": 48.0,
         "wind_max": 20.3, "rain_total": 0.1, "vpd_mean": 0.651,
     }
     node = {"id": "a", "latest": latest, "drought_days": 1}
-    with_null = fusion._fwi_from_weather(node)
+    score, flags = fusion._fwi_from_weather(node)
+    assert "soil_moisture_unavailable" in flags
+    # the old code substituted 0.20, indistinguishable from a real reading
     explicit = {**node, "latest": {**latest, "soil_min": 0.20}}
-    assert with_null == pytest.approx(fusion._fwi_from_weather(explicit))
-    saturated = {**node, "latest": {**latest, "soil_min": 0.30}}
-    assert fusion._fwi_from_weather(saturated) < with_null
+    substituted, sub_flags = fusion._fwi_from_weather(explicit)
+    assert sub_flags == []
+    assert score != pytest.approx(substituted)
+    wetter, _ = fusion._fwi_from_weather(
+        {**node, "latest": {**latest, "soil_min": 0.30}}
+    )
+    assert wetter < substituted
 
 
-def test_every_published_node_has_null_soil_moisture() -> None:
+def test_every_published_node_has_real_soil_moisture() -> None:
+    """FIXED IN v5.1 (F-05): the archive API serves 0_to_7cm, not 0_to_1cm."""
     nodes = _load("nodes_enriched.json")["nodes"]
-    assert all(node.get("latest", {}).get("soil_min") is None for node in nodes)
+    values = [node.get("latest", {}).get("soil_min") for node in nodes]
+    assert all(value is not None for value in values)
+    assert all(0.0 <= float(value) <= 1.0 for value in values)
 
 
-def test_fwi_ignores_rain_older_than_the_latest_day() -> None:
-    """DEFECT: 92 mm over a week is invisible; only today's rain counts."""
+def test_fwi_remembers_rain_older_than_the_latest_day() -> None:
+    """FIXED IN v5.1 (F-06): a drenched week now suppresses the rain term."""
     latest = {
         "soil_min": None, "temp_max": 19.0, "rh_min": 48.0,
         "wind_max": 20.3, "rain_total": 0.1, "vpd_mean": 0.651,
@@ -402,9 +443,11 @@ def test_fwi_ignores_rain_older_than_the_latest_day() -> None:
     }
     parched = {"id": "a", "latest": latest, "drought_days": 1,
                "weather_history": {"rain_total": [0.0] * 13 + [0.1]}}
-    assert fusion._fwi_from_weather(drenched) == pytest.approx(
-        fusion._fwi_from_weather(parched)
-    )
+    wet_score, _ = fusion._fwi_from_weather(drenched)
+    dry_score, _ = fusion._fwi_from_weather(parched)
+    assert wet_score < dry_score
+    assert fusion._antecedent_rain_mm(drenched) > fusion.RAIN_MEMORY_SATURATION_MM
+    assert fusion._antecedent_rain_mm(parched) < 1.0
 
 
 # ---------------------------------------------------------------------------

@@ -4,6 +4,28 @@ Pipeline v5 buduje graf 34 węzłów Dolnego Śląska, oblicza presję zapłonu,
 stres roślinności Sentinel-2, sygnał QTE i wynik fusion, a następnie może
 porównać wynik z rastrem EFFIS.
 
+## v5.1 — controlled correction
+
+v5.1 nie zmienia architektury. Poprawia sześć findings krytycznych i wysokich
+z audytu [FORENSIC_AUDIT_2026-08-23.md](FORENSIC_AUDIT_2026-08-23.md).
+
+| ID | Poprawka | Skutek |
+| --- | --- | --- |
+| F-01 | Fusion czyta `ndwi_stress_latest` (skala bezwzględna). Ranking min-max nadal jest publikowany jako `ndwi_stress_rank`, ale wyłącznie diagnostycznie. Granice `lo`/`hi` zapisane w `ndwi_sentinel.json`. | koniec gwarantowanego 1.000 |
+| F-02 | `MAX_ACQUISITION_AGE_DAYS = 14` liczone od `max(dates)`, nie od TTL. Flaga `stale_acquisition`, status `DEGRADED`, `fresh_acquisition_percent` obok `coverage_percent`. Data akwizycji trafia do `risk_scores.json` i `alerts.json`. | świeżość cache ≠ świeżość zdjęcia |
+| F-03 | Etykieta bridge zmieniona na `Previous composite had negative canopy moisture`. Mechanizm bez zmian. | opis zgodny z kodem |
+| F-04 | `bridge_rate = sin²(θ/2)` analitycznie w obu backendach; wartość próbkowana zachowana jako `bridge_rate_sampled`. Flaga `bridge_near_threshold` gdy odległość od progu < 0.05. | tier niezależny od symulatora |
+| F-05 | `soil_moisture_0_to_1cm` → `soil_moisture_0_to_7cm` (API zwracało HTTP 200 z samymi `null`). Brak danych = flaga i renormalizacja wag, nie podstawienie stałej 0.20. | kanał wilgotności gleby działa |
+| F-06 | FWI używa wykładniczo wygaszanej sumy opadów z 14 dni (`RAIN_MEMORY_HALFLIFE_D = 3`), nie tylko ostatniej doby. | tydzień deszczu jest widoczny |
+
+Dodatkowo klucz cache pogody zawiera teraz fingerprint listy zmiennych, więc
+zmiana żądanych pasm unieważnia cache zamiast po cichu czytać `null`.
+
+Skutek na danych z 2026-08-23: Jawor `0.7528 CRITICAL` → `0.5261 MODERATE`,
+krok sentinel `SUCCESS` → `DEGRADED`, liczba alertów `1` → `0`.
+
+Findings F-07 … F-14 pozostają otwarte i są opisane w raporcie.
+
 ## Moduły
 
 | Skrypt | Rola |

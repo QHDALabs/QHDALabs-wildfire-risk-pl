@@ -8,6 +8,31 @@
 
 ---
 
+> ## Remediation status — v5.1
+>
+> This report describes **v5.0 as audited on 2026-08-23**. It is retained
+> unchanged as the baseline record. **v5.1** is a controlled correction that
+> fixes the six CRITICAL/HIGH findings without touching the architecture.
+>
+> | Finding | Severity | v5.1 |
+> | --- | --- | --- |
+> | F-01 NDWI rank published as measurement | CRITICAL | **FIXED** — fusion reads `ndwi_stress_latest`; rank kept as `ndwi_stress_rank`; bounds published |
+> | F-02 Stale acquisition reported as SUCCESS | CRITICAL | **FIXED** — `MAX_ACQUISITION_AGE_DAYS=14`, `stale_acquisition` flag, `DEGRADED`, date on every score and alert |
+> | F-03 Bridge label misstates the mechanism | CRITICAL | **FIXED (label)** — relabelled; the sign-test mechanism itself is unchanged by design |
+> | F-04 Backend-dependent tier | HIGH | **FIXED** — analytic `bridge_rate` in both engines; `bridge_near_threshold` flag |
+> | F-05 Dead soil channel | HIGH | **FIXED** — `soil_moisture_0_to_7cm`; missing data flagged and renormalised |
+> | F-06 FWI blind to antecedent rain | HIGH | **FIXED** — 14-day exponentially decayed rainfall |
+> | F-07 … F-14 | MEDIUM / LOW / INFO | **OPEN** — see §9 |
+>
+> Effect on the audited case: Jawor `0.7528 CRITICAL` → `0.5261 MODERATE`,
+> sentinel step `SUCCESS` → `DEGRADED`, alert count `1` → `0`.
+>
+> F-03 is marked *fixed (label)* deliberately: v5.1 corrects the claim, not the
+> mechanism. Making the bridge genuinely sequential is a model change, not a
+> correction, and belongs to a calibration release.
+
+---
+
 ## Executive Summary
 
 1. **The score is exactly reproducible.** Every component — base 0.6474, bridge +0.08, network +0.0254 — replays to within 5×10⁻⁴ from `risk_scores.json`. No arithmetic error, no corruption.

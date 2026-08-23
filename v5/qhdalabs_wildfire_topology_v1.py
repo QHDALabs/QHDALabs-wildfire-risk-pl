@@ -2,7 +2,7 @@
 # Project       : QHDALabs - Wildfire Risk PL
 # Module        : Step 1 — Forest Network Topology & Weather History
 # File          : qhdalabs_wildfire_topology_v1.py
-# Version       : 1.0.0
+# Version       : 1.1.0 (v5.1 controlled correction)
 #
 # Description
 # -----------------------------------------------------------------------------
@@ -44,6 +44,7 @@
 
 from __future__ import annotations
 
+import hashlib
 import json
 import logging
 import math
@@ -88,6 +89,11 @@ NEIGHBOR_KM = 60.0  # max centroid distance to be considered neighbor
 MAX_WORKERS = 8
 CACHE_DIR = ".cache_topology"
 CACHE_TTL = 21600  # 6 hours
+WEATHER_HOURLY_VARIABLES = (
+    "temperature_2m,relative_humidity_2m,"
+    "wind_speed_10m,precipitation,"
+    "soil_moisture_0_to_7cm,vapour_pressure_deficit"
+)
 OUTPUT_DIR = "topology"
 HTTP_TIMEOUT = 15
 WEATHER_REQUEST_GAP_SECONDS = 0.6
@@ -454,7 +460,13 @@ def fetch_weather_history(node: dict, days: int = WEATHER_DAYS) -> dict | None:
     Returns None on failure.
     """
     lat, lon = node["lat"], node["lon"]
-    key = f"weather_history_{lat:.3f}_{lon:.3f}_{days}d"
+    # The variable list is part of the key: changing which bands we request
+    # must invalidate the cache, or a fixed variable silently reads as null
+    # from an entry fetched before the fix.
+    variables_tag = hashlib.sha256(
+        WEATHER_HOURLY_VARIABLES.encode("utf-8")
+    ).hexdigest()[:8]
+    key = f"weather_history_{lat:.3f}_{lon:.3f}_{days}d_{variables_tag}"
     cached = _cache_get(key)
     if cached is not None:
         return cached
@@ -469,11 +481,7 @@ def fetch_weather_history(node: dict, days: int = WEATHER_DAYS) -> dict | None:
         "longitude": lon,
         "start_date": str(start_date),
         "end_date": str(end_date),
-        "hourly": (
-            "temperature_2m,relative_humidity_2m,"
-            "wind_speed_10m,precipitation,"
-            "soil_moisture_0_to_1cm,vapour_pressure_deficit"
-        ),
+        "hourly": WEATHER_HOURLY_VARIABLES,
         "timezone": "Europe/Warsaw",
     }
     try:
@@ -524,7 +532,7 @@ def fetch_weather_history(node: dict, days: int = WEATHER_DAYS) -> dict | None:
             safe(hourly.get("precipitation", [None] * len(times))[i])
         )
         daily[date]["soils"].append(
-            safe(hourly.get("soil_moisture_0_to_1cm", [None] * len(times))[i])
+            safe(hourly.get("soil_moisture_0_to_7cm", [None] * len(times))[i])
         )
         daily[date]["vpds"].append(
             safe(hourly.get("vapour_pressure_deficit", [None] * len(times))[i])

@@ -2,7 +2,7 @@
 # Project       : QHDALabs - Wildfire Risk PL
 # Module        : Step 3 — Quantum Temporal Encoder (QTE)
 # File          : qhdalabs_wildfire_qte_v1.py
-# Version       : 1.0.0
+# Version       : 1.1.0 (v5.1 controlled correction)
 #
 # Description
 # -----------------------------------------------------------------------------
@@ -21,8 +21,15 @@
 # These have identical feature vectors but different physical meanings —
 # Case A is the classic pre-fire drying sequence.
 #
-# The conditional CZ bridge from qmnet encodes this:
-#   qubit 0 (ancilla)  = NDWI state LAST WEEK (high/low threshold)
+# The conditional CZ bridge from qmnet is INTENDED to encode this. Audited
+# behaviour (FORENSIC_AUDIT_2026-08-23, F-03): because CZ is diagonal it cannot
+# change P(ancilla=1), so the gate reduces analytically to
+#     bridge_rate = sin^2(theta_past / 2) > 0.5  <=>  moisture[-2] < 0
+# Wind never reaches the ancilla, so the bridge does not test an ordering.
+# v5.1 keeps the mechanism and corrects the claim; making it genuinely
+# sequential is a model change for a calibration release.
+#
+#   qubit 0 (ancilla)  = moisture at the PREVIOUS cloud-free composite
 #   qubit 1            = NDWI TODAY
 #   qubit 2            = WIND TODAY
 #   qubit 3            = TEMPERATURE TODAY
@@ -113,6 +120,12 @@ TEMP_LOW = 15.0  # °C
 TEMP_HIGH = 30.0  # °C
 
 DROUGHT_MAX = 30  # days — saturates at this point
+
+BRIDGE_THRESHOLD = 0.5
+# P(ancilla=1) = sin^2(theta_past/2), so the gate trips exactly at
+# vegetation_moisture_index < 0. Nodes sitting this close to the boundary are
+# flagged: a rounding-level change in one cached value flips a whole tier.
+BRIDGE_MARGIN_WARN = 0.05
 
 
 def _encode_to_angle(value: float, low: float, high: float) -> float:
@@ -236,6 +249,7 @@ class QTEResult:
     bridge_fired: bool
     bridge_rate: float
     bridge_threshold: float
+    bridge_near_threshold: bool
     random_seed: int
     backend_version: str
     # ZZ correlations
@@ -322,14 +336,21 @@ def _run_numpy_qte(
         zz_accum["23"] += sv.zz_correlation(2, 3)
         zz_accum["34"] += sv.zz_correlation(3, 4)
 
-    bridge_rate = bridge_count / n_shots
+    # CZ is diagonal, so it cannot alter P(ancilla=1); the rate is exactly the
+    # Ry probability. Sampling it made the tier depend on the seed near p=0.5,
+    # so the reported rate is analytic and matches the Qiskit path bit for bit.
+    # The sampled value is kept for diagnostics only.
+    bridge_rate = math.sin(theta_ndwi_past / 2.0) ** 2
     return {
         "zz_01": zz_accum["01"] / n_shots,
         "zz_12": zz_accum["12"] / n_shots,
         "zz_23": zz_accum["23"] / n_shots,
         "zz_34": zz_accum["34"] / n_shots,
         "bridge_rate": bridge_rate,
-        "bridge_fired": bridge_rate > 0.5,
+        "bridge_fired": bridge_rate > BRIDGE_THRESHOLD,
+        "bridge_rate_sampled": bridge_count / n_shots,
+        "bridge_near_threshold": abs(bridge_rate - BRIDGE_THRESHOLD)
+        < BRIDGE_MARGIN_WARN,
     }
 
 
@@ -441,7 +462,10 @@ def _run_qiskit_qte(
         results[key] = prob_ancilla_0 * v0 + prob_ancilla_1 * v1
 
     results["bridge_rate"] = prob_ancilla_1
-    results["bridge_fired"] = prob_ancilla_1 > 0.5
+    results["bridge_fired"] = prob_ancilla_1 > BRIDGE_THRESHOLD
+    results["bridge_near_threshold"] = (
+        abs(prob_ancilla_1 - BRIDGE_THRESHOLD) < BRIDGE_MARGIN_WARN
+    )
     return results
 
 
@@ -573,7 +597,8 @@ def run_qte_for_node(
         theta_drought=round(t_drought, 4),
         bridge_fired=bool(zz.get("bridge_fired", False)),
         bridge_rate=round(float(zz.get("bridge_rate", 0.0)), 4),
-        bridge_threshold=0.5,
+        bridge_threshold=BRIDGE_THRESHOLD,
+        bridge_near_threshold=bool(zz.get("bridge_near_threshold", False)),
         random_seed=random_seed,
         zz_01=round(float(zz.get("zz_01", 0)), 4),
         zz_12=round(float(zz.get("zz_12", 0)), 4),
@@ -737,6 +762,7 @@ def _save_results(
                 "bridge_fired": r.bridge_fired,
                 "bridge_rate": r.bridge_rate,
                 "bridge_threshold": r.bridge_threshold,
+                "bridge_near_threshold": r.bridge_near_threshold,
                 "random_seed": r.random_seed,
                 "zz": {
                     "zz_01": r.zz_01,
@@ -769,7 +795,7 @@ def _save_results(
         python_version=platform.python_version(),
         calibration_status="uncalibrated",
         operational_validity=False,
-        data_version="qte-2.0.0",
+        data_version="qte-2.1.0",
     )
 
     # Generate combined map (Step 2 NDWI + Step 3 QTE)
